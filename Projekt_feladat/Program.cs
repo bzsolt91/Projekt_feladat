@@ -1,4 +1,4 @@
-namespace Projekt_feladat
+﻿namespace Projekt_feladat
 {
     internal static class Program
     {

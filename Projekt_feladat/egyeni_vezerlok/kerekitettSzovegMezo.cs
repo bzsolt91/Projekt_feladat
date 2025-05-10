@@ -10,93 +10,93 @@ using System.Drawing.Drawing2D;
  */
 namespace Projekt_feladat.egyeni_vezerlok
 {
-    [DefaultEvent("_TextChanged")]
+    [DefaultEvent("_SzovegValtoztatva")]
     public partial class kerekitettSzovegMezo : UserControl
     {
-        #region -> Fields
+        #region -> Mezők
         //Fields
-        private Color borderColor = Color.MediumSlateBlue;
-        private Color borderFocusColor = Color.HotPink;
-        private int borderSize = 2;
-        private bool underlinedStyle = false;
-        private bool isFocused = false;
+        private Color keretszin = Color.MediumSlateBlue;
+        private Color fokuszkeretszin = Color.HotPink;
+        private int keretmeret = 2;
+        private bool aluhuzasszin = false;
+        private bool fukuszalva = false;
 
-        private int borderRadius = 0;
-        private Color placeholderColor = Color.DarkGray;
-        private string placeholderText = "";
-        private bool isPlaceholder = false;
-        private bool isPasswordChar = false;
+        private int keretsugar = 0;
+        private Color helyorzoszin = Color.DarkGray;
+        private string helyorzoszoveg = "";
+        private bool helyorzo_e = false;
+        private bool jelszokarakter_e = false;
 
         //Events
-        public event EventHandler _TextChanged;
+        public event EventHandler _SzovegValtoztatva;
 
         #endregion
 
         //-> Constructor
         public kerekitettSzovegMezo()
         {
-            //Created by designer
+      
             InitializeComponent();
         }
 
-        #region -> Properties
+        #region -> Jellemzők
         [Category("KerekitettTextBox")]
-        public Color BorderColor
+        public Color KeretSzin
         {
-            get { return borderColor; }
+            get { return keretszin; }
             set
             {
-                borderColor = value;
+                keretszin = value;
                 this.Invalidate();
             }
         }
 
         [Category("KerekitettTextBox")]
-        public Color BorderFocusColor
+        public Color FokuszKeretSzin
         {
-            get { return borderFocusColor; }
-            set { borderFocusColor = value; }
+            get { return fokuszkeretszin; }
+            set { fokuszkeretszin = value; }
         }
 
         [Category("KerekitettTextBox")]
-        public int BorderSize
+        public int KeretMeret
         {
-            get { return borderSize; }
+            get { return keretmeret; }
             set
             {
                 if (value >= 1)
                 {
-                    borderSize = value;
+                    keretmeret = value;
                     this.Invalidate();
                 }
             }
         }
 
         [Category("KerekitettTextBox")]
-        public bool UnderlinedStyle
+        public bool AlahuzottStilus
         {
-            get { return underlinedStyle; }
+            get { return aluhuzasszin; }
             set
             {
-                underlinedStyle = value;
+                aluhuzasszin = value;
                 this.Invalidate();
             }
         }
 
         [Category("KerekitettTextBox")]
-        public bool PasswordChar
+        public bool JelszoKarakter
         {
-            get { return isPasswordChar; }
+            get { return jelszokarakter_e; }
             set
             {
-                isPasswordChar = value;
-                if (!isPlaceholder)
+                jelszokarakter_e = value;
+                if (!helyorzo_e)
                     tb_dizajn.UseSystemPasswordChar = value;
             }
         }
 
         [Category("KerekitettTextBox")]
-        public bool Multiline
+        public bool TobbSor
         {
             get { return tb_dizajn.Multiline; }
             set { tb_dizajn.Multiline = value; }
@@ -142,50 +142,50 @@ namespace Projekt_feladat.egyeni_vezerlok
         {
             get
             {
-                if (isPlaceholder) return "";
+                if (helyorzo_e) return "";
                 else return tb_dizajn.Text;
             }
             set
             {
-                RemovePlaceholder();//If it is the case.
+                RemovePlaceholder();
                 tb_dizajn.Text = value;
-                SetPlaceholder();//If it is the case.
+                SetPlaceholder();
             }
         }
 
         [Category("KerekitettTextBox")]
-        public int BorderRadius
+        public int KeretSugar
         {
-            get { return borderRadius; }
+            get { return keretsugar; }
             set
             {
                 if (value >= 0)
                 {
-                    borderRadius = value;
-                    this.Invalidate();//Redraw control
+                    keretsugar = value;
+                    this.Invalidate();//vezérlő újrarajzolása
                 }
             }
         }
 
         [Category("KerekitettTextBox")]
-        public Color PlaceholderColor
+        public Color HelyorzoSzin
         {
-            get { return placeholderColor; }
+            get { return helyorzoszin; }
             set
             {
-                placeholderColor = value;
-                if (isPlaceholder)
+                helyorzoszin = value;
+                if (helyorzo_e)
                     tb_dizajn.ForeColor = value;
             }
         }
 
         [Category("KerekitettTextBox")]
-        public string PlaceholderText
+        public string HelyorzoSzoveg
         {
-            get { return placeholderText; }
+            get { return helyorzoszoveg; }
             set
             {
-                placeholderText = value;
+                helyorzoszoveg = value;
                 tb_dizajn.Text = "";
                 SetPlaceholder();
             }
@@ -209,54 +209,54 @@ namespace Projekt_feladat.egyeni_vezerlok
             base.OnPaint(e);
             Graphics graph = e.Graphics;
 
-            if (borderRadius > 1)//Rounded TextBox
+            if (keretsugar > 1)//kerekített
             {
-                //-Fields
+                //-mezők
                 var rectBorderSmooth = this.ClientRectangle;
-                var rectBorder = Rectangle.Inflate(rectBorderSmooth, -borderSize, -borderSize);
-                int smoothSize = borderSize > 0 ? borderSize : 1;
+                var rectBorder = Rectangle.Inflate(rectBorderSmooth, -keretmeret, -keretmeret);
+                int smoothSize = keretmeret > 0 ? keretmeret : 1;
 
-                using (GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, borderRadius))
-                using (GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize))
+                using (GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, keretsugar))
+                using (GraphicsPath pathBorder = GetFigurePath(rectBorder, keretsugar - keretmeret))
                 using (Pen penBorderSmooth = new Pen(this.Parent.BackColor, smoothSize))
-                using (Pen penBorder = new Pen(borderColor, borderSize))
+                using (Pen penBorder = new Pen(keretszin, keretmeret))
                 {
-                    //-Drawing
-                    this.Region = new Region(pathBorderSmooth);//Set the rounded region of UserControl
-                    if (borderRadius > 15) SetTextBoxRoundedRegion();//Set the rounded region of TextBox component
+                    //-rajzolás
+                    this.Region = new Region(pathBorderSmooth);//kerekitett régió
+                    if (keretsugar > 15) SetTextBoxRoundedRegion();//
                     graph.SmoothingMode = SmoothingMode.AntiAlias;
                     penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-                    if (isFocused) penBorder.Color = borderFocusColor;
+                    if (fukuszalva) penBorder.Color = fokuszkeretszin;
 
-                    if (underlinedStyle) //Line Style
+                    if (aluhuzasszin) //Line Style
                     {
-                        //Draw border smoothing
+                        //keret rajzolás simitás
                         graph.DrawPath(penBorderSmooth, pathBorderSmooth);
-                        //Draw border
+                        //keret rajzolás
                         graph.SmoothingMode = SmoothingMode.None;
                         graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
                     }
-                    else //Normal Style
+                    else //Normal stílus
                     {
-                        //Draw border smoothing
+                        //keret rajzolás simitás
                         graph.DrawPath(penBorderSmooth, pathBorderSmooth);
-                        //Draw border
+                        //keret rajzolás
                         graph.DrawPath(penBorder, pathBorder);
                     }
                 }
             }
-            else //Square/Normal TextBox
+            else //kocka/Normal TextBox
             {
-                //Draw border
-                using (Pen penBorder = new Pen(borderColor, borderSize))
+                //keret rajzolás
+                using (Pen penBorder = new Pen(keretszin, keretmeret))
                 {
                     this.Region = new Region(this.ClientRectangle);
                     penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                    if (isFocused) penBorder.Color = borderFocusColor;
+                    if (fukuszalva) penBorder.Color = fokuszkeretszin;
 
-                    if (underlinedStyle) //Line Style
+                    if (aluhuzasszin) //Line Style
                         graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
-                    else //Normal Style
+                    else //Normal stílus
                         graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
                 }
             }
@@ -266,29 +266,34 @@ namespace Projekt_feladat.egyeni_vezerlok
         #region -> Private methods
         private void SetPlaceholder()
         {
-            if (string.IsNullOrWhiteSpace(tb_dizajn.Text) && placeholderText != "")
+            if (string.IsNullOrWhiteSpace(tb_dizajn.Text) && helyorzoszoveg != "")
             {
-                isPlaceholder = true;
-                tb_dizajn.Text = placeholderText;
-                tb_dizajn.ForeColor = placeholderColor;
-                if (isPasswordChar)
+                helyorzo_e = true;
+                tb_dizajn.Text = helyorzoszoveg;
+                tb_dizajn.ForeColor = helyorzoszin;
+                if (helyorzo_e)
                     tb_dizajn.UseSystemPasswordChar = false;
             }
         }
         private void RemovePlaceholder()
         {
-            if (isPlaceholder && placeholderText != "")
+            if (helyorzo_e && helyorzoszoveg != "")
             {
-                isPlaceholder = false;
+                helyorzo_e = false;
                 tb_dizajn.Text = "";
                 tb_dizajn.ForeColor = this.ForeColor;
-                if (isPasswordChar)
+                if (jelszokarakter_e)
                     tb_dizajn.UseSystemPasswordChar = true;
             }
         }
         private GraphicsPath GetFigurePath(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
+
+            // Ha a radius túl kicsi, akkor legyen minimum 1
+            if (radius < 1)
+                radius = 1;
+
             float curveSize = radius * 2F;
 
             path.StartFigure();
@@ -297,19 +302,20 @@ namespace Projekt_feladat.egyeni_vezerlok
             path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
             path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
             path.CloseFigure();
+
             return path;
         }
         private void SetTextBoxRoundedRegion()
         {
             GraphicsPath pathTxt;
-            if (Multiline)
+            if (TobbSor)
             {
-                pathTxt = GetFigurePath(tb_dizajn.ClientRectangle, borderRadius - borderSize);
+                pathTxt = GetFigurePath(tb_dizajn.ClientRectangle, keretsugar - keretmeret);
                 tb_dizajn.Region = new Region(pathTxt);
             }
             else
             {
-                pathTxt = GetFigurePath(tb_dizajn.ClientRectangle, borderSize * 2);
+                pathTxt = GetFigurePath(tb_dizajn.ClientRectangle, keretmeret * 2);
                 tb_dizajn.Region = new Region(pathTxt);
             }
             pathTxt.Dispose();
@@ -331,8 +337,8 @@ namespace Projekt_feladat.egyeni_vezerlok
         #region -> TextBox events
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (_TextChanged != null)
-                _TextChanged.Invoke(sender, e);
+            if (_SzovegValtoztatva != null)
+                _SzovegValtoztatva.Invoke(sender, e);
         }
         private void textBox1_Click(object sender, EventArgs e)
         {
@@ -353,13 +359,13 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            isFocused = true;
+            fukuszalva = true;
             this.Invalidate();
             RemovePlaceholder();
         }
         private void textBox1_Leave(object sender, EventArgs e)
         {
-            isFocused = false;
+            fukuszalva = false;
             this.Invalidate();
             SetPlaceholder();
         }

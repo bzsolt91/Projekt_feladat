@@ -1,14 +1,25 @@
-using Projekt_feladat.Properties.Formok;
+using Projekt_feladat.Formok;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 
 namespace Projekt_feladat
 {
     public partial class frm_foForm : Form
     {
+
+
+
+
+
         /************   Fejléc mozgatáshoz szükséges változók    ************/
         private bool mozgatas_egerrel = false; //mozgatási státusz rögzítése
         private Point mozgatasi_pont; //a kurzor új pozíciója ahová az ablak mozgatódik
         private Point form_mozgatasi_pont; //
         /************************/
+
+        private int borderRadius = 20;
+        private int borderSize = 2;
+        private Color borderColor = Color.FromArgb(128, 128, 255);
 
         private Form aktivForm;
         private Panel animaltPanel;
@@ -17,6 +28,7 @@ namespace Projekt_feladat
 
             InitializeComponent();
             AlmenuElrejtés();
+
 
         }
 
@@ -85,7 +97,7 @@ namespace Projekt_feladat
         {
             AlmenuElrejtés();
             AlmenuElohivas(pnl_UtasokAlmenu);
-            
+
         }
 
         private void btn_minimalizalas_Click(object sender, EventArgs e)
@@ -104,7 +116,7 @@ namespace Projekt_feladat
             {
                 pnl.Height = 0;
             }
-        
+
 
 
         }
@@ -123,13 +135,13 @@ namespace Projekt_feladat
 
         private void btn_utazasokmegtekintese_Click(object sender, EventArgs e)
         {
-            GyermekFormMegnyitas(new Frm_Utazasok(), sender); //utazások form beágyazása
+            GyermekFormMegnyitas(new Frm_UtazasokMegtekintese(), sender); //utazások form beágyazása
             AlmenuElrejtés();
         }
 
         private void btn_utasokMegtekintese_Click(object sender, EventArgs e)
         {
-            GyermekFormMegnyitas(new Frm_Utasok(), sender); //utasok form beágyazása
+            GyermekFormMegnyitas(new Frm_UtasokMegtekintese(), sender); //utasok form beágyazása
             AlmenuElrejtés();
         }
 

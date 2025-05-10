@@ -1,6 +1,6 @@
-﻿namespace Projekt_feladat.Properties.Formok
+﻿namespace Projekt_feladat.Formok
 {
-    partial class Frm_Utasok
+    partial class Frm_UtasokMegtekintese
     {
         /// <summary>
         /// Required designer variable.
@@ -35,51 +35,60 @@
             // 
             // kerekitettGomb1
             // 
-            kerekitettGomb1.HatterSzine = Color.MediumSlateBlue;
-            kerekitettGomb1.KeretSzine = Color.PaleVioletRed;
-            kerekitettGomb1.SarokSugar = 10;
-            kerekitettGomb1.KeretMeret = 0;
-            kerekitettGomb1.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb1.BackColor = Color.MediumSlateBlue;
             kerekitettGomb1.EgerTartasHatterSzine = Color.SlateBlue;
-            kerekitettGomb1.SzovegSzine = Color.White;
             kerekitettGomb1.FlatStyle = FlatStyle.Flat;
+            kerekitettGomb1.ForeColor = Color.White;
+            kerekitettGomb1.HatterSzine = Color.MediumSlateBlue;
+            kerekitettGomb1.KeretMeret = 0;
+            kerekitettGomb1.KeretSzine = Color.PaleVioletRed;
             kerekitettGomb1.Location = new Point(505, 72);
             kerekitettGomb1.Name = "kerekitettGomb1";
+            kerekitettGomb1.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb1.SarokSugar = 10;
             kerekitettGomb1.Size = new Size(150, 40);
+            kerekitettGomb1.SzovegSzine = Color.White;
             kerekitettGomb1.TabIndex = 0;
             kerekitettGomb1.Text = "kerekitettGomb1";
-
+            kerekitettGomb1.UseVisualStyleBackColor = false;
+            // 
             // kerekitettGomb2
             // 
-            kerekitettGomb2.HatterSzine = Color.MediumSlateBlue;
-            kerekitettGomb2.KeretSzine = Color.PaleVioletRed;
-            kerekitettGomb2.SarokSugar = 10;
-            kerekitettGomb2.KeretMeret = 0;
-            kerekitettGomb2.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb2.BackColor = Color.MediumSlateBlue;
             kerekitettGomb2.EgerTartasHatterSzine = Color.SlateBlue;
-            kerekitettGomb2.SzovegSzine = Color.White;
             kerekitettGomb2.FlatStyle = FlatStyle.Flat;
+            kerekitettGomb2.ForeColor = Color.White;
+            kerekitettGomb2.HatterSzine = Color.MediumSlateBlue;
+            kerekitettGomb2.KeretMeret = 0;
+            kerekitettGomb2.KeretSzine = Color.PaleVioletRed;
             kerekitettGomb2.Location = new Point(505, 118);
             kerekitettGomb2.Name = "kerekitettGomb2";
+            kerekitettGomb2.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb2.SarokSugar = 10;
             kerekitettGomb2.Size = new Size(150, 40);
+            kerekitettGomb2.SzovegSzine = Color.White;
             kerekitettGomb2.TabIndex = 1;
             kerekitettGomb2.Text = "kerekitettGomb2";
-
+            kerekitettGomb2.UseVisualStyleBackColor = false;
+            // 
             // kerekitettGomb3
             // 
-            kerekitettGomb3.HatterSzine = Color.MediumSlateBlue;
-            kerekitettGomb3.KeretSzine = Color.PaleVioletRed;
-            kerekitettGomb3.SarokSugar = 10;
-            kerekitettGomb3.KeretMeret = 0;
-            kerekitettGomb3.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb3.BackColor = Color.MediumSlateBlue;
             kerekitettGomb3.EgerTartasHatterSzine = Color.SlateBlue;
-            kerekitettGomb3.SzovegSzine = Color.White;
             kerekitettGomb3.FlatStyle = FlatStyle.Flat;
+            kerekitettGomb3.ForeColor = Color.White;
+            kerekitettGomb3.HatterSzine = Color.MediumSlateBlue;
+            kerekitettGomb3.KeretMeret = 0;
+            kerekitettGomb3.KeretSzine = Color.PaleVioletRed;
             kerekitettGomb3.Location = new Point(505, 164);
             kerekitettGomb3.Name = "kerekitettGomb3";
+            kerekitettGomb3.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb3.SarokSugar = 10;
             kerekitettGomb3.Size = new Size(150, 40);
+            kerekitettGomb3.SzovegSzine = Color.White;
             kerekitettGomb3.TabIndex = 2;
             kerekitettGomb3.Text = "kerekitettGomb3";
+            kerekitettGomb3.UseVisualStyleBackColor = false;
             // 
             // Frm_Utasok
             // 

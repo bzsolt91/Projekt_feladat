@@ -47,3 +47,4 @@ namespace Projekt_feladat.egyeni_vezerlok
 
     }
 }
+

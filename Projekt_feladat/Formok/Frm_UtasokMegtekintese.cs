@@ -1,8 +1,8 @@
-﻿namespace Projekt_feladat.Properties.Formok
+﻿namespace Projekt_feladat.Formok
 {
-    public partial class Frm_Utasok : Form
+    public partial class Frm_UtasokMegtekintese : Form
     {
-        public Frm_Utasok()
+        public Frm_UtasokMegtekintese()
         {
             InitializeComponent();
         }

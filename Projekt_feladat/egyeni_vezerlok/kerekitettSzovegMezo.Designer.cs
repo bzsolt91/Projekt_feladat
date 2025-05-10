@@ -47,7 +47,7 @@
             tb_dizajn.MouseEnter += textBox1_MouseEnter;
             tb_dizajn.MouseLeave += textBox1_MouseLeave;
             // 
-            // KerekitettTextBox
+            // kerekitettSzovegMezo
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = SystemColors.Window;
@@ -55,7 +55,7 @@
             Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.FromArgb(64, 64, 64);
             Margin = new Padding(4);
-            Name = "KerekitettTextBox";
+            Name = "kerekitettSzovegMezo";
             Padding = new Padding(10, 7, 10, 7);
             Size = new Size(250, 30);
             ResumeLayout(false);
