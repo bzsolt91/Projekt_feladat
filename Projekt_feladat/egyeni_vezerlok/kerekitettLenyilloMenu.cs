@@ -350,7 +350,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             {
                 if (Height < celMagassag)
                 {
-                    Height = Math.Min(Height + lepes, celMagassag);
+                    Height = Math.Min(Height + lepes, celMagassag+5);
                 }
                 else
                 {
@@ -364,7 +364,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             {
                 if (Height > celMagassag)
                 {
-                    Height = Math.Max(Height - lepes, celMagassag);
+                    Height = Math.Max(Height - lepes, celMagassag+5);
                 }
                 else
                 {

@@ -2,7 +2,6 @@ using Projekt_feladat.Formok;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
-using WinFormAnimation_NET5;
 
 
 namespace Projekt_feladat
@@ -30,8 +29,7 @@ namespace Projekt_feladat
         private int animacioKezdoMagassag;
         private int animacioCelMagassag;
         private int animacioIdotartam = 200; // animáció idõtartama ms-ban
-        private Animator anim;
-
+    
 
         private Form aktivForm;
         private Panel animaltPanel;
@@ -133,18 +131,13 @@ namespace Projekt_feladat
 
 
         }
-        //private void AlmenuElohivas(Panel pnl)
-        //{
-
-        //    animaltPanel = pnl;
-        //    tmr_almenuAnimacio.Start();
-        //}
+  
 
         private void AlmenuElohivas(Panel pnl)
         {
             animaltPanel = pnl;
             animacioKezdoMagassag = pnl.Height;
-            animacioCelMagassag = pnl.Controls.OfType<Button>().Count() * 41;
+            animacioCelMagassag = pnl.Controls.OfType<Button>().Count() * 54;
             animacioStopper.Restart();
             tmr_almenuAnimacio.Start();
         }
@@ -172,15 +165,13 @@ namespace Projekt_feladat
 
         private void tmr_almenuAnimacio_Tick(object sender, EventArgs e) ///almenük csúsztatása
         {
-            //for (int i = 0; i < animaltPanel.Controls.OfType<Button>().Count() * 41; i++)
-            //    animaltPanel.Height = i;
-            //tmr_almenuAnimacio.Stop();
+           
 
 
             double elteltMs = animacioStopper.Elapsed.TotalMilliseconds;
             double progress = Math.Min(1.0, elteltMs / animacioIdotartam);
 
-            // Easing (kicsit gyorsul és lassul, szebb mozgás)
+           
             double easedProgress = 1 - Math.Pow(1 - progress, 3);
 
             int aktualisMagassag = animacioKezdoMagassag +

@@ -35,9 +35,9 @@ namespace Projekt_feladat.Formok
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             roundedComboBox2 = new kerekitettLenyilloMenu();
-            roundedComboBox3 = new kerekitettLenyilloMenu();
             roundedComboBox1 = new kerekitettLenyilloMenu();
             dataGridView1 = new DataGridView();
+            roundedComboBox3 = new kerekitettLenyilloMenu();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -76,77 +76,15 @@ namespace Projekt_feladat.Formok
             roundedComboBox2.ItemPanelFelsoSzin = Color.WhiteSmoke;
             roundedComboBox2.KeretSzin = Color.BlueViolet;
             roundedComboBox2.KeretVastagsag = 1.8F;
-            roundedComboBox2.Location = new Point(358, 33);
+            roundedComboBox2.Location = new Point(305, 54);
             roundedComboBox2.Margin = new Padding(0);
-            roundedComboBox2.MinimumSize = new Size(150, 0);
+            roundedComboBox2.MinimumSize = new Size(171, 0);
             roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Padding = new Padding(0, 0, 0, 5);
+            roundedComboBox2.Padding = new Padding(0, 0, 0, 7);
             roundedComboBox2.Radius = 20;
-            roundedComboBox2.Size = new Size(237, 57);
+            roundedComboBox2.Size = new Size(271, 76);
             roundedComboBox2.TabIndex = 7;
             roundedComboBox2.TitleLabelSzin = Color.Black;
-            // 
-            // roundedComboBox3
-            // 
-            roundedComboBox3.adatForras = new string[]
-    {
-    "nhjhjééééééééééééééééééééééééééééééééééé",
-    "jghjhgj",
-    "hgjghj",
-    "hjgj",
-    "jhgj",
-    "hgjgh",
-    "ghj",
-    "ghjj",
-    "ghj",
-    "g",
-    "ghj",
-    "ghj",
-    "ghj",
-    "ghj",
-    "gh",
-    "jgh",
-    "jgh",
-    "j",
-    "ghjgh",
-    "jg",
-    "jhg",
-    "j",
-    "ghj",
-    "ghj",
-    "g",
-    "hj",
-    "gh",
-    "jg",
-    "hj",
-    "gh",
-    "j",
-    "h",
-    "hjg",
-    "j",
-    "hg",
-    "",
-    "",
-    "j"
-    };
-            roundedComboBox3.BackColor = Color.Transparent;
-            roundedComboBox3.CimPanelAlsoSzin = Color.White;
-            roundedComboBox3.CimPanelFelsoSzin = Color.White;
-            roundedComboBox3.ComboText = "Utazás neve";
-            roundedComboBox3.ForeColor = Color.Transparent;
-            roundedComboBox3.Ikon = (Image)resources.GetObject("roundedComboBox3.Ikon");
-            roundedComboBox3.ItemPanelAlosSzin = Color.White;
-            roundedComboBox3.ItemPanelFelsoSzin = Color.White;
-            roundedComboBox3.KeretSzin = Color.BlueViolet;
-            roundedComboBox3.KeretVastagsag = 1.8F;
-            roundedComboBox3.Location = new Point(685, 36);
-            roundedComboBox3.Margin = new Padding(0);
-            roundedComboBox3.MinimumSize = new Size(150, 0);
-            roundedComboBox3.Name = "roundedComboBox3";
-            roundedComboBox3.Radius = 40;
-            roundedComboBox3.Size = new Size(245, 54);
-            roundedComboBox3.TabIndex = 8;
-            roundedComboBox3.TitleLabelSzin = Color.Black;
             // 
             // roundedComboBox1
             // 
@@ -264,13 +202,13 @@ namespace Projekt_feladat.Formok
             roundedComboBox1.ItemPanelFelsoSzin = Color.WhiteSmoke;
             roundedComboBox1.KeretSzin = Color.BlueViolet;
             roundedComboBox1.KeretVastagsag = 1.8F;
-            roundedComboBox1.Location = new Point(30, 33);
+            roundedComboBox1.Location = new Point(22, 54);
             roundedComboBox1.Margin = new Padding(0);
-            roundedComboBox1.MinimumSize = new Size(150, 0);
+            roundedComboBox1.MinimumSize = new Size(171, 0);
             roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Padding = new Padding(0, 0, 0, 5);
+            roundedComboBox1.Padding = new Padding(0, 0, 0, 7);
             roundedComboBox1.Radius = 20;
-            roundedComboBox1.Size = new Size(220, 55);
+            roundedComboBox1.Size = new Size(251, 73);
             roundedComboBox1.TabIndex = 6;
             roundedComboBox1.TitleLabelSzin = Color.Black;
             roundedComboBox1.Load += roundedComboBox1_Load;
@@ -305,7 +243,8 @@ namespace Projekt_feladat.Formok
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = SystemColors.InactiveBorder;
-            dataGridView1.Location = new Point(30, 158);
+            dataGridView1.Location = new Point(22, 157);
+            dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -322,19 +261,83 @@ namespace Projekt_feladat.Formok
             dataGridView1.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dataGridView1.ShowEditingIcon = false;
             dataGridView1.ShowRowErrors = false;
-            dataGridView1.Size = new Size(940, 479);
+            dataGridView1.Size = new Size(1074, 639);
             dataGridView1.TabIndex = 9;
+            dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete;
+            // 
+            // roundedComboBox3
+            // 
+            roundedComboBox3.adatForras = new string[]
+    {
+    "nhjhjééééééééééééééééééééééééééééééééééé",
+    "jghjhgj",
+    "hgjghj",
+    "hjgj",
+    "jhgj",
+    "hgjgh",
+    "ghj",
+    "ghjj",
+    "ghj",
+    "g",
+    "ghj",
+    "ghj",
+    "ghj",
+    "ghj",
+    "gh",
+    "jgh",
+    "jgh",
+    "j",
+    "ghjgh",
+    "jg",
+    "jhg",
+    "j",
+    "ghj",
+    "ghj",
+    "g",
+    "hj",
+    "gh",
+    "jg",
+    "hj",
+    "gh",
+    "j",
+    "h",
+    "hjg",
+    "j",
+    "hg",
+    "",
+    "",
+    "j"
+    };
+            roundedComboBox3.BackColor = Color.Transparent;
+            roundedComboBox3.CimPanelAlsoSzin = Color.White;
+            roundedComboBox3.CimPanelFelsoSzin = Color.White;
+            roundedComboBox3.ComboText = "Utazás neve";
+            roundedComboBox3.ForeColor = Color.Transparent;
+            roundedComboBox3.Ikon = (Image)resources.GetObject("roundedComboBox3.Ikon");
+            roundedComboBox3.ItemPanelAlosSzin = Color.White;
+            roundedComboBox3.ItemPanelFelsoSzin = Color.White;
+            roundedComboBox3.KeretSzin = Color.BlueViolet;
+            roundedComboBox3.KeretVastagsag = 1.8F;
+            roundedComboBox3.Location = new Point(804, 51);
+            roundedComboBox3.Margin = new Padding(0);
+            roundedComboBox3.MinimumSize = new Size(171, 0);
+            roundedComboBox3.Name = "roundedComboBox3";
+            roundedComboBox3.Radius = 40;
+            roundedComboBox3.Size = new Size(280, 72);
+            roundedComboBox3.TabIndex = 8;
+            roundedComboBox3.TitleLabelSzin = Color.Black;
             // 
             // Frm_UtazasokMegtekintese
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(999, 729);
-            Controls.Add(dataGridView1);
-            Controls.Add(roundedComboBox3);
+            ClientSize = new Size(1142, 972);
             Controls.Add(roundedComboBox1);
             Controls.Add(roundedComboBox2);
+            Controls.Add(dataGridView1);
+            Controls.Add(roundedComboBox3);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Frm_UtazasokMegtekintese";
             Text = "Utazasok";
             Load += Frm_UtazasokMegtekintese_Load_1;
@@ -345,12 +348,12 @@ namespace Projekt_feladat.Formok
         private void Frm_UtazasokMegtekintese_Load_1(object sender, EventArgs e)
         {
             dataGridView1.SendToBack();
+            vizualisrendezes();
         }
 
         #endregion
 
         private kerekitettLenyilloMenu roundedComboBox2;
-        private kerekitettLenyilloMenu roundedComboBox3;
         private kerekitettLenyilloMenu roundedComboBox1;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn Column1;
@@ -363,5 +366,6 @@ namespace Projekt_feladat.Formok
         private DataGridViewTextBoxColumn Column8;
         private DataGridViewTextBoxColumn Column9;
         private KerekitettGomb kerekitettGomb1;
+        private kerekitettLenyilloMenu roundedComboBox3;
     }
 }
