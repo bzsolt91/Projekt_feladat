@@ -77,7 +77,7 @@ namespace Projekt_feladat
             pnl_fejlec.Margin = new Padding(3, 4, 3, 4);
             pnl_fejlec.Name = "pnl_fejlec";
             pnl_fejlec.SarkokLekerekitese = 0;
-            pnl_fejlec.Size = new Size(1601, 37);
+            pnl_fejlec.Size = new Size(1295, 37);
             pnl_fejlec.SzinatmenetAlsoSzine = Color.Silver;
             pnl_fejlec.SzinatmenetFelsoSzine = Color.DimGray;
             pnl_fejlec.SzinatmenetSzog = 100F;
@@ -97,7 +97,7 @@ namespace Projekt_feladat
             btn_minimalizalas.HatterSzine = Color.Transparent;
             btn_minimalizalas.KeretMeret = 0;
             btn_minimalizalas.KeretSzine = Color.PaleVioletRed;
-            btn_minimalizalas.Location = new Point(1411, 3);
+            btn_minimalizalas.Location = new Point(1104, 3);
             btn_minimalizalas.Margin = new Padding(3, 4, 3, 4);
             btn_minimalizalas.Name = "btn_minimalizalas";
             btn_minimalizalas.NyomottAllapotHatterSzine = Color.Yellow;
@@ -120,7 +120,7 @@ namespace Projekt_feladat
             btn_ablakmeret_valto.HatterSzine = Color.Transparent;
             btn_ablakmeret_valto.KeretMeret = 0;
             btn_ablakmeret_valto.KeretSzine = Color.PaleVioletRed;
-            btn_ablakmeret_valto.Location = new Point(1473, 3);
+            btn_ablakmeret_valto.Location = new Point(1167, 3);
             btn_ablakmeret_valto.Margin = new Padding(3, 4, 3, 4);
             btn_ablakmeret_valto.Name = "btn_ablakmeret_valto";
             btn_ablakmeret_valto.NyomottAllapotHatterSzine = Color.Aqua;
@@ -143,7 +143,7 @@ namespace Projekt_feladat
             btn_kilepes.HatterSzine = Color.Transparent;
             btn_kilepes.KeretMeret = 0;
             btn_kilepes.KeretSzine = Color.PaleVioletRed;
-            btn_kilepes.Location = new Point(1535, 3);
+            btn_kilepes.Location = new Point(1227, 3);
             btn_kilepes.Margin = new Padding(3, 4, 3, 4);
             btn_kilepes.Name = "btn_kilepes";
             btn_kilepes.NyomottAllapotHatterSzine = Color.Red;
@@ -166,7 +166,7 @@ namespace Projekt_feladat
             pnl_fopanel.Margin = new Padding(3, 4, 3, 4);
             pnl_fopanel.Name = "pnl_fopanel";
             pnl_fopanel.SarkokLekerekitese = 0;
-            pnl_fopanel.Size = new Size(1324, 843);
+            pnl_fopanel.Size = new Size(1018, 698);
             pnl_fopanel.SzinatmenetAlsoSzine = Color.FromArgb(40, 50, 60);
             pnl_fopanel.SzinatmenetFelsoSzine = Color.FromArgb(72, 85, 99);
             pnl_fopanel.SzinatmenetSzog = 90F;
@@ -180,7 +180,7 @@ namespace Projekt_feladat
             pnl_fomenu_disz.Location = new Point(0, 0);
             pnl_fomenu_disz.Margin = new Padding(3, 4, 3, 4);
             pnl_fomenu_disz.Name = "pnl_fomenu_disz";
-            pnl_fomenu_disz.Size = new Size(277, 61);
+            pnl_fomenu_disz.Size = new Size(256, 61);
             pnl_fomenu_disz.TabIndex = 2;
             // 
             // lbl_utazas_kezelo
@@ -220,7 +220,7 @@ namespace Projekt_feladat
             btn_utazasok.Name = "btn_utazasok";
             btn_utazasok.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utazasok.SarokSugar = 10;
-            btn_utazasok.Size = new Size(277, 67);
+            btn_utazasok.Size = new Size(256, 67);
             btn_utazasok.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasok.TabIndex = 3;
             btn_utazasok.Text = "✈️  Utazások";
@@ -240,7 +240,7 @@ namespace Projekt_feladat
             button6.HatterSzine = Color.FromArgb(243, 244, 246);
             button6.KeretMeret = 0;
             button6.KeretSzine = Color.PaleVioletRed;
-            button6.Location = new Point(0, 758);
+            button6.Location = new Point(0, 696);
             button6.Margin = new Padding(3, 4, 3, 4);
             button6.MaximumSize = new Size(73, 85);
             button6.Name = "button6";
@@ -257,11 +257,11 @@ namespace Projekt_feladat
             lbl_disz2.BackColor = Color.FromArgb(209, 213, 219);
             lbl_disz2.Dock = DockStyle.Bottom;
             lbl_disz2.ForeColor = Color.FromArgb(209, 213, 219);
-            lbl_disz2.Location = new Point(0, 755);
+            lbl_disz2.Location = new Point(0, 693);
             lbl_disz2.Margin = new Padding(0, 67, 0, 0);
             lbl_disz2.Name = "lbl_disz2";
             lbl_disz2.Padding = new Padding(0, 13, 0, 0);
-            lbl_disz2.Size = new Size(277, 3);
+            lbl_disz2.Size = new Size(256, 3);
             lbl_disz2.TabIndex = 9;
             // 
             // button1
@@ -275,12 +275,12 @@ namespace Projekt_feladat
             button1.HatterSzine = Color.FromArgb(243, 244, 246);
             button1.KeretMeret = 0;
             button1.KeretSzine = Color.PaleVioletRed;
-            button1.Location = new Point(0, 688);
+            button1.Location = new Point(0, 626);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             button1.SarokSugar = 10;
-            button1.Size = new Size(277, 67);
+            button1.Size = new Size(256, 67);
             button1.SzovegSzine = Color.FromArgb(55, 65, 81);
             button1.TabIndex = 10;
             button1.Text = "⚙️ Beállítások";
@@ -306,7 +306,7 @@ namespace Projekt_feladat
             pnl_fomenu.Location = new Point(0, 37);
             pnl_fomenu.Margin = new Padding(3, 4, 3, 4);
             pnl_fomenu.Name = "pnl_fomenu";
-            pnl_fomenu.Size = new Size(277, 843);
+            pnl_fomenu.Size = new Size(277, 698);
             pnl_fomenu.TabIndex = 1;
             // 
             // button5
@@ -325,7 +325,7 @@ namespace Projekt_feladat
             button5.Name = "button5";
             button5.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             button5.SarokSugar = 10;
-            button5.Size = new Size(277, 67);
+            button5.Size = new Size(256, 67);
             button5.SzovegSzine = Color.FromArgb(55, 65, 81);
             button5.TabIndex = 17;
             button5.Text = "📤 Exportálás";
@@ -348,7 +348,7 @@ namespace Projekt_feladat
             button4.Name = "button4";
             button4.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             button4.SarokSugar = 10;
-            button4.Size = new Size(277, 67);
+            button4.Size = new Size(256, 67);
             button4.SzovegSzine = Color.FromArgb(55, 65, 81);
             button4.TabIndex = 16;
             button4.Text = "💾 Biztonsági mentés";
@@ -371,7 +371,7 @@ namespace Projekt_feladat
             btn_statisztika.Name = "btn_statisztika";
             btn_statisztika.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_statisztika.SarokSugar = 10;
-            btn_statisztika.Size = new Size(277, 67);
+            btn_statisztika.Size = new Size(256, 67);
             btn_statisztika.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_statisztika.TabIndex = 15;
             btn_statisztika.Text = "📈 Statisztika";
@@ -388,7 +388,7 @@ namespace Projekt_feladat
             pnl_UtasokAlmenu.Location = new Point(0, 310);
             pnl_UtasokAlmenu.Margin = new Padding(3, 4, 3, 4);
             pnl_UtasokAlmenu.Name = "pnl_UtasokAlmenu";
-            pnl_UtasokAlmenu.Size = new Size(277, 115);
+            pnl_UtasokAlmenu.Size = new Size(256, 115);
             pnl_UtasokAlmenu.TabIndex = 12;
             // 
             // btn_utasokHozzadasa
@@ -407,7 +407,7 @@ namespace Projekt_feladat
             btn_utasokHozzadasa.Name = "btn_utasokHozzadasa";
             btn_utasokHozzadasa.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utasokHozzadasa.SarokSugar = 10;
-            btn_utasokHozzadasa.Size = new Size(277, 53);
+            btn_utasokHozzadasa.Size = new Size(256, 53);
             btn_utasokHozzadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasokHozzadasa.TabIndex = 2;
             btn_utasokHozzadasa.Text = "🖆 Hozzáadás";
@@ -430,7 +430,7 @@ namespace Projekt_feladat
             btn_utasokMegtekintese.Name = "btn_utasokMegtekintese";
             btn_utasokMegtekintese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utasokMegtekintese.SarokSugar = 10;
-            btn_utasokMegtekintese.Size = new Size(277, 53);
+            btn_utasokMegtekintese.Size = new Size(256, 53);
             btn_utasokMegtekintese.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasokMegtekintese.TabIndex = 0;
             btn_utasokMegtekintese.Text = "📖 Megtekintés";
@@ -455,7 +455,7 @@ namespace Projekt_feladat
             btn_utasok.Name = "btn_utasok";
             btn_utasok.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utasok.SarokSugar = 10;
-            btn_utasok.Size = new Size(277, 67);
+            btn_utasok.Size = new Size(256, 67);
             btn_utasok.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasok.TabIndex = 11;
             btn_utasok.Text = "👩‍👩‍👦 Utasok";
@@ -472,7 +472,7 @@ namespace Projekt_feladat
             pnl_UtazasokAlmenu.Location = new Point(0, 128);
             pnl_UtazasokAlmenu.Margin = new Padding(3, 4, 3, 4);
             pnl_UtazasokAlmenu.Name = "pnl_UtazasokAlmenu";
-            pnl_UtazasokAlmenu.Size = new Size(277, 115);
+            pnl_UtazasokAlmenu.Size = new Size(256, 115);
             pnl_UtazasokAlmenu.TabIndex = 0;
             // 
             // btn_utazasokHozzaadasa
@@ -491,7 +491,7 @@ namespace Projekt_feladat
             btn_utazasokHozzaadasa.Name = "btn_utazasokHozzaadasa";
             btn_utazasokHozzaadasa.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utazasokHozzaadasa.SarokSugar = 10;
-            btn_utazasokHozzaadasa.Size = new Size(277, 53);
+            btn_utazasokHozzaadasa.Size = new Size(256, 53);
             btn_utazasokHozzaadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasokHozzaadasa.TabIndex = 1;
             btn_utazasokHozzaadasa.Text = "🖆 Hozzáadás";
@@ -514,7 +514,7 @@ namespace Projekt_feladat
             btn_utazasokmegtekintese.Name = "btn_utazasokmegtekintese";
             btn_utazasokmegtekintese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utazasokmegtekintese.SarokSugar = 10;
-            btn_utazasokmegtekintese.Size = new Size(277, 53);
+            btn_utazasokmegtekintese.Size = new Size(256, 53);
             btn_utazasokmegtekintese.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasokmegtekintese.TabIndex = 0;
             btn_utazasokmegtekintese.Text = "📖 Megtekintés";
@@ -536,7 +536,7 @@ namespace Projekt_feladat
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1601, 880);
+            ClientSize = new Size(1295, 735);
             ControlBox = false;
             Controls.Add(pnl_fopanel);
             Controls.Add(pnl_fomenu);

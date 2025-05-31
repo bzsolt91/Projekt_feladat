@@ -38,34 +38,18 @@ namespace Projekt_feladat.Formok
             roundedComboBox1 = new kerekitettLenyilloMenu();
             dataGridView1 = new DataGridView();
             roundedComboBox3 = new kerekitettLenyilloMenu();
+            pnl_vezerlok = new SzinatmenetPanel();
+            kerekitettGomb5 = new KerekitettGomb();
+            kerekitettGomb4 = new KerekitettGomb();
+            kerekitettGomb3 = new KerekitettGomb();
+            btn_mentes = new KerekitettGomb();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            pnl_vezerlok.SuspendLayout();
             SuspendLayout();
             // 
             // roundedComboBox2
             // 
-            roundedComboBox2.adatForras = new string[]
-    {
-    "Cancún (Mexikó)",
-    "Miami (USA)",
-    "Dubaj (Egyesült Arab Emírségek)",
-    "Phuket (Thaiföld)",
-    "Nizza (Franciaország)",
-    "Bali (Indonézia)",
-    "Maldív-szigetek",
-    "Goa (India)",
-    "Barcelona (Spanyolország)",
-    "Rio de Janeiro (Brazília)",
-    "Santorini (Görögország)",
-    "Hawaii (USA)",
-    "Sydney (Ausztrália)",
-    "Sharm el-Sheikh (Egyiptom)",
-    "Antalya (Törökország)",
-    "Malaga (Spanyolország)",
-    "Monte Carlo (Monaco)",
-    "Los Angeles (USA)",
-    "Bahama-szigetek",
-    "Kréta (Görögország)"
-    };
+            roundedComboBox2.adatForras = null;
             roundedComboBox2.BackColor = Color.Transparent;
             roundedComboBox2.CimPanelAlsoSzin = Color.White;
             roundedComboBox2.CimPanelFelsoSzin = Color.White;
@@ -76,121 +60,20 @@ namespace Projekt_feladat.Formok
             roundedComboBox2.ItemPanelFelsoSzin = Color.WhiteSmoke;
             roundedComboBox2.KeretSzin = Color.BlueViolet;
             roundedComboBox2.KeretVastagsag = 1.8F;
-            roundedComboBox2.Location = new Point(305, 54);
+            roundedComboBox2.Location = new Point(284, 40);
             roundedComboBox2.Margin = new Padding(0);
-            roundedComboBox2.MinimumSize = new Size(171, 0);
+            roundedComboBox2.MinimumSize = new Size(150, 0);
             roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Padding = new Padding(0, 0, 0, 7);
+            roundedComboBox2.Padding = new Padding(0, 0, 0, 5);
             roundedComboBox2.Radius = 20;
-            roundedComboBox2.Size = new Size(271, 76);
+            roundedComboBox2.Size = new Size(262, 57);
             roundedComboBox2.TabIndex = 7;
             roundedComboBox2.TitleLabelSzin = Color.Black;
+            roundedComboBox2.Load += roundedComboBox2_Load;
             // 
             // roundedComboBox1
             // 
-            roundedComboBox1.adatForras = new string[]
-    {
-    "1902-08-03",
-    "1902-10-05",
-    "1903-05-03",
-    "1904-02-19",
-    "1904-11-09",
-    "1910-06-07",
-    "1914-09-21",
-    "1916-07-18",
-    "1919-09-24",
-    "1919-12-14",
-    "1922-01-05",
-    "1929-08-17",
-    "1931-04-10",
-    "1931-06-03",
-    "1931-11-02",
-    "1933-03-15",
-    "1937-04-22",
-    "1939-05-16",
-    "1945-02-12",
-    "1946-06-12",
-    "1954-09-13",
-    "1955-03-12",
-    "1959-01-14",
-    "1960-03-19",
-    "1961-04-27",
-    "1961-08-17",
-    "1966-02-09",
-    "1968-06-28",
-    "1974-11-11",
-    "1974-11-14",
-    "1975-12-16",
-    "1976-06-22",
-    "1976-12-20",
-    "1977-06-15",
-    "1983-07-13",
-    "1983-08-09",
-    "1984-07-06",
-    "1985-01-10",
-    "1990-03-09",
-    "1990-10-05",
-    "1991-12-09",
-    "1992-09-18",
-    "1993-06-14",
-    "1993-07-18",
-    "1994-04-28",
-    "1995-02-27",
-    "1997-04-04",
-    "1997-07-09",
-    "1999-01-09",
-    "1999-10-05",
-    "2003-06-16",
-    "2004-12-13",
-    "2008-10-21",
-    "2010-03-27",
-    "2017-02-03",
-    "2017-06-07",
-    "2018-06-08",
-    "2019-02-17",
-    "2019-11-20",
-    "2020-10-03",
-    "2021-02-17",
-    "2021-03-02",
-    "2022-11-06",
-    "2025-09-05",
-    "2026-07-07",
-    "2028-10-14",
-    "2028-10-18",
-    "2028-11-17",
-    "2029-09-23",
-    "2031-11-23",
-    "2033-10-11",
-    "2034-06-02",
-    "2035-12-21",
-    "2036-04-28",
-    "2045-05-23",
-    "2047-11-03",
-    "2052-08-15",
-    "2054-11-01",
-    "2057-07-10",
-    "2058-01-03",
-    "2060-05-05",
-    "2062-02-15",
-    "2066-07-10",
-    "2067-05-23",
-    "2070-08-14",
-    "2070-11-12",
-    "2074-06-18",
-    "2078-12-25",
-    "2081-04-10",
-    "2081-04-19",
-    "2087-06-07",
-    "2089-12-16",
-    "2090-06-26",
-    "2092-09-10",
-    "2093-05-23",
-    "2094-01-16",
-    "2095-12-26",
-    "2098-05-19",
-    "2098-11-01",
-    "2099-06-05"
-    };
+            roundedComboBox1.adatForras = null;
             roundedComboBox1.BackColor = Color.Transparent;
             roundedComboBox1.CimPanelAlsoSzin = Color.White;
             roundedComboBox1.CimPanelFelsoSzin = Color.White;
@@ -202,13 +85,13 @@ namespace Projekt_feladat.Formok
             roundedComboBox1.ItemPanelFelsoSzin = Color.WhiteSmoke;
             roundedComboBox1.KeretSzin = Color.BlueViolet;
             roundedComboBox1.KeretVastagsag = 1.8F;
-            roundedComboBox1.Location = new Point(22, 54);
+            roundedComboBox1.Location = new Point(19, 40);
             roundedComboBox1.Margin = new Padding(0);
-            roundedComboBox1.MinimumSize = new Size(171, 0);
+            roundedComboBox1.MinimumSize = new Size(150, 0);
             roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Padding = new Padding(0, 0, 0, 7);
+            roundedComboBox1.Padding = new Padding(0, 0, 0, 5);
             roundedComboBox1.Radius = 20;
-            roundedComboBox1.Size = new Size(251, 73);
+            roundedComboBox1.Size = new Size(248, 55);
             roundedComboBox1.TabIndex = 6;
             roundedComboBox1.TitleLabelSzin = Color.Black;
             roundedComboBox1.Load += roundedComboBox1_Load;
@@ -216,7 +99,6 @@ namespace Projekt_feladat.Formok
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.BackgroundColor = SystemColors.ControlLightLight;
@@ -241,12 +123,11 @@ namespace Projekt_feladat.Formok
             dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = SystemColors.InactiveBorder;
-            dataGridView1.Location = new Point(22, 157);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
+            dataGridView1.Location = new Point(19, 118);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
@@ -261,87 +142,156 @@ namespace Projekt_feladat.Formok
             dataGridView1.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dataGridView1.ShowEditingIcon = false;
             dataGridView1.ShowRowErrors = false;
-            dataGridView1.Size = new Size(1074, 639);
+            dataGridView1.Size = new Size(940, 479);
             dataGridView1.TabIndex = 9;
+            dataGridView1.CellMouseEnter += dataGridView1_CellMouseEnter;
             dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete;
             // 
             // roundedComboBox3
             // 
-            roundedComboBox3.adatForras = new string[]
-    {
-    "nhjhjééééééééééééééééééééééééééééééééééé",
-    "jghjhgj",
-    "hgjghj",
-    "hjgj",
-    "jhgj",
-    "hgjgh",
-    "ghj",
-    "ghjj",
-    "ghj",
-    "g",
-    "ghj",
-    "ghj",
-    "ghj",
-    "ghj",
-    "gh",
-    "jgh",
-    "jgh",
-    "j",
-    "ghjgh",
-    "jg",
-    "jhg",
-    "j",
-    "ghj",
-    "ghj",
-    "g",
-    "hj",
-    "gh",
-    "jg",
-    "hj",
-    "gh",
-    "j",
-    "h",
-    "hjg",
-    "j",
-    "hg",
-    "",
-    "",
-    "j"
-    };
+            roundedComboBox3.adatForras = null;
             roundedComboBox3.BackColor = Color.Transparent;
             roundedComboBox3.CimPanelAlsoSzin = Color.White;
             roundedComboBox3.CimPanelFelsoSzin = Color.White;
             roundedComboBox3.ComboText = "Utazás neve";
-            roundedComboBox3.ForeColor = Color.Transparent;
+            roundedComboBox3.ForeColor = Color.White;
             roundedComboBox3.Ikon = (Image)resources.GetObject("roundedComboBox3.Ikon");
-            roundedComboBox3.ItemPanelAlosSzin = Color.White;
-            roundedComboBox3.ItemPanelFelsoSzin = Color.White;
+            roundedComboBox3.ItemPanelAlosSzin = Color.WhiteSmoke;
+            roundedComboBox3.ItemPanelFelsoSzin = Color.WhiteSmoke;
             roundedComboBox3.KeretSzin = Color.BlueViolet;
             roundedComboBox3.KeretVastagsag = 1.8F;
-            roundedComboBox3.Location = new Point(804, 51);
+            roundedComboBox3.Location = new Point(565, 40);
             roundedComboBox3.Margin = new Padding(0);
-            roundedComboBox3.MinimumSize = new Size(171, 0);
+            roundedComboBox3.MinimumSize = new Size(150, 0);
             roundedComboBox3.Name = "roundedComboBox3";
-            roundedComboBox3.Radius = 40;
-            roundedComboBox3.Size = new Size(280, 72);
+            roundedComboBox3.Radius = 20;
+            roundedComboBox3.Size = new Size(276, 54);
             roundedComboBox3.TabIndex = 8;
             roundedComboBox3.TitleLabelSzin = Color.Black;
+            roundedComboBox3.Load += roundedComboBox3_Load;
+            // 
+            // pnl_vezerlok
+            // 
+            pnl_vezerlok.BackColor = Color.Transparent;
+            pnl_vezerlok.Controls.Add(kerekitettGomb5);
+            pnl_vezerlok.Controls.Add(kerekitettGomb4);
+            pnl_vezerlok.Controls.Add(kerekitettGomb3);
+            pnl_vezerlok.Controls.Add(btn_mentes);
+            pnl_vezerlok.Dock = DockStyle.Bottom;
+            pnl_vezerlok.ForeColor = Color.CadetBlue;
+            pnl_vezerlok.KeretSzin = Color.Black;
+            pnl_vezerlok.KeretVastagsag = 0F;
+            pnl_vezerlok.Location = new Point(0, 677);
+            pnl_vezerlok.Margin = new Padding(3, 2, 3, 2);
+            pnl_vezerlok.Name = "pnl_vezerlok";
+            pnl_vezerlok.SarkokLekerekitese = 20;
+            pnl_vezerlok.Size = new Size(999, 52);
+            pnl_vezerlok.SzinatmenetAlsoSzine = Color.DarkViolet;
+            pnl_vezerlok.SzinatmenetFelsoSzine = Color.DarkViolet;
+            pnl_vezerlok.SzinatmenetSzog = 90F;
+            pnl_vezerlok.TabIndex = 10;
+            // 
+            // kerekitettGomb5
+            // 
+            kerekitettGomb5.BackColor = Color.MediumSlateBlue;
+            kerekitettGomb5.EgerTartasHatterSzine = Color.SlateBlue;
+            kerekitettGomb5.FlatAppearance.BorderSize = 0;
+            kerekitettGomb5.FlatStyle = FlatStyle.Flat;
+            kerekitettGomb5.ForeColor = Color.White;
+            kerekitettGomb5.HatterSzine = Color.MediumSlateBlue;
+            kerekitettGomb5.KeretMeret = 0;
+            kerekitettGomb5.KeretSzine = Color.PaleVioletRed;
+            kerekitettGomb5.Location = new Point(607, 8);
+            kerekitettGomb5.Margin = new Padding(3, 2, 3, 2);
+            kerekitettGomb5.Name = "kerekitettGomb5";
+            kerekitettGomb5.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb5.SarokSugar = 0;
+            kerekitettGomb5.Size = new Size(164, 38);
+            kerekitettGomb5.SzovegSzine = Color.White;
+            kerekitettGomb5.TabIndex = 3;
+            kerekitettGomb5.Text = "Nyomtatás";
+            kerekitettGomb5.UseVisualStyleBackColor = false;
+            // 
+            // kerekitettGomb4
+            // 
+            kerekitettGomb4.BackColor = Color.MediumSlateBlue;
+            kerekitettGomb4.EgerTartasHatterSzine = Color.SlateBlue;
+            kerekitettGomb4.FlatAppearance.BorderSize = 0;
+            kerekitettGomb4.FlatStyle = FlatStyle.Flat;
+            kerekitettGomb4.ForeColor = Color.White;
+            kerekitettGomb4.HatterSzine = Color.MediumSlateBlue;
+            kerekitettGomb4.KeretMeret = 0;
+            kerekitettGomb4.KeretSzine = Color.PaleVioletRed;
+            kerekitettGomb4.Location = new Point(417, 8);
+            kerekitettGomb4.Margin = new Padding(3, 2, 3, 2);
+            kerekitettGomb4.Name = "kerekitettGomb4";
+            kerekitettGomb4.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb4.SarokSugar = 0;
+            kerekitettGomb4.Size = new Size(164, 38);
+            kerekitettGomb4.SzovegSzine = Color.White;
+            kerekitettGomb4.TabIndex = 2;
+            kerekitettGomb4.Text = "Exportálás Excelbe";
+            kerekitettGomb4.UseVisualStyleBackColor = false;
+            // 
+            // kerekitettGomb3
+            // 
+            kerekitettGomb3.BackColor = Color.MediumSlateBlue;
+            kerekitettGomb3.EgerTartasHatterSzine = Color.SlateBlue;
+            kerekitettGomb3.FlatAppearance.BorderSize = 0;
+            kerekitettGomb3.FlatStyle = FlatStyle.Flat;
+            kerekitettGomb3.ForeColor = Color.White;
+            kerekitettGomb3.HatterSzine = Color.MediumSlateBlue;
+            kerekitettGomb3.KeretMeret = 0;
+            kerekitettGomb3.KeretSzine = Color.PaleVioletRed;
+            kerekitettGomb3.Location = new Point(216, 8);
+            kerekitettGomb3.Margin = new Padding(3, 2, 3, 2);
+            kerekitettGomb3.Name = "kerekitettGomb3";
+            kerekitettGomb3.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kerekitettGomb3.SarokSugar = 0;
+            kerekitettGomb3.Size = new Size(164, 38);
+            kerekitettGomb3.SzovegSzine = Color.White;
+            kerekitettGomb3.TabIndex = 1;
+            kerekitettGomb3.Text = "Utaslista készítése";
+            kerekitettGomb3.UseVisualStyleBackColor = false;
+            // 
+            // btn_mentes
+            // 
+            btn_mentes.BackColor = Color.DimGray;
+            btn_mentes.EgerTartasHatterSzine = Color.SlateBlue;
+            btn_mentes.FlatAppearance.BorderSize = 0;
+            btn_mentes.FlatStyle = FlatStyle.Flat;
+            btn_mentes.ForeColor = Color.Transparent;
+            btn_mentes.HatterSzine = Color.DimGray;
+            btn_mentes.KeretMeret = 0;
+            btn_mentes.KeretSzine = Color.PaleVioletRed;
+            btn_mentes.Location = new Point(19, 8);
+            btn_mentes.Margin = new Padding(3, 2, 3, 2);
+            btn_mentes.Name = "btn_mentes";
+            btn_mentes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            btn_mentes.SarokSugar = 15;
+            btn_mentes.Size = new Size(164, 38);
+            btn_mentes.SzovegSzine = Color.Transparent;
+            btn_mentes.TabIndex = 0;
+            btn_mentes.Text = "Mentés";
+            btn_mentes.UseVisualStyleBackColor = false;
             // 
             // Frm_UtazasokMegtekintese
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1142, 972);
+            ClientSize = new Size(999, 729);
+            Controls.Add(pnl_vezerlok);
             Controls.Add(roundedComboBox1);
             Controls.Add(roundedComboBox2);
             Controls.Add(dataGridView1);
             Controls.Add(roundedComboBox3);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Frm_UtazasokMegtekintese";
             Text = "Utazasok";
             Load += Frm_UtazasokMegtekintese_Load_1;
+            Resize += Frm_UtazasokMegtekintese_Resize;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            pnl_vezerlok.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -349,6 +299,8 @@ namespace Projekt_feladat.Formok
         {
             dataGridView1.SendToBack();
             vizualisrendezes();
+
+
         }
 
         #endregion
@@ -367,5 +319,10 @@ namespace Projekt_feladat.Formok
         private DataGridViewTextBoxColumn Column9;
         private KerekitettGomb kerekitettGomb1;
         private kerekitettLenyilloMenu roundedComboBox3;
+        private SzinatmenetPanel pnl_vezerlok;
+        private KerekitettGomb kerekitettGomb5;
+        private KerekitettGomb kerekitettGomb4;
+        private KerekitettGomb kerekitettGomb3;
+        private KerekitettGomb btn_mentes;
     }
 }

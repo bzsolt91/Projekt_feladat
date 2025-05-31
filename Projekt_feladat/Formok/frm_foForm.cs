@@ -39,6 +39,7 @@ namespace Projekt_feladat
             InitializeComponent();
             tmr_almenuAnimacio.Interval = 10;
             AlmenuElrejtés();
+            this.AutoScaleMode = AutoScaleMode.None;
 
 
         }

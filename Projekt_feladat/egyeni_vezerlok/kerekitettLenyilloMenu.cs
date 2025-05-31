@@ -21,7 +21,7 @@ namespace Projekt_feladat.egyeni_vezerlok
     {
 
 
-
+        
         private ClickOutsideMessageFilter? clickOutsideFilter;
         private Label kivalasztottLabel = null!;
         int i = 0;
@@ -29,6 +29,7 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         private bool nyitva = false;
         private Timer animacioTimer = new Timer();
+        public event EventHandler TimerStopped;
         private int celMagassag;
         private int animacioLepes = 10;
         /*kattintási eseménsy*/
@@ -48,39 +49,37 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         public event EventHandler<ElemKivalasztvaEventArgs>? ElemKivalasztva;
         /*********/
+
         public string[] adatForras
         {
             get => adat;
             set
             {
+                if (value == null)
+                    value = Array.Empty<string>(); // vagy: return;
+
                 flp_items.BackColor = Color.WhiteSmoke;
-                pnl_item.BackColor = Color.WhiteSmoke; // ha maga 
+                flp_items.Controls.Clear();
+
                 foreach (var item in value)
                 {
-                    Label label = new();
-                    label.Text = item;
-                    label.ForeColor = Color.Black; // <<< Szöveg legyen fekete
-                    label.BackColor = Color.Transparent; // <<< Háttér legyen átlátszó
-                    label.TextAlign = ContentAlignment.MiddleLeft;
-                    label.Height = 25;
-                    label.Width = flp_items.Width;
-                    label.MouseClick += new MouseEventHandler(Label_selected);
-
-                    label.MouseEnter += (s, e) =>
+                    Label label = new()
                     {
-                        label.BackColor = Color.LightGray;
+                        Text = item,
+                        ForeColor = Color.Black,
+                        BackColor = Color.WhiteSmoke,
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        Height = 25,
+                        Width = flp_items.Width
                     };
+
+                    label.MouseClick += Label_selected;
+
+                    label.MouseEnter += (s, e) => label.BackColor = Color.LightGray;
 
                     label.MouseLeave += (s, e) =>
                     {
-                        if (label != kivalasztottLabel)
-                        {
-                            label.BackColor = Color.WhiteSmoke;
-                        }
-                        else
-                        {
-                            label.BackColor = Color.BlueViolet;
-                        }
+                        label.BackColor = label == kivalasztottLabel ? Color.BlueViolet : Color.WhiteSmoke;
                     };
 
                     flp_items.Controls.Add(label);
@@ -89,8 +88,8 @@ namespace Projekt_feladat.egyeni_vezerlok
                 adat = value;
                 Invalidate();
             }
-
         }
+
         public class ModositottFLPanel : FlowLayoutPanel
         {
             protected override System.Windows.Forms.CreateParams CreateParams
@@ -281,7 +280,7 @@ namespace Projekt_feladat.egyeni_vezerlok
         private void Click(object sender, EventArgs e)
         {
             nyitva = !nyitva;
-            celMagassag = nyitva ? 269 : 61;
+            celMagassag = nyitva ? 300  : 61;
             animacioTimer.Start();
             pnl_item.Visible = true;
 
@@ -292,7 +291,7 @@ namespace Projekt_feladat.egyeni_vezerlok
                     nyitva = false;
                     celMagassag = 61;
                     animacioTimer.Start();
-                    pnl_item.Visible = false;
+                 
                     if (clickOutsideFilter != null)
                     {
                         Application.RemoveMessageFilter(clickOutsideFilter);
@@ -300,6 +299,7 @@ namespace Projekt_feladat.egyeni_vezerlok
                     }
                 });
                 Application.AddMessageFilter(clickOutsideFilter);
+               
             }
             else
             {
@@ -318,10 +318,12 @@ namespace Projekt_feladat.egyeni_vezerlok
         {
 
             InitializeComponent();
+             flp_items.AutoScroll = false;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
             animacioTimer.Interval = 5;
             animacioTimer.Tick += AnimacioFrissitese;
+           
 
         }
 
@@ -338,45 +340,63 @@ namespace Projekt_feladat.egyeni_vezerlok
             this.Invalidate();
         }
 
+        public void StopTimer()
+        {
+            if (animacioTimer.Enabled)
+            {
+                animacioTimer.Stop();
+                TimerStopped?.Invoke(this, EventArgs.Empty);
+               
+            }
+            else
+                pnl_item.Visible = false;
 
+
+        }
 
 
         private void AnimacioFrissitese(object? sender, EventArgs e)
         {
             int kulonbseg = Math.Abs(celMagassag - Height);
-            int lepes = Math.Max(2, kulonbseg / 5); // a távolság 1/5-ét lépjük, minimum 2 px
+            int lepes = Math.Max(2, kulonbseg / 5);
 
             if (nyitva)
             {
                 if (Height < celMagassag)
                 {
-                    Height = Math.Min(Height + lepes, celMagassag+5);
+                    Height = Math.Min(Height + lepes, celMagassag+4);
                 }
                 else
                 {
-                    animacioTimer.Stop();
-
+                    StopTimer();
                     kepforgatas(180);
-
                 }
             }
             else
             {
                 if (Height > celMagassag)
                 {
-                    Height = Math.Max(Height - lepes, celMagassag+5);
+                    Height = Math.Max(Height - lepes, celMagassag+4);
                 }
                 else
                 {
-                    animacioTimer.Stop();
-
+                    StopTimer();
                     kepforgatas(0);
-                    pnl_item.Visible = false;
+                    pnl_item.Visible = false; // 
                 }
             }
 
             pnl_item.SarkokLekerekitese = 25;
         }
+        private void AnimacioStop(object? sender, EventArgs e)
+        {
+
+            if (!nyitva)
+            {
+                pnl_item.Visible = false;
+                
+            }
+            }
         private void kepforgatas(int fok)
         {
             if (fok == 0)
