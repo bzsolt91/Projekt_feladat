@@ -10,27 +10,32 @@ namespace Projekt_feladat.Formok
 {
     public partial class Frm_UtazasokMegtekintese : Form
     {
-        string constr;  
-        ToolTip egyeniTooltip = new ToolTip();
+        string constr;
+        ToolTip? egyeniTooltip = new ToolTip();
+        string? utazasDesztinacio = null;
+        string? utazasIdoszak = null;
+        string? utazasNeve = null;
         public Frm_UtazasokMegtekintese()
         {
             InitializeComponent();
             egyeniTooltip.OwnerDraw = true;
-            dataGridView1.ShowCellToolTips = false;
+            dgv_utazasok.ShowCellToolTips = false;
             egyeniTooltip.Draw += EgyeniTooltip_Draw;
             egyeniTooltip.Popup += EgyeniTooltip_Popup;
             this.AutoScaleMode = AutoScaleMode.None;
             constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
-          
+
 
         }
         private void vizualisrendezes()
         {
             form_elrendezes();
 
-            this.Controls.Add(roundedComboBox1);
-            this.Controls.Add(roundedComboBox2);
-            this.Controls.Add(roundedComboBox3);
+            this.Controls.Add(rcb_idoszak);
+            this.Controls.Add(rcb_desztinacio);
+            this.Controls.Add(rcb_utazasNeve);
+           
+
         }
 
         private void form_elrendezes()
@@ -38,14 +43,14 @@ namespace Projekt_feladat.Formok
             int spacing = 100;
 
             int formWidth = this.Width;
-            int totalWidth = 3 * roundedComboBox1.Width + 2 * spacing;
+            int totalWidth = 3 * rcb_idoszak.Width + 2 * spacing;
             int startX = (formWidth - totalWidth) / 2;
             int y = 10;
             // === DataGridView pozicionálása alá ===
-            dataGridView1.Location = new Point(10, roundedComboBox1.Location.X + roundedComboBox1.Height + 30);
-            dataGridView1.Size = new Size(this.Width - 20, this.Height - (y + roundedComboBox1.Height + 25) - pnl_vezerlok.Height - 15);
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.Controls.Add(dataGridView1);
+            dgv_utazasok.Location = new Point(10, rcb_idoszak.Bounds.Bottom);
+            dgv_utazasok.Size = new Size(this.Width - 20, this.Height  - pnl_vezerlok.Height - rcb_idoszak.Height-15);
+            dgv_utazasok.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.Controls.Add(dgv_utazasok);
         }
 
         private void MeretezdCellakAlapjan(DataGridView dgv)
@@ -87,7 +92,7 @@ namespace Projekt_feladat.Formok
             using (var mc_mysqlcon = new MySqlConnection(constr))
             {
                 var utazasIdopontok = new List<string>();
-                string sql = "SELECT utazas_ideje FROM utazas";
+                string sql = "SELECT DISTINCT utazas_ideje FROM utazas";
 
                 using (var cmd = new MySqlCommand(sql, mc_mysqlcon))
                 {
@@ -106,64 +111,89 @@ namespace Projekt_feladat.Formok
                 }
 
                 // Feltételezzük, hogy a custom combo box egy string tömböt fogad el
-                roundedComboBox1.adatForras = utazasIdopontok.ToArray();
-
+                rcb_idoszak.adatForras = utazasIdopontok.ToArray();
+                    
             }
 
-            roundedComboBox1.ElemKivalasztva += (s, e) =>
+            rcb_idoszak.ElemKivalasztva += (s, e) =>
             {
-                using (var mc_mysqlcon = new MySqlConnection(constr))
-                {
-                    var dt = new DataTable();
-                    String sql = @" SELECT u.utas_id AS 'Sorszám',
-                                           u.titulus AS 'Titulus',
-                                           u.vezeteknev AS 'Vezetéknév',
-                                           u.keresztnev1 AS 'Keresztnév',
-                                           u.keresztnev2 AS 'Második keresztnév',
-                                           telefon.telefon AS 'Telefonszám',
-                                           szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
-                                           szemelyi.okmany_lejarat AS 'Érvényesség',
-                                           cim.lakcim AS 'Lakcím',
-                                           cim.email_cim AS 'Email',
-                                           fizetes.befizetett_osszeg AS 'Befizetett összeg',
-                                           fizetes.biztositas AS 'Biztosítás van',
-                                           megjegyzes.megjegyzes AS 'Megjegyzés'
-                                    FROM utas u
-                                    INNER JOIN cim ON u.utas_id = cim.utas_id
-                                    INNER JOIN utazas ON u.utas_id = utazas.utas_id
-                                    INNER JOIN telefon ON u.utas_id = telefon.utas_id
-                                    INNER JOIN fizetes ON u.utas_id = fizetes.utas_id
-                                    INNER JOIN szemelyi ON u.utas_id = szemelyi.utas_id
-                                    INNER JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
-                                    WHERE utazas.utazas_ideje = @utazasideje";
-                    //     AND utazas.desztinacio = @desztinacio";
+                
+                if(e.Ertek !=null)
+                        utazasIdoszak = e.Ertek;
 
-
-                    var cmd = new MySqlCommand(sql, mc_mysqlcon);
-                    cmd.Parameters.AddWithValue("@utazasideje", e.Ertek);
-                    //      cmd.Parameters.AddWithValue("@utazasideje", e.Ertek);
-
-                    var da = new MySqlDataAdapter(cmd);
-                    da.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
+                if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
+                    lekerdezes_kivalasztva();
             };
         }
+
+        private void lekerdezes_kivalasztva()
+        {
+            using (var mc_mysqlcon = new MySqlConnection(constr))
+            {
+                var dt = new DataTable();
+                String sql = @" SELECT
+                                u.utas_id AS 'Sorszám',
+                                u.titulus AS 'Titulus',
+                                u.vezeteknev AS 'Vezetéknév',
+                                u.keresztnev1 AS 'Keresztnév',
+                                u.keresztnev2 AS 'Második keresztnév',
+                                telefon.telefon AS 'Telefonszám', -- Feltételezve, hogy az utas_id egyedi a telefon, cim, fizetes, szemelyi, megjegyzes táblákban is, különben GROUP BY kellhet!
+                                szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
+                                szemelyi.okmany_lejarat AS 'Érvényesség',
+                                cim.lakcim AS 'Lakcím',
+                                cim.email_cim AS 'Email',
+                                fizetes.befizetett_osszeg AS 'Befizetett összeg',
+                                fizetes.biztositas AS 'Biztosítás van',
+                                megjegyzes.megjegyzes AS 'Megjegyzés'
+                            FROM
+                                utas AS u
+                            INNER JOIN
+                                utas_utazasai AS uu ON u.utas_id = uu.utas_id
+                            INNER JOIN
+                                utazas AS t ON uu.utazas_id = t.utazas_id -- Itt kapcsoljuk az utazás táblát az utas_utazasai táblán keresztül. Az alias 't'
+                            LEFT JOIN -- LEFT JOIN-t használok, hogy akkor is megjelenjen az utas, ha nincs telefon, cím stb. Ha mindenképp kell, akkor INNER JOIN marad
+                                telefon ON u.utas_id = telefon.utas_id
+                            LEFT JOIN
+                                cim ON u.utas_id = cim.utas_id
+                            LEFT JOIN
+                                fizetes ON u.utas_id = fizetes.utas_id
+                            LEFT JOIN
+                                szemelyi ON u.utas_id = szemelyi.utas_id
+                            LEFT JOIN
+                                megjegyzes ON u.utas_id = megjegyzes.utas_id
+                            WHERE
+                                t.utazas_ideje = @utazasideje
+                                AND t.desztinacio = @desztinacio
+                                AND t.utazas_elnevezese = @utazasneve";
+
+                var cmd = new MySqlCommand(sql, mc_mysqlcon);
+                cmd.Parameters.AddWithValue("@utazasideje",utazasIdoszak);
+                cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+                cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
+                //      cmd.Parameters.AddWithValue("@utazasideje", e.Ertek);
+
+                var da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);
+                dgv_utazasok.DataSource = dt;
+            }
+        }
+
+
 
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            dataGridView1.AllowUserToResizeRows = false;
+            dgv_utazasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgv_utazasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dgv_utazasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            dgv_utazasok.AllowUserToResizeRows = false;
 
-            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            foreach (DataGridViewColumn col in dgv_utazasok.Columns)
             {
                 col.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
                 col.HeaderCell.Style.WrapMode = DataGridViewTriState.False;
             }
-            MeretezdCellakAlapjan(dataGridView1);
+            MeretezdCellakAlapjan(dgv_utazasok);
         }
 
         private void roundedComboBox2_Load(object sender, EventArgs e)
@@ -173,7 +203,7 @@ namespace Projekt_feladat.Formok
             {
                 mc_mysqlcon.Open();
                 var utazasIdopontok = new List<string>();
-                string sql = "SELECT desztinacio FROM utazas";
+                string sql = "SELECT DISTINCT desztinacio FROM utazas";
 
                 using (var cmd = new MySqlCommand(sql, mc_mysqlcon))
                 {
@@ -192,9 +222,18 @@ namespace Projekt_feladat.Formok
                 }
 
                 // Feltételezzük, hogy a custom combo box egy string tömböt fogad el
-                roundedComboBox2.adatForras = utazasIdopontok.ToArray();
+                rcb_desztinacio.adatForras = utazasIdopontok.ToArray();
 
             }
+            rcb_desztinacio.ElemKivalasztva += (s, e) =>
+            {
+
+                if (e.Ertek != null)
+                    utazasDesztinacio = e.Ertek;
+
+                if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
+                    lekerdezes_kivalasztva();
+            };
         }
 
         private void roundedComboBox3_Load(object sender, EventArgs e)
@@ -203,7 +242,7 @@ namespace Projekt_feladat.Formok
             {
                 mc_mysqlcon.Open();
                 var elnevezesek = new List<string>();
-                string sql = "SELECT utazas_elnevezese FROM utazas";
+                string sql = "SELECT DISTINCT utazas_elnevezese FROM utazas";
 
                 using (var cmd = new MySqlCommand(sql, mc_mysqlcon))
                 {
@@ -222,10 +261,20 @@ namespace Projekt_feladat.Formok
                 }
 
                 // Feltételezzük, hogy a custom combo box egy string tömböt fogad el
-                roundedComboBox3.adatForras = elnevezesek.ToArray();
+                rcb_utazasNeve.adatForras = elnevezesek.ToArray();
 
             }
+            rcb_utazasNeve.ElemKivalasztva += (s, e) =>
+            {
+
+                if (e.Ertek != null)
+                    utazasNeve = e.Ertek;
+
+                if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
+                    lekerdezes_kivalasztva();
+            };
         }
+
 
         private void Frm_UtazasokMegtekintese_Resize(object sender, EventArgs e)
         {
@@ -253,14 +302,14 @@ namespace Projekt_feladat.Formok
 
             e.Graphics.DrawRectangle(Pens.DarkViolet, new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1));
             TextRenderer.DrawText(e.Graphics, e.ToolTipText, font, e.Bounds, Color.White, TextFormatFlags.WordBreak);
-        
+
         }
 
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                var cella = dataGridView1[e.ColumnIndex, e.RowIndex];
+                var cella = dgv_utazasok[e.ColumnIndex, e.RowIndex];
                 if (cella.Value != null)
                 {
                     string szoveg = cella.Value.ToString();
@@ -275,6 +324,13 @@ namespace Projekt_feladat.Formok
                     egyeniTooltip.Show(szoveg, this, formPozicio.X + 10, formPozicio.Y + 20, 3000);
                 }
             }
+        }
+
+        private void dgv_utazasok_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+           
+            btn_mentes.HatterSzine = Color.Red;
+         
         }
     }
 }
