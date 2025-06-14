@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Collections;
+using static Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu;
 
 namespace Projekt_feladat.Formok
 {
@@ -18,6 +20,7 @@ namespace Projekt_feladat.Formok
         public Frm_UtazasokMegtekintese()
         {
             InitializeComponent();
+
             egyeniTooltip.OwnerDraw = true;
             dgv_utazasok.ShowCellToolTips = false;
             egyeniTooltip.Draw += EgyeniTooltip_Draw;
@@ -34,7 +37,7 @@ namespace Projekt_feladat.Formok
             this.Controls.Add(rcb_idoszak);
             this.Controls.Add(rcb_desztinacio);
             this.Controls.Add(rcb_utazasNeve);
-           
+
 
         }
 
@@ -48,7 +51,7 @@ namespace Projekt_feladat.Formok
             int y = 10;
             // === DataGridView pozicionálása alá ===
             dgv_utazasok.Location = new Point(10, rcb_idoszak.Bounds.Bottom);
-            dgv_utazasok.Size = new Size(this.Width - 20, this.Height  - pnl_vezerlok.Height - rcb_idoszak.Height-15);
+            dgv_utazasok.Size = new Size(this.Width - 20, this.Height - pnl_vezerlok.Height - rcb_idoszak.Height - 15);
             dgv_utazasok.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.Controls.Add(dgv_utazasok);
         }
@@ -87,45 +90,57 @@ namespace Projekt_feladat.Formok
                 }
             }
         }
-        private void roundedComboBox1_Load(object sender, EventArgs e)
+        private void rcb_desztinacio_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
-            using (var mc_mysqlcon = new MySqlConnection(constr))
+            if (e.Ertek != null)
             {
-                var utazasIdopontok = new List<string>();
-                string sql = "SELECT DISTINCT utazas_ideje FROM utazas";
-
-                using (var cmd = new MySqlCommand(sql, mc_mysqlcon))
+                if (e.Ertek != utazasDesztinacio)
                 {
-                    using (var da = new MySqlDataAdapter(cmd))
-                    {
-                        var dt = new DataTable();
-                        da.Fill(dt);
+                    rcb_idoszak.ComboText = "Időszak";
+                    rcb_utazasNeve.ComboText = "Utazás neve";
+                    rcb_idoszak.adatForras = new string[0];
+                    rcb_utazasNeve.adatForras = new string[0];
+                    utazasIdoszak = null;
+                    utazasNeve = null;
+                }
 
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            // Dátum formázása stringgé (ha szükséges)
-                            DateTime datum = Convert.ToDateTime(row["utazas_ideje"]);
-                            utazasIdopontok.Add(datum.ToString("yyyy-MM-dd"));
-                        }
+                utazasDesztinacio = e.Ertek;
+
+                // Töröljük a további két combobox tartalmát
+                rcb_idoszak.adatForras = new string[0];
+                rcb_utazasNeve.adatForras = new string[0];
+                utazasIdoszak = null;
+                utazasNeve = null;
+
+                // Betöltjük az időszakokat az 2-es comboboxba
+                idoszak_betoltes();
+            }
+            else
+                return;
+
+
+        }
+        private void utazasok_betoltes()
+        {
+
+            using (var conn = new MySqlConnection(constr))
+            {
+                conn.Open();
+                var lista = new List<string>();
+                string sql = "SELECT DISTINCT desztinacio FROM utazas ORDER BY desztinacio";
+
+                using (var cmd = new MySqlCommand(sql, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lista.Add(reader.GetString(0));
                     }
                 }
 
-                // Feltételezzük, hogy a custom combo box egy string tömböt fogad el
-                rcb_idoszak.adatForras = utazasIdopontok.ToArray();
-                    
+                rcb_desztinacio.adatForras = lista.ToArray();
             }
-
-            rcb_idoszak.ElemKivalasztva += (s, e) =>
-            {
-                
-                if(e.Ertek !=null)
-                        utazasIdoszak = e.Ertek;
-
-                if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
-                    lekerdezes_kivalasztva();
-            };
         }
-
         private void lekerdezes_kivalasztva()
         {
             using (var mc_mysqlcon = new MySqlConnection(constr))
@@ -137,7 +152,7 @@ namespace Projekt_feladat.Formok
                                 u.vezeteknev AS 'Vezetéknév',
                                 u.keresztnev1 AS 'Keresztnév',
                                 u.keresztnev2 AS 'Második keresztnév',
-                                telefon.telefon AS 'Telefonszám', -- Feltételezve, hogy az utas_id egyedi a telefon, cim, fizetes, szemelyi, megjegyzes táblákban is, különben GROUP BY kellhet!
+                                telefon.telefon AS 'Telefonszám', 
                                 szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
                                 szemelyi.okmany_lejarat AS 'Érvényesség',
                                 cim.lakcim AS 'Lakcím',
@@ -150,8 +165,8 @@ namespace Projekt_feladat.Formok
                             INNER JOIN
                                 utas_utazasai AS uu ON u.utas_id = uu.utas_id
                             INNER JOIN
-                                utazas AS t ON uu.utazas_id = t.utazas_id -- Itt kapcsoljuk az utazás táblát az utas_utazasai táblán keresztül. Az alias 't'
-                            LEFT JOIN -- LEFT JOIN-t használok, hogy akkor is megjelenjen az utas, ha nincs telefon, cím stb. Ha mindenképp kell, akkor INNER JOIN marad
+                                utazas AS t ON uu.utazas_id = t.utazas_id 
+                            LEFT JOIN 
                                 telefon ON u.utas_id = telefon.utas_id
                             LEFT JOIN
                                 cim ON u.utas_id = cim.utas_id
@@ -167,11 +182,9 @@ namespace Projekt_feladat.Formok
                                 AND t.utazas_elnevezese = @utazasneve";
 
                 var cmd = new MySqlCommand(sql, mc_mysqlcon);
-                cmd.Parameters.AddWithValue("@utazasideje",utazasIdoszak);
+                cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
                 cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
                 cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
-                //      cmd.Parameters.AddWithValue("@utazasideje", e.Ertek);
-
                 var da = new MySqlDataAdapter(cmd);
                 da.Fill(dt);
                 dgv_utazasok.DataSource = dt;
@@ -193,89 +206,98 @@ namespace Projekt_feladat.Formok
                 col.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
                 col.HeaderCell.Style.WrapMode = DataGridViewTriState.False;
             }
+
             MeretezdCellakAlapjan(dgv_utazasok);
         }
 
-        private void roundedComboBox2_Load(object sender, EventArgs e)
+        private void rcb_idoszak_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
-
-            using (var mc_mysqlcon = new MySqlConnection(constr))
+            if (e.Ertek != null)
             {
-                mc_mysqlcon.Open();
-                var utazasIdopontok = new List<string>();
-                string sql = "SELECT DISTINCT desztinacio FROM utazas";
-
-                using (var cmd = new MySqlCommand(sql, mc_mysqlcon))
+                if (e.Ertek != utazasIdoszak)
                 {
-                    using (var da = new MySqlDataAdapter(cmd))
+
+                    rcb_utazasNeve.ComboText = "Utazás neve";
+                    rcb_utazasNeve.adatForras = new string[0];
+                    utazasNeve = null;
+                }
+
+
+                utazasIdoszak = e.Ertek;
+                if (utazasIdoszak != null && utazasDesztinacio != null)
+                    utazasneve_betoltes();
+            }
+            else
+                return;
+
+
+
+
+        }
+        private void idoszak_betoltes()
+        {
+            using (var conn = new MySqlConnection(constr))
+            {
+                conn.Open();
+                var lista = new List<string>();
+                string sql = "SELECT DISTINCT utazas_ideje FROM utazas WHERE desztinacio = @desztinacio ORDER BY utazas_ideje";
+
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        var dt = new DataTable();
-                        da.Fill(dt);
-
-                        foreach (DataRow row in dt.Rows)
+                        while (reader.Read())
                         {
-
-
-                            utazasIdopontok.Add(row["desztinacio"].ToString());
+                            DateTime datum = reader.GetDateTime(0);
+                            lista.Add(datum.ToString("yyyy-MM-dd"));
                         }
                     }
                 }
 
-                // Feltételezzük, hogy a custom combo box egy string tömböt fogad el
-                rcb_desztinacio.adatForras = utazasIdopontok.ToArray();
-
+                rcb_idoszak.adatForras = lista.ToArray();
             }
-            rcb_desztinacio.ElemKivalasztva += (s, e) =>
-            {
-
-                if (e.Ertek != null)
-                    utazasDesztinacio = e.Ertek;
-
-                if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
-                    lekerdezes_kivalasztva();
-            };
         }
 
-        private void roundedComboBox3_Load(object sender, EventArgs e)
+        private void rcb_utazasNeve_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
-            using (var mc_mysqlcon = new MySqlConnection(constr))
+
+
+
+            if (e.Ertek != null)
+                utazasNeve = e.Ertek;
+
+            if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
+                lekerdezes_kivalasztva();
+
+        }
+
+        private void utazasneve_betoltes()
+        {
+            using (var conn = new MySqlConnection(constr))
             {
-                mc_mysqlcon.Open();
-                var elnevezesek = new List<string>();
-                string sql = "SELECT DISTINCT utazas_elnevezese FROM utazas";
+                conn.Open();
+                var lista = new List<string>();
+                string sql = "SELECT DISTINCT utazas_elnevezese FROM utazas WHERE desztinacio = @desztinacio AND utazas_ideje = @idoszak ORDER BY utazas_elnevezese";
 
-                using (var cmd = new MySqlCommand(sql, mc_mysqlcon))
+                using (var cmd = new MySqlCommand(sql, conn))
                 {
-                    using (var da = new MySqlDataAdapter(cmd))
+                    cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+                    cmd.Parameters.AddWithValue("@idoszak", DateTime.Parse(utazasIdoszak));
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        var dt = new DataTable();
-                        da.Fill(dt);
-
-                        foreach (DataRow row in dt.Rows)
+                        while (reader.Read())
                         {
-
-
-                            elnevezesek.Add(row["utazas_elnevezese"].ToString());
+                            lista.Add(reader.GetString(0));
                         }
                     }
                 }
 
-                // Feltételezzük, hogy a custom combo box egy string tömböt fogad el
-                rcb_utazasNeve.adatForras = elnevezesek.ToArray();
-
+                rcb_utazasNeve.adatForras = lista.ToArray();
             }
-            rcb_utazasNeve.ElemKivalasztva += (s, e) =>
-            {
-
-                if (e.Ertek != null)
-                    utazasNeve = e.Ertek;
-
-                if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
-                    lekerdezes_kivalasztva();
-            };
         }
-
-
         private void Frm_UtazasokMegtekintese_Resize(object sender, EventArgs e)
         {
             form_elrendezes();
@@ -328,9 +350,19 @@ namespace Projekt_feladat.Formok
 
         private void dgv_utazasok_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-           
+
             btn_mentes.HatterSzine = Color.Red;
-         
+
+        }
+
+        private void pnl_vezerlok_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void kerekitettGomb2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

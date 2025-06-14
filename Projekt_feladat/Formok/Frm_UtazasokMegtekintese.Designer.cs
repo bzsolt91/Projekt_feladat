@@ -31,16 +31,16 @@ namespace Projekt_feladat.Formok
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_UtazasokMegtekintese));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             rcb_desztinacio = new kerekitettLenyilloMenu();
             rcb_idoszak = new kerekitettLenyilloMenu();
             dgv_utazasok = new DataGridView();
             rcb_utazasNeve = new kerekitettLenyilloMenu();
             pnl_vezerlok = new SzinatmenetPanel();
+            kg_szures = new KerekitettGomb();
             kerekitettGomb5 = new KerekitettGomb();
-            kerekitettGomb4 = new KerekitettGomb();
             kerekitettGomb3 = new KerekitettGomb();
             btn_mentes = new KerekitettGomb();
             ((System.ComponentModel.ISupportInitialize)dgv_utazasok).BeginInit();
@@ -59,16 +59,16 @@ namespace Projekt_feladat.Formok
             rcb_desztinacio.ItemPanelFelsoSzin = Color.WhiteSmoke;
             rcb_desztinacio.KeretSzin = Color.BlueViolet;
             rcb_desztinacio.KeretVastagsag = 1.8F;
-            rcb_desztinacio.Location = new Point(9, 9);
+            rcb_desztinacio.Location = new Point(10, 12);
             rcb_desztinacio.Margin = new Padding(0);
-            rcb_desztinacio.MinimumSize = new Size(150, 0);
+            rcb_desztinacio.MinimumSize = new Size(171, 0);
             rcb_desztinacio.Name = "rcb_desztinacio";
-            rcb_desztinacio.Padding = new Padding(0, 0, 0, 5);
+            rcb_desztinacio.Padding = new Padding(0, 0, 0, 7);
             rcb_desztinacio.Radius = 20;
-            rcb_desztinacio.Size = new Size(262, 57);
+            rcb_desztinacio.Size = new Size(299, 76);
             rcb_desztinacio.TabIndex = 7;
             rcb_desztinacio.TitleLabelSzin = Color.Black;
-            rcb_desztinacio.Load += roundedComboBox2_Load;
+            rcb_desztinacio.ElemKivalasztva += rcb_desztinacio_ElemKivalasztva;
             // 
             // rcb_idoszak
             // 
@@ -83,16 +83,16 @@ namespace Projekt_feladat.Formok
             rcb_idoszak.ItemPanelFelsoSzin = Color.WhiteSmoke;
             rcb_idoszak.KeretSzin = Color.BlueViolet;
             rcb_idoszak.KeretVastagsag = 1.8F;
-            rcb_idoszak.Location = new Point(293, 9);
+            rcb_idoszak.Location = new Point(335, 12);
             rcb_idoszak.Margin = new Padding(0);
-            rcb_idoszak.MinimumSize = new Size(150, 0);
+            rcb_idoszak.MinimumSize = new Size(171, 0);
             rcb_idoszak.Name = "rcb_idoszak";
-            rcb_idoszak.Padding = new Padding(0, 0, 0, 5);
+            rcb_idoszak.Padding = new Padding(0, 0, 0, 7);
             rcb_idoszak.Radius = 20;
-            rcb_idoszak.Size = new Size(288, 55);
+            rcb_idoszak.Size = new Size(329, 73);
             rcb_idoszak.TabIndex = 6;
             rcb_idoszak.TitleLabelSzin = Color.Black;
-            rcb_idoszak.Load += roundedComboBox1_Load;
+            rcb_idoszak.ElemKivalasztva += rcb_idoszak_ElemKivalasztva;
             // 
             // dgv_utazasok
             // 
@@ -103,44 +103,45 @@ namespace Projekt_feladat.Formok
             dgv_utazasok.BorderStyle = BorderStyle.None;
             dgv_utazasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_utazasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgv_utazasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.White;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgv_utazasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgv_utazasok.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgv_utazasok.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.Padding = new Padding(3);
+            dataGridViewCellStyle5.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle5.SelectionForeColor = Color.BlueViolet;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgv_utazasok.DefaultCellStyle = dataGridViewCellStyle5;
             dgv_utazasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_utazasok.EnableHeadersVisualStyles = false;
             dgv_utazasok.GridColor = SystemColors.InactiveBorder;
-            dgv_utazasok.Location = new Point(9, 69);
+            dgv_utazasok.Location = new Point(10, 92);
+            dgv_utazasok.Margin = new Padding(3, 4, 3, 4);
             dgv_utazasok.Name = "dgv_utazasok";
             dgv_utazasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgv_utazasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgv_utazasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgv_utazasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgv_utazasok.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dgv_utazasok.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dgv_utazasok.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgv_utazasok.ShowEditingIcon = false;
             dgv_utazasok.ShowRowErrors = false;
-            dgv_utazasok.Size = new Size(940, 479);
+            dgv_utazasok.Size = new Size(1074, 639);
             dgv_utazasok.TabIndex = 9;
             dgv_utazasok.CellMouseEnter += dataGridView1_CellMouseEnter;
             dgv_utazasok.CellValueChanged += dgv_utazasok_CellValueChanged;
@@ -158,36 +159,61 @@ namespace Projekt_feladat.Formok
             rcb_utazasNeve.ItemPanelFelsoSzin = Color.WhiteSmoke;
             rcb_utazasNeve.KeretSzin = Color.BlueViolet;
             rcb_utazasNeve.KeretVastagsag = 1.8F;
-            rcb_utazasNeve.Location = new Point(595, 7);
+            rcb_utazasNeve.Location = new Point(680, 9);
             rcb_utazasNeve.Margin = new Padding(0);
-            rcb_utazasNeve.MinimumSize = new Size(150, 0);
+            rcb_utazasNeve.MinimumSize = new Size(171, 0);
             rcb_utazasNeve.Name = "rcb_utazasNeve";
             rcb_utazasNeve.Radius = 20;
-            rcb_utazasNeve.Size = new Size(286, 57);
+            rcb_utazasNeve.Size = new Size(327, 76);
             rcb_utazasNeve.TabIndex = 8;
             rcb_utazasNeve.TitleLabelSzin = Color.Black;
-            rcb_utazasNeve.Load += roundedComboBox3_Load;
+            rcb_utazasNeve.ElemKivalasztva += rcb_utazasNeve_ElemKivalasztva;
             // 
             // pnl_vezerlok
             // 
             pnl_vezerlok.BackColor = Color.Transparent;
+            pnl_vezerlok.Controls.Add(kg_szures);
             pnl_vezerlok.Controls.Add(kerekitettGomb5);
-            pnl_vezerlok.Controls.Add(kerekitettGomb4);
             pnl_vezerlok.Controls.Add(kerekitettGomb3);
             pnl_vezerlok.Controls.Add(btn_mentes);
             pnl_vezerlok.Dock = DockStyle.Bottom;
             pnl_vezerlok.ForeColor = Color.CadetBlue;
             pnl_vezerlok.KeretSzin = Color.Black;
             pnl_vezerlok.KeretVastagsag = 0F;
-            pnl_vezerlok.Location = new Point(0, 677);
-            pnl_vezerlok.Margin = new Padding(3, 2, 3, 2);
+            pnl_vezerlok.Location = new Point(0, 903);
             pnl_vezerlok.Name = "pnl_vezerlok";
             pnl_vezerlok.SarkokLekerekitese = 15;
-            pnl_vezerlok.Size = new Size(999, 52);
+            pnl_vezerlok.Size = new Size(1142, 69);
             pnl_vezerlok.SzinatmenetAlsoSzine = Color.DarkViolet;
             pnl_vezerlok.SzinatmenetFelsoSzine = Color.DarkViolet;
             pnl_vezerlok.SzinatmenetSzog = 90F;
             pnl_vezerlok.TabIndex = 10;
+            pnl_vezerlok.Paint += pnl_vezerlok_Paint;
+            // 
+            // kg_szures
+            // 
+            kg_szures.BackColor = Color.MediumSlateBlue;
+            kg_szures.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_szures.FlatAppearance.BorderSize = 0;
+            kg_szures.FlatStyle = FlatStyle.Flat;
+            kg_szures.Font = new Font("Segoe UI", 12F);
+            kg_szures.ForeColor = Color.White;
+            kg_szures.HatterSzine = Color.MediumSlateBlue;
+            kg_szures.Image = (Image)resources.GetObject("kg_szures.Image");
+            kg_szures.ImageAlign = ContentAlignment.MiddleRight;
+            kg_szures.KeretMeret = 0;
+            kg_szures.KeretSzine = Color.PaleVioletRed;
+            kg_szures.Location = new Point(216, 8);
+            kg_szures.Name = "kg_szures";
+            kg_szures.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kg_szures.SarokSugar = 10;
+            kg_szures.Size = new Size(187, 51);
+            kg_szures.SzovegSzine = Color.White;
+            kg_szures.TabIndex = 4;
+            kg_szures.Text = "Szűrés";
+            kg_szures.TextImageRelation = TextImageRelation.ImageBeforeText;
+            kg_szures.UseVisualStyleBackColor = false;
+            kg_szures.Click += kerekitettGomb2_Click;
             // 
             // kerekitettGomb5
             // 
@@ -202,40 +228,15 @@ namespace Projekt_feladat.Formok
             kerekitettGomb5.ImageAlign = ContentAlignment.MiddleLeft;
             kerekitettGomb5.KeretMeret = 0;
             kerekitettGomb5.KeretSzine = Color.PaleVioletRed;
-            kerekitettGomb5.Location = new Point(631, 8);
-            kerekitettGomb5.Margin = new Padding(3, 2, 3, 2);
+            kerekitettGomb5.Location = new Point(654, 8);
             kerekitettGomb5.Name = "kerekitettGomb5";
             kerekitettGomb5.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kerekitettGomb5.SarokSugar = 10;
-            kerekitettGomb5.Size = new Size(164, 38);
+            kerekitettGomb5.Size = new Size(187, 51);
             kerekitettGomb5.SzovegSzine = Color.White;
             kerekitettGomb5.TabIndex = 3;
             kerekitettGomb5.Text = "Nyomtatás";
             kerekitettGomb5.UseVisualStyleBackColor = false;
-            // 
-            // kerekitettGomb4
-            // 
-            kerekitettGomb4.BackColor = Color.MediumSlateBlue;
-            kerekitettGomb4.EgerTartasHatterSzine = Color.SlateBlue;
-            kerekitettGomb4.FlatAppearance.BorderSize = 0;
-            kerekitettGomb4.FlatStyle = FlatStyle.Flat;
-            kerekitettGomb4.Font = new Font("Segoe UI", 12F);
-            kerekitettGomb4.ForeColor = Color.White;
-            kerekitettGomb4.HatterSzine = Color.MediumSlateBlue;
-            kerekitettGomb4.Image = (Image)resources.GetObject("kerekitettGomb4.Image");
-            kerekitettGomb4.ImageAlign = ContentAlignment.MiddleLeft;
-            kerekitettGomb4.KeretMeret = 0;
-            kerekitettGomb4.KeretSzine = Color.PaleVioletRed;
-            kerekitettGomb4.Location = new Point(410, 8);
-            kerekitettGomb4.Margin = new Padding(3, 2, 3, 2);
-            kerekitettGomb4.Name = "kerekitettGomb4";
-            kerekitettGomb4.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            kerekitettGomb4.SarokSugar = 10;
-            kerekitettGomb4.Size = new Size(201, 38);
-            kerekitettGomb4.SzovegSzine = Color.White;
-            kerekitettGomb4.TabIndex = 2;
-            kerekitettGomb4.Text = "Exportálás Excelbe";
-            kerekitettGomb4.UseVisualStyleBackColor = false;
             // 
             // kerekitettGomb3
             // 
@@ -250,12 +251,11 @@ namespace Projekt_feladat.Formok
             kerekitettGomb3.ImageAlign = ContentAlignment.MiddleLeft;
             kerekitettGomb3.KeretMeret = 0;
             kerekitettGomb3.KeretSzine = Color.PaleVioletRed;
-            kerekitettGomb3.Location = new Point(202, 8);
-            kerekitettGomb3.Margin = new Padding(3, 2, 3, 2);
+            kerekitettGomb3.Location = new Point(421, 8);
             kerekitettGomb3.Name = "kerekitettGomb3";
             kerekitettGomb3.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kerekitettGomb3.SarokSugar = 10;
-            kerekitettGomb3.Size = new Size(189, 38);
+            kerekitettGomb3.Size = new Size(216, 51);
             kerekitettGomb3.SzovegSzine = Color.White;
             kerekitettGomb3.TabIndex = 1;
             kerekitettGomb3.Text = "Utaslista készítése";
@@ -274,13 +274,12 @@ namespace Projekt_feladat.Formok
             btn_mentes.ImageAlign = ContentAlignment.MiddleRight;
             btn_mentes.KeretMeret = 0;
             btn_mentes.KeretSzine = Color.MediumVioletRed;
-            btn_mentes.Location = new Point(19, 8);
-            btn_mentes.Margin = new Padding(3, 2, 3, 2);
+            btn_mentes.Location = new Point(12, 8);
             btn_mentes.Name = "btn_mentes";
             btn_mentes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_mentes.RightToLeft = RightToLeft.No;
             btn_mentes.SarokSugar = 10;
-            btn_mentes.Size = new Size(164, 38);
+            btn_mentes.Size = new Size(187, 51);
             btn_mentes.SzovegSzine = Color.White;
             btn_mentes.TabIndex = 0;
             btn_mentes.Text = "Mentés";
@@ -289,15 +288,16 @@ namespace Projekt_feladat.Formok
             // 
             // Frm_UtazasokMegtekintese
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(999, 729);
+            ClientSize = new Size(1142, 972);
             Controls.Add(pnl_vezerlok);
             Controls.Add(rcb_idoszak);
             Controls.Add(rcb_desztinacio);
             Controls.Add(dgv_utazasok);
             Controls.Add(rcb_utazasNeve);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Frm_UtazasokMegtekintese";
             Text = "Utazasok";
             Load += Frm_UtazasokMegtekintese_Load_1;
@@ -311,6 +311,7 @@ namespace Projekt_feladat.Formok
         {
             dgv_utazasok.SendToBack();
             vizualisrendezes();
+            utazasok_betoltes();
 
 
         }
@@ -333,8 +334,8 @@ namespace Projekt_feladat.Formok
         private kerekitettLenyilloMenu rcb_utazasNeve;
         private SzinatmenetPanel pnl_vezerlok;
         private KerekitettGomb kerekitettGomb5;
-        private KerekitettGomb kerekitettGomb4;
         private KerekitettGomb kerekitettGomb3;
         private KerekitettGomb btn_mentes;
+        private KerekitettGomb kg_szures;
     }
 }
