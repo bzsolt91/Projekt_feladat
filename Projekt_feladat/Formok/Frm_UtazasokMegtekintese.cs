@@ -488,13 +488,13 @@ namespace Projekt_feladat.Formok
                         cmd.Parameters.AddWithValue("@okmany", "%" + kszm_okmanySzam.Texts + "%");
                     }
 
-                    if (kb_okmanyErvenyes.Checked)
-                    {
-                        whereClauses.Add("szemelyi.okmany_lejarat >= CURDATE()");
-                    }
-                    else
+                    if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
                     {
                         whereClauses.Add("szemelyi.okmany_lejarat < CURDATE()");
+                    }
+                    else if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
+                    {
+                        whereClauses.Add("szemelyi.okmany_lejarat >= CURDATE()");
                     }
 
                     if (!string.IsNullOrWhiteSpace(kszm_lakcim.Texts))
@@ -509,22 +509,22 @@ namespace Projekt_feladat.Formok
                         cmd.Parameters.AddWithValue("@email", "%" + kszm_email.Texts + "%");
                     }
 
-                    if (kb_befizetes.Checked)
-                    {
-                        whereClauses.Add("fizetes.befizetett_osszeg > 0");
-                    }
-                    else
+                    if (kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
                     {
                         whereClauses.Add("fizetes.befizetett_osszeg = 0");
                     }
-
-                    if (kb_biztositas.Checked)
+                    else if(kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
                     {
-                        whereClauses.Add("fizetes.biztositas = 1");
+                        whereClauses.Add("fizetes.befizetett_osszeg > 0");
                     }
-                    else 
+
+                    if (kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
                     {
-                        whereClauses.Add("fizetes.biztositas = 0");
+                        whereClauses.Add("fizetes.biztositas = 'nem'");
+                    }
+                    else if (kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
+                    {
+                        whereClauses.Add("fizetes.biztositas = 'igen'");
                     }
 
                     if (!string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts))
@@ -544,8 +544,12 @@ namespace Projekt_feladat.Formok
                     var da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
                     dgv_utazasok.DataSource = dt;
-
-                    kg_szures.HatterSzine = Color.DarkKhaki;
+                    if (string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) && string.IsNullOrWhiteSpace(kszm_email.Texts) && string.IsNullOrWhiteSpace(kszm_lakcim.Texts) && string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts)
+                        && string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts) && string.IsNullOrWhiteSpace(kszm_telefon.Texts) && kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki
+                        && kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki && kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki)
+                        kg_szures.HatterSzine = Color.DarkKhaki;
+                    else
+                        kg_szures.HatterSzine = Color.AliceBlue;
                 }
             }
             catch (Exception ex)
