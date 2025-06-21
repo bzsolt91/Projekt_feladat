@@ -117,7 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="ev_szuroPanel.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="ev_szuroPanel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="kg_pipa.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAB
+        1wAAAdcBjJIIaAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAMHSURBVHhe7ZtL
+        yE1RGIYf15S7IkQoEwPCSEZKxjJUMjGS28wAMxkYu82JMCIjYaZQSgxQiuRWIoqB3Htrqd3Xt2/nP2uf
+        vfzrrWfyn/V9+1vv2Wevy14/ZGVlZWU10grgAHASuNxTVNv+UOvQtAS4CPwG/iSCar0ALLadaav1wFvn
+        AqnwBlhnO9VU+ubfOUlTQyYMdCfotrfJUuW87Vyd9BBJ6Tdfxy9gue1klfQktUlSZ6/tZJVOOwlSR0Nk
+        Y11yEqSO+tRYmlTYBKmjPjVWNsBJkDrZANvJKvXZgI/A0zC228+qSN4ATcwOA5NCjWuAl067MpI34KAt
+        EtjutCsjaQOO2QKDVjtty0jWgKoZ3G6nfRlJGnAWmGiLC1oFfHBiykjOgKvAZFtY0NKWD0CRlAG3gGm2
+        qKAFYRi0MXUkY8BdYIYtKGgO8MCJaUISBjwC5tligqYDt52YpvTegGfAQltI0FTguhPThl4b8Kpiy2oK
+        cM2JaUtvDXgfhjRPGgK1v29jBqGXBnwO7x48TQDOODGDEtWAT8BN4LnzWRlfgY32wgUdd2LGQjQDbgCz
+        Qpxu2aNOG8s3YIu5ZlGHnJixEs2AlTa45tv7AWyzAQXtcWKGQRQDfpbM1ct+v1rT77SNC9oxwEZHU6IY
+        IDbZ4CAZo1dSxbb7bKOCtoa7w+YfFtEM0KJEL1I9aQzXokbtjtgPC9ocngs29zCJZoB4EhYpnrSo2WX/
+        WNAG4IuTc9hENUA8BObaRDXSjo42OW2uGEQ3QNypWMlZafTo8vBFJwYITYjK1vL/pGfGCyc2Jp0ZIK5U
+        7ObMBx47MbHp1ABxzpkjzAbuO227oHMDhEyYGXLq1Mk9p01XjMQA8T3MFUZ95GZkBvSFbIDtZJWyAU6C
+        1GllwLg/JHXKSZA6J2wnqzTuD0r+j0dll9lO1mlY+/F9QK/ZW0tHzHXU3CZLjdfAItu5ptI/G6Rsgjq/
+        1naqrXQnaHMz1m5tDFSrFmJlL1sHkl5ealdXw4kmFX1EtanG1g+8rKysrHGpv2bp+O4LcbPXAAAAAElF
+        TkSuQmCC
+</value>
+  </data>
   <data name="rcb_desztinacio.Ikon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
@@ -172,12 +198,12 @@
   </data>
   <data name="kg_szures.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAADoSURBVEhL7dSvSgRRHAXg2X0D8UE2mCwmk8lmMxltli1a
-        tohhwegr2Yw2s0kQRPz3yciszB6GcWecLeIHt8z93XPgwtyiKIoCY2wMvMZl9hfMDG9WL5jn7gDm9YIJ
-        HnLiF8qsyXdBVbKNx5zs4Qk7S+EL2MVznujgBXuZuwT7eM2TK3jDQeY1wiHeM6HFB44ypxWOM6XFSZ5f
-        Cc4yqcFpnusEF5lYc5nznWFUXdd5rPLbKOd7wbShYJpzveEu76b8lnO9/Rf86E8U3Gb60AVbuF5bQan6
-        o8tX9n4tBQvYxBVucm9Qq75Dn/f20DQhp/R7AAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAOhJREFUSEvt1K9KBFEcBeDZfQPxQTaYLCaTyWYzGW2WLVq2iGHB6CvZjDazSRBE
+        /PfJyKzMHoZxZ5wt4ge3zP3dc+DC3KIoigJjbAy8xmX2F8wMb1YvmOfuAOb1ggkecuIXyqzJd0FVso3H
+        nOzhCTtL4QvYxXOe6OAFe5m7BPt4zZMreMNB5jXCId4zocUHjjKnFY4zpcVJnl8JzjKpwWme6wQXmVhz
+        mfOdYVRd13ms8tso53vBtKFgmnO94S7vpvyWc739F/zoTxTcZvrQBVu4XltBqfqjy1f2fi0FC9jEFW5y
+        b1CrvkOf9/bQNCGn9HsAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="kerekitettGomb5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -213,4 +239,7 @@
         8skkAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="ev_vezerloPanel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>164, 17</value>
+  </metadata>
 </root>
