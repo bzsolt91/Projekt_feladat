@@ -356,7 +356,15 @@ namespace Projekt_feladat.egyeni_vezerlok
         {
             this.OnKeyPress(e);
         }
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            this.OnKeyDown(e);
+        }
 
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.OnKeyUp(e);
+        }
         private void textBox1_Enter(object sender, EventArgs e)
         {
             fukuszalva = true;

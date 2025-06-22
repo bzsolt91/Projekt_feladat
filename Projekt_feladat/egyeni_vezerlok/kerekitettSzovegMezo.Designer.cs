@@ -37,12 +37,14 @@
             tb_dizajn.Dock = DockStyle.Fill;
             tb_dizajn.Location = new Point(10, 7);
             tb_dizajn.Name = "tb_dizajn";
-            tb_dizajn.Size = new Size(230, 15);
+            tb_dizajn.Size = new Size(230, 18);
             tb_dizajn.TabIndex = 0;
             tb_dizajn.Click += textBox1_Click;
             tb_dizajn.TextChanged += textBox1_TextChanged;
             tb_dizajn.Enter += textBox1_Enter;
+            tb_dizajn.KeyDown += textBox1_KeyDown;
             tb_dizajn.KeyPress += textBox1_KeyPress;
+            tb_dizajn.KeyUp += textBox1_KeyUp;
             tb_dizajn.Leave += textBox1_Leave;
             tb_dizajn.MouseEnter += textBox1_MouseEnter;
             tb_dizajn.MouseLeave += textBox1_MouseLeave;

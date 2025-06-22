@@ -12,6 +12,7 @@ namespace Projekt_feladat.Formok
 {
     public partial class Frm_UtazasokMegtekintese : Form
     {
+        ListBox lst_talalatok = new ListBox();
         string constr;
         ToolTip? egyeniTooltip = new ToolTip();
         string? utazasDesztinacio = null;
@@ -28,10 +29,31 @@ namespace Projekt_feladat.Formok
             this.AutoScaleMode = AutoScaleMode.None;
             form_elrendezes();
 
+            lst_talalatok.Width = 200;
+            lst_talalatok.Visible = false;
+      
+            lst_talalatok.Click += lst_talalatok_Click;
+            lst_talalatok.Width = kszm_utasNeve.Width;
+
+
+            szpn_szuroPanel.Controls.Add(lst_talalatok);
+
+
             constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
 
 
         }
+
+        private void lst_talalatok_Click(object? sender, EventArgs e)//autokitöltés
+        {
+            if (lst_talalatok.SelectedItem != null)
+            {
+                kszm_utasNeve.Texts = lst_talalatok.SelectedItem.ToString();
+                lst_talalatok.Visible = false;
+               
+            }
+        }
+
         private void vizualisrendezes()
         {
             form_elrendezes();
@@ -55,7 +77,8 @@ namespace Projekt_feladat.Formok
             dgv_utazasok.Location = new Point(10, rcb_idoszak.Bounds.Bottom);
             dgv_utazasok.Size = new Size(this.Width - 20, this.Height - pnl_vezerlok.Height - rcb_idoszak.Height - 15);
             dgv_utazasok.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height/2-szpn_szuroPanel.Height/2);
+            szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height / 2 - szpn_szuroPanel.Height / 2);
+            lst_talalatok.Location = new Point(kszm_utasNeve.Location.X, kszm_utasNeve.Location.Y + kszm_utasNeve.Height + 10);
             this.Controls.Add(dgv_utazasok);
 
         }
@@ -70,7 +93,7 @@ namespace Projekt_feladat.Formok
                 {
                     int maxWidth = 0;
 
-                    // Mérjük meg a cellák szövegét
+
                     foreach (DataGridViewRow row in dgv.Rows)
                     {
                         if (!row.IsNewRow && row.Cells[col.Index].Value != null)
@@ -83,13 +106,13 @@ namespace Projekt_feladat.Formok
                         }
                     }
 
-                    // Mérjük meg a fejléc szövegét a fejléc fontjával
+
                     string fejlecSzoveg = col.HeaderText;
                     Font fejlecFont = col.HeaderCell.Style.Font ?? dgv.ColumnHeadersDefaultCellStyle.Font ?? dgv.Font;
                     SizeF fejlecMeret = g.MeasureString(fejlecSzoveg, fejlecFont);
                     int fejlecSzelesseg = (int)Math.Ceiling(fejlecMeret.Width);
 
-                    // A kettő közül a nagyobb, + némi margó
+
                     col.Width = Math.Max(maxWidth, fejlecSzelesseg) + 20;
                 }
             }
@@ -399,34 +422,38 @@ namespace Projekt_feladat.Formok
 
         }
 
-        private void pnl_vezerlok_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
         private void kerekitettGomb2_Click(object sender, EventArgs e)
         {
             if (szpn_szuroPanel.Visible)
             {
                 szpn_szuroPanel.Visible = false;
-               
+
             }
             else
             {
                 szpn_szuroPanel.Visible = true;
-               
+
             }
         }
 
         private void kg_pipa_Click(object sender, EventArgs e)
         {
+            if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
+                lekerdezes_kivalasztva();
+            else
+            {
+                szpn_szuroPanel.Visible = false;
+                return;
+            }
             szpn_szuroPanel.Visible = false;
             try
             {
                 using (var mc_mysqlcon = new MySqlConnection(constr))
                 {
                     var dt = new DataTable();
-                    var whereClauses = new List<string>();
+                    var whereszekvencia = new List<string>();
                     var cmd = new MySqlCommand();
                     cmd.Connection = mc_mysqlcon;
 
@@ -463,80 +490,104 @@ namespace Projekt_feladat.Formok
 
                     // Szűrők hozzáadása
 
-                    // Név szűrés (összefűzve)
+
+
+
+
+
+                    whereszekvencia.Add(@"t.utazas_ideje = @utazasideje AND t.desztinacio = @desztinacio AND t.utazas_elnevezese = @utazasneve");
+
+                    cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
+                    cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+                    cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
+
+
+
+
                     if (!string.IsNullOrWhiteSpace(kszm_utasNeve.Texts))
                     {
-                        whereClauses.Add(@"(
-                            u.titulus LIKE @nev 
-                            OR u.vezeteknev LIKE @nev 
-                            OR u.keresztnev1 LIKE @nev 
-                            OR u.keresztnev2 LIKE @nev
-                        )");
-                        cmd.Parameters.AddWithValue("@nev", "%" + kszm_utasNeve.Texts.Trim() + "%");
+                        var nevReszek = kszm_utasNeve.Texts.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        int nevIndex = 0;
+
+                        foreach (var szo in nevReszek)//az autokomplete miatt muszály szétszedni szóközönként a szűrésnél a névrészeket
+                        {
+                            string paramNev = "@nev" + nevIndex;
+                            nevIndex++;
+                            
+                            whereszekvencia.Add($@"(
+                                                u.titulus LIKE {paramNev} 
+                                                OR u.vezeteknev LIKE {paramNev} 
+                                                OR u.keresztnev1 LIKE {paramNev} 
+                                                OR u.keresztnev2 LIKE {paramNev}
+                                            )");
+
+                            cmd.Parameters.AddWithValue(paramNev, "%" + szo + "%");
+                        }
                     }
+
 
 
                     if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts))
                     {
-                        whereClauses.Add("telefon.telefon LIKE @telefon");
+                        whereszekvencia.Add("telefon.telefon LIKE @telefon");
                         cmd.Parameters.AddWithValue("@telefon", "%" + kszm_telefon.Texts + "%");
                     }
 
                     if (!string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts))
                     {
-                        whereClauses.Add("szemelyi.szemelyi_vagy_utlevel LIKE @okmany");
+                        whereszekvencia.Add("szemelyi.szemelyi_vagy_utlevel LIKE @okmany");
                         cmd.Parameters.AddWithValue("@okmany", "%" + kszm_okmanySzam.Texts + "%");
                     }
 
                     if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
                     {
-                        whereClauses.Add("szemelyi.okmany_lejarat < CURDATE()");
+                        whereszekvencia.Add("szemelyi.okmany_lejarat < CURDATE()");
                     }
                     else if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
                     {
-                        whereClauses.Add("szemelyi.okmany_lejarat >= CURDATE()");
+                        whereszekvencia.Add("szemelyi.okmany_lejarat >= CURDATE()");
                     }
 
                     if (!string.IsNullOrWhiteSpace(kszm_lakcim.Texts))
                     {
-                        whereClauses.Add("cim.lakcim LIKE @lakcim");
+                        whereszekvencia.Add("cim.lakcim LIKE @lakcim");
                         cmd.Parameters.AddWithValue("@lakcim", "%" + kszm_lakcim.Texts + "%");
                     }
 
                     if (!string.IsNullOrWhiteSpace(kszm_email.Texts))
                     {
-                        whereClauses.Add("cim.email_cim LIKE @email");
+                        whereszekvencia.Add("cim.email_cim LIKE @email");
                         cmd.Parameters.AddWithValue("@email", "%" + kszm_email.Texts + "%");
                     }
 
                     if (kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
                     {
-                        whereClauses.Add("fizetes.befizetett_osszeg = 0");
+                        whereszekvencia.Add("fizetes.befizetett_osszeg = 0");
                     }
-                    else if(kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
+                    else if (kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
                     {
-                        whereClauses.Add("fizetes.befizetett_osszeg > 0");
+                        whereszekvencia.Add("fizetes.befizetett_osszeg > 0");
                     }
 
                     if (kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
                     {
-                        whereClauses.Add("fizetes.biztositas = 'nem'");
+                        whereszekvencia.Add("fizetes.biztositas = 'nem'");
                     }
                     else if (kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
                     {
-                        whereClauses.Add("fizetes.biztositas = 'igen'");
+                        whereszekvencia.Add("fizetes.biztositas = 'igen'");
                     }
 
                     if (!string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts))
                     {
-                        whereClauses.Add("megjegyzes.megjegyzes LIKE @megjegyzes");
+                        whereszekvencia.Add("megjegyzes.megjegyzes LIKE @megjegyzes");
                         cmd.Parameters.AddWithValue("@megjegyzes", "%" + kszm_megjegyzes.Texts + "%");
                     }
 
-                
-                    if (whereClauses.Count > 0)
+
+                    if (whereszekvencia.Count > 0)
                     {
-                        sql += " WHERE " + string.Join(" AND ", whereClauses);
+                        sql += " WHERE " + string.Join(" AND ", whereszekvencia);
                     }
                     sql += " GROUP BY u.utas_id";
 
@@ -544,12 +595,17 @@ namespace Projekt_feladat.Formok
                     var da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
                     dgv_utazasok.DataSource = dt;
+
+                    //ha szűrés nincs visszaáll a szűrő gomb színe
                     if (string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) && string.IsNullOrWhiteSpace(kszm_email.Texts) && string.IsNullOrWhiteSpace(kszm_lakcim.Texts) && string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts)
                         && string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts) && string.IsNullOrWhiteSpace(kszm_telefon.Texts) && kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki
                         && kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki && kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki)
-                        kg_szures.HatterSzine = Color.DarkKhaki;
+                    {
+                        kg_szures.HatterSzine = Color.MediumSlateBlue;
+                        lekerdezes_kivalasztva();
+                    }
                     else
-                        kg_szures.HatterSzine = Color.AliceBlue;
+                        kg_szures.HatterSzine = Color.Orange;
                 }
             }
             catch (Exception ex)
@@ -558,6 +614,112 @@ namespace Projekt_feladat.Formok
                     MessageBox.Show("Nem sikerült kapcsolódni az adatbázishoz.", "Adatbázis elérés");
                 else
                     MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void kszm_utasNeve__SzovegValtoztatva(object sender, EventArgs e)
+        {
+            lst_talalatok.Visible = true;
+            lst_talalatok.BringToFront();
+
+            try
+            {
+
+                using (var conn = new MySqlConnection(constr))
+                {
+                    conn.Open();
+                    var lista = new List<string>();
+                    var whereszekvencia = new List<string>();
+                    string sql = @"SELECT u.titulus,u.vezeteknev,u.keresztnev1,u.keresztnev2 FROM utas AS u
+               INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
+               INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id";
+
+
+
+                    whereszekvencia.Add(@"t.utazas_ideje = @utazasideje AND t.desztinacio = @desztinacio AND t.utazas_elnevezese = @utazasneve");
+
+                    // Név szűrés (összefűzve)
+
+                    whereszekvencia.Add(@"(
+                            u.titulus LIKE @nev 
+                            OR u.vezeteknev LIKE @nev 
+                            OR u.keresztnev1 LIKE @nev 
+                            OR u.keresztnev2 LIKE @nev
+                        )");
+
+
+                    // paraméterek hozzáadása
+                    if (whereszekvencia.Count > 0)
+                    {
+                        sql += " WHERE " + string.Join(" AND ", whereszekvencia);
+                    }
+                    sql += " GROUP BY u.utas_id LIMIT 4";
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+
+
+                        cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
+                        cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+                        cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
+
+                        cmd.Parameters.AddWithValue("@nev", "%" + kszm_utasNeve.Texts.Trim() + "%");
+
+
+
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string titulus = reader.IsDBNull(0) ? "" : reader.GetString(0);
+                                string vezeteknev = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                                string keresztnev1 = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                                string keresztnev2 = reader.IsDBNull(3) ? "" : reader.GetString(3);
+
+                                string teljesNev = $"{titulus} {vezeteknev} {keresztnev1} {keresztnev2}".Trim();
+                                lista.Add(teljesNev);
+                            }
+                        }
+                    }
+                    lst_talalatok.DataSource = null;
+
+                    lst_talalatok.DataSource = lista.Take(4).ToArray(); // csak 4 találat
+                }
+            }
+            catch (Exception xe)
+            {
+                if (xe.Message.StartsWith("Unable to conn"))
+                    MessageBox.Show("Nem sikerült kapcsolódni az adatbázihoz.", "Adatbázis elérés");
+                else
+                    MessageBox.Show(xe.Message);
+            }
+        }
+
+        private void kszm_utasNeve_KeyPress(object sender, KeyPressEventArgs e)///auto kiegészítés itt töltődikf fel
+        {
+           
+        }
+  
+        private void kszm_utasNeve_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!lst_talalatok.Visible) return;
+
+            if (e.KeyCode == Keys.Down && lst_talalatok.SelectedIndex < lst_talalatok.Items.Count - 1)
+            {
+                lst_talalatok.SelectedIndex++;
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Up && lst_talalatok.SelectedIndex > 0)
+            {
+                lst_talalatok.SelectedIndex--;
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Enter && lst_talalatok.SelectedItem != null)
+            {
+                kszm_utasNeve.Texts = lst_talalatok.SelectedItem.ToString();
+                lst_talalatok.Visible = false;
+
+                e.Handled = true;
             }
         }
     }
