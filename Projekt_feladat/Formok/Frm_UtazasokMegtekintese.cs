@@ -29,9 +29,9 @@ namespace Projekt_feladat.Formok
             this.AutoScaleMode = AutoScaleMode.None;
             form_elrendezes();
 
-            lst_talalatok.Width = 200;
+           
             lst_talalatok.Visible = false;
-      
+
             lst_talalatok.Click += lst_talalatok_Click;
             lst_talalatok.Width = kszm_utasNeve.Width;
 
@@ -44,14 +44,18 @@ namespace Projekt_feladat.Formok
 
         }
 
-        private void lst_talalatok_Click(object? sender, EventArgs e)//autokitöltés
+        private void lst_talalatok_Click(object? sender, EventArgs e)
         {
-            if (lst_talalatok.SelectedItem != null)
+            this.BeginInvoke(new Action(() =>
             {
-                kszm_utasNeve.Texts = lst_talalatok.SelectedItem.ToString();
-                lst_talalatok.Visible = false;
-               
-            }
+                if (lst_talalatok.SelectedItem == null) return;
+
+                if (lst_talalatok.Tag is kerekitettSzovegMezo celMezo)
+                {
+                    celMezo.Texts = lst_talalatok.SelectedItem.ToString();
+                    lst_talalatok.Visible = false;
+                }
+            }));
         }
 
         private void vizualisrendezes()
@@ -513,7 +517,7 @@ namespace Projekt_feladat.Formok
                         {
                             string paramNev = "@nev" + nevIndex;
                             nevIndex++;
-                            
+
                             whereszekvencia.Add($@"(
                                                 u.titulus LIKE {paramNev} 
                                                 OR u.vezeteknev LIKE {paramNev} 
@@ -617,59 +621,94 @@ namespace Projekt_feladat.Formok
             }
         }
 
-        private void kszm_utasNeve__SzovegValtoztatva(object sender, EventArgs e)
+        private kerekitettSzovegMezo aktivMezo;
+
+        private void kszm_AutoComplete(object sender, EventArgs e)
         {
+
+     
+
+           
+            var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
+            if (aktivMezo == null) return;
+            lst_talalatok.Tag = aktivMezo;
             lst_talalatok.Visible = true;
+            
+            lst_talalatok.Location = new Point(aktivMezo.Location.X, aktivMezo.Location.Y + aktivMezo.Height + 10);
             lst_talalatok.BringToFront();
+            var lista = new List<string>();
+            var nev = aktivMezo.Name;
 
             try
             {
-
                 using (var conn = new MySqlConnection(constr))
                 {
                     conn.Open();
-                    var lista = new List<string>();
-                    var whereszekvencia = new List<string>();
-                    string sql = @"SELECT u.titulus,u.vezeteknev,u.keresztnev1,u.keresztnev2 FROM utas AS u
-               INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
-               INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id";
+                    string sql = "";
+                    var cmd = new MySqlCommand();
+                    cmd.Connection = conn;
 
-
-
-                    whereszekvencia.Add(@"t.utazas_ideje = @utazasideje AND t.desztinacio = @desztinacio AND t.utazas_elnevezese = @utazasneve");
-
-                    // Név szűrés (összefűzve)
-
-                    whereszekvencia.Add(@"(
-                            u.titulus LIKE @nev 
-                            OR u.vezeteknev LIKE @nev 
-                            OR u.keresztnev1 LIKE @nev 
-                            OR u.keresztnev2 LIKE @nev
-                        )");
-
-
-                    // paraméterek hozzáadása
-                    if (whereszekvencia.Count > 0)
+                    switch (nev)
                     {
-                        sql += " WHERE " + string.Join(" AND ", whereszekvencia);
+                        case "kszm_utasNeve":
+                            sql = @"SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2
+                            FROM utas AS u
+                            INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
+                            INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
+                            WHERE t.utazas_ideje = @utazasideje
+                              AND t.desztinacio = @desztinacio
+                              AND t.utazas_elnevezese = @utazasneve
+                              AND (
+                                  u.titulus LIKE @nev OR
+                                  u.vezeteknev LIKE @nev OR
+                                  u.keresztnev1 LIKE @nev OR
+                                  u.keresztnev2 LIKE @nev
+                              )
+                            GROUP BY u.utas_id
+                            LIMIT 4";
+
+                            cmd.Parameters.AddWithValue("@nev", "%" + aktivMezo.Texts.Trim() + "%");
+                            cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
+                            cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+                            cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
+                            break;
+
+                        case "kszm_email":
+                            sql = "SELECT DISTINCT email_cim FROM cim WHERE email_cim LIKE @szoveg LIMIT 4";
+                            cmd.Parameters.AddWithValue("@szoveg", "%" + aktivMezo.Texts.Trim() + "%");
+                            break;
+
+                        case "kszm_telefon":
+                            sql = "SELECT DISTINCT telefon FROM telefon WHERE telefon LIKE @szoveg LIMIT 4";
+                            cmd.Parameters.AddWithValue("@szoveg", "%" + aktivMezo.Texts.Trim() + "%");
+                            break;
+
+                        case "kszm_lakcim":
+                            sql = "SELECT DISTINCT lakcim FROM cim WHERE lakcim LIKE @szoveg LIMIT 4";
+                            cmd.Parameters.AddWithValue("@szoveg", "%" + aktivMezo.Texts.Trim() + "%");
+                            break;
+
+                        case "kszm_okmanySzam":
+                            sql = "SELECT DISTINCT szemelyi_vagy_utlevel FROM szemelyi WHERE szemelyi_vagy_utlevel LIKE @szoveg LIMIT 4";
+                            cmd.Parameters.AddWithValue("@szoveg", "%" + aktivMezo.Texts.Trim() + "%");
+                            break;
+
+                        case "kszm_megjegyzes":
+                            sql = "SELECT DISTINCT megjegyzes FROM megjegyzes WHERE megjegyzes LIKE @szoveg LIMIT 4";
+                            cmd.Parameters.AddWithValue("@szoveg", "%" + aktivMezo.Texts.Trim() + "%");
+                            break;
+
+                        default:
+                            return;
                     }
-                    sql += " GROUP BY u.utas_id LIMIT 4";
-                    using (var cmd = new MySqlCommand(sql, conn))
+
+                    cmd.CommandText = sql;
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-
-
-                        cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
-                        cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
-                        cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
-
-                        cmd.Parameters.AddWithValue("@nev", "%" + kszm_utasNeve.Texts.Trim() + "%");
-
-
-
-
-                        using (var reader = cmd.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            if (nev == "kszm_utasNeve")
                             {
                                 string titulus = reader.IsDBNull(0) ? "" : reader.GetString(0);
                                 string vezeteknev = reader.IsDBNull(1) ? "" : reader.GetString(1);
@@ -679,17 +718,21 @@ namespace Projekt_feladat.Formok
                                 string teljesNev = $"{titulus} {vezeteknev} {keresztnev1} {keresztnev2}".Trim();
                                 lista.Add(teljesNev);
                             }
+                            else
+                            {
+                                lista.Add(reader.GetString(0));
+                            }
                         }
                     }
-                    lst_talalatok.DataSource = null;
 
-                    lst_talalatok.DataSource = lista.Take(4).ToArray(); // csak 4 találat
+                    lst_talalatok.DataSource = null;
+                    lst_talalatok.DataSource = lista;
                 }
             }
             catch (Exception xe)
             {
                 if (xe.Message.StartsWith("Unable to conn"))
-                    MessageBox.Show("Nem sikerült kapcsolódni az adatbázihoz.", "Adatbázis elérés");
+                    MessageBox.Show("Nem sikerült kapcsolódni az adatbázishoz.", "Adatbázis elérés");
                 else
                     MessageBox.Show(xe.Message);
             }
@@ -697,12 +740,15 @@ namespace Projekt_feladat.Formok
 
         private void kszm_utasNeve_KeyPress(object sender, KeyPressEventArgs e)///auto kiegészítés itt töltődikf fel
         {
-           
+
         }
-  
-        private void kszm_utasNeve_KeyDown(object sender, KeyEventArgs e)
+
+        private void SzovegMezo_KeyDown(object sender, KeyEventArgs e)
         {
             if (!lst_talalatok.Visible) return;
+
+            var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
+            if (aktivMezo == null) return;
 
             if (e.KeyCode == Keys.Down && lst_talalatok.SelectedIndex < lst_talalatok.Items.Count - 1)
             {
@@ -716,11 +762,22 @@ namespace Projekt_feladat.Formok
             }
             else if (e.KeyCode == Keys.Enter && lst_talalatok.SelectedItem != null)
             {
-                kszm_utasNeve.Texts = lst_talalatok.SelectedItem.ToString();
+                aktivMezo.Texts = lst_talalatok.SelectedItem.ToString();
                 lst_talalatok.Visible = false;
-
                 e.Handled = true;
             }
+        }
+
+
+        private void kszm_Leave(object sender, EventArgs e)
+        {
+            lst_talalatok.Visible = false;
+            lst_talalatok.DataSource = null;
+        }
+
+        private void szpn_szuroPanel_Click(object sender, EventArgs e)
+        {
+            szpn_szuroPanel.Focus();
         }
     }
 }

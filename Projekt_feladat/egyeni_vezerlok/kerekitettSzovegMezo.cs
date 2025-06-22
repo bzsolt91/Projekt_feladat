@@ -337,8 +337,7 @@ namespace Projekt_feladat.egyeni_vezerlok
         #region -> TextBox events
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (_SzovegValtoztatva != null)
-                _SzovegValtoztatva.Invoke(sender, e);
+            _SzovegValtoztatva?.Invoke(this, e);
         }
         private void textBox1_Click(object sender, EventArgs e)
         {
