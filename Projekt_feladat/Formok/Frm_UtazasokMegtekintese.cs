@@ -21,7 +21,6 @@ namespace Projekt_feladat.Formok
         public Frm_UtazasokMegtekintese()
         {
             InitializeComponent();
-
             egyeniTooltip.OwnerDraw = true;
             dgv_utazasok.ShowCellToolTips = false;
             egyeniTooltip.Draw += EgyeniTooltip_Draw;
@@ -29,50 +28,39 @@ namespace Projekt_feladat.Formok
             this.AutoScaleMode = AutoScaleMode.None;
             form_elrendezes();
 
-           
             lst_talalatok.Visible = false;
-
-            lst_talalatok.Click += lst_talalatok_Click;
+           
+            lst_talalatok.MouseDown += lst_talalatok_MouseDown;
             lst_talalatok.Width = kszm_utasNeve.Width;
-
-
             szpn_szuroPanel.Controls.Add(lst_talalatok);
-
-
             constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
-
-
         }
-
-        private void lst_talalatok_Click(object? sender, EventArgs e)
+        private void lst_talalatok_MouseDown(object sender, MouseEventArgs e)
         {
-            this.BeginInvoke(new Action(() =>
+            int index = lst_talalatok.IndexFromPoint(e.Location);
+            if (index >= 0)
             {
-                if (lst_talalatok.SelectedItem == null) return;
+                lst_talalatok.SelectedIndex = index;
 
-                if (lst_talalatok.Tag is kerekitettSzovegMezo celMezo)
+                if (lst_talalatok.Tag is kerekitettSzovegMezo aktivMezo)
                 {
-                    celMezo.Texts = lst_talalatok.SelectedItem.ToString();
-                    lst_talalatok.Visible = false;
+                    aktivMezo.Texts = lst_talalatok.Items[index].ToString();
+                    aktivMezo.Focus();
                 }
-            }));
-        }
 
+                lst_talalatok.Visible = false;
+            }
+        }
         private void vizualisrendezes()
         {
             form_elrendezes();
-
             this.Controls.Add(rcb_idoszak);
             this.Controls.Add(rcb_desztinacio);
             this.Controls.Add(rcb_utazasNeve);
-
-
         }
-
         private void form_elrendezes()
         {
             int spacing = 100;
-
             int formWidth = this.Width;
             int totalWidth = 3 * rcb_idoszak.Width + 2 * spacing;
             int startX = (formWidth - totalWidth) / 2;
@@ -84,19 +72,15 @@ namespace Projekt_feladat.Formok
             szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height / 2 - szpn_szuroPanel.Height / 2);
             lst_talalatok.Location = new Point(kszm_utasNeve.Location.X, kszm_utasNeve.Location.Y + kszm_utasNeve.Height + 10);
             this.Controls.Add(dgv_utazasok);
-
         }
 
         private void MeretezdCellakAlapjan(DataGridView dgv)
-
         {
-
             using (Graphics g = dgv.CreateGraphics())
             {
                 foreach (DataGridViewColumn col in dgv.Columns)
                 {
                     int maxWidth = 0;
-
 
                     foreach (DataGridViewRow row in dgv.Rows)
                     {
@@ -109,14 +93,10 @@ namespace Projekt_feladat.Formok
                                 maxWidth = cellaSzelesseg;
                         }
                     }
-
-
                     string fejlecSzoveg = col.HeaderText;
                     Font fejlecFont = col.HeaderCell.Style.Font ?? dgv.ColumnHeadersDefaultCellStyle.Font ?? dgv.Font;
                     SizeF fejlecMeret = g.MeasureString(fejlecSzoveg, fejlecFont);
                     int fejlecSzelesseg = (int)Math.Ceiling(fejlecMeret.Width);
-
-
                     col.Width = Math.Max(maxWidth, fejlecSzelesseg) + 20;
                 }
             }
@@ -148,8 +128,6 @@ namespace Projekt_feladat.Formok
             }
             else
                 return;
-
-
         }
         private void utazasok_betoltes()
         {
@@ -240,9 +218,6 @@ namespace Projekt_feladat.Formok
                     MessageBox.Show(e.Message);
             }
         }
-
-
-
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
 
@@ -271,18 +246,12 @@ namespace Projekt_feladat.Formok
                     rcb_utazasNeve.adatForras = new string[0];
                     utazasNeve = null;
                 }
-
-
                 utazasIdoszak = e.Ertek;
                 if (utazasIdoszak != null && utazasDesztinacio != null)
                     utazasneve_betoltes();
             }
             else
                 return;
-
-
-
-
         }
         private void idoszak_betoltes()
         {
@@ -322,9 +291,6 @@ namespace Projekt_feladat.Formok
 
         private void rcb_utazasNeve_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
-
-
-
             if (e.Ertek != null)
                 utazasNeve = e.Ertek;
 
@@ -332,12 +298,10 @@ namespace Projekt_feladat.Formok
                 lekerdezes_kivalasztva();
 
         }
-
         private void utazasneve_betoltes()
         {
             try
             {
-
                 using (var conn = new MySqlConnection(constr))
                 {
                     conn.Open();
@@ -357,7 +321,6 @@ namespace Projekt_feladat.Formok
                             }
                         }
                     }
-
                     rcb_utazasNeve.adatForras = lista.ToArray();
                 }
             }
@@ -384,7 +347,6 @@ namespace Projekt_feladat.Formok
             Size meret = TextRenderer.MeasureText(szoveg, font, new Size(1000, 0), TextFormatFlags.WordBreak);
             e.ToolTipSize = new Size(meret.Width + 10, meret.Height + 10);
         }
-
         private void EgyeniTooltip_Draw(object sender, DrawToolTipEventArgs e)
         {
             Font font = new Font("Segoe UI", 14);
@@ -395,9 +357,7 @@ namespace Projekt_feladat.Formok
 
             e.Graphics.DrawRectangle(Pens.DarkViolet, new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1));
             TextRenderer.DrawText(e.Graphics, e.ToolTipText, font, e.Bounds, Color.White, TextFormatFlags.WordBreak);
-
         }
-
         private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -425,9 +385,6 @@ namespace Projekt_feladat.Formok
             btn_mentes.HatterSzine = Color.Red;
 
         }
-
-
-
         private void kerekitettGomb2_Click(object sender, EventArgs e)
         {
             if (szpn_szuroPanel.Visible)
@@ -438,10 +395,8 @@ namespace Projekt_feladat.Formok
             else
             {
                 szpn_szuroPanel.Visible = true;
-
             }
         }
-
         private void kg_pipa_Click(object sender, EventArgs e)
         {
             if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
@@ -451,6 +406,7 @@ namespace Projekt_feladat.Formok
                 szpn_szuroPanel.Visible = false;
                 return;
             }
+            lst_talalatok.Visible = false;
             szpn_szuroPanel.Visible = false;
             try
             {
@@ -494,20 +450,11 @@ namespace Projekt_feladat.Formok
 
                     // Szűrők hozzáadása
 
-
-
-
-
-
                     whereszekvencia.Add(@"t.utazas_ideje = @utazasideje AND t.desztinacio = @desztinacio AND t.utazas_elnevezese = @utazasneve");
 
                     cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
                     cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
                     cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
-
-
-
-
                     if (!string.IsNullOrWhiteSpace(kszm_utasNeve.Texts))
                     {
                         var nevReszek = kszm_utasNeve.Texts.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -528,9 +475,6 @@ namespace Projekt_feladat.Formok
                             cmd.Parameters.AddWithValue(paramNev, "%" + szo + "%");
                         }
                     }
-
-
-
                     if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts))
                     {
                         whereszekvencia.Add("telefon.telefon LIKE @telefon");
@@ -620,20 +564,15 @@ namespace Projekt_feladat.Formok
                     MessageBox.Show(ex.Message);
             }
         }
-
         private kerekitettSzovegMezo aktivMezo;
 
         private void kszm_AutoComplete(object sender, EventArgs e)
         {
-
-     
-
-           
             var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
             if (aktivMezo == null) return;
             lst_talalatok.Tag = aktivMezo;
             lst_talalatok.Visible = true;
-            
+
             lst_talalatok.Location = new Point(aktivMezo.Location.X, aktivMezo.Location.Y + aktivMezo.Height + 10);
             lst_talalatok.BringToFront();
             var lista = new List<string>();
@@ -737,7 +676,6 @@ namespace Projekt_feladat.Formok
                     MessageBox.Show(xe.Message);
             }
         }
-
         private void kszm_utasNeve_KeyPress(object sender, KeyPressEventArgs e)///auto kiegészítés itt töltődikf fel
         {
 
@@ -767,17 +705,104 @@ namespace Projekt_feladat.Formok
                 e.Handled = true;
             }
         }
-
-
         private void kszm_Leave(object sender, EventArgs e)
         {
-            lst_talalatok.Visible = false;
-            lst_talalatok.DataSource = null;
+            this.BeginInvoke(new Action(() =>
+            {
+                // Csak akkor zárjuk be a ListBox-ot, ha az egér nincs rajta és nem aktív vezérlő
+                if (!lst_talalatok.Bounds.Contains(PointToClient(Cursor.Position)) &&
+                    !lst_talalatok.Focused)
+                {
+                    lst_talalatok.Visible = false;
+                }
+            }));
         }
-
         private void szpn_szuroPanel_Click(object sender, EventArgs e)
         {
             szpn_szuroPanel.Focus();
         }
+
+        private void btn_mentes_Click(object sender, EventArgs e)
+        {
+            using (var kapcsolat = new MySqlConnection(constr))
+            {
+                kapcsolat.Open();
+
+                foreach (DataGridViewRow sor in dgv_utazasok.Rows)
+                {
+                    if (sor.IsNewRow) continue;
+
+                    int utasId = Convert.ToInt32(sor.Cells["Sorszám"].Value);
+
+                    string titulus = sor.Cells["Titulus"].Value?.ToString();
+                    string vezeteknev = sor.Cells["Vezetéknév"].Value?.ToString();
+                    string keresztnev1 = sor.Cells["Keresztnév"].Value?.ToString();
+                    string keresztnev2 = sor.Cells["Második keresztnév"].Value?.ToString();
+                    string telefon = sor.Cells["Telefonszám"].Value?.ToString();
+                    string okmany = sor.Cells["Okmány"].Value?.ToString();
+                    DateTime ervenyesseg = Convert.ToDateTime(sor.Cells["Érvényesség"].Value);
+                    string lakcim = sor.Cells["Lakcím"].Value?.ToString();
+                    string email = sor.Cells["Email"].Value?.ToString();
+                    int befizetett = Convert.ToInt32(sor.Cells["Befizetett összeg"].Value);
+                    string biztositas = sor.Cells["Biztosítás van"].Value.ToString();
+                    string megjegyzes = sor.Cells["Megjegyzés"].Value?.ToString();
+
+                    // ugyanazok az UPDATE-ek, mint korábban...
+                    using (var cmd = new MySqlCommand(@"UPDATE utas SET 
+                titulus = @titulus, vezeteknev = @vezeteknev, keresztnev1 = @kn1, keresztnev2 = @kn2 
+                WHERE utas_id = @id", kapcsolat))
+                    {
+                        cmd.Parameters.AddWithValue("@titulus", titulus);
+                        cmd.Parameters.AddWithValue("@vezeteknev", vezeteknev);
+                        cmd.Parameters.AddWithValue("@kn1", keresztnev1);
+                        cmd.Parameters.AddWithValue("@kn2", keresztnev2);
+                        cmd.Parameters.AddWithValue("@id", utasId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (var cmd = new MySqlCommand(@"UPDATE telefon SET telefon = @telefon WHERE utas_id = @id", kapcsolat))
+                    {
+                        cmd.Parameters.AddWithValue("@telefon", telefon);
+                        cmd.Parameters.AddWithValue("@id", utasId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (var cmd = new MySqlCommand(@"UPDATE szemelyi SET szemelyi_vagy_utlevel = @okmany, okmany_lejarat = @ervenyesseg WHERE utas_id = @id", kapcsolat))
+                    {
+                        cmd.Parameters.AddWithValue("@okmany", okmany);
+                        cmd.Parameters.AddWithValue("@ervenyesseg", ervenyesseg);
+                        cmd.Parameters.AddWithValue("@id", utasId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (var cmd = new MySqlCommand(@"UPDATE cim SET lakcim = @lakcim, email_cim = @email WHERE utas_id = @id", kapcsolat))
+                    {
+                        cmd.Parameters.AddWithValue("@lakcim", lakcim);
+                        cmd.Parameters.AddWithValue("@email", email);
+                        cmd.Parameters.AddWithValue("@id", utasId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (var cmd = new MySqlCommand(@"UPDATE fizetes SET befizetett_osszeg = @osszeg, biztositas = @bizt WHERE utas_id = @id", kapcsolat))
+                    {
+                        cmd.Parameters.AddWithValue("@osszeg", befizetett);
+                        cmd.Parameters.AddWithValue("@bizt", biztositas);
+                        cmd.Parameters.AddWithValue("@id", utasId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (var cmd = new MySqlCommand(@"UPDATE megjegyzes SET megjegyzes = @megj WHERE utas_id = @id", kapcsolat))
+                    {
+                        cmd.Parameters.AddWithValue("@megj", megjegyzes);
+                        cmd.Parameters.AddWithValue("@id", utasId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                btn_mentes.HatterSzine = Color.MediumSlateBlue;
+            }
+        }
+
+
     }
 }

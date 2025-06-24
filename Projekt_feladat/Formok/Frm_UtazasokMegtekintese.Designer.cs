@@ -187,7 +187,7 @@ namespace Projekt_feladat.Formok
             kszm_megjegyzes.Margin = new Padding(4);
             kszm_megjegyzes.Name = "kszm_megjegyzes";
             kszm_megjegyzes.Padding = new Padding(10, 7, 10, 7);
-            kszm_megjegyzes.Size = new Size(392, 99);
+            kszm_megjegyzes.Size = new Size(392, 35);
             kszm_megjegyzes.TabIndex = 6;
             kszm_megjegyzes.Texts = "";
             kszm_megjegyzes.TobbSor = true;
@@ -553,6 +553,7 @@ namespace Projekt_feladat.Formok
             btn_mentes.Text = "Mentés";
             btn_mentes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_mentes.UseVisualStyleBackColor = false;
+            btn_mentes.Click += btn_mentes_Click;
             // 
             // ev_vezerloPanel
             // 
