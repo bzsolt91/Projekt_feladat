@@ -29,7 +29,7 @@ namespace Projekt_feladat
         private int animacioKezdoMagassag;
         private int animacioCelMagassag;
         private int animacioIdotartam = 200; // animáció idõtartama ms-ban
-    
+
 
         private Form aktivForm;
         private Panel animaltPanel;
@@ -132,7 +132,7 @@ namespace Projekt_feladat
 
 
         }
-  
+
 
         private void AlmenuElohivas(Panel pnl)
         {
@@ -166,13 +166,13 @@ namespace Projekt_feladat
 
         private void tmr_almenuAnimacio_Tick(object sender, EventArgs e) ///almenük csúsztatása
         {
-           
+
 
 
             double elteltMs = animacioStopper.Elapsed.TotalMilliseconds;
             double progress = Math.Min(1.0, elteltMs / animacioIdotartam);
 
-           
+
             double easedProgress = 1 - Math.Pow(1 - progress, 3);
 
             int aktualisMagassag = animacioKezdoMagassag +
@@ -185,6 +185,13 @@ namespace Projekt_feladat
                 tmr_almenuAnimacio.Stop();
             }
 
+        }
+
+        private void btn_utazasokHozzaadasa_Click(object sender, EventArgs e)
+        {
+
+            GyermekFormMegnyitas(new frm_UtazasokHozzaadasa(), sender); //utazások form beágyazása
+            AlmenuElrejtés();
         }
     }
 }
