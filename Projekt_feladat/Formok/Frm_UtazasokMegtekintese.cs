@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Collections;
 using static Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu;
+using System.Drawing.Printing;
+using System.Drawing;
 
 namespace Projekt_feladat.Formok
 {
@@ -29,7 +31,7 @@ namespace Projekt_feladat.Formok
             form_elrendezes();
 
             lst_talalatok.Visible = false;
-           
+
             lst_talalatok.MouseDown += lst_talalatok_MouseDown;
             lst_talalatok.Width = kszm_utasNeve.Width;
             szpn_szuroPanel.Controls.Add(lst_talalatok);
@@ -70,6 +72,8 @@ namespace Projekt_feladat.Formok
             dgv_utazasok.Size = new Size(this.Width - 20, this.Height - pnl_vezerlok.Height - rcb_idoszak.Height - 15);
             dgv_utazasok.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height / 2 - szpn_szuroPanel.Height / 2);
+            pnl_utasLista.Location = new Point((this.Width / 2) - (pnl_utasLista.Width / 2), this.Height / 2 - pnl_utasLista.Height / 2);
+
             lst_talalatok.Location = new Point(kszm_utasNeve.Location.X, kszm_utasNeve.Location.Y + kszm_utasNeve.Height + 10);
             this.Controls.Add(dgv_utazasok);
         }
@@ -803,6 +807,206 @@ namespace Projekt_feladat.Formok
             }
         }
 
+        private void kg_kilepes_Click(object sender, EventArgs e)
+        {
+            pnl_utasLista.Visible = false;
+            kszm_utasLista.HatterSzine = Color.MediumSlateBlue;
+        }
 
+        private void kg_UlNyomtatas_Click(object sender, EventArgs e)
+        {
+            ppd_utasLista.Document = pd_utasLista;
+            ppd_utasLista.ShowDialog(); //
+            pnl_utasLista.Visible = false;
+            kszm_utasLista.HatterSzine = Color.MediumSlateBlue;
+        }
+
+        private void kerekitettGomb3_Click(object sender, EventArgs e)
+        {
+            kszm_utasLista.HatterSzine = Color.Green;
+
+            try
+            {
+                DataTable dt = new DataTable();
+                using (var con = new MySqlConnection(constr))
+                {
+                    con.Open();
+                    string sql = @"SELECT
+    CONCAT(u.vezeteknev, ' ', u.keresztnev1, ' ', u.keresztnev2) AS 'Név',
+    telefon.telefon AS 'Telefonszám'
+FROM utas u
+JOIN utas_utazasai uu ON u.utas_id = uu.utas_id
+JOIN utazas t ON uu.utazas_id = t.utazas_id
+LEFT JOIN telefon ON u.utas_id = telefon.utas_id
+LEFT JOIN cim ON u.utas_id = cim.utas_id
+LEFT JOIN fizetes ON u.utas_id = fizetes.utas_id
+LEFT JOIN szemelyi ON u.utas_id = szemelyi.utas_id
+LEFT JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
+WHERE t.utazas_elnevezese = @nev AND t.desztinacio = @dest AND t.utazas_ideje = @datum";
+
+                    using (var cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@nev", utazasNeve);
+                        cmd.Parameters.AddWithValue("@dest", utazasDesztinacio);
+                        cmd.Parameters.AddWithValue("@datum", utazasIdoszak);
+                        using (var da = new MySqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                    }
+
+                    // Automatikus sorszám hozzáadása
+                    dt.Columns.Add("Sorszám", typeof(int));
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        dt.Rows[i]["Sorszám"] = i + 1;
+                    }
+
+                    dt.Columns["Sorszám"].SetOrdinal(0);
+                    dgv_utasLista.DataSource = dt;
+                }
+
+
+
+                dgv_utasLista.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                pnl_utasLista.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba történt");
+            }
+        }
+
+
+        private void pd_utasLista_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            int marginLeft = 50;
+            int y = 50;
+            int rowHeight = 25;
+            Brush brush = Brushes.Black;
+
+            int x1 = 50;  // első oszlop X pozíció
+            int x2 = 300; // második oszlop X pozíció
+            int sorKoz = 25;
+
+            Font fejlec = new Font("Arial", 12, FontStyle.Bold);
+            Font normal = new Font("Arial", 10);
+
+            e.Graphics.DrawString("Utaslista", fejlec, Brushes.Black, x1, y);
+            y += 40;
+
+            // Első sor: Dátum - Busz rendszám
+            e.Graphics.DrawString("Dátum: " + kszm_datum.Texts, normal, Brushes.Black, x1, y);
+            e.Graphics.DrawString("Jármű száma: " + kszm_jarmuSzama.Texts, normal, Brushes.Black, x2, y);
+            y += sorKoz;
+
+            // Második sor: Vezetők - Úticél
+            e.Graphics.DrawString("Vezetők neve: " + kszm_vezetoNeve1.Texts + " " + kszm_vezetoNeve2.Texts, normal, Brushes.Black, x1, y);
+            e.Graphics.DrawString("Úti cél: " + kszm_uticel.Texts, normal, Brushes.Black, x2, y);
+            y += sorKoz;
+
+            // Harmadik sor: Indulás helye (csak bal oldalt)
+            e.Graphics.DrawString("Indulás helye: " + kszm_indulasHelye.Texts, normal, Brushes.Black, x1, y);
+            y += sorKoz + 10;
+
+            // Oszlopfejlécek
+            int col1_x = marginLeft;
+            int col2_x = col1_x + 150;   // Sorszám után
+            int col3_x = col2_x + 250; // Név után
+
+            e.Graphics.DrawString("Sorszám", fejlec, brush, col1_x, y);
+            e.Graphics.DrawString("Név", fejlec, brush, col2_x, y);
+            e.Graphics.DrawString("Telefonszám", fejlec, brush, col3_x, y);
+            y += rowHeight;
+
+            // Adatsorok
+            foreach (DataGridViewRow row in dgv_utasLista.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string sorszam = row.Cells[0].Value?.ToString() ?? "";
+                string nev = row.Cells[1].Value?.ToString() ?? "";
+                string telszam = row.Cells[2].Value?.ToString() ?? "";
+
+                e.Graphics.DrawString(sorszam, normal, brush, col1_x, y);
+                e.Graphics.DrawString(nev, normal, brush, col2_x, y);
+                e.Graphics.DrawString(telszam, normal, brush, col3_x, y);
+
+                y += rowHeight;
+
+                // Oldaltörés
+                if (y > e.MarginBounds.Bottom)
+                {
+                    e.HasMorePages = true;
+                    return;
+                }
+            }
+
+
+
+        }
+
+        private void kszm_nyomtatas_Click(object sender, EventArgs e)
+        {
+            ppd_utasLista.Document = pd_utazasok;
+            ppd_utasLista.ShowDialog(); //
+            pnl_utasLista.Visible = false;
+            szpn_szuroPanel.Visible = false;
+            kszm_nyomtatas.HatterSzine = Color.MediumSlateBlue;
+        }
+
+        private void pd_utazasok_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            int marginLeft = 50;
+            int y = 50;
+            int rowHeight = 25;
+            Brush brush = Brushes.Black;
+
+            int x1 = 50;  // első oszlop X pozíció
+            int x2 = 300; // második oszlop X pozíció
+            int sorKoz = 25;
+
+            // Oszlopfejlécek
+            int col1_x = marginLeft;
+            int col2_x = col1_x + 100;  
+            int col3_x = col2_x + 100; 
+            int col4_x = col3_x + 100;
+            int col5_x = col4_x + 100;
+            int col6_x = col5_x + 100; 
+          
+
+            Font fejlec = new Font("Arial", 12, FontStyle.Bold);
+            Font normal = new Font("Arial", 10);
+
+            // Adatsorok
+            foreach (DataGridViewRow row in dgv_utazasok.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string s1 = row.Cells[1].Value?.ToString() ?? "";
+                string s2 = row.Cells[2].Value?.ToString() ?? "";
+                string s3 = row.Cells[3].Value?.ToString() ?? "";
+                string s4 = row.Cells[4].Value?.ToString() ?? "";
+                string s5 = row.Cells[5].Value?.ToString() ?? "";
+        
+               
+                e.Graphics.DrawString(s1, normal, brush, col1_x, y);
+                e.Graphics.DrawString(s2, normal, brush, col2_x, y);
+                e.Graphics.DrawString(s3, normal, brush, col3_x, y);
+                e.Graphics.DrawString(s4, normal, brush, col4_x, y);
+                e.Graphics.DrawString(s5, normal, brush, col5_x, y);
+          
+    
+                y += rowHeight;
+
+                // Oldaltörés
+                if (y > e.MarginBounds.Bottom)
+                {
+                    e.HasMorePages = true;
+                    return;
+                }
+            }
+
+        }
     }
 }
