@@ -25,13 +25,15 @@ namespace Projekt_feladat.Formok
             InitializeComponent();
             egyeniTooltip.OwnerDraw = true;
             dgv_utazasok.ShowCellToolTips = false;
+            
             egyeniTooltip.Draw += EgyeniTooltip_Draw;
             egyeniTooltip.Popup += EgyeniTooltip_Popup;
             this.AutoScaleMode = AutoScaleMode.None;
             form_elrendezes();
 
             lst_talalatok.Visible = false;
-
+            lst_talalatok.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_talalatok.DrawItem += lst_talalatok_DrawItem;
             lst_talalatok.MouseDown += lst_talalatok_MouseDown;
             lst_talalatok.Width = kszm_utasNeve.Width;
             szpn_szuroPanel.Controls.Add(lst_talalatok);
@@ -572,6 +574,9 @@ namespace Projekt_feladat.Formok
 
         private void kszm_AutoComplete(object sender, EventArgs e)
         {
+
+            if (utazasDesztinacio == null && utazasIdoszak == null && utazasNeve == null)
+                return;
             var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
             if (aktivMezo == null) return;
             lst_talalatok.Tag = aktivMezo;
@@ -584,6 +589,7 @@ namespace Projekt_feladat.Formok
 
             try
             {
+                
                 using (var conn = new MySqlConnection(constr))
                 {
                     conn.Open();
@@ -832,17 +838,17 @@ namespace Projekt_feladat.Formok
                 {
                     con.Open();
                     string sql = @"SELECT
-    CONCAT(u.vezeteknev, ' ', u.keresztnev1, ' ', u.keresztnev2) AS 'Név',
-    telefon.telefon AS 'Telefonszám'
-FROM utas u
-JOIN utas_utazasai uu ON u.utas_id = uu.utas_id
-JOIN utazas t ON uu.utazas_id = t.utazas_id
-LEFT JOIN telefon ON u.utas_id = telefon.utas_id
-LEFT JOIN cim ON u.utas_id = cim.utas_id
-LEFT JOIN fizetes ON u.utas_id = fizetes.utas_id
-LEFT JOIN szemelyi ON u.utas_id = szemelyi.utas_id
-LEFT JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
-WHERE t.utazas_elnevezese = @nev AND t.desztinacio = @dest AND t.utazas_ideje = @datum";
+                                    CONCAT(u.vezeteknev, ' ', u.keresztnev1, ' ', u.keresztnev2) AS 'Név',
+                                    telefon.telefon AS 'Telefonszám'
+                                FROM utas u
+                                JOIN utas_utazasai uu ON u.utas_id = uu.utas_id
+                                JOIN utazas t ON uu.utazas_id = t.utazas_id
+                                LEFT JOIN telefon ON u.utas_id = telefon.utas_id
+                                LEFT JOIN cim ON u.utas_id = cim.utas_id
+                                LEFT JOIN fizetes ON u.utas_id = fizetes.utas_id
+                                LEFT JOIN szemelyi ON u.utas_id = szemelyi.utas_id
+                                LEFT JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
+                                WHERE t.utazas_elnevezese = @nev AND t.desztinacio = @dest AND t.utazas_ideje = @datum";
 
                     using (var cmd = new MySqlCommand(sql, con))
                     {
@@ -1007,6 +1013,29 @@ WHERE t.utazas_elnevezese = @nev AND t.desztinacio = @dest AND t.utazas_ideje = 
                 }
             }
 
+
+        }
+        private void lst_talalatok_DrawItem(object sender, DrawItemEventArgs e)// listbox színezése
+        {
+            if (e.Index < 0) return;
+
+            var listBox = sender as ListBox;
+            var item = listBox.Items[e.Index].ToString();
+
+            // Kiválasztott elem
+            bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+
+            // Háttérszín
+            e.Graphics.FillRectangle(new SolidBrush(isSelected ? Color.DarkViolet : listBox.BackColor), e.Bounds);
+
+            // Szövegszín
+            using (Brush textBrush = new SolidBrush(isSelected ? Color.White : listBox.ForeColor))
+            {
+                e.Graphics.DrawString(item, e.Font, textBrush, e.Bounds.X, e.Bounds.Y);
+            }
+
+            // Fókuszkeret (opcionális)
+            e.DrawFocusRectangle();
         }
     }
 }
