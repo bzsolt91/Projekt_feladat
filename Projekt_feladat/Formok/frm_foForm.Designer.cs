@@ -410,7 +410,7 @@ namespace Projekt_feladat
             btn_utasokHozzadasa.Size = new Size(256, 53);
             btn_utasokHozzadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasokHozzadasa.TabIndex = 2;
-            btn_utasokHozzadasa.Text = "🖆 Hozzáadás";
+            btn_utasokHozzadasa.Text = "🖆 Szerkesztés";
             btn_utasokHozzadasa.TextAlign = ContentAlignment.MiddleLeft;
             btn_utasokHozzadasa.UseVisualStyleBackColor = false;
             // 
@@ -494,7 +494,7 @@ namespace Projekt_feladat
             btn_utazasokHozzaadasa.Size = new Size(256, 53);
             btn_utazasokHozzaadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasokHozzaadasa.TabIndex = 1;
-            btn_utazasokHozzaadasa.Text = "🖆 Hozzáadás";
+            btn_utazasokHozzaadasa.Text = "🖆 Szerkesztés";
             btn_utazasokHozzaadasa.TextAlign = ContentAlignment.MiddleLeft;
             btn_utazasokHozzaadasa.UseVisualStyleBackColor = false;
             btn_utazasokHozzaadasa.Click += btn_utazasokHozzaadasa_Click;

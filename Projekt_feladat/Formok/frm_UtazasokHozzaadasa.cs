@@ -24,7 +24,12 @@ namespace Projekt_feladat.Formok
         string constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
         private void kszm_hozzaadas_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrWhiteSpace(kszm_desztinacio.Texts) &&
+                string.IsNullOrWhiteSpace(kszm_utazasElnevezese.Texts) &&
+                dt_datumvalaszto.Value.Date == DateTime.Now.Date)
+            {
+                return;
+            }
             using (var kapcsolatObj = new MySqlConnection(constr))
             {
                 try
