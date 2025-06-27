@@ -410,7 +410,7 @@ namespace Projekt_feladat
             btn_utasokHozzadasa.Size = new Size(256, 53);
             btn_utasokHozzadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasokHozzadasa.TabIndex = 2;
-            btn_utasokHozzadasa.Text = "🖆 Szerkesztés";
+            btn_utasokHozzadasa.Text = "🖆 Hozzáadás";
             btn_utasokHozzadasa.TextAlign = ContentAlignment.MiddleLeft;
             btn_utasokHozzadasa.UseVisualStyleBackColor = false;
             // 

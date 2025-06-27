@@ -1,4 +1,5 @@
 ﻿using Projekt_feladat.egyeni_vezerlok;
+using System.Windows.Forms;
 
 namespace Projekt_feladat.Formok
 {
@@ -611,7 +612,7 @@ namespace Projekt_feladat.Formok
             // 
             dgv_utazasok.AllowUserToAddRows = false;
             dgv_utazasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            dgv_utazasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgv_utazasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             dgv_utazasok.BackgroundColor = SystemColors.ControlLightLight;
             dgv_utazasok.BorderStyle = BorderStyle.None;
             dgv_utazasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
@@ -640,6 +641,7 @@ namespace Projekt_feladat.Formok
             dgv_utazasok.Location = new Point(10, 92);
             dgv_utazasok.Margin = new Padding(3, 4, 3, 4);
             dgv_utazasok.Name = "dgv_utazasok";
+            dgv_utazasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dgv_utazasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
