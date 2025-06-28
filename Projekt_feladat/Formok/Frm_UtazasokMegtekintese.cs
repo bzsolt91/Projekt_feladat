@@ -20,6 +20,7 @@ namespace Projekt_feladat.Formok
         string? utazasDesztinacio = null;
         string? utazasIdoszak = null;
         string? utazasNeve = null;
+        private int sorIndexAHolFolytatniKell = 0;
         public Frm_UtazasokMegtekintese()
         {
             InitializeComponent();
@@ -954,6 +955,7 @@ namespace Projekt_feladat.Formok
 
         private void kszm_nyomtatas_Click(object sender, EventArgs e)
         {
+            sorIndexAHolFolytatniKell = 0;
             ppd_utasLista.Document = pd_utazasok;
             ppd_utasLista.ShowDialog(); //
             pnl_utasLista.Visible = false;
@@ -968,51 +970,64 @@ namespace Projekt_feladat.Formok
             int rowHeight = 25;
             Brush brush = Brushes.Black;
 
-            int x1 = 50;  // első oszlop X pozíció
-            int x2 = 300; // második oszlop X pozíció
-            int sorKoz = 25;
-
-            // Oszlopfejlécek
-            int col1_x = marginLeft;
-            int col2_x = col1_x + 100;  
-            int col3_x = col2_x + 100; 
-            int col4_x = col3_x + 100;
-            int col5_x = col4_x + 100;
-            int col6_x = col5_x + 100; 
-          
-
+            // Oszlopfejlécek (csak az első oldalon vagy minden oldalon, ha akarod)
+            // Jelenleg úgy van, hogy minden oldalon megjelennek
             Font fejlec = new Font("Arial", 12, FontStyle.Bold);
             Font normal = new Font("Arial", 10);
 
-            // Adatsorok
-            foreach (DataGridViewRow row in dgv_utazasok.Rows)
-            {
-                if (row.IsNewRow) continue;
+            // Fejlécek kirajzolása (csak az első oldalon, vagy ha szeretnéd, minden oldalon)
+            // Ha csak az első oldalon akarod, akkor egy if-fel kellene ellenőrizni, hogy sorIndexAHolFolytatniKell == 0
+            e.Graphics.DrawString("Titulus", fejlec, brush, marginLeft, y);
+            e.Graphics.DrawString("Vezetéknév", fejlec, brush, marginLeft + 75, y);
+            e.Graphics.DrawString("Keresztnév", fejlec, brush, marginLeft + 180, y);
+            e.Graphics.DrawString("Email", fejlec, brush, marginLeft + 325, y); // Példa: email oszlop
+            e.Graphics.DrawString("Telefonszám", fejlec, brush, marginLeft + 550, y); // Példa: telefonszám oszlop
+            // ... add hozzá a többi fejlécet is, amit nyomtatni szeretnél
 
-                string s1 = row.Cells[1].Value?.ToString() ?? "";
-                string s2 = row.Cells[2].Value?.ToString() ?? "";
-                string s3 = row.Cells[3].Value?.ToString() ?? "";
-                string s4 = row.Cells[4].Value?.ToString() ?? "";
-                string s5 = row.Cells[5].Value?.ToString() ?? "";
-        
-               
-                e.Graphics.DrawString(s1, normal, brush, col1_x, y);
-                e.Graphics.DrawString(s2, normal, brush, col2_x, y);
-                e.Graphics.DrawString(s3, normal, brush, col3_x, y);
-                e.Graphics.DrawString(s4, normal, brush, col4_x, y);
-                e.Graphics.DrawString(s5, normal, brush, col5_x, y);
-          
-    
+            y += rowHeight + 10; // Hely a fejléc és az első sor között
+
+            // --- FONTOS VÁLTOZÁS: FOR CIKLUS ÉS AZ OSZTÁLYSZINTŰ VÁLTOZÓ HASZNÁLATA ---
+            // A ciklus az eltárolt sorIndexAHolFolytatniKell-től indul
+            for (; sorIndexAHolFolytatniKell < dgv_utazasok.Rows.Count; sorIndexAHolFolytatniKell++)
+            {
+                DataGridViewRow row = dgv_utazasok.Rows[sorIndexAHolFolytatniKell];
+
+                if (row.IsNewRow) // Kihagyjuk az új (üres) sort a végén
+                {
+                    continue; // Átugorja az isNewRow-t, és folytatja a következő iterációval, ha van még
+                }
+
+
+                // Ellenőrizd, hogy az oszlopindexek helyesek-e a DataGridView-ben!
+                // Feltételezve, hogy az oszlopok sorrendje: 0:Sorszám, 1:Titulus, 2:Vezetéknév, 3:Keresztnév, 4:Második Keresztnév, 5:Telefonszám, 6:Okmány...
+                string s1 = row.Cells["Titulus"].Value?.ToString() ?? "";       // Index 1
+                string s2 = row.Cells["Vezetéknév"].Value?.ToString() ?? "";    // Index 2
+                string s3 = row.Cells["Keresztnév"].Value?.ToString() ?? "";    // Index 3
+                string s4 = row.Cells["Email"].Value?.ToString() ?? "";         // Példa: email oszlop (megfelelő index vagy név kell ide!)
+                string s5 = row.Cells["Telefonszám"].Value?.ToString() ?? "";   // Példa: telefonszám oszlop (megfelelő index vagy név kell ide!)
+                                                                                // string s6 = row.Cells[6].Value?.ToString() ?? ""; // Ezt nem használtad fel az alábbi DrawString-ekben
+
+
+                e.Graphics.DrawString(s1, normal, brush, marginLeft, y);
+                e.Graphics.DrawString(s2, normal, brush, marginLeft + 75, y);
+                e.Graphics.DrawString(s3, normal, brush, marginLeft + 180, y);
+                e.Graphics.DrawString(s4, normal, brush, marginLeft + 325, y); // Példa
+                e.Graphics.DrawString(s5, normal, brush, marginLeft + 550, y); // Példa
+
                 y += rowHeight;
 
-                // Oldaltörés
-                if (y > e.MarginBounds.Bottom)
+                // Oldaltörés ellenőrzése
+                if (y >= e.MarginBounds.Bottom) // Ha elérjük az oldal alját, vagy túlhaladjuk
                 {
-                    e.HasMorePages = true;
-                    return;
+                    e.HasMorePages = true; // Jelzi, hogy van még nyomtatnivaló
+                    sorIndexAHolFolytatniKell++; // Növeljük az indexet, hogy a következő oldal a következő sorral kezdődjön
+                    return; // Fontos: Kilépünk a metódusból!
                 }
             }
 
+            // Ha a ciklus lefutott a végéig, és nincs több sor
+            e.HasMorePages = false; // Nincs több oldal
+            sorIndexAHolFolytatniKell = 0; // Visszaállítjuk az indexet 0-ra a következő nyomtatás elindításához
 
         }
         private void lst_talalatok_DrawItem(object sender, DrawItemEventArgs e)// listbox színezése

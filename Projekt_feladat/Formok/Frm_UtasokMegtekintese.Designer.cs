@@ -38,6 +38,8 @@ namespace Projekt_feladat.Formok
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnl_vezerlo = new Panel();
+            kg_nyomtatas = new KerekitettGomb();
+            kg_torles = new KerekitettGomb();
             nud_oldalValaszto = new NumericUpDown();
             kg_mentes = new KerekitettGomb();
             kg_szuro = new KerekitettGomb();
@@ -58,6 +60,8 @@ namespace Projekt_feladat.Formok
             lbl_okmanyErvenyes = new Label();
             lbl_biztositas = new Label();
             dgv_utasok = new DoubleBufferedDataGridView();
+            pd_utasok = new System.Drawing.Printing.PrintDocument();
+            ppd_utasok = new PrintPreviewDialog();
             ev_vezerlo = new ellipszisVezerlo();
             ev_szuroPanel = new ellipszisVezerlo();
             pnl_vezerlo.SuspendLayout();
@@ -74,16 +78,60 @@ namespace Projekt_feladat.Formok
             // pnl_vezerlo
             // 
             pnl_vezerlo.BackColor = Color.DarkViolet;
+            pnl_vezerlo.Controls.Add(kg_nyomtatas);
+            pnl_vezerlo.Controls.Add(kg_torles);
             pnl_vezerlo.Controls.Add(nud_oldalValaszto);
             pnl_vezerlo.Controls.Add(kg_mentes);
             pnl_vezerlo.Controls.Add(kg_szuro);
             pnl_vezerlo.Controls.Add(kg_kovetkezo);
             pnl_vezerlo.Controls.Add(kg_elozo);
             pnl_vezerlo.Dock = DockStyle.Bottom;
-            pnl_vezerlo.Location = new Point(0, 512);
+            pnl_vezerlo.Location = new Point(0, 551);
             pnl_vezerlo.Name = "pnl_vezerlo";
-            pnl_vezerlo.Size = new Size(914, 88);
+            pnl_vezerlo.Size = new Size(1288, 88);
             pnl_vezerlo.TabIndex = 0;
+            // 
+            // kg_nyomtatas
+            // 
+            kg_nyomtatas.BackColor = Color.MediumSlateBlue;
+            kg_nyomtatas.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_nyomtatas.FlatAppearance.BorderSize = 0;
+            kg_nyomtatas.FlatStyle = FlatStyle.Flat;
+            kg_nyomtatas.ForeColor = Color.White;
+            kg_nyomtatas.HatterSzine = Color.MediumSlateBlue;
+            kg_nyomtatas.KeretMeret = 0;
+            kg_nyomtatas.KeretSzine = Color.PaleVioletRed;
+            kg_nyomtatas.Location = new Point(715, 18);
+            kg_nyomtatas.Name = "kg_nyomtatas";
+            kg_nyomtatas.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kg_nyomtatas.SarokSugar = 8;
+            kg_nyomtatas.Size = new Size(103, 50);
+            kg_nyomtatas.SzovegSzine = Color.White;
+            kg_nyomtatas.TabIndex = 7;
+            kg_nyomtatas.Text = "Nyomtatás";
+            kg_nyomtatas.UseVisualStyleBackColor = false;
+            kg_nyomtatas.Click += kg_nyomtatas_Click;
+            // 
+            // kg_torles
+            // 
+            kg_torles.BackColor = Color.MediumSlateBlue;
+            kg_torles.EgerTartasHatterSzine = Color.Crimson;
+            kg_torles.FlatAppearance.BorderSize = 0;
+            kg_torles.FlatStyle = FlatStyle.Flat;
+            kg_torles.ForeColor = Color.White;
+            kg_torles.HatterSzine = Color.MediumSlateBlue;
+            kg_torles.KeretMeret = 0;
+            kg_torles.KeretSzine = Color.PaleVioletRed;
+            kg_torles.Location = new Point(602, 18);
+            kg_torles.Name = "kg_torles";
+            kg_torles.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kg_torles.SarokSugar = 8;
+            kg_torles.Size = new Size(107, 50);
+            kg_torles.SzovegSzine = Color.White;
+            kg_torles.TabIndex = 6;
+            kg_torles.Text = "Törlés";
+            kg_torles.UseVisualStyleBackColor = false;
+            kg_torles.Click += kg_torles_Click;
             // 
             // nud_oldalValaszto
             // 
@@ -92,6 +140,7 @@ namespace Projekt_feladat.Formok
             nud_oldalValaszto.Name = "nud_oldalValaszto";
             nud_oldalValaszto.Size = new Size(83, 38);
             nud_oldalValaszto.TabIndex = 5;
+            nud_oldalValaszto.ValueChanged += nud_oldalValaszto_ValueChanged;
             // 
             // kg_mentes
             // 
@@ -103,15 +152,16 @@ namespace Projekt_feladat.Formok
             kg_mentes.HatterSzine = Color.MediumSlateBlue;
             kg_mentes.KeretMeret = 0;
             kg_mentes.KeretSzine = Color.PaleVioletRed;
-            kg_mentes.Location = new Point(544, 17);
+            kg_mentes.Location = new Point(473, 17);
             kg_mentes.Name = "kg_mentes";
             kg_mentes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_mentes.SarokSugar = 8;
-            kg_mentes.Size = new Size(188, 50);
+            kg_mentes.Size = new Size(123, 50);
             kg_mentes.SzovegSzine = Color.White;
             kg_mentes.TabIndex = 4;
             kg_mentes.Text = "Mentés";
             kg_mentes.UseVisualStyleBackColor = false;
+            kg_mentes.Click += kg_mentes_Click;
             // 
             // kg_szuro
             // 
@@ -127,7 +177,7 @@ namespace Projekt_feladat.Formok
             kg_szuro.Name = "kg_szuro";
             kg_szuro.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_szuro.SarokSugar = 8;
-            kg_szuro.Size = new Size(188, 50);
+            kg_szuro.Size = new Size(126, 50);
             kg_szuro.SzovegSzine = Color.White;
             kg_szuro.TabIndex = 3;
             kg_szuro.Text = "Szűrő";
@@ -481,15 +531,30 @@ namespace Projekt_feladat.Formok
             dgv_utasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_utasok.ShowEditingIcon = false;
             dgv_utasok.ShowRowErrors = false;
-            dgv_utasok.Size = new Size(914, 512);
+            dgv_utasok.Size = new Size(1288, 551);
             dgv_utasok.TabIndex = 1;
             dgv_utasok.CellContentClick += dgv_utasok_CellContentClick;
+            dgv_utasok.CellValueChanged += dgv_utasok_CellValueChanged;
+            // 
+            // pd_utasok
+            // 
+            pd_utasok.PrintPage += pd_utasok_PrintPage;
+            // 
+            // ppd_utasok
+            // 
+            ppd_utasok.AutoScrollMargin = new Size(0, 0);
+            ppd_utasok.AutoScrollMinSize = new Size(0, 0);
+            ppd_utasok.ClientSize = new Size(400, 300);
+            ppd_utasok.Enabled = true;
+            ppd_utasok.Icon = (Icon)resources.GetObject("ppd_utasok.Icon");
+            ppd_utasok.Name = "ppd_utasok";
+            ppd_utasok.Visible = false;
             // 
             // Frm_UtasokMegtekintese
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(1288, 639);
             Controls.Add(szpn_szuroPanel);
             Controls.Add(dgv_utasok);
             Controls.Add(pnl_vezerlo);
@@ -497,6 +562,7 @@ namespace Projekt_feladat.Formok
             Name = "Frm_UtasokMegtekintese";
             Text = "Utasok";
             Load += Frm_Utasok_Load;
+            Resize += Frm_UtasokMegtekintese_Resize;
             pnl_vezerlo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)nud_oldalValaszto).EndInit();
             szpn_szuroPanel.ResumeLayout(false);
@@ -533,5 +599,9 @@ namespace Projekt_feladat.Formok
         private kerekitettSzovegMezo kszm_utasNeve;
         private ellipszisVezerlo ev_szuroPanel;
         private NumericUpDown nud_oldalValaszto;
+        private KerekitettGomb kg_torles;
+        private KerekitettGomb kg_nyomtatas;
+        private System.Drawing.Printing.PrintDocument pd_utasok;
+        private PrintPreviewDialog ppd_utasok;
     }
 }
