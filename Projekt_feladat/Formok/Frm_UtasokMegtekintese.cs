@@ -1,6 +1,7 @@
 ﻿using MySqlConnector;
 using Projekt_feladat.egyeni_vezerlok;
 using System.Data;
+using System.Windows.Forms;
 
 namespace Projekt_feladat.Formok
 {
@@ -26,7 +27,7 @@ namespace Projekt_feladat.Formok
             nud_oldalValaszto.Minimum = 1;
             nud_oldalValaszto.Value = aktualisOldal;
             nud_oldalValaszto.ReadOnly = true;
-
+          
             szpn_szuroPanel.Controls.Add(lst_talalatok);
             lst_talalatok.Visible = false;
             lst_talalatok.DrawMode = DrawMode.OwnerDrawFixed;

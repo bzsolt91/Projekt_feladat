@@ -26,7 +26,7 @@ namespace Projekt_feladat.Formok
             InitializeComponent();
             egyeniTooltip.OwnerDraw = true;
             dgv_utazasok.ShowCellToolTips = false;
-            
+
             egyeniTooltip.Draw += EgyeniTooltip_Draw;
             egyeniTooltip.Popup += EgyeniTooltip_Popup;
             this.AutoScaleMode = AutoScaleMode.None;
@@ -166,6 +166,8 @@ namespace Projekt_feladat.Formok
                     MessageBox.Show(e.Message);
             }
         }
+        // Frm_UtazasokMegtekintese.cs
+
         private void lekerdezes_kivalasztva()
         {
             try
@@ -173,40 +175,62 @@ namespace Projekt_feladat.Formok
                 using (var mc_mysqlcon = new MySqlConnection(constr))
                 {
                     var dt = new DataTable();
-                    String sql = @" SELECT
-                                u.utas_id AS 'Sorszám',
-                                u.titulus AS 'Titulus',
-                                u.vezeteknev AS 'Vezetéknév',
-                                u.keresztnev1 AS 'Keresztnév',
-                                u.keresztnev2 AS 'Második keresztnév',
-                                telefon.telefon AS 'Telefonszám', 
-                                szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
-                                szemelyi.okmany_lejarat AS 'Érvényesség',
-                                cim.lakcim AS 'Lakcím',
-                                cim.email_cim AS 'Email',
-                                fizetes.befizetett_osszeg AS 'Befizetett összeg',
-                                fizetes.biztositas AS 'Biztosítás van',
-                                megjegyzes.megjegyzes AS 'Megjegyzés'
-                            FROM
-                                utas AS u
-                            INNER JOIN
-                                utas_utazasai AS uu ON u.utas_id = uu.utas_id
-                            INNER JOIN
-                                utazas AS t ON uu.utazas_id = t.utazas_id 
-                            LEFT JOIN 
-                                telefon ON u.utas_id = telefon.utas_id
-                            LEFT JOIN
-                                cim ON u.utas_id = cim.utas_id
-                            LEFT JOIN
-                                fizetes ON u.utas_id = fizetes.utas_id
-                            LEFT JOIN
-                                szemelyi ON u.utas_id = szemelyi.utas_id
-                            LEFT JOIN
-                                megjegyzes ON u.utas_id = megjegyzes.utas_id
-                            WHERE
-                                t.utazas_ideje = @utazasideje
-                                AND t.desztinacio = @desztinacio
-                                AND t.utazas_elnevezese = @utazasneve";
+
+                    String sql = @"SELECT
+                                    u.utas_id AS 'Sorszám',
+                                    u.titulus AS 'Titulus',
+                                    u.vezeteknev AS 'Vezetéknév',
+                                    u.keresztnev1 AS 'Keresztnév',
+                                    u.keresztnev2 AS 'Második keresztnév',
+                                    telefon.telefon AS 'Telefonszám',
+                                    szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
+                                    szemelyi.okmany_lejarat AS 'Érvényesség',
+                                    cim.lakcim AS 'Lakcím',
+                                    cim.email_cim AS 'Email',
+                                    fizetes.befizetett_osszeg AS 'Befizetett összeg',
+                                    fizetes.biztositas AS 'Biztosítás van',
+                                    megjegyzes.megjegyzes AS 'Megjegyzés',
+                                    GROUP_CONCAT(CONCAT(t_all.desztinacio, ' - ', t_all.utazas_ideje, ' - ', t_all.utazas_elnevezese) SEPARATOR '\n') AS 'Utazások'
+
+                                FROM utas AS u
+
+                               
+                                INNER JOIN utas_utazasai AS uu_all ON u.utas_id = uu_all.utas_id
+                                INNER JOIN utazas AS t_all ON uu_all.utazas_id = t_all.utazas_id
+
+                               
+                                LEFT JOIN telefon ON u.utas_id = telefon.utas_id
+                                LEFT JOIN cim ON u.utas_id = cim.utas_id
+                                LEFT JOIN fizetes ON u.utas_id = fizetes.utas_id
+                                LEFT JOIN szemelyi ON u.utas_id = szemelyi.utas_id
+                                LEFT JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
+
+                              
+                                WHERE u.utas_id IN (
+                                    SELECT uu.utas_id
+                                    FROM utas_utazasai AS uu
+                                    INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
+                                    WHERE (@utazasideje IS NULL OR t.utazas_ideje = @utazasideje)
+                                      AND (@desztinacio IS NULL OR t.desztinacio = @desztinacio)
+                                      AND (@utazasneve IS NULL OR t.utazas_elnevezese = @utazasneve)
+                                )
+
+                                GROUP BY
+                                    u.utas_id,
+                                    u.titulus,
+                                    u.vezeteknev,
+                                    u.keresztnev1,
+                                    u.keresztnev2,
+                                    telefon.telefon,
+                                    szemelyi.szemelyi_vagy_utlevel,
+                                    szemelyi.okmany_lejarat,
+                                    cim.lakcim,
+                                    cim.email_cim,
+                                    fizetes.befizetett_osszeg,
+                                    fizetes.biztositas,
+                                    megjegyzes.megjegyzes
+
+                                ORDER BY u.utas_id;"; 
 
                     var cmd = new MySqlCommand(sql, mc_mysqlcon);
                     cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
@@ -571,8 +595,6 @@ namespace Projekt_feladat.Formok
                     MessageBox.Show(ex.Message);
             }
         }
-        private kerekitettSzovegMezo aktivMezo;
-
         private void kszm_AutoComplete(object sender, EventArgs e)
         {
 
@@ -590,7 +612,7 @@ namespace Projekt_feladat.Formok
 
             try
             {
-                
+
                 using (var conn = new MySqlConnection(constr))
                 {
                     conn.Open();
@@ -687,10 +709,7 @@ namespace Projekt_feladat.Formok
                     MessageBox.Show(xe.Message);
             }
         }
-        private void kszm_utasNeve_KeyPress(object sender, KeyPressEventArgs e)///auto kiegészítés itt töltődikf fel
-        {
-
-        }
+       
 
         private void SzovegMezo_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1051,6 +1070,136 @@ namespace Projekt_feladat.Formok
 
             // Fókuszkeret (opcionális)
             e.DrawFocusRectangle();
+        }
+
+        private void kszm_torles_Click(object sender, EventArgs e)
+        {
+            // Ellenőrizzük, hogy van-e kiválasztott sor a DataGridView-ben
+            if (dgv_utazasok.SelectedRows.Count > 0)
+            {
+                // Csak az első kijelölt sort vesszük figyelembe
+                DataGridViewRow selectedRow = dgv_utazasok.SelectedRows[0];
+
+                // Megerősítést kérünk a felhasználótól
+                DialogResult result = MessageBox.Show(
+                    "Biztosan törölni szeretnéd ezt a felhasználót a kiválasztott utazásból?",
+                    "Megerősítés",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // Az utas_id lekérése a kijelölt sorból
+                        // Feltételezzük, hogy az 'Sorszám' oszlop tartalmazza az utas_id-t
+                        if (selectedRow.Cells["Sorszám"].Value == null)
+                        {
+                            MessageBox.Show("A kiválasztott sor nem tartalmaz érvényes utas azonosítót.", "Hiba");
+                            return;
+                        }
+                        int utasId = Convert.ToInt32(selectedRow.Cells["Sorszám"].Value);
+
+                        // Megkeressük az utazás_id-t az aktuálisan kiválasztott utazási adatok alapján
+                        // (ezek a form változói: utazasDesztinacio, utazasIdoszak, utazasNeve)
+                        if (string.IsNullOrEmpty(utazasDesztinacio) || string.IsNullOrEmpty(utazasIdoszak) || string.IsNullOrEmpty(utazasNeve))
+                        {
+                            MessageBox.Show("Kérjük, válasszon ki egy utazást a szűrőkből.", "Figyelmeztetés");
+                            return;
+                        }
+
+                        int utazasId = UtazasIdLekerese(utazasDesztinacio, utazasIdoszak, utazasNeve);
+
+                        if (utazasId > 0)
+                        {
+                            // Töröljük a felhasználót az utazásból
+                            UtasFromUtazasTorles(utasId, utazasId);
+                            // Frissítsük a DataGridView-t a törlés után, hogy azonnal látható legyen a változás
+                            lekerdezes_kivalasztva();
+                            MessageBox.Show("A felhasználó sikeresen törölve lett az utazásból.", "Siker");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nem található az utazás azonosítója. Kérjük, győződjön meg róla, hogy érvényes utazás van kiválasztva.", "Hiba");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Hiba történt a törlés során: {ex.Message}", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Kérjük, válasszon ki egy sort a törléshez.", "Figyelmeztetés", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private int UtazasIdLekerese(string desztinacio, string idoszak, string utazasNeve)
+        {
+            int utazasId = -1; // Alapértelmezett érték, ha nem található
+
+            try
+            {
+                using (var conn = new MySqlConnection(constr))
+                {
+                    conn.Open();
+                    string sql = "SELECT utazas_id FROM utazas WHERE desztinacio = @desztinacio AND utazas_ideje = @idoszak AND utazas_elnevezese = @utazasneve LIMIT 1";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@desztinacio", desztinacio);
+                       
+                        cmd.Parameters.AddWithValue("@idoszak", DateTime.Parse(idoszak));
+                        cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
+
+                        object result = cmd.ExecuteScalar(); 
+
+                        if (result != null && result != DBNull.Value)
+                        {
+                            utazasId = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Hiba az utazás azonosító lekérésekor: {e.Message}", "Adatbázis hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return utazasId;
+        }
+
+        /// <summary>
+        /// Törli a felhasználó és az utazás közötti hozzárendelést az utas_utazasai táblából.
+        /// </summary>
+        private void UtasFromUtazasTorles(int utasId, int utazasId)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(constr))
+                {
+                    conn.Open();
+                    string sql = "DELETE FROM utas_utazasai WHERE utas_id = @utasId AND utazas_id = @utazasId";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@utasId", utasId);
+                        cmd.Parameters.AddWithValue("@utazasId", utazasId);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected == 0)
+                        {
+                            MessageBox.Show("Nem történt törlés. Lehet, hogy a felhasználó már nincs hozzárendelve ehhez az utazáshoz, vagy az adatok nem egyeznek.", "Információ");
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Hiba a felhasználó utazásból való törlésekor: {e.Message}", "Adatbázis hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

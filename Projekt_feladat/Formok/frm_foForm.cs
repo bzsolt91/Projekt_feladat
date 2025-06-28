@@ -193,5 +193,11 @@ namespace Projekt_feladat
             GyermekFormMegnyitas(new frm_UtazasokHozzaadasa(), sender); //utazások form beágyazása
             AlmenuElrejtés();
         }
+
+        private void btn_utasokHozzadasa_Click(object sender, EventArgs e)
+        {
+            GyermekFormMegnyitas(new frm_UtasokHozzaadasa(), sender); 
+            AlmenuElrejtés();
+        }
     }
 }

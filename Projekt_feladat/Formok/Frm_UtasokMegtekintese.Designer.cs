@@ -486,7 +486,8 @@ namespace Projekt_feladat.Formok
             // 
             dgv_utasok.AllowUserToAddRows = false;
             dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+      
+            dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             dgv_utasok.BackgroundColor = SystemColors.ControlLightLight;
             dgv_utasok.BorderStyle = BorderStyle.None;
             dgv_utasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
@@ -495,6 +496,7 @@ namespace Projekt_feladat.Formok
             dataGridViewCellStyle1.BackColor = Color.White;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;

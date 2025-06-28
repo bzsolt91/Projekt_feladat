@@ -413,6 +413,7 @@ namespace Projekt_feladat
             btn_utasokHozzadasa.Text = "🖆 Hozzáadás";
             btn_utasokHozzadasa.TextAlign = ContentAlignment.MiddleLeft;
             btn_utasokHozzadasa.UseVisualStyleBackColor = false;
+            btn_utasokHozzadasa.Click += btn_utasokHozzadasa_Click;
             // 
             // btn_utasokMegtekintese
             // 
