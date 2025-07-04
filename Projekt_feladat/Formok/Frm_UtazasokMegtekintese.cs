@@ -1001,7 +1001,7 @@ namespace Projekt_feladat.Formok
             e.Graphics.DrawString("Keresztnév", fejlec, brush, marginLeft + 180, y);
             e.Graphics.DrawString("Email", fejlec, brush, marginLeft + 325, y); // Példa: email oszlop
             e.Graphics.DrawString("Telefonszám", fejlec, brush, marginLeft + 550, y); // Példa: telefonszám oszlop
-            // ... add hozzá a többi fejlécet is, amit nyomtatni szeretnél
+
 
             y += rowHeight + 10; // Hely a fejléc és az első sor között
 

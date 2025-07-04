@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_UtasokHozzaadasa));
             kszm_titulus = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
             kszm_vezeteknev = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
@@ -52,6 +53,7 @@
             rcb_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             lb_utazasok = new ListBox();
             kszm_utazasTorlese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
+            nevEllenorzoTimer = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,6 +78,9 @@
             kszm_titulus.TabIndex = 0;
             kszm_titulus.Texts = "";
             kszm_titulus.TobbSor = false;
+            kszm_titulus._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_titulus.KeyDown += SzovegMezo_KeyDown;
+            kszm_titulus.Leave += kszm_Leave;
             // 
             // kszm_vezeteknev
             // 
@@ -98,6 +103,9 @@
             kszm_vezeteknev.TabIndex = 1;
             kszm_vezeteknev.Texts = "";
             kszm_vezeteknev.TobbSor = false;
+            kszm_vezeteknev._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_vezeteknev.KeyDown += SzovegMezo_KeyDown;
+            kszm_vezeteknev.Leave += kszm_Leave;
             // 
             // kszm_keresztnev1
             // 
@@ -120,6 +128,9 @@
             kszm_keresztnev1.TabIndex = 2;
             kszm_keresztnev1.Texts = "";
             kszm_keresztnev1.TobbSor = false;
+            kszm_keresztnev1._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_keresztnev1.KeyDown += SzovegMezo_KeyDown;
+            kszm_keresztnev1.Leave += kszm_Leave;
             // 
             // kszm_keresztnev2
             // 
@@ -142,6 +153,9 @@
             kszm_keresztnev2.TabIndex = 3;
             kszm_keresztnev2.Texts = "";
             kszm_keresztnev2.TobbSor = false;
+            kszm_keresztnev2._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_keresztnev2.KeyDown += SzovegMezo_KeyDown;
+            kszm_keresztnev2.Leave += kszm_Leave;
             // 
             // dtp_szulido
             // 
@@ -175,6 +189,9 @@
             kszm_lakcim.TabIndex = 5;
             kszm_lakcim.Texts = "";
             kszm_lakcim.TobbSor = false;
+            kszm_lakcim._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_lakcim.KeyDown += SzovegMezo_KeyDown;
+            kszm_lakcim.Leave += kszm_Leave;
             // 
             // panel1
             // 
@@ -238,6 +255,9 @@
             kszm_email.TabIndex = 8;
             kszm_email.Texts = "";
             kszm_email.TobbSor = false;
+            kszm_email._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_email.KeyDown += SzovegMezo_KeyDown;
+            kszm_email.Leave += kszm_Leave;
             // 
             // kszm_okmanySzam
             // 
@@ -260,6 +280,9 @@
             kszm_okmanySzam.TabIndex = 9;
             kszm_okmanySzam.Texts = "";
             kszm_okmanySzam.TobbSor = false;
+            kszm_okmanySzam._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_okmanySzam.KeyDown += SzovegMezo_KeyDown;
+            kszm_okmanySzam.Leave += kszm_Leave;
             // 
             // dtp_okmany
             // 
@@ -302,6 +325,9 @@
             kszm_telefon.TabIndex = 12;
             kszm_telefon.Texts = "";
             kszm_telefon.TobbSor = false;
+            kszm_telefon._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_telefon.KeyDown += SzovegMezo_KeyDown;
+            kszm_telefon.Leave += kszm_Leave;
             // 
             // kszm_befizetettOsszeg
             // 
@@ -324,6 +350,7 @@
             kszm_befizetettOsszeg.TabIndex = 13;
             kszm_befizetettOsszeg.Texts = "";
             kszm_befizetettOsszeg.TobbSor = false;
+            kszm_befizetettOsszeg.Leave += kszm_Leave;
             // 
             // lbl_biztositas
             // 
@@ -366,9 +393,13 @@
             kszm_megjegyzes.TabIndex = 16;
             kszm_megjegyzes.Texts = "";
             kszm_megjegyzes.TobbSor = true;
+            kszm_megjegyzes._SzovegValtoztatva += kszm_AutoComplete;
+            kszm_megjegyzes.KeyDown += SzovegMezo_KeyDown;
+            kszm_megjegyzes.Leave += kszm_Leave;
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -392,6 +423,7 @@
             // 
             // rcb_utazasIdeje
             // 
+            rcb_utazasIdeje.adatForras = null;
             rcb_utazasIdeje.BackColor = Color.Transparent;
             rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
             rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
@@ -415,6 +447,7 @@
             // 
             // rcb_utazasElnevezese
             // 
+            rcb_utazasElnevezese.adatForras = null;
             rcb_utazasElnevezese.BackColor = Color.Transparent;
             rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
             rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
@@ -469,6 +502,11 @@
             kszm_utazasTorlese.UseVisualStyleBackColor = false;
             kszm_utazasTorlese.Click += kszm_utazasTorlese_Click;
             // 
+            // nevEllenorzoTimer
+            // 
+            nevEllenorzoTimer.Interval = 500;
+            nevEllenorzoTimer.Tick += nevEllenorzoTimer_Tick;
+            // 
             // frm_UtasokHozzaadasa
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -499,6 +537,7 @@
             Controls.Add(kszm_titulus);
             Name = "frm_UtasokHozzaadasa";
             Text = "frm_UtasokHozzaadasa";
+            Click += frm_UtasokHozzaadasa_Click;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -529,5 +568,6 @@
         private ListBox lb_utazasok;
         private egyeni_vezerlok.KerekitettGomb kszm_utazasTorlese;
         private egyeni_vezerlok.KerekitettGomb kszm_mentes;
+        private System.Windows.Forms.Timer nevEllenorzoTimer;
     }
 }
