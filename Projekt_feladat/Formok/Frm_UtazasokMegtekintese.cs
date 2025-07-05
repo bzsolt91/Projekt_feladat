@@ -138,6 +138,17 @@ namespace Projekt_feladat.Formok
         }
         private void utazasok_betoltes()
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            
             try
             {
                 using (var conn = new MySqlConnection(constr))
@@ -170,6 +181,17 @@ namespace Projekt_feladat.Formok
 
         private void lekerdezes_kivalasztva()
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+           
             try
             {
                 using (var mc_mysqlcon = new MySqlConnection(constr))
@@ -430,6 +452,17 @@ namespace Projekt_feladat.Formok
         }
         private void kg_pipa_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+           
             if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
                 lekerdezes_kivalasztva();
             else
@@ -597,6 +630,17 @@ namespace Projekt_feladat.Formok
         }
         private void kszm_AutoComplete(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            
 
             if (utazasDesztinacio == null && utazasIdoszak == null && utazasNeve == null)
                 return;
@@ -754,6 +798,26 @@ namespace Projekt_feladat.Formok
 
         private void btn_mentes_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához nincs engedélye.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
             using (var kapcsolat = new MySqlConnection(constr))
             {
                 kapcsolat.Open();
@@ -849,6 +913,17 @@ namespace Projekt_feladat.Formok
 
         private void kerekitettGomb3_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+           
             kszm_utasLista.HatterSzine = Color.Green;
 
             try
@@ -1074,6 +1149,26 @@ namespace Projekt_feladat.Formok
 
         private void kszm_torles_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához nincs engedélye.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
             // Ellenőrizzük, hogy van-e kiválasztott sor a DataGridView-ben
             if (dgv_utazasok.SelectedRows.Count > 0)
             {
@@ -1175,6 +1270,26 @@ namespace Projekt_feladat.Formok
         /// </summary>
         private void UtasFromUtazasTorles(int utasId, int utazasId)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához nincs engedélye.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
             try
             {
                 using (var conn = new MySqlConnection(constr))

@@ -15,6 +15,11 @@
             Jogosultsag = jogosultsag;
         }
 
+        public static bool Bejelentkezve()
+        {
+            return !String.IsNullOrEmpty(Felhasznalonev);
+        }
+      
         public static void Kijelentkezes()
         {
             Id = 0;

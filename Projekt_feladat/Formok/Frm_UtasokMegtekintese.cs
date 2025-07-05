@@ -81,6 +81,16 @@ namespace Projekt_feladat.Formok
         {
             try
             {
+                if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+                {
+                    MessageBox.Show(
+                        "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                        "Bejelentkezés szükséges",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return; 
+                }
                 using (var mc_mysqlcon = new MySqlConnection(constr))
                 {
                     mc_mysqlcon.Open();
@@ -336,10 +346,7 @@ namespace Projekt_feladat.Formok
             }));
         }
 
-        private void kszm_utasNeve_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Ide illeszthetsz be specifikus KeyPress logikát, ha szükséges, pl. karakterkorlátozást
-        }
+      
 
         private void SzovegMezo_KeyDown(object sender, KeyEventArgs e)
         {
@@ -368,7 +375,18 @@ namespace Projekt_feladat.Formok
 
         private void kszm_AutoComplete(object sender, EventArgs e)
         {
-            var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
+
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+                var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
             if (aktivMezo == null) return;
             lst_talalatok.Tag = aktivMezo;
             lst_talalatok.Visible = true;
@@ -484,10 +502,7 @@ namespace Projekt_feladat.Formok
             }
         }
 
-        private void dgv_utasok_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Ez az eseménykezelő jelenleg üres, de használható DataGridView specifikus műveletekhez.
-        }
+     
         private void dgv_utasok_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -497,6 +512,26 @@ namespace Projekt_feladat.Formok
 
         private void kg_mentes_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if(bejelentkezes.bejelentkezes.Jogosultsag==0)
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához nincs engedélye.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
             using (var kapcsolat = new MySqlConnection(constr))
             {
                 kapcsolat.Open();
@@ -578,7 +613,26 @@ namespace Projekt_feladat.Formok
 
         private void kg_torles_Click(object sender, EventArgs e)
         {
-
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához nincs engedélye.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
             // Ellenőrizzük, van-e kijelölt sor
             if (dgv_utasok.SelectedRows.Count == 0)
             {
@@ -680,6 +734,17 @@ namespace Projekt_feladat.Formok
 
         private void kg_nyomtatas_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+           
             sorIndexAHolFolytatniKell = 0;
 
             // Ha szeretnél PrintPreviewDialog-ot (ajánlott)

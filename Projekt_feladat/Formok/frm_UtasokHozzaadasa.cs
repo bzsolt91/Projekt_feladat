@@ -20,7 +20,7 @@ namespace Projekt_feladat.Formok
         ListBox lst_talalatok = new ListBox();
         private bool automatikusKitoltes = false;
         private bool felhasznaloGepel = false;
-        string constr = $"Server=127.0.0.1;User ID={bejelentkezes.bejelentkezes.Felhasznalonev};Password={bejelentkezes.bejelentkezes.Jelszo};Database=utazast_kezelo";
+        string constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "utazast_kezelo", "utazast_kezelo1234", "utazast_kezelo");
         string? utazasDesztinacio = null;
         string? utazasIdoszak = null;
         string? utazasNeve = null;
@@ -55,6 +55,18 @@ namespace Projekt_feladat.Formok
         }
         private void kszm_AutoComplete(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+           
+
             if (automatikusKitoltes) return;
 
             felhasznaloGepel = true;
@@ -190,6 +202,18 @@ namespace Projekt_feladat.Formok
 
         private void AutomatikusKitoltes()
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+           
+
             automatikusKitoltes = true;
 
             string titulus = kszm_titulus.Texts.Trim();
@@ -336,6 +360,17 @@ namespace Projekt_feladat.Formok
         }
         private void utazasok_betoltes()
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+           
             try
             {
                 using (var conn = new MySqlConnection(constr))
@@ -539,6 +574,26 @@ namespace Projekt_feladat.Formok
 
         private void kszm_mentes_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához nincs engedélye.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
             try
             {
                 using (var conn = new MySqlConnection(constr))

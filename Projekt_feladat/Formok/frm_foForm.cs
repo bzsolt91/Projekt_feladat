@@ -96,7 +96,7 @@ namespace Projekt_feladat
             form_gyermek.Dock = DockStyle.Fill; // form beillesztéskor teljesen töltse ki a teret
             this.pnl_fopanel.Controls.Add(form_gyermek); //fopanelhez adjuk a kiválasztott formot
             form_gyermek.Show();  // kiválasztott form elõhozása
-            
+
 
         }
 
@@ -104,7 +104,7 @@ namespace Projekt_feladat
         {
             AlmenuElrejtés();
             AlmenuElohivas(pnl_UtazasokAlmenu);
-           
+
 
         }
 
@@ -112,7 +112,7 @@ namespace Projekt_feladat
         {
             AlmenuElrejtés();
             AlmenuElohivas(pnl_UtasokAlmenu);
-           
+
 
         }
 
@@ -131,7 +131,7 @@ namespace Projekt_feladat
             {
                 pnl.Height = 0;
             }
-           
+
         }
 
         private void AlmenuElohivas(Panel pnl)
@@ -407,6 +407,12 @@ namespace Projekt_feladat
                 pnl_bejelentkezve.Visible = true;
             else
                 pnl_bejelentkezes.Visible = true;
+        }
+
+        private void kszm_vissza_Click(object sender, EventArgs e)
+        {
+            pnl_regisztacio.Visible = false;
+            pnl_bejelentkezes.Visible = true;
         }
     }
 }

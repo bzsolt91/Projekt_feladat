@@ -24,6 +24,26 @@ namespace Projekt_feladat.Formok
         string constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
         private void kszm_hozzaadas_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához nincs engedélye.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
             if (string.IsNullOrWhiteSpace(kszm_desztinacio.Texts) &&
                 string.IsNullOrWhiteSpace(kszm_utazasElnevezese.Texts) &&
                 dt_datumvalaszto.Value.Date == DateTime.Now.Date)
@@ -64,6 +84,17 @@ namespace Projekt_feladat.Formok
 
         private void utazasok_betoltes()
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            
             try
             {
                 using (var conn = new MySqlConnection(constr))
@@ -133,6 +164,17 @@ namespace Projekt_feladat.Formok
 
         private void idoszak_betoltes()
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+          
             try
             {
                 using (var conn = new MySqlConnection(constr))
@@ -248,10 +290,6 @@ namespace Projekt_feladat.Formok
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void kg_nem_Click(object sender, EventArgs e)
         {
@@ -260,7 +298,27 @@ namespace Projekt_feladat.Formok
 
         private void kg_igen_Click(object sender, EventArgs e)
         {
- 
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
+            {
+                MessageBox.Show(
+                    "A művelet végrehajtásához nincs engedélye.",
+                    "Bejelentkezés szükséges",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
             if (utazasDesztinacio != null && utazasIdoszak != null && utazasNeve != null)
             {
                 try

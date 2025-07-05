@@ -34,7 +34,9 @@ namespace Projekt_feladat
             ellipszisVezerlo ev_bejelentkezes;
             ellipszisVezerlo ev_bejelentkezve;
             ellipszisVezerlo ev_regisztacio;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_foForm));
             pnl_bejelentkezes = new Panel();
+            label3 = new Label();
             kszm_regisztralas = new KerekitettGomb();
             kg_bejelentkezvemarad = new KapcsoloGomb();
             lbl_bejelentkezvemarad = new Label();
@@ -43,11 +45,15 @@ namespace Projekt_feladat
             kszm_jelszo = new kerekitettSzovegMezo();
             kszm_felhasznalo = new kerekitettSzovegMezo();
             pnl_bejelentkezve = new Panel();
+            lbl_diszcsik = new Label();
+            lbl_pkeszenall = new Label();
             lbl_udvozlet = new Label();
             lbl_nev = new Label();
             lbl_bejelentkezve = new Label();
             kg_kilepes = new KerekitettGomb();
             pnl_regisztacio = new Panel();
+            kszm_vissza = new KerekitettGomb();
+            label2 = new Label();
             kszm_regjelszoujra = new kerekitettSzovegMezo();
             lbl_regisztacio = new Label();
             kg_regisztacio = new KerekitettGomb();
@@ -100,6 +106,7 @@ namespace Projekt_feladat
             // pnl_bejelentkezes
             // 
             pnl_bejelentkezes.BackColor = Color.WhiteSmoke;
+            pnl_bejelentkezes.Controls.Add(label3);
             pnl_bejelentkezes.Controls.Add(kszm_regisztralas);
             pnl_bejelentkezes.Controls.Add(kg_bejelentkezvemarad);
             pnl_bejelentkezes.Controls.Add(lbl_bejelentkezvemarad);
@@ -111,6 +118,16 @@ namespace Projekt_feladat
             pnl_bejelentkezes.Name = "pnl_bejelentkezes";
             pnl_bejelentkezes.Size = new Size(463, 390);
             pnl_bejelentkezes.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label3.BackColor = Color.FromArgb(209, 213, 219);
+            label3.ForeColor = Color.FromArgb(209, 213, 219);
+            label3.Location = new Point(39, 66);
+            label3.Name = "label3";
+            label3.Size = new Size(385, 1);
+            label3.TabIndex = 8;
             // 
             // kszm_regisztralas
             // 
@@ -238,6 +255,8 @@ namespace Projekt_feladat
             // pnl_bejelentkezve
             // 
             pnl_bejelentkezve.BackColor = Color.WhiteSmoke;
+            pnl_bejelentkezve.Controls.Add(lbl_diszcsik);
+            pnl_bejelentkezve.Controls.Add(lbl_pkeszenall);
             pnl_bejelentkezve.Controls.Add(lbl_udvozlet);
             pnl_bejelentkezve.Controls.Add(lbl_nev);
             pnl_bejelentkezve.Controls.Add(lbl_bejelentkezve);
@@ -248,11 +267,31 @@ namespace Projekt_feladat
             pnl_bejelentkezve.TabIndex = 1;
             pnl_bejelentkezve.Visible = false;
             // 
+            // lbl_diszcsik
+            // 
+            lbl_diszcsik.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lbl_diszcsik.BackColor = Color.FromArgb(209, 213, 219);
+            lbl_diszcsik.ForeColor = Color.FromArgb(209, 213, 219);
+            lbl_diszcsik.Location = new Point(41, 67);
+            lbl_diszcsik.Name = "lbl_diszcsik";
+            lbl_diszcsik.Size = new Size(385, 1);
+            lbl_diszcsik.TabIndex = 7;
+            // 
+            // lbl_pkeszenall
+            // 
+            lbl_pkeszenall.AutoSize = true;
+            lbl_pkeszenall.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            lbl_pkeszenall.Location = new Point(95, 194);
+            lbl_pkeszenall.Name = "lbl_pkeszenall";
+            lbl_pkeszenall.Size = new Size(290, 25);
+            lbl_pkeszenall.TabIndex = 6;
+            lbl_pkeszenall.Text = "A program készen áll a használatra.";
+            // 
             // lbl_udvozlet
             // 
             lbl_udvozlet.AutoSize = true;
             lbl_udvozlet.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lbl_udvozlet.Location = new Point(123, 92);
+            lbl_udvozlet.Location = new Point(168, 96);
             lbl_udvozlet.Name = "lbl_udvozlet";
             lbl_udvozlet.Size = new Size(0, 28);
             lbl_udvozlet.TabIndex = 5;
@@ -260,10 +299,11 @@ namespace Projekt_feladat
             // lbl_nev
             // 
             lbl_nev.AutoSize = true;
-            lbl_nev.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lbl_nev.Location = new Point(120, 145);
+            lbl_nev.Font = new Font("Segoe UI", 14F);
+            lbl_nev.ForeColor = Color.DarkViolet;
+            lbl_nev.Location = new Point(196, 135);
             lbl_nev.Name = "lbl_nev";
-            lbl_nev.Size = new Size(43, 28);
+            lbl_nev.Size = new Size(53, 32);
             lbl_nev.TabIndex = 4;
             lbl_nev.Text = "nev";
             // 
@@ -307,16 +347,50 @@ namespace Projekt_feladat
             // pnl_regisztacio
             // 
             pnl_regisztacio.BackColor = Color.WhiteSmoke;
+            pnl_regisztacio.Controls.Add(kszm_vissza);
+            pnl_regisztacio.Controls.Add(label2);
             pnl_regisztacio.Controls.Add(kszm_regjelszoujra);
             pnl_regisztacio.Controls.Add(lbl_regisztacio);
             pnl_regisztacio.Controls.Add(kg_regisztacio);
             pnl_regisztacio.Controls.Add(kszm_regjelszo);
             pnl_regisztacio.Controls.Add(kszm_regnev);
-            pnl_regisztacio.Location = new Point(84, 457);
+            pnl_regisztacio.Location = new Point(6, 296);
             pnl_regisztacio.Name = "pnl_regisztacio";
             pnl_regisztacio.Size = new Size(463, 390);
             pnl_regisztacio.TabIndex = 2;
             pnl_regisztacio.Visible = false;
+            // 
+            // kszm_vissza
+            // 
+            kszm_vissza.BackColor = Color.MediumSlateBlue;
+            kszm_vissza.EgerTartasHatterSzine = Color.SlateBlue;
+            kszm_vissza.FlatAppearance.BorderSize = 0;
+            kszm_vissza.FlatStyle = FlatStyle.Flat;
+            kszm_vissza.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            kszm_vissza.ForeColor = Color.White;
+            kszm_vissza.HatterSzine = Color.MediumSlateBlue;
+            kszm_vissza.Image = (Image)resources.GetObject("kszm_vissza.Image");
+            kszm_vissza.KeretMeret = 0;
+            kszm_vissza.KeretSzine = Color.PaleVioletRed;
+            kszm_vissza.Location = new Point(70, 319);
+            kszm_vissza.Name = "kszm_vissza";
+            kszm_vissza.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kszm_vissza.SarokSugar = 8;
+            kszm_vissza.Size = new Size(94, 50);
+            kszm_vissza.SzovegSzine = Color.White;
+            kszm_vissza.TabIndex = 9;
+            kszm_vissza.UseVisualStyleBackColor = false;
+            kszm_vissza.Click += kszm_vissza_Click;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label2.BackColor = Color.FromArgb(209, 213, 219);
+            label2.ForeColor = Color.FromArgb(209, 213, 219);
+            label2.Location = new Point(39, 61);
+            label2.Name = "label2";
+            label2.Size = new Size(385, 1);
+            label2.TabIndex = 8;
             // 
             // kszm_regjelszoujra
             // 
@@ -361,7 +435,7 @@ namespace Projekt_feladat
             kg_regisztacio.HatterSzine = Color.MediumSlateBlue;
             kg_regisztacio.KeretMeret = 0;
             kg_regisztacio.KeretSzine = Color.PaleVioletRed;
-            kg_regisztacio.Location = new Point(123, 317);
+            kg_regisztacio.Location = new Point(194, 319);
             kg_regisztacio.Name = "kg_regisztacio";
             kg_regisztacio.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_regisztacio.SarokSugar = 8;
@@ -967,6 +1041,11 @@ namespace Projekt_feladat
         private kerekitettSzovegMezo kszm_jelszo;
         private kerekitettSzovegMezo kszm_felhasznalo;
         private Label lbl_udvozlet;
+        private Label lbl_pkeszenall;
+        private Label lbl_diszcsik;
+        private Label label3;
+        private Label label2;
+        private KerekitettGomb kszm_vissza;
     }
 }
 

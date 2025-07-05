@@ -403,7 +403,7 @@ namespace Projekt_feladat.Formok
             kszm_utasNeve.TobbSor = false;
             kszm_utasNeve._SzovegValtoztatva += kszm_AutoComplete;
             kszm_utasNeve.KeyDown += SzovegMezo_KeyDown;
-            kszm_utasNeve.KeyPress += kszm_utasNeve_KeyPress;
+      
             kszm_utasNeve.Leave += kszm_Leave;
             // 
             // kb_biztositas
@@ -535,7 +535,7 @@ namespace Projekt_feladat.Formok
             dgv_utasok.ShowRowErrors = false;
             dgv_utasok.Size = new Size(1288, 551);
             dgv_utasok.TabIndex = 1;
-            dgv_utasok.CellContentClick += dgv_utasok_CellContentClick;
+           
             dgv_utasok.CellValueChanged += dgv_utasok_CellValueChanged;
             // 
             // pd_utasok

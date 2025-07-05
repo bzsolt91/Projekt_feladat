@@ -115,7 +115,7 @@
             lb_utazas.Name = "lb_utazas";
             lb_utazas.Size = new Size(0, 31);
             lb_utazas.TabIndex = 1;
-            lb_utazas.Click += label1_Click;
+          
             // 
             // lb_torolni
             // 
