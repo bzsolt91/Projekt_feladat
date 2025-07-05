@@ -17,6 +17,7 @@ namespace Projekt_feladat.Formok
         ListBox lst_talalatok = new ListBox();
         string constr;
         ToolTip? egyeniTooltip = new ToolTip();
+
         string? utazasDesztinacio = null;
         string? utazasIdoszak = null;
         string? utazasNeve = null;
@@ -24,11 +25,15 @@ namespace Projekt_feladat.Formok
         public Frm_UtazasokMegtekintese()
         {
             InitializeComponent();
-            egyeniTooltip.OwnerDraw = true;
+         
             dgv_utazasok.ShowCellToolTips = false;
 
+      
+
+            egyeniTooltip.OwnerDraw = true;
             egyeniTooltip.Draw += EgyeniTooltip_Draw;
             egyeniTooltip.Popup += EgyeniTooltip_Popup;
+
             this.AutoScaleMode = AutoScaleMode.None;
             form_elrendezes();
 
@@ -38,7 +43,7 @@ namespace Projekt_feladat.Formok
             lst_talalatok.MouseDown += lst_talalatok_MouseDown;
             lst_talalatok.Width = kszm_utasNeve.Width;
             szpn_szuroPanel.Controls.Add(lst_talalatok);
-            constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
+             constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "utazast_kezelo", "utazast_kezelo1234", "utazast_kezelo");
         }
         private void lst_talalatok_MouseDown(object sender, MouseEventArgs e)
         {
@@ -80,7 +85,17 @@ namespace Projekt_feladat.Formok
             lst_talalatok.Location = new Point(kszm_utasNeve.Location.X, kszm_utasNeve.Location.Y + kszm_utasNeve.Height + 10);
             this.Controls.Add(dgv_utazasok);
         }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (egyeniTooltip != null)
+            {
+                egyeniTooltip.RemoveAll();  // Az összes tooltip eltávolítása
+                egyeniTooltip.Dispose();    // Tooltip tényleges felszabadítása
+                egyeniTooltip = null;
+            }
 
+            base.OnFormClosing(e);
+        }
         private void MeretezdCellakAlapjan(DataGridView dgv)
         {
             using (Graphics g = dgv.CreateGraphics())
@@ -421,8 +436,7 @@ namespace Projekt_feladat.Formok
                     string szoveg = cella.Value.ToString();
 
                     egyeniTooltip.OwnerDraw = true; // saját rajzolás engedélyezése
-                    egyeniTooltip.Draw += EgyeniTooltip_Draw;
-                    egyeniTooltip.Popup += EgyeniTooltip_Popup;
+              
 
                     Point kurzor = Cursor.Position;
                     Point formPozicio = this.PointToClient(kurzor);

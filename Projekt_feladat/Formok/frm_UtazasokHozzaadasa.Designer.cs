@@ -115,7 +115,6 @@
             lb_utazas.Name = "lb_utazas";
             lb_utazas.Size = new Size(0, 31);
             lb_utazas.TabIndex = 1;
-          
             // 
             // lb_torolni
             // 
@@ -207,7 +206,6 @@
             // 
             // rcb_desztinacio
             // 
-            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -232,7 +230,6 @@
             // 
             // rcb_utazasIdeje
             // 
-            rcb_utazasIdeje.adatForras = null;
             rcb_utazasIdeje.BackColor = Color.Transparent;
             rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
             rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
@@ -257,7 +254,6 @@
             // 
             // rcb_utazasElnevezese
             // 
-            rcb_utazasElnevezese.adatForras = null;
             rcb_utazasElnevezese.BackColor = Color.Transparent;
             rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
             rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
@@ -307,7 +303,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1229, 702);
+            ClientSize = new Size(1229, 690);
             Controls.Add(pnl_torles);
             Controls.Add(kg_utazasTorlese);
             Controls.Add(rcb_utazasElnevezese);

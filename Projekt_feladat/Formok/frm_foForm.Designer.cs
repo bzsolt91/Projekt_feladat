@@ -45,6 +45,7 @@ namespace Projekt_feladat
             kszm_jelszo = new kerekitettSzovegMezo();
             kszm_felhasznalo = new kerekitettSzovegMezo();
             pnl_bejelentkezve = new Panel();
+            lbl_hozzaferes = new Label();
             lbl_diszcsik = new Label();
             lbl_pkeszenall = new Label();
             lbl_udvozlet = new Label();
@@ -255,6 +256,7 @@ namespace Projekt_feladat
             // pnl_bejelentkezve
             // 
             pnl_bejelentkezve.BackColor = Color.WhiteSmoke;
+            pnl_bejelentkezve.Controls.Add(lbl_hozzaferes);
             pnl_bejelentkezve.Controls.Add(lbl_diszcsik);
             pnl_bejelentkezve.Controls.Add(lbl_pkeszenall);
             pnl_bejelentkezve.Controls.Add(lbl_udvozlet);
@@ -266,6 +268,16 @@ namespace Projekt_feladat
             pnl_bejelentkezve.Size = new Size(463, 390);
             pnl_bejelentkezve.TabIndex = 1;
             pnl_bejelentkezve.Visible = false;
+            // 
+            // lbl_hozzaferes
+            // 
+            lbl_hozzaferes.AutoSize = true;
+            lbl_hozzaferes.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            lbl_hozzaferes.ForeColor = Color.FromArgb(55, 65, 81);
+            lbl_hozzaferes.Location = new Point(91, 201);
+            lbl_hozzaferes.Name = "lbl_hozzaferes";
+            lbl_hozzaferes.Size = new Size(0, 23);
+            lbl_hozzaferes.TabIndex = 8;
             // 
             // lbl_diszcsik
             // 
@@ -281,7 +293,7 @@ namespace Projekt_feladat
             // 
             lbl_pkeszenall.AutoSize = true;
             lbl_pkeszenall.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lbl_pkeszenall.Location = new Point(95, 194);
+            lbl_pkeszenall.Location = new Point(88, 255);
             lbl_pkeszenall.Name = "lbl_pkeszenall";
             lbl_pkeszenall.Size = new Size(290, 25);
             lbl_pkeszenall.TabIndex = 6;
@@ -328,7 +340,7 @@ namespace Projekt_feladat
             kg_kilepes.HatterSzine = Color.MediumSlateBlue;
             kg_kilepes.KeretMeret = 0;
             kg_kilepes.KeretSzine = Color.PaleVioletRed;
-            kg_kilepes.Location = new Point(133, 263);
+            kg_kilepes.Location = new Point(133, 302);
             kg_kilepes.Name = "kg_kilepes";
             kg_kilepes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_kilepes.SarokSugar = 8;
@@ -354,7 +366,7 @@ namespace Projekt_feladat
             pnl_regisztacio.Controls.Add(kg_regisztacio);
             pnl_regisztacio.Controls.Add(kszm_regjelszo);
             pnl_regisztacio.Controls.Add(kszm_regnev);
-            pnl_regisztacio.Location = new Point(6, 296);
+            pnl_regisztacio.Location = new Point(425, 467);
             pnl_regisztacio.Name = "pnl_regisztacio";
             pnl_regisztacio.Size = new Size(463, 390);
             pnl_regisztacio.TabIndex = 2;
@@ -595,6 +607,7 @@ namespace Projekt_feladat
             pnl_fopanel.Name = "pnl_fopanel";
             pnl_fopanel.Size = new Size(1018, 698);
             pnl_fopanel.TabIndex = 2;
+            pnl_fopanel.ControlRemoved += pnl_fopanel_ControlRemoved;
             pnl_fopanel.Resize += pnl_fopanel_Resize;
             // 
             // pnl_fomenu_disz
@@ -1046,6 +1059,7 @@ namespace Projekt_feladat
         private Label label3;
         private Label label2;
         private KerekitettGomb kszm_vissza;
+        private Label lbl_hozzaferes;
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using MySqlConnector;
 using Projekt_feladat.egyeni_vezerlok;
 using System.Data;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Projekt_feladat.Formok
@@ -15,9 +16,14 @@ namespace Projekt_feladat.Formok
         private bool szuresAktiv = false;
         ListBox lst_talalatok = new ListBox();
         private int sorIndexAHolFolytatniKell = 0;
+        ToolTip? egyeniTooltip = new ToolTip();
         public Frm_UtasokMegtekintese()
         {
             InitializeComponent();
+            dgv_utasok.ShowCellToolTips = false;
+            egyeniTooltip.OwnerDraw = true;
+            egyeniTooltip.Draw += EgyeniTooltip_Draw;
+            egyeniTooltip.Popup += EgyeniTooltip_Popup;
         }
 
         private void Frm_Utasok_Load(object sender, EventArgs e)
@@ -27,7 +33,7 @@ namespace Projekt_feladat.Formok
             nud_oldalValaszto.Minimum = 1;
             nud_oldalValaszto.Value = aktualisOldal;
             nud_oldalValaszto.ReadOnly = true;
-          
+
             szpn_szuroPanel.Controls.Add(lst_talalatok);
             lst_talalatok.Visible = false;
             lst_talalatok.DrawMode = DrawMode.OwnerDrawFixed;
@@ -37,6 +43,40 @@ namespace Projekt_feladat.Formok
             szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height / 2 - szpn_szuroPanel.Height / 2);
         }
 
+        private void EgyeniTooltip_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            Font font = new Font("Segoe UI", 14);
+            using (LinearGradientBrush brush = new LinearGradientBrush(e.Bounds, Color.BlueViolet, Color.BlueViolet, 90f))
+            {
+                e.Graphics.FillRectangle(brush, e.Bounds);
+            }
+
+            e.Graphics.DrawRectangle(Pens.DarkViolet, new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1));
+            TextRenderer.DrawText(e.Graphics, e.ToolTipText, font, e.Bounds, Color.White, TextFormatFlags.WordBreak);
+        }
+
+        private void EgyeniTooltip_Popup(object sender, PopupEventArgs e)
+        {
+            Font font = new Font("Segoe UI", 18);
+
+            // Itt a 'sender' a ToolTip objektum, tehát le tudjuk kérni belőle a szöveget
+            ToolTip tooltip = (ToolTip)sender;
+            string szoveg = tooltip.GetToolTip(e.AssociatedControl);
+
+            Size meret = TextRenderer.MeasureText(szoveg, font, new Size(1000, 0), TextFormatFlags.WordBreak);
+            e.ToolTipSize = new Size(meret.Width + 10, meret.Height + 10);
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (egyeniTooltip != null)
+            {
+                egyeniTooltip.RemoveAll();  // Az összes tooltip eltávolítása
+                egyeniTooltip.Dispose();    // Tooltip tényleges felszabadítása
+                egyeniTooltip = null;
+            }
+
+            base.OnFormClosing(e);
+        }
         private void lst_talalatok_MouseDown(object? sender, MouseEventArgs e)
         {
             int index = lst_talalatok.IndexFromPoint(e.Location);
@@ -89,7 +129,7 @@ namespace Projekt_feladat.Formok
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );
-                    return; 
+                    return;
                 }
                 using (var mc_mysqlcon = new MySqlConnection(constr))
                 {
@@ -346,7 +386,7 @@ namespace Projekt_feladat.Formok
             }));
         }
 
-      
+
 
         private void SzovegMezo_KeyDown(object sender, KeyEventArgs e)
         {
@@ -386,7 +426,7 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-                var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
+            var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
             if (aktivMezo == null) return;
             lst_talalatok.Tag = aktivMezo;
             lst_talalatok.Visible = true;
@@ -502,7 +542,7 @@ namespace Projekt_feladat.Formok
             }
         }
 
-     
+
         private void dgv_utasok_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -522,7 +562,7 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-            if(bejelentkezes.bejelentkezes.Jogosultsag==0)
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
             {
                 MessageBox.Show(
                     "A művelet végrehajtásához nincs engedélye.",
@@ -744,7 +784,7 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-           
+
             sorIndexAHolFolytatniKell = 0;
 
             // Ha szeretnél PrintPreviewDialog-ot (ajánlott)
@@ -823,6 +863,26 @@ namespace Projekt_feladat.Formok
         private void Frm_UtasokMegtekintese_Resize(object sender, EventArgs e)
         {
             szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height / 2 - szpn_szuroPanel.Height / 2);
+        }
+
+        private void dgv_utasok_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                var cella = dgv_utasok[e.ColumnIndex, e.RowIndex];
+                if (cella.Value != null)
+                {
+                    string szoveg = cella.Value.ToString();
+
+                    egyeniTooltip.OwnerDraw = true; // saját rajzolás engedélyezése
+
+
+                    Point kurzor = Cursor.Position;
+                    Point formPozicio = this.PointToClient(kurzor);
+
+                    egyeniTooltip.Show(szoveg, this, formPozicio.X + 10, formPozicio.Y + 20, 3000);
+                }
+            }
         }
     }
 

@@ -693,7 +693,9 @@ namespace Projekt_feladat.Formok
 
                         tr.Commit();
                         MessageBox.Show("Sikeres mentés.");
+                       
                         Close();
+                        
                     }
                 }
             }
