@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using Projekt_feladat.bejelentkezes;
 using Projekt_feladat.egyeni_vezerlok;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,9 @@ namespace Projekt_feladat.Formok
     public partial class frm_UtasokHozzaadasa : Form
     {
         ListBox lst_talalatok = new ListBox();
-        string constr = "Server=127.0.0.1;User ID=root;Password=;Database=utazast_kezelo";
+        private bool automatikusKitoltes = false;
+        private bool felhasznaloGepel = false;
+        string constr = $"Server=127.0.0.1;User ID={bejelentkezes.bejelentkezes.Felhasznalonev};Password={bejelentkezes.bejelentkezes.Jelszo};Database=utazast_kezelo";
         string? utazasDesztinacio = null;
         string? utazasIdoszak = null;
         string? utazasNeve = null;
@@ -52,7 +55,9 @@ namespace Projekt_feladat.Formok
         }
         private void kszm_AutoComplete(object sender, EventArgs e)
         {
+            if (automatikusKitoltes) return;
 
+            felhasznaloGepel = true;
             nevEllenorzoTimer.Stop();
             nevEllenorzoTimer.Start();
             var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
@@ -183,7 +188,88 @@ namespace Projekt_feladat.Formok
             }
         }
 
+        private void AutomatikusKitoltes()
+        {
+            automatikusKitoltes = true;
 
+            string titulus = kszm_titulus.Texts.Trim();
+            string vezeteknev = kszm_vezeteknev.Texts.Trim();
+            string keresztnev1 = kszm_keresztnev1.Texts.Trim();
+            string keresztnev2 = kszm_keresztnev2.Texts.Trim();
+
+            if (string.IsNullOrWhiteSpace(vezeteknev) || string.IsNullOrWhiteSpace(keresztnev1))
+            {
+                automatikusKitoltes = false;
+                return;
+            }
+
+            try
+            {
+                using (var conn = new MySqlConnection(constr))
+                {
+                    conn.Open();
+
+                    string sql = @"
+                SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2,
+                       c.email_cim, c.lakcim,
+                       t.telefon,
+                       s.szemelyi_vagy_utlevel,
+                       m.megjegyzes
+                FROM utas AS u
+                LEFT JOIN cim AS c ON c.utas_id = u.utas_id
+                LEFT JOIN telefon AS t ON t.utas_id = u.utas_id
+                LEFT JOIN szemelyi AS s ON s.utas_id = u.utas_id
+                LEFT JOIN megjegyzes AS m ON m.utas_id = u.utas_id
+                WHERE u.vezeteknev = @vezeteknev AND u.keresztnev1 = @keresztnev1
+            ";
+
+                    if (!string.IsNullOrWhiteSpace(titulus) && !string.IsNullOrWhiteSpace(keresztnev2))
+                    {
+                        sql += " AND u.titulus = @titulus AND u.keresztnev2 = @keresztnev2";
+                    }
+
+                    sql += " LIMIT 1";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@vezeteknev", vezeteknev);
+                        cmd.Parameters.AddWithValue("@keresztnev1", keresztnev1);
+
+                        if (!string.IsNullOrWhiteSpace(titulus) && !string.IsNullOrWhiteSpace(keresztnev2))
+                        {
+                            cmd.Parameters.AddWithValue("@titulus", titulus);
+                            cmd.Parameters.AddWithValue("@keresztnev2", keresztnev2);
+                        }
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // MEZŐK KITÖLTÉSE (ez fog nem újból triggerelni autocomplete-ot)
+                                kszm_titulus.Texts = reader.IsDBNull(0) ? "" : reader.GetString(0);
+                                kszm_vezeteknev.Texts = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                                kszm_keresztnev1.Texts = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                                kszm_keresztnev2.Texts = reader.IsDBNull(3) ? "" : reader.GetString(3);
+                                kszm_email.Texts = reader.IsDBNull(4) ? "" : reader.GetString(4);
+                                kszm_lakcim.Texts = reader.IsDBNull(5) ? "" : reader.GetString(5);
+                                kszm_telefon.Texts = reader.IsDBNull(6) ? "" : reader.GetString(6);
+                                kszm_okmanySzam.Texts = reader.IsDBNull(7) ? "" : reader.GetString(7);
+                                kszm_megjegyzes.Texts = reader.IsDBNull(8) ? "" : reader.GetString(8);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba a névkitöltés közben: " + ex.Message);
+            }
+            finally
+            {
+                automatikusKitoltes = false;
+                lst_talalatok.Visible = false;
+            }
+        }
         private void SzovegMezo_KeyDown(object sender, KeyEventArgs e)
         {
             if (!lst_talalatok.Visible) return;
@@ -582,80 +668,14 @@ namespace Projekt_feladat.Formok
         private void nevEllenorzoTimer_Tick(object sender, EventArgs e)
         {
 
-            ///komplett névegyezés ellenőrzése beillesztése
             nevEllenorzoTimer.Stop();
 
-            string titulus = kszm_titulus.Texts.Trim();
-            string vezeteknev = kszm_vezeteknev.Texts.Trim();
-            string keresztnev1 = kszm_keresztnev1.Texts.Trim();
-            string keresztnev2 = kszm_keresztnev2.Texts.Trim();
-
-            // Legalább vezetéknév + keresztnev1 kell legyen megadva
-            if (string.IsNullOrWhiteSpace(vezeteknev) || string.IsNullOrWhiteSpace(keresztnev1))
-                return;
-
-            try
+            if (felhasznaloGepel)
             {
-                using (var conn = new MySqlConnection(constr))
-                {
-                    conn.Open();
-
-                    string sql = @"
-                SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2,
-                       c.email_cim, c.lakcim,
-                       t.telefon,
-                       s.szemelyi_vagy_utlevel,
-                       m.megjegyzes
-                FROM utas AS u
-                LEFT JOIN cim AS c ON c.utas_id = u.utas_id
-                LEFT JOIN telefon AS t ON t.utas_id = u.utas_id
-                LEFT JOIN szemelyi AS s ON s.utas_id = u.utas_id
-                LEFT JOIN megjegyzes AS m ON m.utas_id = u.utas_id
-                WHERE u.vezeteknev = @vezeteknev AND u.keresztnev1 = @keresztnev1
-            ";
-
-                    if (!string.IsNullOrWhiteSpace(titulus) && !string.IsNullOrWhiteSpace(keresztnev2))
-                    {
-                        sql += " AND u.titulus = @titulus AND u.keresztnev2 = @keresztnev2";
-                    }
-
-                    sql += " LIMIT 1";
-
-                    using (var cmd = new MySqlCommand(sql, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@vezeteknev", vezeteknev);
-                        cmd.Parameters.AddWithValue("@keresztnev1", keresztnev1);
-
-                        if (!string.IsNullOrWhiteSpace(titulus) && !string.IsNullOrWhiteSpace(keresztnev2))
-                        {
-                            cmd.Parameters.AddWithValue("@titulus", titulus);
-                            cmd.Parameters.AddWithValue("@keresztnev2", keresztnev2);
-                        }
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                kszm_titulus.Texts = reader.IsDBNull(0) ? "" : reader.GetString(0);
-                                kszm_vezeteknev.Texts = reader.IsDBNull(1) ? "" : reader.GetString(1);
-                                kszm_keresztnev1.Texts = reader.IsDBNull(2) ? "" : reader.GetString(2);
-                                kszm_keresztnev2.Texts = reader.IsDBNull(3) ? "" : reader.GetString(3);
-                                kszm_email.Texts = reader.IsDBNull(4) ? "" : reader.GetString(4);
-                                kszm_lakcim.Texts = reader.IsDBNull(5) ? "" : reader.GetString(5);
-                                kszm_telefon.Texts = reader.IsDBNull(6) ? "" : reader.GetString(6);
-                                kszm_okmanySzam.Texts = reader.IsDBNull(7) ? "" : reader.GetString(7);
-                                kszm_megjegyzes.Texts = reader.IsDBNull(8) ? "" : reader.GetString(8);
-                            }
-                            lst_talalatok.Visible = false;
-                        }
-                    }
-                }
+                felhasznaloGepel = false;  // most már elfogadjuk, hogy nem gépel a user
+                AutomatikusKitoltes();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Hiba a névkitöltés közben: " + ex.Message);
-            }
-        
         }
+    
     }
 }

@@ -1,3 +1,7 @@
+using Microsoft.VisualBasic.Logging;
+using MySqlConnector;
+using Projekt_feladat.bejelentkezes;
+using Projekt_feladat.egyeni_vezerlok;
 using Projekt_feladat.Formok;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
@@ -8,11 +12,6 @@ namespace Projekt_feladat
 {
     public partial class frm_foForm : Form
     {
-
-
-
-
-
         /************   Fejléc mozgatáshoz szükséges változók    ************/
         private bool mozgatas_egerrel = false; //mozgatási státusz rögzítése
         private Point mozgatasi_pont; //a kurzor új pozíciója ahová az ablak mozgatódik
@@ -40,7 +39,10 @@ namespace Projekt_feladat
             tmr_almenuAnimacio.Interval = 10;
             AlmenuElrejtés();
             this.AutoScaleMode = AutoScaleMode.None;
-
+            pnl_bejelentkezes.Location = new Point((pnl_fopanel.Width - pnl_bejelentkezes.Width) / 2, (pnl_fopanel.Height - pnl_bejelentkezes.Height) / 2);
+            pnl_bejelentkezve.Location = new Point((pnl_fopanel.Width - pnl_bejelentkezve.Width) / 2, (pnl_fopanel.Height - pnl_bejelentkezve.Height) / 2);
+            pnl_regisztacio.Location = new Point((pnl_fopanel.Width - pnl_regisztacio.Width) / 2, (pnl_fopanel.Height - pnl_regisztacio.Height) / 2);
+            lbl_udvozlet.Text = NapszakosUdvozles();
 
         }
 
@@ -48,8 +50,6 @@ namespace Projekt_feladat
         {
             this.Close();
         }
-
-
 
         private void pnl_fejlec_MouseDown(object sender, MouseEventArgs e)
         {
@@ -87,6 +87,7 @@ namespace Projekt_feladat
         }
         private void GyermekFormMegnyitas(Form form_gyermek, object kuldo_gomb)
         {
+            bejelentkezesElrejtes();
             if (aktivForm != null)
                 aktivForm.Close();
             aktivForm = form_gyermek; //aktivált form átadása
@@ -95,6 +96,7 @@ namespace Projekt_feladat
             form_gyermek.Dock = DockStyle.Fill; // form beillesztéskor teljesen töltse ki a teret
             this.pnl_fopanel.Controls.Add(form_gyermek); //fopanelhez adjuk a kiválasztott formot
             form_gyermek.Show();  // kiválasztott form elõhozása
+            
 
         }
 
@@ -102,6 +104,7 @@ namespace Projekt_feladat
         {
             AlmenuElrejtés();
             AlmenuElohivas(pnl_UtazasokAlmenu);
+           
 
         }
 
@@ -109,6 +112,7 @@ namespace Projekt_feladat
         {
             AlmenuElrejtés();
             AlmenuElohivas(pnl_UtasokAlmenu);
+           
 
         }
 
@@ -117,22 +121,18 @@ namespace Projekt_feladat
             this.WindowState = FormWindowState.Minimized; // ablak minimalizálása
         }
 
-        private void roundedTextbox1_TextChanged(object sender, EventArgs e)
-        {
 
-        }
         private void AlmenuElrejtés()  ///almenük elrejése 
         {
+
+
             List<Panel> almenuk = new List<Panel> { pnl_UtazasokAlmenu, pnl_UtasokAlmenu };
             foreach (var pnl in almenuk)
             {
                 pnl.Height = 0;
             }
-
-
-
+           
         }
-
 
         private void AlmenuElohivas(Panel pnl)
         {
@@ -141,6 +141,12 @@ namespace Projekt_feladat
             animacioCelMagassag = pnl.Controls.OfType<Button>().Count() * 54;
             animacioStopper.Restart();
             tmr_almenuAnimacio.Start();
+        }
+        private void bejelentkezesElrejtes()
+        {
+            pnl_bejelentkezes.Visible = false;
+            pnl_regisztacio.Visible = false;
+            pnl_bejelentkezve.Visible = false;
         }
 
 
@@ -196,8 +202,211 @@ namespace Projekt_feladat
 
         private void btn_utasokHozzadasa_Click(object sender, EventArgs e)
         {
-            GyermekFormMegnyitas(new frm_UtasokHozzaadasa(), sender); 
+            GyermekFormMegnyitas(new frm_UtasokHozzaadasa(), sender);
             AlmenuElrejtés();
+        }
+
+        private void kg_belepes_Click(object sender, EventArgs e)
+        {
+            string felhasznalo = kszm_felhasznalo.Texts.Trim();
+            string jelszo = kszm_jelszo.Texts.Trim();
+
+            using (var conn = new MySqlConnection("server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;"))
+            {
+                conn.Open();
+                string sql = "SELECT id,felhasznalonev, jogosultsag FROM felhasznalok WHERE felhasznalonev = @nev AND jelszo = @jelszo";
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@nev", felhasznalo);
+                    cmd.Parameters.AddWithValue("@jelszo", jelszo);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            int id = reader.GetInt32("id");
+                            int jog = reader.GetInt32("jogosultsag");
+
+                            bejelentkezes.bejelentkezes.Beallit(id, felhasznalo, jelszo, jog);
+
+                            //   MessageBox.Show("Sikeres bejelentkezés!", "Belépés", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            pnl_bejelentkezes.Visible = false;
+                            pnl_bejelentkezve.Visible = true;
+                            lbl_nev.Text = felhasznalo;
+                            var adatok = new bejelentkezesiAdatok
+                            {
+                                Id = id,
+                                Felhasznalonev = felhasznalo,
+                                Jelszo = TitkositasSeged.Titkosit(jelszo),
+                                Jogosultsag = jog,
+                                MaradBejelentkezve = kg_bejelentkezvemarad.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be
+
+
+                            };
+                            bejelentkezesSeged.Mentes(adatok);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Hibás felhasználónév vagy jelszó!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void kg_kilepes_Click(object sender, EventArgs e)
+        {
+            bejelentkezes.bejelentkezes.Kijelentkezes();
+            lbl_nev.Text = "";
+            pnl_bejelentkezve.Visible = false;
+            pnl_bejelentkezes.Visible = true;
+            kszm_jelszo.Texts = "";
+            //törlöm a jsont
+            bejelentkezesSeged.Torles();
+        }
+
+        private void pnl_fopanel_Resize(object sender, EventArgs e)
+        {
+            pnl_bejelentkezes.Location = new Point((pnl_fopanel.Width - pnl_bejelentkezes.Width) / 2, (pnl_fopanel.Height - pnl_bejelentkezes.Height) / 2);
+            pnl_bejelentkezve.Location = new Point((pnl_fopanel.Width - pnl_bejelentkezve.Width) / 2, (pnl_fopanel.Height - pnl_bejelentkezve.Height) / 2);
+            pnl_regisztacio.Location = new Point((pnl_fopanel.Width - pnl_regisztacio.Width) / 2, (pnl_fopanel.Height - pnl_regisztacio.Height) / 2);
+        }
+
+        private void kszm_regisztralas_Click(object sender, EventArgs e)
+        {
+            pnl_bejelentkezes.Visible = false;
+            pnl_regisztacio.Visible = true;
+        }
+
+        private void kg_regisztacio_Click(object sender, EventArgs e)
+        {
+
+            if (string.IsNullOrWhiteSpace(kszm_regnev.Texts))
+            {
+                MessageBox.Show("A felhasználónév üres", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                kszm_regnev.KeretSzin = Color.Crimson;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(kszm_regjelszo.Texts) || string.IsNullOrWhiteSpace(kszm_regjelszoujra.Texts))
+            {
+                MessageBox.Show("A jelszó mezõ(ke)t ki kell tölteni", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                kszm_regjelszo.KeretSzin = Color.Crimson;
+                kszm_regjelszoujra.KeretSzin = Color.Crimson;
+                return;
+            }
+
+            if (kszm_regjelszo.Texts != kszm_regjelszoujra.Texts)
+            {
+                MessageBox.Show("A jelszavak nem egyeznek", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                kszm_regjelszo.KeretSzin = Color.Crimson;
+                kszm_regjelszoujra.KeretSzin = Color.Crimson;
+                return;
+            }
+
+
+
+            string felhasznalonev = kszm_regnev.Texts.Trim();
+            string jelszo = kszm_regjelszo.Texts.Trim();
+            using (var conn = new MySqlConnection("server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;"))
+            {
+                try
+                {
+                    conn.Open();
+
+                    //  létezike már ilyen felhasználó
+                    string ellenorzesSql = "SELECT COUNT(*) FROM felhasznalok WHERE felhasznalonev = @nev";
+                    using (var ellenorzo = new MySqlCommand(ellenorzesSql, conn))
+                    {
+                        ellenorzo.Parameters.AddWithValue("@nev", felhasznalonev);
+                        long letezik = (long)ellenorzo.ExecuteScalar();
+
+                        if (letezik > 0)
+                        {
+                            MessageBox.Show("Ez a felhasználónév már létezik!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            kszm_regnev.KeretSzin = Color.Crimson;
+                            return;
+                        }
+                    }
+
+                    // Ha nem létezik
+                    string beszurasSql = "INSERT INTO felhasznalok (felhasznalonev, jelszo, jogosultsag) VALUES (@nev, @jelszo, @jog)";
+                    using (var beszuro = new MySqlCommand(beszurasSql, conn))
+                    {
+                        beszuro.Parameters.AddWithValue("@nev", felhasznalonev);
+                        beszuro.Parameters.AddWithValue("@jelszo", jelszo); // hash
+                        beszuro.Parameters.AddWithValue("@jog", 0); // alapértelmezett jogosultság
+
+                        int sorok = beszuro.ExecuteNonQuery();
+                        if (sorok > 0)
+                        {
+                            MessageBox.Show("Sikeres regisztráció!", "Regisztráció", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            pnl_regisztacio.Visible = false;
+                            pnl_bejelentkezes.Visible = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nem sikerült a regisztráció!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hiba történt a regisztráció során:\n" + ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+
+        }
+
+        private void frm_foForm_Load(object sender, EventArgs e)
+        {
+
+            var adatok = bejelentkezesSeged.Betoltes();
+
+            if (adatok != null && adatok.MaradBejelentkezve)
+            {
+                string jelszo = TitkositasSeged.Visszafejt(adatok.Jelszo);
+
+                bejelentkezes.bejelentkezes.Beallit(adatok.Id, adatok.Felhasznalonev, jelszo, adatok.Jogosultsag);
+                pnl_bejelentkezve.Visible = true;
+                pnl_bejelentkezes.Visible = false;
+                pnl_regisztacio.Visible = false;
+                lbl_nev.Text = adatok.Felhasznalonev;
+            }
+        }
+        private string NapszakosUdvozles()
+        {
+            int ora = DateTime.Now.Hour;
+
+            if (ora >= 5 && ora < 12)
+            {
+                return "Jó reggelt";
+            }
+            else if (ora >= 12 && ora < 18)
+            {
+                return "Szép napot";
+            }
+            else
+            {
+                return "Szép estét kívánok";
+            }
+        }
+
+        private void lbl_utazas_kezelo_Click(object sender, EventArgs e)
+        {
+            if (aktivForm != null)
+            {
+                aktivForm.Close();
+                aktivForm = null;
+            }
+
+            if (bejelentkezes.bejelentkezes.Felhasznalonev != null)
+                pnl_bejelentkezve.Visible = true;
+            else
+                pnl_bejelentkezes.Visible = true;
         }
     }
 }

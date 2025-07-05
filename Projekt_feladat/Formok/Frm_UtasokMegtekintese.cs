@@ -7,11 +7,11 @@ namespace Projekt_feladat.Formok
 {
     public partial class Frm_UtasokMegtekintese : Form
     {
-        string constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
+        string constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "utazast_kezelo", "utazast_kezelo1234", "utazast_kezelo");
         const int lim = 50;
         private int aktualisOldal = 1;
         private int maxOldal;
-        int szurtSorok = 0; // Ez fogja tárolni a sorok számát az aktív szűrők alapján, vagy az összes sort
+        int szurtSorok = 0; // tárolni a sorok számát az aktív szűrők alapján, vagy az összes sort
         private bool szuresAktiv = false;
         ListBox lst_talalatok = new ListBox();
         private int sorIndexAHolFolytatniKell = 0;
