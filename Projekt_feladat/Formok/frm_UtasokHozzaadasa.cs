@@ -65,7 +65,7 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-           
+
 
             if (automatikusKitoltes) return;
 
@@ -212,7 +212,7 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-           
+
 
             automatikusKitoltes = true;
 
@@ -370,7 +370,7 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-           
+
             try
             {
                 using (var conn = new MySqlConnection(constr))
@@ -574,6 +574,7 @@ namespace Projekt_feladat.Formok
 
         private void kszm_mentes_Click(object sender, EventArgs e)
         {
+            // --- Jogosultság ellenőrzés ---
             if (!bejelentkezes.bejelentkezes.Bejelentkezve())
             {
                 MessageBox.Show(
@@ -584,16 +585,108 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
+
             if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
             {
                 MessageBox.Show(
                     "A művelet végrehajtásához nincs engedélye.",
-                    "Bejelentkezés szükséges",
+                    "Nincs jogosultság",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
                 return;
             }
+
+            // --- Ha meglévő utashoz rendelünk utazást ---
+            if (pnl_meglevoutasokhozAdas.Visible)
+            {
+                if (dgv_meglevoUtasok.SelectedRows.Count != 1)
+                {
+                    MessageBox.Show("Kérlek, jelölj ki pontosan egy utast a listából.");
+                    return;
+                }
+
+                if (lb_utazasok.Items.Count == 0)
+                {
+                    MessageBox.Show("Nincs kiválasztott utazás.");
+                    return;
+                }
+
+                try
+                {
+                    using (var conn = new MySqlConnection(constr))
+                    {
+                        conn.Open();
+                        using (var tr = conn.BeginTransaction())
+                        {
+                            long utasId = Convert.ToInt64(dgv_meglevoUtasok.SelectedRows[0].Cells["ID"].Value);
+
+                            foreach (string str in lb_utazasok.Items)
+                            {
+                                var parts = str.Split(" - ", StringSplitOptions.RemoveEmptyEntries);
+                                if (parts.Length == 3)
+                                {
+                                    string deszt = parts[0].Trim();
+                                    DateTime ido = DateTime.Parse(parts[1].Trim());
+                                    string nev = parts[2].Trim();
+
+                                    string getId = @"SELECT utazas_id FROM utazas
+                                             WHERE desztinacio = @d AND utazas_ideje = @i AND utazas_elnevezese = @n
+                                             LIMIT 1";
+
+                                    long? utazasId = null;
+                                    using (var cmd = new MySqlCommand(getId, conn, tr))
+                                    {
+                                        cmd.Parameters.AddWithValue("@d", deszt);
+                                        cmd.Parameters.AddWithValue("@i", ido);
+                                        cmd.Parameters.AddWithValue("@n", nev);
+                                        var result = cmd.ExecuteScalar();
+                                        if (result != null)
+                                            utazasId = Convert.ToInt64(result);
+                                    }
+
+                                    if (utazasId != null)
+                                    {
+                                        // Ne duplikáljuk
+                                        string ellenorzo = @"SELECT COUNT(*) FROM utas_utazasai 
+                                                     WHERE utas_id = @uid AND utazas_id = @tid";
+
+                                        using (var cmd = new MySqlCommand(ellenorzo, conn, tr))
+                                        {
+                                            cmd.Parameters.AddWithValue("@uid", utasId);
+                                            cmd.Parameters.AddWithValue("@tid", utazasId);
+                                            long darab = Convert.ToInt64(cmd.ExecuteScalar());
+
+                                            if (darab == 0)
+                                            {
+                                                string insert = "INSERT INTO utas_utazasai (utas_id, utazas_id) VALUES (@uid, @tid)";
+                                                using (var insertCmd = new MySqlCommand(insert, conn, tr))
+                                                {
+                                                    insertCmd.Parameters.AddWithValue("@uid", utasId);
+                                                    insertCmd.Parameters.AddWithValue("@tid", utazasId);
+                                                    insertCmd.ExecuteNonQuery();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            tr.Commit();
+                            MessageBox.Show("Az utazások sikeresen hozzá lettek rendelve a meglévő utashoz.");
+                            Close();
+                            return;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hiba a meglévő utas hozzárendelése során: " + ex.Message);
+                    return;
+                }
+            }
+
+            // --- Új utas hozzáadása ---
             try
             {
                 using (var conn = new MySqlConnection(constr))
@@ -601,7 +694,6 @@ namespace Projekt_feladat.Formok
                     conn.Open();
                     using (var tr = conn.BeginTransaction())
                     {
-                        //  utas beszúrása
                         string insertUtas = @"INSERT INTO utas (titulus, vezeteknev, keresztnev1, keresztnev2, szuletesi_datum)
                                       VALUES (@titulus, @vezeteknev, @keresztnev1, @keresztnev2, @szuldatum);
                                       SELECT LAST_INSERT_ID();";
@@ -617,8 +709,7 @@ namespace Projekt_feladat.Formok
                             utasId = Convert.ToInt64(cmd.ExecuteScalar());
                         }
 
-                        //  kapcsolódó adatok beszúrása
-
+                        // Kapcsolt adatok
                         insertKapcsolt("telefon", "utas_id, telefon", "@utas_id, @ertek",
                             new Dictionary<string, object> { { "@utas_id", utasId }, { "@ertek", kszm_telefon.Texts } }, conn, tr);
 
@@ -649,10 +740,9 @@ namespace Projekt_feladat.Formok
                         { "@megjegyzes", kszm_megjegyzes.Texts }
                             }, conn, tr);
 
-                        //  utazások hozzárendelése
+                        // Utazások hozzárendelése
                         foreach (string str in lb_utazasok.Items)
                         {
-                            // - kiszedése
                             var parts = str.Split(" - ", StringSplitOptions.RemoveEmptyEntries);
                             if (parts.Length == 3)
                             {
@@ -660,7 +750,6 @@ namespace Projekt_feladat.Formok
                                 DateTime ido = DateTime.Parse(parts[1].Trim());
                                 string nev = parts[2].Trim();
 
-                                // Lekérjük az utazas_id-t
                                 string getId = @"SELECT utazas_id FROM utazas
                                          WHERE desztinacio = @d AND utazas_ideje = @i AND utazas_elnevezese = @n
                                          LIMIT 1";
@@ -679,7 +768,6 @@ namespace Projekt_feladat.Formok
 
                                 if (utazasId != null)
                                 {
-
                                     string insertKapcs = "INSERT INTO utas_utazasai (utas_id, utazas_id) VALUES (@uid, @tid)";
                                     using (var cmd = new MySqlCommand(insertKapcs, conn, tr))
                                     {
@@ -693,9 +781,7 @@ namespace Projekt_feladat.Formok
 
                         tr.Commit();
                         MessageBox.Show("Sikeres mentés.");
-                       
                         Close();
-                        
                     }
                 }
             }
@@ -704,6 +790,7 @@ namespace Projekt_feladat.Formok
                 MessageBox.Show("Hiba történt a mentés során: " + ex.Message);
             }
         }
+
         private void insertKapcsolt(string tabla, string mezok, string ertekek, Dictionary<string, object> parameterek, MySqlConnection conn, MySqlTransaction tr)
         {
             string sql = $"INSERT INTO {tabla} ({mezok}) VALUES ({ertekek})";
@@ -733,6 +820,94 @@ namespace Projekt_feladat.Formok
                 AutomatikusKitoltes();
             }
         }
-    
+
+        private void kszm_ujRegiFelhasznalo_Click(object sender, EventArgs e)
+        {
+            if (pnl_ujhozzaadas.Visible)
+            {
+                
+                pnl_ujhozzaadas.Visible = false;
+                kszm_ujRegiFelhasznalo.HatterSzine = Color.Chocolate;
+                pnl_meglevoutasokhozAdas.Visible = true;
+                kszm_ujRegiFelhasznalo.Text = "Új felhasználó hozzáadása";
+            }
+            else
+            {
+     
+                pnl_ujhozzaadas.Visible = true;
+                kszm_ujRegiFelhasznalo.HatterSzine = Color.SteelBlue;
+                pnl_meglevoutasokhozAdas.Visible = false;
+                kszm_ujRegiFelhasznalo.Text = "Meglévő felhasználóhoz adás";
+            }
+        }
+        private void KeresesiSzuroValtozott(object sender, EventArgs e)
+        {
+            string nev = kszm_reginev.Texts.Trim();
+            string okmany = kszm_regiokmanyszam.Texts.Trim();
+            DateTime datum = dtp_regiSzulido.Value.Date;
+
+            using (var conn = new MySqlConnection(constr))
+            {
+                try
+                {
+                    conn.Open();
+
+                    var whereFeltetelek = new List<string>();
+                    var cmd = new MySqlCommand();
+                    cmd.Connection = conn;
+
+                    string baseSql = @"
+                SELECT u.utas_id AS 'ID',
+                       u.titulus AS 'Titulus',
+                       u.vezeteknev AS 'Vezetéknév',
+                       u.keresztnev1 AS 'Keresztnév',
+                       u.keresztnev2 AS 'Második név',
+                       u.szuletesi_datum AS 'Születési dátum',
+                       s.szemelyi_vagy_utlevel AS 'Okmányszám'
+                FROM utas u
+                LEFT JOIN szemelyi s ON u.utas_id = s.utas_id
+            ";
+
+                    if (!string.IsNullOrWhiteSpace(nev))
+                    {
+                        whereFeltetelek.Add("CONCAT(u.vezeteknev, ' ', u.keresztnev1) LIKE @nev");
+                        cmd.Parameters.AddWithValue("@nev", $"%{nev}%");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(okmany))
+                    {
+                        whereFeltetelek.Add("s.szemelyi_vagy_utlevel LIKE @okmany");
+                        cmd.Parameters.AddWithValue("@okmany", $"%{okmany}%");
+                    }
+
+                    if (datum != DateTime.Today)
+                    {
+                        whereFeltetelek.Add("u.szuletesi_datum = @datum");
+                        cmd.Parameters.AddWithValue("@datum", datum);
+                    }
+
+                    if (whereFeltetelek.Count > 0)
+                        baseSql += " WHERE " + string.Join(" AND ", whereFeltetelek);
+
+                    baseSql += " ORDER BY u.vezeteknev, u.keresztnev1 LIMIT 20";
+                    cmd.CommandText = baseSql;
+
+                    var da = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dgv_meglevoUtasok.DataSource = dt;
+
+                    if (dgv_meglevoUtasok.Rows.Count > 0)
+                        dgv_meglevoUtasok.Rows[0].Selected = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hiba a keresés közben: " + ex.Message);
+                }
+            }
+        }
+
     }
+
 }

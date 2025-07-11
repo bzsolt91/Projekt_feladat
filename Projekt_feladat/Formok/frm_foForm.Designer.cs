@@ -73,6 +73,7 @@ namespace Projekt_feladat
             lbl_disz2 = new Label();
             button1 = new KerekitettGomb();
             pnl_fomenu = new Panel();
+            kg_segitseg = new KerekitettGomb();
             button5 = new KerekitettGomb();
             button4 = new KerekitettGomb();
             btn_statisztika = new KerekitettGomb();
@@ -607,6 +608,7 @@ namespace Projekt_feladat
             pnl_fopanel.Name = "pnl_fopanel";
             pnl_fopanel.Size = new Size(1018, 698);
             pnl_fopanel.TabIndex = 2;
+            pnl_fopanel.ControlAdded += pnl_fopanel_ControlAdded;
             pnl_fopanel.ControlRemoved += pnl_fopanel_ControlRemoved;
             pnl_fopanel.Resize += pnl_fopanel_Resize;
             // 
@@ -679,7 +681,7 @@ namespace Projekt_feladat
             button6.HatterSzine = Color.FromArgb(243, 244, 246);
             button6.KeretMeret = 0;
             button6.KeretSzine = Color.PaleVioletRed;
-            button6.Location = new Point(0, 696);
+            button6.Location = new Point(0, 763);
             button6.Margin = new Padding(3, 4, 3, 4);
             button6.MaximumSize = new Size(73, 85);
             button6.Name = "button6";
@@ -696,7 +698,7 @@ namespace Projekt_feladat
             lbl_disz2.BackColor = Color.FromArgb(209, 213, 219);
             lbl_disz2.Dock = DockStyle.Bottom;
             lbl_disz2.ForeColor = Color.FromArgb(209, 213, 219);
-            lbl_disz2.Location = new Point(0, 693);
+            lbl_disz2.Location = new Point(0, 760);
             lbl_disz2.Margin = new Padding(0, 67, 0, 0);
             lbl_disz2.Name = "lbl_disz2";
             lbl_disz2.Padding = new Padding(0, 13, 0, 0);
@@ -714,7 +716,7 @@ namespace Projekt_feladat
             button1.HatterSzine = Color.FromArgb(243, 244, 246);
             button1.KeretMeret = 0;
             button1.KeretSzine = Color.PaleVioletRed;
-            button1.Location = new Point(0, 626);
+            button1.Location = new Point(0, 693);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
@@ -730,6 +732,7 @@ namespace Projekt_feladat
             // 
             pnl_fomenu.AutoScroll = true;
             pnl_fomenu.BackColor = Color.FromArgb(243, 244, 246);
+            pnl_fomenu.Controls.Add(kg_segitseg);
             pnl_fomenu.Controls.Add(button5);
             pnl_fomenu.Controls.Add(button4);
             pnl_fomenu.Controls.Add(btn_statisztika);
@@ -747,6 +750,29 @@ namespace Projekt_feladat
             pnl_fomenu.Name = "pnl_fomenu";
             pnl_fomenu.Size = new Size(277, 698);
             pnl_fomenu.TabIndex = 1;
+            // 
+            // kg_segitseg
+            // 
+            kg_segitseg.BackColor = Color.FromArgb(243, 244, 246);
+            kg_segitseg.Dock = DockStyle.Bottom;
+            kg_segitseg.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            kg_segitseg.FlatStyle = FlatStyle.Flat;
+            kg_segitseg.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kg_segitseg.ForeColor = Color.FromArgb(55, 65, 81);
+            kg_segitseg.HatterSzine = Color.FromArgb(243, 244, 246);
+            kg_segitseg.KeretMeret = 0;
+            kg_segitseg.KeretSzine = Color.PaleVioletRed;
+            kg_segitseg.Location = new Point(0, 626);
+            kg_segitseg.Margin = new Padding(3, 4, 3, 4);
+            kg_segitseg.Name = "kg_segitseg";
+            kg_segitseg.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kg_segitseg.SarokSugar = 10;
+            kg_segitseg.Size = new Size(256, 67);
+            kg_segitseg.SzovegSzine = Color.FromArgb(55, 65, 81);
+            kg_segitseg.TabIndex = 18;
+            kg_segitseg.Text = "\U0001f9fe Útmutató";
+            kg_segitseg.TextAlign = ContentAlignment.MiddleLeft;
+            kg_segitseg.UseVisualStyleBackColor = false;
             // 
             // button5
             // 
@@ -1060,6 +1086,7 @@ namespace Projekt_feladat
         private Label label2;
         private KerekitettGomb kszm_vissza;
         private Label lbl_hozzaferes;
+        private KerekitettGomb kg_segitseg;
     }
 }
 

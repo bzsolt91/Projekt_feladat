@@ -449,11 +449,21 @@ namespace Projekt_feladat
         private void pnl_fopanel_ControlRemoved(object sender, ControlEventArgs e)
         {
             Control eltavolitottControl = e.Control;//ha bezáródik a mentés az utas hozzáadás után ne üres képernyõ fogadja a felhasználót
+                                                    // Csak akkor mutasd újra a bejelentkezett panelt, ha nem került be új vezérlõ/form
             if (eltavolitottControl.GetType() == typeof(frm_UtasokHozzaadasa))
             {
-                pnl_bejelentkezve.Visible = true;
+                // Ha nincs több control a fopanelen, akkor jelenítsük meg újra a bejelentkezés utáni panelt
+                if (pnl_fopanel.Controls.Count <= 3)
+                {
+                    pnl_bejelentkezve.Visible = true;
+                }
             }
 
+        }
+
+        private void pnl_fopanel_ControlAdded(object sender, ControlEventArgs e)
+        {
+            pnl_bejelentkezve.Visible = false;
         }
     }
 }
