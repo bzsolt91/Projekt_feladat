@@ -77,7 +77,10 @@ namespace Projekt_feladat.Formok
             lst_talalatok.Tag = aktivMezo;
             lst_talalatok.Visible = true;
             lst_talalatok.Width = aktivMezo.Width;
-            lst_talalatok.Location = new Point(aktivMezo.Location.X, aktivMezo.Location.Y + aktivMezo.Height + 10);
+            Point vezetoPont = aktivMezo.PointToScreen(new Point(0, aktivMezo.Height + 5));
+            Point formhozKepest = this.PointToClient(vezetoPont);
+            lst_talalatok.Location = formhozKepest;
+
             lst_talalatok.BringToFront();
             var lista = new List<string>();
             var nev = aktivMezo.Name;
