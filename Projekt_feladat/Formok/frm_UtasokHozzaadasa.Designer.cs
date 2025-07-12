@@ -635,7 +635,7 @@ namespace Projekt_feladat.Formok
             dgv_meglevoUtasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 10F);
             dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle9.SelectionBackColor = Color.BlueViolet;
             dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
@@ -649,6 +649,7 @@ namespace Projekt_feladat.Formok
             dgv_meglevoUtasok.ShowRowErrors = false;
             dgv_meglevoUtasok.Size = new Size(935, 296);
             dgv_meglevoUtasok.TabIndex = 1;
+            dgv_meglevoUtasok.ReadOnly = true;
             // 
             // lbl_regiszulido
             // 

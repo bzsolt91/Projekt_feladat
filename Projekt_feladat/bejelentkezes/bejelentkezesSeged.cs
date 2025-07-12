@@ -11,7 +11,7 @@ public static class bejelentkezesSeged
         File.WriteAllText(fajlUt, json);
     }
 
-    public static bejelentkezesiAdatok Betoltes()
+    public static bejelentkezesiAdatok Betoltes()//betölti jsno fájlból a bejelentkezési adatot
     {
         try
         {

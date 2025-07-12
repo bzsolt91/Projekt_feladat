@@ -49,11 +49,8 @@ namespace Projekt_feladat
             pnl_bejelentkezve.Location = new Point((pnl_fopanel.Width - pnl_bejelentkezve.Width) / 2, (pnl_fopanel.Height - pnl_bejelentkezve.Height) / 2);
             pnl_regisztacio.Location = new Point((pnl_fopanel.Width - pnl_regisztacio.Width) / 2, (pnl_fopanel.Height - pnl_regisztacio.Height) / 2);
             lbl_udvozlet.Location = new Point((pnl_regisztacio.Width - lbl_udvozlet.Width) / 2, lbl_udvozlet.Location.Y);
-
             lbl_nev.Location = new Point((pnl_regisztacio.Width - lbl_nev.Width) / 2, lbl_nev.Location.Y);
-
             lbl_hozzaferes.Location = new Point((pnl_regisztacio.Width - lbl_hozzaferes.Width) / 2, lbl_hozzaferes.Location.Y);
-
             lbl_pkeszenall.Location = new Point((pnl_regisztacio.Width - lbl_pkeszenall.Width) / 2, lbl_pkeszenall.Location.Y);
             lbl_udvozlet.Text = NapszakosUdvozles();
         }
@@ -108,24 +105,18 @@ namespace Projekt_feladat
             form_gyermek.Dock = DockStyle.Fill; // form beillesztéskor teljesen töltse ki a teret
             this.pnl_fopanel.Controls.Add(form_gyermek); //fopanelhez adjuk a kiválasztott formot
             form_gyermek.Show();  // kiválasztott form elõhozása
-
-
         }
 
         private void btn_utazasok_Click(object sender, EventArgs e)
         {
             AlmenuElrejtés();
             AlmenuElohivas(pnl_UtazasokAlmenu);
-
-
         }
 
         private void btn_utasok_Click(object sender, EventArgs e)
         {
             AlmenuElrejtés();
             AlmenuElohivas(pnl_UtasokAlmenu);
-
-
         }
 
         private void btn_minimalizalas_Click(object sender, EventArgs e)
@@ -133,17 +124,13 @@ namespace Projekt_feladat
             this.WindowState = FormWindowState.Minimized; // ablak minimalizálása
         }
 
-
         private void AlmenuElrejtés()  ///almenük elrejése 
         {
-
-
             List<Panel> almenuk = new List<Panel> { pnl_UtazasokAlmenu, pnl_UtasokAlmenu };
             foreach (var pnl in almenuk)
             {
                 pnl.Height = 0;
             }
-
         }
 
         private void AlmenuElohivas(Panel pnl)
@@ -160,14 +147,9 @@ namespace Projekt_feladat
             pnl_regisztacio.Visible = false;
             pnl_bejelentkezve.Visible = false;
         }
-
-
-
-
         private void btn_statisztika_Click(object sender, EventArgs e)
         {
             AlmenuElrejtés();
-
         }
 
         private void btn_utazasokmegtekintese_Click(object sender, EventArgs e)
@@ -184,9 +166,6 @@ namespace Projekt_feladat
 
         private void tmr_almenuAnimacio_Tick(object sender, EventArgs e) ///almenük csúsztatása
         {
-
-
-
             double elteltMs = animacioStopper.Elapsed.TotalMilliseconds;
             double progress = Math.Min(1.0, elteltMs / animacioIdotartam);
 
@@ -222,16 +201,21 @@ namespace Projekt_feladat
         {
             string felhasznalo = kszm_felhasznalo.Texts.Trim();
             string jelszo = kszm_jelszo.Texts.Trim();
+
+            // Jelszó hashelése a bejelentkezéshez
+            string hasheltJelszo = bejelentkezesSeged.GetSha256Hash(jelszo);
+
             try
             {
                 using (var conn = new MySqlConnection("server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;"))
                 {
                     conn.Open();
-                    string sql = "SELECT id,felhasznalonev, jogosultsag FROM felhasznalok WHERE felhasznalonev = @nev AND jelszo = @jelszo";
+                    // A lekérdezésben a hashelt jelszót használjuk
+                    string sql = "SELECT id, felhasznalonev, jogosultsag FROM felhasznalok WHERE felhasznalonev = @nev AND jelszo = @jelszo";
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@nev", felhasznalo);
-                        cmd.Parameters.AddWithValue("@jelszo", jelszo);
+                        cmd.Parameters.AddWithValue("@jelszo", hasheltJelszo); // Itt a hashelt jelszó
 
                         using (var reader = cmd.ExecuteReader())
                         {
@@ -240,9 +224,10 @@ namespace Projekt_feladat
                                 int id = reader.GetInt32("id");
                                 int jog = reader.GetInt32("jogosultsag");
 
+                                // Memóriában tárolt jelszónak itt lehet a sima jelszó, ha szükséges,
+                                // de az adatbázisba ne kerüljön visszafejthetetlenül hashelt formában.
+                                // A fájlba mentésnél viszont titkosított formában.
                                 bejelentkezes.bejelentkezes.Beallit(id, felhasznalo, jelszo, jog);
-
-                                //   MessageBox.Show("Sikeres bejelentkezés!", "Belépés", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                 pnl_bejelentkezes.Visible = false;
                                 pnl_bejelentkezve.Visible = true;
@@ -251,15 +236,14 @@ namespace Projekt_feladat
                                     lbl_hozzaferes.Text = "Önnek korlátozott hozzáférése van.";
                                 else
                                     lbl_hozzaferes.Text = "Teljes értékû hozzáférése van.";
+
                                 var adatok = new bejelentkezesiAdatok
                                 {
                                     Id = id,
                                     Felhasznalonev = felhasznalo,
-                                    Jelszo = TitkositasSeged.Titkosit(jelszo),
+                                    Jelszo = TitkositasSeged.Titkosit(jelszo), // Itt a sima jelszót titkosítjuk fájlba mentéshez
                                     Jogosultsag = jog,
                                     MaradBejelentkezve = kg_bejelentkezvemarad.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be
-
-
                                 };
                                 bejelentkezesSeged.Mentes(adatok);
                                 lbl_hozzaferes.Location = new Point((pnl_regisztacio.Width - lbl_hozzaferes.Width) / 2, lbl_hozzaferes.Location.Y);
@@ -269,7 +253,6 @@ namespace Projekt_feladat
                                 MessageBox.Show("Hibás felhasználónév vagy jelszó!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-
                     }
                 }
             }
@@ -281,7 +264,6 @@ namespace Projekt_feladat
                     MessageBox.Show(ex.Message);
             }
         }
-
         private void kg_kilepes_Click(object sender, EventArgs e)
         {
             bejelentkezes.bejelentkezes.Kijelentkezes();
@@ -306,7 +288,6 @@ namespace Projekt_feladat
 
         private void kg_regisztacio_Click(object sender, EventArgs e)
         {
-
             if (string.IsNullOrWhiteSpace(kszm_regnev.Texts))
             {
                 MessageBox.Show("A felhasználónév üres", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -330,17 +311,19 @@ namespace Projekt_feladat
                 return;
             }
 
-
-
             string felhasznalonev = kszm_regnev.Texts.Trim();
             string jelszo = kszm_regjelszo.Texts.Trim();
+
+            // Jelszó hashelése adatbázisba írás elõtt
+            string hasheltJelszo = bejelentkezesSeged.GetSha256Hash(jelszo);
+
             using (var conn = new MySqlConnection("server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;"))
             {
                 try
                 {
                     conn.Open();
 
-                    //  létezike már ilyen felhasználó
+                    // Létezik-e már ilyen felhasználó
                     string ellenorzesSql = "SELECT COUNT(*) FROM felhasznalok WHERE felhasznalonev = @nev";
                     using (var ellenorzo = new MySqlCommand(ellenorzesSql, conn))
                     {
@@ -360,7 +343,7 @@ namespace Projekt_feladat
                     using (var beszuro = new MySqlCommand(beszurasSql, conn))
                     {
                         beszuro.Parameters.AddWithValue("@nev", felhasznalonev);
-                        beszuro.Parameters.AddWithValue("@jelszo", jelszo); // hash
+                        beszuro.Parameters.AddWithValue("@jelszo", hasheltJelszo); // Itt a hashelt jelszó
                         beszuro.Parameters.AddWithValue("@jog", 0); // alapértelmezett jogosultság
 
                         int sorok = beszuro.ExecuteNonQuery();
@@ -383,29 +366,65 @@ namespace Projekt_feladat
                     MessageBox.Show("Hiba történt a regisztráció során:\n" + ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-
         }
 
         private void frm_foForm_Load(object sender, EventArgs e)
         {
-
-            var adatok = bejelentkezesSeged.Betoltes();
+            var adatok = bejelentkezesSeged.Betoltes(); // betölti json fájlból a tárolt adatot
 
             if (adatok != null && adatok.MaradBejelentkezve)
             {
-                string jelszo = TitkositasSeged.Visszafejt(adatok.Jelszo);
+                // A fájlból visszafejtett jelszót hasheljük az adatbázis ellenõrzéséhez
+                string visszafejtettJelszo = TitkositasSeged.Visszafejt(adatok.Jelszo);
+                string hasheltJelszoEllenorzesre = bejelentkezesSeged.GetSha256Hash(visszafejtettJelszo);
 
-                bejelentkezes.bejelentkezes.Beallit(adatok.Id, adatok.Felhasznalonev, jelszo, adatok.Jogosultsag);
-                pnl_bejelentkezve.Visible = true;
-                pnl_bejelentkezes.Visible = false;
-                pnl_regisztacio.Visible = false;
-                if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
-                    lbl_hozzaferes.Text = "Önnek korlátozott hozzáférése van.";
-                else
-                    lbl_hozzaferes.Text = "Teljes értékû hozzáférése van.";
-                elemekAtrendezese();
-                lbl_nev.Text = adatok.Felhasznalonev;
+                try
+                {
+                    using (var conn = new MySqlConnection("server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;"))
+                    {
+                        conn.Open();
+                        // A lekérdezésben a hashelt jelszót használjuk
+                        string sql = "SELECT id, jogosultsag FROM felhasznalok WHERE felhasznalonev = @nev AND jelszo = @jelszo";
+                        using (var cmd = new MySqlCommand(sql, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@nev", adatok.Felhasznalonev);
+                            cmd.Parameters.AddWithValue("@jelszo", hasheltJelszoEllenorzesre); // Itt a hashelt jelszó
+
+                            using (var reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    int id = reader.GetInt32("id");
+                                    int jog = reader.GetInt32("jogosultsag");
+
+                                    // A bejelentkezett felhasználó adatait tárolhatjuk a visszafejtett jelszóval, ha szükséges
+                                    bejelentkezes.bejelentkezes.Beallit(id, adatok.Felhasznalonev, visszafejtettJelszo, jog);
+
+                                    pnl_bejelentkezve.Visible = true;
+                                    pnl_bejelentkezes.Visible = false;
+                                    pnl_regisztacio.Visible = false;
+
+                                    lbl_nev.Text = adatok.Felhasznalonev;
+                                    lbl_hozzaferes.Text = jog == 0
+                                        ? "Önnek korlátozott hozzáférése van."
+                                        : "Teljes értékû hozzáférése van.";
+                                    elemekAtrendezese();
+                                }
+                                else
+                                {
+                                    // Hibás jelszó vagy felhasználó, nem jelentkezünk be automatikusan
+                                    bejelentkezesSeged.Torles();
+                                    MessageBox.Show("A mentett bejelentkezési adatok érvénytelenek. Kérlek jelentkezz be újra.", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    pnl_bejelentkezes.Visible = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hiba történt az automatikus bejelentkezés során:\n" + ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         private string NapszakosUdvozles()
