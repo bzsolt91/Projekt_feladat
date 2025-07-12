@@ -612,6 +612,7 @@ namespace Projekt_feladat.Formok
             // dgv_utazasok
             // 
             dgv_utazasok.AllowUserToAddRows = false;
+          
             dgv_utazasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dgv_utazasok.BackgroundColor = SystemColors.ControlLightLight;
             dgv_utazasok.BorderStyle = BorderStyle.None;

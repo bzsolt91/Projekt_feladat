@@ -18,8 +18,6 @@ namespace Projekt_feladat.Formok
     public partial class frm_UtasokHozzaadasa : Form
     {
         ListBox lst_talalatok = new ListBox();
-        private bool automatikusKitoltes = false;
-        private bool felhasznaloGepel = false;
         string constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "utazast_kezelo", "utazast_kezelo1234", "utazast_kezelo");
         string? utazasDesztinacio = null;
         string? utazasIdoszak = null;
@@ -33,7 +31,7 @@ namespace Projekt_feladat.Formok
             lst_talalatok.DrawMode = DrawMode.OwnerDrawFixed;
             lst_talalatok.DrawItem += lst_talalatok_DrawItem;
             lst_talalatok.MouseDown += lst_talalatok_MouseDown;
-            // lst_talalatok.Width = kszm_utasNeve.Width; dinamikusan kell
+
             this.Controls.Add(lst_talalatok);
         }
 
@@ -67,11 +65,10 @@ namespace Projekt_feladat.Formok
             }
 
 
-            if (automatikusKitoltes) return;
 
-            felhasznaloGepel = true;
-            nevEllenorzoTimer.Stop();
-            nevEllenorzoTimer.Start();
+
+
+
             var aktivMezo = sender as Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo;
             if (aktivMezo == null) return;
             lst_talalatok.Tag = aktivMezo;
@@ -100,17 +97,14 @@ namespace Projekt_feladat.Formok
 
                     switch (nev)
                     {
+
                         case "kszm_titulus":
                             sql = @"SELECT DISTINCT u.titulus
-                FROM utas AS u
-                INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
-                INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
-                WHERE u.titulus LIKE @szoveg
-                LIMIT 4";
+                                FROM utas AS u
+                                WHERE u.titulus LIKE @szoveg
+                                LIMIT 4";
                             cmd.Parameters.AddWithValue("@szoveg", "%" + aktivMezo.Texts.Trim() + "%");
-
                             break;
-
                         case "kszm_vezeteknev":
                             sql = @"SELECT DISTINCT u.vezeteknev
                                     FROM utas AS u
@@ -173,20 +167,7 @@ namespace Projekt_feladat.Formok
                     {
                         while (reader.Read())
                         {
-                            if (nev == "kszm_utasNeve")
-                            {
-                                string ttitulus = reader.IsDBNull(0) ? "" : reader.GetString(0);
-                                string tvezeteknev = reader.IsDBNull(1) ? "" : reader.GetString(1);
-                                string tkeresztnev1 = reader.IsDBNull(2) ? "" : reader.GetString(2);
-                                string tkeresztnev2 = reader.IsDBNull(3) ? "" : reader.GetString(3);
-
-                                string teljesNev = $"{ttitulus} {tvezeteknev} {tkeresztnev1} {tkeresztnev2}".Trim();
-                                lista.Add(teljesNev);
-                            }
-                            else
-                            {
-                                lista.Add(reader.GetString(0));
-                            }
+                            lista.Add(reader.GetString(0));
                         }
                     }
 
@@ -203,100 +184,7 @@ namespace Projekt_feladat.Formok
             }
         }
 
-        private void AutomatikusKitoltes()
-        {
-            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
-            {
-                MessageBox.Show(
-                    "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
-                    "Bejelentkezés szükséges",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
 
-
-            automatikusKitoltes = true;
-
-            string titulus = kszm_titulus.Texts.Trim();
-            string vezeteknev = kszm_vezeteknev.Texts.Trim();
-            string keresztnev1 = kszm_keresztnev1.Texts.Trim();
-            string keresztnev2 = kszm_keresztnev2.Texts.Trim();
-
-            if (string.IsNullOrWhiteSpace(vezeteknev) || string.IsNullOrWhiteSpace(keresztnev1))
-            {
-                automatikusKitoltes = false;
-                return;
-            }
-
-            try
-            {
-                using (var conn = new MySqlConnection(constr))
-                {
-                    conn.Open();
-
-                    string sql = @"
-                SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2,
-                       c.email_cim, c.lakcim,
-                       t.telefon,
-                       s.szemelyi_vagy_utlevel,
-                       m.megjegyzes
-                FROM utas AS u
-                LEFT JOIN cim AS c ON c.utas_id = u.utas_id
-                LEFT JOIN telefon AS t ON t.utas_id = u.utas_id
-                LEFT JOIN szemelyi AS s ON s.utas_id = u.utas_id
-                LEFT JOIN megjegyzes AS m ON m.utas_id = u.utas_id
-                WHERE u.vezeteknev = @vezeteknev AND u.keresztnev1 = @keresztnev1
-            ";
-
-                    if (!string.IsNullOrWhiteSpace(titulus) && !string.IsNullOrWhiteSpace(keresztnev2))
-                    {
-                        sql += " AND u.titulus = @titulus AND u.keresztnev2 = @keresztnev2";
-                    }
-
-                    sql += " LIMIT 1";
-
-                    using (var cmd = new MySqlCommand(sql, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@vezeteknev", vezeteknev);
-                        cmd.Parameters.AddWithValue("@keresztnev1", keresztnev1);
-
-                        if (!string.IsNullOrWhiteSpace(titulus) && !string.IsNullOrWhiteSpace(keresztnev2))
-                        {
-                            cmd.Parameters.AddWithValue("@titulus", titulus);
-                            cmd.Parameters.AddWithValue("@keresztnev2", keresztnev2);
-                        }
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                // MEZŐK KITÖLTÉSE (ez fog nem újból triggerelni autocomplete-ot)
-                                kszm_titulus.Texts = reader.IsDBNull(0) ? "" : reader.GetString(0);
-                                kszm_vezeteknev.Texts = reader.IsDBNull(1) ? "" : reader.GetString(1);
-                                kszm_keresztnev1.Texts = reader.IsDBNull(2) ? "" : reader.GetString(2);
-                                kszm_keresztnev2.Texts = reader.IsDBNull(3) ? "" : reader.GetString(3);
-                                kszm_email.Texts = reader.IsDBNull(4) ? "" : reader.GetString(4);
-                                kszm_lakcim.Texts = reader.IsDBNull(5) ? "" : reader.GetString(5);
-                                kszm_telefon.Texts = reader.IsDBNull(6) ? "" : reader.GetString(6);
-                                kszm_okmanySzam.Texts = reader.IsDBNull(7) ? "" : reader.GetString(7);
-                                kszm_megjegyzes.Texts = reader.IsDBNull(8) ? "" : reader.GetString(8);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Hiba a névkitöltés közben: " + ex.Message);
-            }
-            finally
-            {
-                automatikusKitoltes = false;
-                lst_talalatok.Visible = false;
-            }
-        }
         private void SzovegMezo_KeyDown(object sender, KeyEventArgs e)
         {
             if (!lst_talalatok.Visible) return;
@@ -323,6 +211,14 @@ namespace Projekt_feladat.Formok
         }
         private void kszm_Leave(object sender, EventArgs e)
         {
+
+            if (
+                 !lst_talalatok.Focused)
+            {
+                lst_talalatok.Visible = false;
+            }
+
+            /*
             this.BeginInvoke(new Action(() =>
             {
                 // Csak akkor zárjuk be a ListBox-ot, ha az egér nincs rajta és nem aktív vezérlő
@@ -331,7 +227,7 @@ namespace Projekt_feladat.Formok
                 {
                     lst_talalatok.Visible = false;
                 }
-            }));
+            }));*/
         }
         private void rcb_desztinacio_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
@@ -812,23 +708,13 @@ namespace Projekt_feladat.Formok
             lst_talalatok.Visible = false;
         }
 
-        private void nevEllenorzoTimer_Tick(object sender, EventArgs e)
-        {
 
-            nevEllenorzoTimer.Stop();
-
-            if (felhasznaloGepel)
-            {
-                felhasznaloGepel = false;  // most már elfogadjuk, hogy nem gépel a user
-                AutomatikusKitoltes();
-            }
-        }
 
         private void kszm_ujRegiFelhasznalo_Click(object sender, EventArgs e)
         {
             if (pnl_ujhozzaadas.Visible)
             {
-                
+
                 pnl_ujhozzaadas.Visible = false;
                 kszm_ujRegiFelhasznalo.HatterSzine = Color.Chocolate;
                 pnl_meglevoutasokhozAdas.Visible = true;
@@ -836,7 +722,7 @@ namespace Projekt_feladat.Formok
             }
             else
             {
-     
+
                 pnl_ujhozzaadas.Visible = true;
                 kszm_ujRegiFelhasznalo.HatterSzine = Color.SteelBlue;
                 pnl_meglevoutasokhozAdas.Visible = false;
@@ -873,8 +759,8 @@ namespace Projekt_feladat.Formok
 
                     if (!string.IsNullOrWhiteSpace(nev))
                     {
-                        whereFeltetelek.Add("CONCAT(u.vezeteknev, ' ', u.keresztnev1) LIKE @nev");
-                        cmd.Parameters.AddWithValue("@nev", $"%{nev}%");
+                        whereFeltetelek.Add("LOWER(CONCAT_WS(' ', u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2)) LIKE @nev");
+                        cmd.Parameters.AddWithValue("@nev", $"%{nev.ToLower()}%");
                     }
 
                     if (!string.IsNullOrWhiteSpace(okmany))
@@ -911,6 +797,7 @@ namespace Projekt_feladat.Formok
             }
         }
 
+       
     }
 
 }

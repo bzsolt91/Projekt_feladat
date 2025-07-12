@@ -30,12 +30,11 @@ namespace Projekt_feladat.Formok
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             egyeni_vezerlok.ellipszisVezerlo ev_vezerlopanel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_UtasokHozzaadasa));
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnl_vezerlopanel = new Panel();
             kszm_ujRegiFelhasznalo = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kszm_mentes = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
@@ -60,7 +59,6 @@ namespace Projekt_feladat.Formok
             rcb_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             lb_utazasok = new ListBox();
             kszm_utazasTorlese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
-            nevEllenorzoTimer = new System.Windows.Forms.Timer(components);
             pnl_ujhozzaadas = new Panel();
             pnl_meglevoutasokhozAdas = new Panel();
             label1 = new Label();
@@ -545,11 +543,6 @@ namespace Projekt_feladat.Formok
             kszm_utazasTorlese.UseVisualStyleBackColor = false;
             kszm_utazasTorlese.Click += kszm_utazasTorlese_Click;
             // 
-            // nevEllenorzoTimer
-            // 
-            nevEllenorzoTimer.Interval = 500;
-            nevEllenorzoTimer.Tick += nevEllenorzoTimer_Tick;
-            // 
             // pnl_ujhozzaadas
             // 
             pnl_ujhozzaadas.AutoScroll = true;
@@ -574,6 +567,7 @@ namespace Projekt_feladat.Formok
             pnl_ujhozzaadas.Name = "pnl_ujhozzaadas";
             pnl_ujhozzaadas.Size = new Size(1086, 495);
             pnl_ujhozzaadas.TabIndex = 20;
+            pnl_ujhozzaadas.Click += kszm_Leave;
             // 
             // pnl_meglevoutasokhozAdas
             // 
@@ -607,24 +601,24 @@ namespace Projekt_feladat.Formok
             dgv_meglevoUtasok.BorderStyle = BorderStyle.None;
             dgv_meglevoUtasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_meglevoUtasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.White;
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgv_meglevoUtasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgv_meglevoUtasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgv_meglevoUtasok.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.HotTrack;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle8.Padding = new Padding(3);
-            dataGridViewCellStyle8.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle8.SelectionForeColor = Color.BlueViolet;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgv_meglevoUtasok.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgv_meglevoUtasok.DefaultCellStyle = dataGridViewCellStyle2;
             dgv_meglevoUtasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_meglevoUtasok.EnableHeadersVisualStyles = false;
             dgv_meglevoUtasok.GridColor = SystemColors.InactiveBorder;
@@ -632,24 +626,24 @@ namespace Projekt_feladat.Formok
             dgv_meglevoUtasok.Margin = new Padding(3, 4, 3, 4);
             dgv_meglevoUtasok.MultiSelect = false;
             dgv_meglevoUtasok.Name = "dgv_meglevoUtasok";
+            dgv_meglevoUtasok.ReadOnly = true;
             dgv_meglevoUtasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgv_meglevoUtasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgv_meglevoUtasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgv_meglevoUtasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgv_meglevoUtasok.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dgv_meglevoUtasok.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgv_meglevoUtasok.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgv_meglevoUtasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_meglevoUtasok.ShowEditingIcon = false;
             dgv_meglevoUtasok.ShowRowErrors = false;
             dgv_meglevoUtasok.Size = new Size(935, 296);
             dgv_meglevoUtasok.TabIndex = 1;
-            dgv_meglevoUtasok.ReadOnly = true;
             // 
             // lbl_regiszulido
             // 
@@ -770,7 +764,6 @@ namespace Projekt_feladat.Formok
         private ListBox lb_utazasok;
         private egyeni_vezerlok.KerekitettGomb kszm_utazasTorlese;
         private egyeni_vezerlok.KerekitettGomb kszm_mentes;
-        private System.Windows.Forms.Timer nevEllenorzoTimer;
         private egyeni_vezerlok.KerekitettGomb kszm_ujRegiFelhasznalo;
         private Panel pnl_ujhozzaadas;
         private Panel pnl_meglevoutasokhozAdas;

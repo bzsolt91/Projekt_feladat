@@ -276,6 +276,7 @@ namespace Projekt_feladat.Formok
                     var da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
                     dgv_utazasok.DataSource = dt;
+                    dgv_utazasok.Columns[0].ReadOnly = true;
                 }
             }
             catch (Exception e)
@@ -681,23 +682,16 @@ namespace Projekt_feladat.Formok
                     switch (nev)
                     {
                         case "kszm_utasNeve":
-                            sql = @"SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2
-                            FROM utas AS u
-                            INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
-                            INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
-                            WHERE t.utazas_ideje = @utazasideje
-                              AND t.desztinacio = @desztinacio
-                              AND t.utazas_elnevezese = @utazasneve
-                              AND (
-                                  u.titulus LIKE @nev OR
-                                  u.vezeteknev LIKE @nev OR
-                                  u.keresztnev1 LIKE @nev OR
-                                  u.keresztnev2 LIKE @nev
-                              )
-                            GROUP BY u.utas_id
-                            LIMIT 4";
+                                sql = @"SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2
+                                FROM utas AS u
+                                INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
+                                INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
+                               WHERE LOWER(CONCAT_WS(' ', u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2)) LIKE @nev
+                                GROUP BY u.utas_id
+                                LIMIT 4";
 
-                            cmd.Parameters.AddWithValue("@nev", "%" + aktivMezo.Texts.Trim() + "%");
+                            cmd.Parameters.AddWithValue("@nev", "%" + aktivMezo.Texts.Trim().ToLower() + "%");
+
                             cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
                             cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
                             cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);

@@ -294,6 +294,7 @@ namespace Projekt_feladat.Formok
                     var da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
                     dgv_utasok.DataSource = dt;
+                    dgv_utasok.Columns[0].ReadOnly = true;
                 }
             }
             catch (Exception ex)
@@ -349,7 +350,7 @@ namespace Projekt_feladat.Formok
             lst_talalatok.Visible = false;
             szpn_szuroPanel.Visible = false;
 
-            bool anyFilterActive = !string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) ||
+            bool barmiszuroaktiv = !string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) ||
                                    !string.IsNullOrWhiteSpace(kszm_email.Texts) ||
                                    !string.IsNullOrWhiteSpace(kszm_lakcim.Texts) ||
                                    !string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts) ||
@@ -359,7 +360,7 @@ namespace Projekt_feladat.Formok
                                    kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
                                    kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki;
 
-            if (anyFilterActive)
+            if (barmiszuroaktiv)
             {
                 kg_szuro.HatterSzine = Color.Orange;
                 szuresAktiv = true;
@@ -448,20 +449,15 @@ namespace Projekt_feladat.Formok
                     switch (nev)
                     {
                         case "kszm_utasNeve":
-                            sql = @"SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2
-                            FROM utas AS u
-                            INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
-                            INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
-                            WHERE 
-                                  u.titulus LIKE @nev OR
-                                  u.vezeteknev LIKE @nev OR
-                                  u.keresztnev1 LIKE @nev OR
-                                  u.keresztnev2 LIKE @nev
-                            GROUP BY u.utas_id
-                            LIMIT 4";
+                              sql = @"SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2
+                                FROM utas AS u
+                                INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
+                                INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
+                               WHERE LOWER(CONCAT_WS(' ', u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2)) LIKE @nev
+                                GROUP BY u.utas_id
+                                LIMIT 4";
 
-                            cmd.Parameters.AddWithValue("@nev", "%" + aktivMezo.Texts.Trim() + "%");
-
+                            cmd.Parameters.AddWithValue("@nev", "%" + aktivMezo.Texts.Trim().ToLower() + "%");
                             break;
 
 
@@ -595,7 +591,7 @@ namespace Projekt_feladat.Formok
                     string biztositas = sor.Cells["Biztosítás van"].Value.ToString();
                     string megjegyzes = sor.Cells["Megjegyzés"].Value?.ToString();
 
-                    // ugyanazok az UPDATE-ek, mint korábban...
+             
                     using (var cmd = new MySqlCommand(@"UPDATE utas SET 
                 titulus = @titulus, vezeteknev = @vezeteknev, keresztnev1 = @kn1, keresztnev2 = @kn2 
                 WHERE utas_id = @id", kapcsolat))
