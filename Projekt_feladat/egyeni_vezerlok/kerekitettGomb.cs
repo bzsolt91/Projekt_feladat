@@ -93,7 +93,22 @@ namespace Projekt_feladat.egyeni_vezerlok
             path.CloseFigure();
             return path;
         }
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
 
+            if (sarokSugar > 2)
+            {
+                using (GraphicsPath path = GetFigurePath(ClientRectangle, sarokSugar))
+                {
+                    Region = new Region(path);
+                }
+            }
+            else
+            {
+                Region = new Region(ClientRectangle);
+            }
+        }
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);

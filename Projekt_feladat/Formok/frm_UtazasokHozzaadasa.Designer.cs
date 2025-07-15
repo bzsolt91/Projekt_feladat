@@ -206,6 +206,7 @@
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -230,6 +231,7 @@
             // 
             // rcb_utazasIdeje
             // 
+            rcb_utazasIdeje.adatForras = null;
             rcb_utazasIdeje.BackColor = Color.Transparent;
             rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
             rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
@@ -254,6 +256,7 @@
             // 
             // rcb_utazasElnevezese
             // 
+            rcb_utazasElnevezese.adatForras = null;
             rcb_utazasElnevezese.BackColor = Color.Transparent;
             rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
             rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;

@@ -338,7 +338,6 @@ namespace Projekt_feladat.Formok
             kszm_utasNeve.TobbSor = false;
             kszm_utasNeve._SzovegValtoztatva += kszm_AutoComplete;
             kszm_utasNeve.KeyDown += SzovegMezo_KeyDown;
-            
             kszm_utasNeve.Leave += kszm_Leave;
             // 
             // ev_utasLista
@@ -564,6 +563,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -587,6 +587,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_idoszak
             // 
+            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
@@ -612,7 +613,6 @@ namespace Projekt_feladat.Formok
             // dgv_utazasok
             // 
             dgv_utazasok.AllowUserToAddRows = false;
-          
             dgv_utazasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dgv_utazasok.BackgroundColor = SystemColors.ControlLightLight;
             dgv_utazasok.BorderStyle = BorderStyle.None;
@@ -665,6 +665,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
+            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;
@@ -760,7 +761,7 @@ namespace Projekt_feladat.Formok
             kszm_nyomtatas.ForeColor = Color.White;
             kszm_nyomtatas.HatterSzine = Color.MediumSlateBlue;
             kszm_nyomtatas.Image = (Image)resources.GetObject("kszm_nyomtatas.Image");
-            kszm_nyomtatas.ImageAlign = ContentAlignment.MiddleLeft;
+            kszm_nyomtatas.ImageAlign = ContentAlignment.MiddleRight;
             kszm_nyomtatas.KeretMeret = 0;
             kszm_nyomtatas.KeretSzine = Color.PaleVioletRed;
             kszm_nyomtatas.Location = new Point(654, 8);
@@ -771,6 +772,7 @@ namespace Projekt_feladat.Formok
             kszm_nyomtatas.SzovegSzine = Color.White;
             kszm_nyomtatas.TabIndex = 3;
             kszm_nyomtatas.Text = "Nyomtatás";
+            kszm_nyomtatas.TextImageRelation = TextImageRelation.ImageBeforeText;
             kszm_nyomtatas.UseVisualStyleBackColor = false;
             kszm_nyomtatas.Click += kszm_nyomtatas_Click;
             // 
@@ -784,17 +786,19 @@ namespace Projekt_feladat.Formok
             kszm_utasLista.ForeColor = Color.White;
             kszm_utasLista.HatterSzine = Color.MediumSlateBlue;
             kszm_utasLista.Image = (Image)resources.GetObject("kszm_utasLista.Image");
-            kszm_utasLista.ImageAlign = ContentAlignment.MiddleLeft;
+            kszm_utasLista.ImageAlign = ContentAlignment.MiddleRight;
             kszm_utasLista.KeretMeret = 0;
             kszm_utasLista.KeretSzine = Color.PaleVioletRed;
             kszm_utasLista.Location = new Point(421, 8);
             kszm_utasLista.Name = "kszm_utasLista";
             kszm_utasLista.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kszm_utasLista.RightToLeft = RightToLeft.No;
             kszm_utasLista.SarokSugar = 10;
             kszm_utasLista.Size = new Size(216, 51);
             kszm_utasLista.SzovegSzine = Color.White;
             kszm_utasLista.TabIndex = 1;
             kszm_utasLista.Text = "Utaslista készítése";
+            kszm_utasLista.TextImageRelation = TextImageRelation.ImageBeforeText;
             kszm_utasLista.UseVisualStyleBackColor = false;
             kszm_utasLista.Click += kerekitettGomb3_Click;
             // 

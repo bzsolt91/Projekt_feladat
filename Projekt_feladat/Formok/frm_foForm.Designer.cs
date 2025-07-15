@@ -517,7 +517,7 @@ namespace Projekt_feladat
             pnl_fejlec.Margin = new Padding(3, 4, 3, 4);
             pnl_fejlec.Name = "pnl_fejlec";
             pnl_fejlec.SarkokLekerekitese = 0;
-            pnl_fejlec.Size = new Size(1295, 37);
+            pnl_fejlec.Size = new Size(1403, 37);
             pnl_fejlec.SzinatmenetAlsoSzine = Color.Silver;
             pnl_fejlec.SzinatmenetFelsoSzine = Color.DimGray;
             pnl_fejlec.SzinatmenetSzog = 100F;
@@ -537,7 +537,7 @@ namespace Projekt_feladat
             btn_minimalizalas.HatterSzine = Color.Transparent;
             btn_minimalizalas.KeretMeret = 0;
             btn_minimalizalas.KeretSzine = Color.PaleVioletRed;
-            btn_minimalizalas.Location = new Point(1104, 3);
+            btn_minimalizalas.Location = new Point(1212, 3);
             btn_minimalizalas.Margin = new Padding(3, 4, 3, 4);
             btn_minimalizalas.Name = "btn_minimalizalas";
             btn_minimalizalas.NyomottAllapotHatterSzine = Color.Yellow;
@@ -560,7 +560,7 @@ namespace Projekt_feladat
             btn_ablakmeret_valto.HatterSzine = Color.Transparent;
             btn_ablakmeret_valto.KeretMeret = 0;
             btn_ablakmeret_valto.KeretSzine = Color.PaleVioletRed;
-            btn_ablakmeret_valto.Location = new Point(1167, 3);
+            btn_ablakmeret_valto.Location = new Point(1275, 3);
             btn_ablakmeret_valto.Margin = new Padding(3, 4, 3, 4);
             btn_ablakmeret_valto.Name = "btn_ablakmeret_valto";
             btn_ablakmeret_valto.NyomottAllapotHatterSzine = Color.Aqua;
@@ -583,7 +583,7 @@ namespace Projekt_feladat
             btn_kilepes.HatterSzine = Color.Transparent;
             btn_kilepes.KeretMeret = 0;
             btn_kilepes.KeretSzine = Color.PaleVioletRed;
-            btn_kilepes.Location = new Point(1227, 3);
+            btn_kilepes.Location = new Point(1335, 3);
             btn_kilepes.Margin = new Padding(3, 4, 3, 4);
             btn_kilepes.Name = "btn_kilepes";
             btn_kilepes.NyomottAllapotHatterSzine = Color.Red;
@@ -606,7 +606,7 @@ namespace Projekt_feladat
             pnl_fopanel.Location = new Point(277, 37);
             pnl_fopanel.Margin = new Padding(3, 4, 3, 4);
             pnl_fopanel.Name = "pnl_fopanel";
-            pnl_fopanel.Size = new Size(1018, 698);
+            pnl_fopanel.Size = new Size(1126, 698);
             pnl_fopanel.TabIndex = 2;
             pnl_fopanel.ControlAdded += pnl_fopanel_ControlAdded;
             pnl_fopanel.ControlRemoved += pnl_fopanel_ControlRemoved;
@@ -1003,7 +1003,7 @@ namespace Projekt_feladat
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1295, 735);
+            ClientSize = new Size(1403, 735);
             ControlBox = false;
             Controls.Add(pnl_fopanel);
             Controls.Add(pnl_fomenu);

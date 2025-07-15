@@ -227,13 +227,13 @@ namespace Projekt_feladat.Formok
                                     fizetes.befizetett_osszeg AS 'Befizetett összeg',
                                     fizetes.biztositas AS 'Biztosítás van',
                                     megjegyzes.megjegyzes AS 'Megjegyzés',
-                                    GROUP_CONCAT(CONCAT(t_all.desztinacio, ' - ', t_all.utazas_ideje, ' - ', t_all.utazas_elnevezese) SEPARATOR '\n') AS 'Utazások'
+                                    GROUP_CONCAT(CONCAT(t_ossz.desztinacio, ' - ', t_ossz.utazas_ideje, ' - ', t_ossz.utazas_elnevezese) SEPARATOR '\n') AS 'Utazások'
 
                                 FROM utas AS u
 
                                
-                                INNER JOIN utas_utazasai AS uu_all ON u.utas_id = uu_all.utas_id
-                                INNER JOIN utazas AS t_all ON uu_all.utazas_id = t_all.utazas_id
+                                INNER JOIN utas_utazasai AS uu_ossz ON u.utas_id = uu_ossz.utas_id
+                                INNER JOIN utazas AS t_ossz ON uu_ossz.utazas_id = t_ossz.utazas_id
 
                                
                                 LEFT JOIN telefon ON u.utas_id = telefon.utas_id
@@ -496,127 +496,148 @@ namespace Projekt_feladat.Formok
                     var cmd = new MySqlCommand();
                     cmd.Connection = mc_mysqlcon;
 
-                    string sql = @"SELECT
-                            u.utas_id AS 'Sorszám',
-                            u.titulus AS 'Titulus',
-                            u.vezeteknev AS 'Vezetéknév',
-                            u.keresztnev1 AS 'Keresztnév',
-                            u.keresztnev2 AS 'Második keresztnév',
-                            telefon.telefon AS 'Telefonszám', 
-                            szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
-                            szemelyi.okmany_lejarat AS 'Érvényesség',
-                            cim.lakcim AS 'Lakcím',
-                            cim.email_cim AS 'Email',
-                            fizetes.befizetett_osszeg AS 'Befizetett összeg',
-                            fizetes.biztositas AS 'Biztosítás van',
-                            megjegyzes.megjegyzes AS 'Megjegyzés'
-                        FROM
-                            utas AS u
-                        INNER JOIN
-                            utas_utazasai AS uu ON u.utas_id = uu.utas_id
-                        INNER JOIN
-                            utazas AS t ON uu.utazas_id = t.utazas_id 
-                        LEFT JOIN 
-                            telefon ON u.utas_id = telefon.utas_id
-                        LEFT JOIN
-                            cim ON u.utas_id = cim.utas_id
-                        LEFT JOIN
-                            fizetes ON u.utas_id = fizetes.utas_id
-                        LEFT JOIN
-                            szemelyi ON u.utas_id = szemelyi.utas_id
-                        LEFT JOIN
-                            megjegyzes ON u.utas_id = megjegyzes.utas_id";
+                    
+                   
 
-                    // Szűrők hozzáadása
 
-                    whereszekvencia.Add(@"t.utazas_ideje = @utazasideje AND t.desztinacio = @desztinacio AND t.utazas_elnevezese = @utazasneve");
+                    string sql = @"
+                                    SELECT
+                                        u.utas_id AS 'Sorszám',
+                                        u.titulus AS 'Titulus',
+                                        u.vezeteknev AS 'Vezetéknév',
+                                        u.keresztnev1 AS 'Keresztnév',
+                                        u.keresztnev2 AS 'Második keresztnév',
+                                        telefon.telefon AS 'Telefonszám',
+                                        szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
+                                        szemelyi.okmany_lejarat AS 'Érvényesség',
+                                        cim.lakcim AS 'Lakcím',
+                                        cim.email_cim AS 'Email',
+                                        fizetes.befizetett_osszeg AS 'Befizetett összeg',
+                                        fizetes.biztositas AS 'Biztosítás van',
+                                        megjegyzes.megjegyzes AS 'Megjegyzés',
+                                        GROUP_CONCAT(CONCAT(t_ossz.desztinacio, ' - ', t_ossz.utazas_ideje, ' - ', t_ossz.utazas_elnevezese) SEPARATOR '\n') AS 'Utazások'
+                                    FROM utas AS u
+                                    INNER JOIN utas_utazasai AS uu_ossz ON u.utas_id = uu_ossz.utas_id
+                                    INNER JOIN utazas AS t_ossz ON uu_ossz.utazas_id = t_ossz.utazas_id
+                                    LEFT JOIN telefon ON u.utas_id = telefon.utas_id
+                                    LEFT JOIN cim ON u.utas_id = cim.utas_id
+                                    LEFT JOIN fizetes ON u.utas_id = fizetes.utas_id
+                                    LEFT JOIN szemelyi ON u.utas_id = szemelyi.utas_id
+                                    LEFT JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
+                                    WHERE u.utas_id IN (
+                                        SELECT uu.utas_id
+                                        FROM utas_utazasai AS uu
+                                        INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
+                                        WHERE (@utazasideje IS NULL OR t.utazas_ideje = @utazasideje)
+                                          AND (@desztinacio IS NULL OR t.desztinacio = @desztinacio)
+                                          AND (@utazasneve IS NULL OR t.utazas_elnevezese = @utazasneve)
+                                    )"
+                    ;
+                    List<string> feltetelek = new List<string>();
 
-                    cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
-                    cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
-                    cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
+                    // név
                     if (!string.IsNullOrWhiteSpace(kszm_utasNeve.Texts))
                     {
                         var nevReszek = kszm_utasNeve.Texts.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         int nevIndex = 0;
 
-                        foreach (var szo in nevReszek)//az autokomplete miatt muszály szétszedni szóközönként a szűrésnél a névrészeket
+                        foreach (var szo in nevReszek)
                         {
                             string paramNev = "@nev" + nevIndex;
                             nevIndex++;
 
-                            whereszekvencia.Add($@"(
-                                                u.titulus LIKE {paramNev} 
-                                                OR u.vezeteknev LIKE {paramNev} 
-                                                OR u.keresztnev1 LIKE {paramNev} 
-                                                OR u.keresztnev2 LIKE {paramNev}
-                                            )");
+                                                feltetelek.Add($@"(
+                                u.titulus LIKE {paramNev}
+                                OR u.vezeteknev LIKE {paramNev}
+                                OR u.keresztnev1 LIKE {paramNev}
+                                OR u.keresztnev2 LIKE {paramNev}
+                            )");
 
                             cmd.Parameters.AddWithValue(paramNev, "%" + szo + "%");
                         }
                     }
+
+                    // telefon
                     if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts))
                     {
-                        whereszekvencia.Add("telefon.telefon LIKE @telefon");
+                        feltetelek.Add("telefon.telefon LIKE @telefon");
                         cmd.Parameters.AddWithValue("@telefon", "%" + kszm_telefon.Texts + "%");
                     }
 
+                    // okmány
                     if (!string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts))
                     {
-                        whereszekvencia.Add("szemelyi.szemelyi_vagy_utlevel LIKE @okmany");
+                        feltetelek.Add("szemelyi.szemelyi_vagy_utlevel LIKE @okmany");
                         cmd.Parameters.AddWithValue("@okmany", "%" + kszm_okmanySzam.Texts + "%");
                     }
 
+                    // okmány érvényesség
                     if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
-                    {
-                        whereszekvencia.Add("szemelyi.okmany_lejarat < CURDATE()");
-                    }
+                        feltetelek.Add("szemelyi.okmany_lejarat < CURDATE()");
                     else if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
-                    {
-                        whereszekvencia.Add("szemelyi.okmany_lejarat >= CURDATE()");
-                    }
+                        feltetelek.Add("szemelyi.okmany_lejarat >= CURDATE()");
 
+                    // lakcím
                     if (!string.IsNullOrWhiteSpace(kszm_lakcim.Texts))
                     {
-                        whereszekvencia.Add("cim.lakcim LIKE @lakcim");
+                        feltetelek.Add("cim.lakcim LIKE @lakcim");
                         cmd.Parameters.AddWithValue("@lakcim", "%" + kszm_lakcim.Texts + "%");
                     }
 
+                    // email
                     if (!string.IsNullOrWhiteSpace(kszm_email.Texts))
                     {
-                        whereszekvencia.Add("cim.email_cim LIKE @email");
+                        feltetelek.Add("cim.email_cim LIKE @email");
                         cmd.Parameters.AddWithValue("@email", "%" + kszm_email.Texts + "%");
                     }
 
+                    // befizetés
                     if (kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
-                    {
-                        whereszekvencia.Add("fizetes.befizetett_osszeg = 0");
-                    }
+                        feltetelek.Add("fizetes.befizetett_osszeg = 0");
                     else if (kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
-                    {
-                        whereszekvencia.Add("fizetes.befizetett_osszeg > 0");
-                    }
+                        feltetelek.Add("fizetes.befizetett_osszeg > 0");
 
+                    // biztosítás
                     if (kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
-                    {
-                        whereszekvencia.Add("fizetes.biztositas = 'nem'");
-                    }
+                        feltetelek.Add("fizetes.biztositas = 'nem'");
                     else if (kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
-                    {
-                        whereszekvencia.Add("fizetes.biztositas = 'igen'");
-                    }
+                        feltetelek.Add("fizetes.biztositas = 'igen'");
 
+                    // megjegyzés
                     if (!string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts))
                     {
-                        whereszekvencia.Add("megjegyzes.megjegyzes LIKE @megjegyzes");
+                        feltetelek.Add("megjegyzes.megjegyzes LIKE @megjegyzes");
                         cmd.Parameters.AddWithValue("@megjegyzes", "%" + kszm_megjegyzes.Texts + "%");
                     }
+                    cmd.Parameters.AddWithValue("@utazasideje", utazasIdoszak);
+                    cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+                    cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
 
-
-                    if (whereszekvencia.Count > 0)
+                    // Ha vannak extra szűrési feltételek, illeszd hozzá az SQL-hez
+                    if (feltetelek.Count > 0)
                     {
-                        sql += " WHERE " + string.Join(" AND ", whereszekvencia);
+                        sql += " AND " + string.Join(" AND ", feltetelek);
                     }
-                    sql += " GROUP BY u.utas_id";
+                    sql += @"
+                            GROUP BY
+                                u.utas_id,
+                                u.titulus,
+                                u.vezeteknev,
+                                u.keresztnev1,
+                                u.keresztnev2,
+                                telefon.telefon,
+                                szemelyi.szemelyi_vagy_utlevel,
+                                szemelyi.okmany_lejarat,
+                                cim.lakcim,
+                                cim.email_cim,
+                                fizetes.befizetett_osszeg,
+                                fizetes.biztositas,
+                                megjegyzes.megjegyzes
+                            ORDER BY u.utas_id;";
+
+
+
+                   
 
                     cmd.CommandText = sql;
                     var da = new MySqlDataAdapter(cmd);

@@ -123,171 +123,147 @@ namespace Projekt_feladat.Formok
             {
                 if (!bejelentkezes.bejelentkezes.Bejelentkezve())
                 {
-                    MessageBox.Show(
-                        "A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
-                        "Bejelentkezés szükséges",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("A művelet végrehajtásához be kell jelentkeznie a főoldalon.", "Bejelentkezés szükséges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
                 using (var mc_mysqlcon = new MySqlConnection(constr))
                 {
                     mc_mysqlcon.Open();
                     var dt = new DataTable();
                     var cmd = new MySqlCommand();
                     cmd.Connection = mc_mysqlcon;
-                    var whereszekvencia = new List<string>();
 
+                    var feltetelek = new List<string>();
 
-                    string sqlSelectBase = @"SELECT
-                                                u.utas_id AS 'Sorszám',
-                                                u.titulus AS 'Titulus',
-                                                u.vezeteknev AS 'Vezetéknév',
-                                                u.keresztnev1 AS 'Keresztnév',
-                                                u.keresztnev2 AS 'Második keresztnév',
-                                                telefon.telefon AS 'Telefonszám',
-                                                szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
-                                                szemelyi.okmany_lejarat AS 'Érvényesség',
-                                                cim.lakcim AS 'Lakcím',
-                                                cim.email_cim AS 'Email',
-                                                fizetes.befizetett_osszeg AS 'Befizetett összeg',
-                                                fizetes.biztositas AS 'Biztosítás van',
-                                                megjegyzes.megjegyzes AS 'Megjegyzés'
-                                            FROM
-                                                utas AS u
-                                            LEFT JOIN
-                                                utas_utazasai AS uu ON u.utas_id = uu.utas_id
-                                            LEFT JOIN
-                                                utazas AS t ON uu.utazas_id = t.utazas_id
-                                            LEFT JOIN
-                                                telefon ON u.utas_id = telefon.utas_id
-                                            LEFT JOIN
-                                                cim ON u.utas_id = cim.utas_id
-                                            LEFT JOIN
-                                                fizetes ON u.utas_id = fizetes.utas_id
-                                            LEFT JOIN
-                                                szemelyi ON u.utas_id = szemelyi.utas_id
-                                            LEFT JOIN
-                                                megjegyzes ON u.utas_id = megjegyzes.utas_id";
-
-
-                    string sqlCountBase = @"SELECT COUNT(DISTINCT u.utas_id)
-                                            FROM
-                                                utas AS u
-                                            LEFT JOIN
-                                                utas_utazasai AS uu ON u.utas_id = uu.utas_id
-                                            LEFT JOIN
-                                                utazas AS t ON uu.utazas_id = t.utazas_id
-                                            LEFT JOIN
-                                                telefon ON u.utas_id = telefon.utas_id
-                                            LEFT JOIN
-                                                cim ON u.utas_id = cim.utas_id
-                                            LEFT JOIN
-                                                fizetes ON u.utas_id = fizetes.utas_id
-                                            LEFT JOIN
-                                                szemelyi ON u.utas_id = szemelyi.utas_id
-                                            LEFT JOIN
-                                                megjegyzes ON u.utas_id = megjegyzes.utas_id";
-
-
-                    // Szűrők alkalmazása, ha a szuresAktiv true és a szűrőmezők kitöltöttek
+                    // -- Szűrési feltételek feldolgozása
                     if (szuresAktiv)
                     {
                         if (!string.IsNullOrWhiteSpace(kszm_utasNeve.Texts))
                         {
                             var nevReszek = kszm_utasNeve.Texts.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
                             int nevIndex = 0;
+
                             foreach (var szo in nevReszek)
                             {
                                 string paramNev = "@nev" + nevIndex++;
-                                whereszekvencia.Add($@"(
-                                                        u.titulus LIKE {paramNev}
-                                                        OR u.vezeteknev LIKE {paramNev}
-                                                        OR u.keresztnev1 LIKE {paramNev}
-                                                        OR u.keresztnev2 LIKE {paramNev}
-                                                    )");
+                                feltetelek.Add($@"(
+                            u.titulus LIKE {paramNev}
+                            OR u.vezeteknev LIKE {paramNev}
+                            OR u.keresztnev1 LIKE {paramNev}
+                            OR u.keresztnev2 LIKE {paramNev}
+                        )");
                                 cmd.Parameters.AddWithValue(paramNev, "%" + szo + "%");
                             }
                         }
+
                         if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts))
                         {
-                            whereszekvencia.Add("telefon.telefon LIKE @telefon");
+                            feltetelek.Add("telefon.telefon LIKE @telefon");
                             cmd.Parameters.AddWithValue("@telefon", "%" + kszm_telefon.Texts + "%");
                         }
+
                         if (!string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts))
                         {
-                            whereszekvencia.Add("szemelyi.szemelyi_vagy_utlevel LIKE @okmany");
+                            feltetelek.Add("szemelyi.szemelyi_vagy_utlevel LIKE @okmany");
                             cmd.Parameters.AddWithValue("@okmany", "%" + kszm_okmanySzam.Texts + "%");
                         }
+
                         if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
-                        {
-                            whereszekvencia.Add("szemelyi.okmany_lejarat < CURDATE()");
-                        }
+                            feltetelek.Add("szemelyi.okmany_lejarat < CURDATE()");
                         else if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
-                        {
-                            whereszekvencia.Add("szemelyi.okmany_lejarat >= CURDATE()");
-                        }
+                            feltetelek.Add("szemelyi.okmany_lejarat >= CURDATE()");
+
                         if (!string.IsNullOrWhiteSpace(kszm_lakcim.Texts))
                         {
-                            whereszekvencia.Add("cim.lakcim LIKE @lakcim");
+                            feltetelek.Add("cim.lakcim LIKE @lakcim");
                             cmd.Parameters.AddWithValue("@lakcim", "%" + kszm_lakcim.Texts + "%");
                         }
+
                         if (!string.IsNullOrWhiteSpace(kszm_email.Texts))
                         {
-                            whereszekvencia.Add("cim.email_cim LIKE @email");
+                            feltetelek.Add("cim.email_cim LIKE @email");
                             cmd.Parameters.AddWithValue("@email", "%" + kszm_email.Texts + "%");
                         }
+
                         if (kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
-                        {
-                            whereszekvencia.Add("fizetes.befizetett_osszeg = 0");
-                        }
+                            feltetelek.Add("fizetes.befizetett_osszeg = 0");
                         else if (kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
-                        {
-                            whereszekvencia.Add("fizetes.befizetett_osszeg > 0");
-                        }
+                            feltetelek.Add("fizetes.befizetett_osszeg > 0");
+
                         if (kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
-                        {
-                            whereszekvencia.Add("fizetes.biztositas = 'nem'");
-                        }
+                            feltetelek.Add("fizetes.biztositas = 'nem'");
                         else if (kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be)
-                        {
-                            whereszekvencia.Add("fizetes.biztositas = 'igen'");
-                        }
+                            feltetelek.Add("fizetes.biztositas = 'igen'");
+
                         if (!string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts))
                         {
-                            whereszekvencia.Add("megjegyzes.megjegyzes LIKE @megjegyzes");
+                            feltetelek.Add("megjegyzes.megjegyzes LIKE @megjegyzes");
                             cmd.Parameters.AddWithValue("@megjegyzes", "%" + kszm_megjegyzes.Texts + "%");
                         }
                     }
 
-                    string whereClause = "";
-                    if (whereszekvencia.Count > 0)
-                    {
-                        whereClause = " WHERE " + string.Join(" AND ", whereszekvencia);
-                    }
+                    // SQL lekérdezés
+                    string alapSelect = @"
+                        SELECT
+                            u.utas_id AS 'Sorszám',
+                            u.titulus AS 'Titulus',
+                            u.vezeteknev AS 'Vezetéknév',
+                            u.keresztnev1 AS 'Keresztnév',
+                            u.keresztnev2 AS 'Második keresztnév',
+                            telefon.telefon AS 'Telefonszám',
+                            szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
+                            szemelyi.okmany_lejarat AS 'Érvényesség',
+                            cim.lakcim AS 'Lakcím',
+                            cim.email_cim AS 'Email',
+                            fizetes.befizetett_osszeg AS 'Befizetett összeg',
+                            fizetes.biztositas AS 'Biztosítás van',
+                            megjegyzes.megjegyzes AS 'Megjegyzés',
+                            GROUP_CONCAT(CONCAT(t_ossz.desztinacio, ' - ', t_ossz.utazas_ideje, ' - ', t_ossz.utazas_elnevezese) SEPARATOR '\n') AS 'Utazások'
+                        FROM utas AS u
+                        INNER JOIN utas_utazasai AS uu_ossz ON u.utas_id = uu_ossz.utas_id
+                        INNER JOIN utazas AS t_ossz ON uu_ossz.utazas_id = t_ossz.utazas_id
+                        LEFT JOIN telefon ON u.utas_id = telefon.utas_id
+                        LEFT JOIN cim ON u.utas_id = cim.utas_id
+                        LEFT JOIN fizetes ON u.utas_id = fizetes.utas_id
+                        LEFT JOIN szemelyi ON u.utas_id = szemelyi.utas_id
+                        LEFT JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
+                        ";
 
-                    // --- Határozza meg az összes sor számát (szűrt vagy nem szűrt) ---
-                    cmd.CommandText = sqlCountBase + whereClause;
+                      string alapCount = @"
+                        SELECT COUNT(*) FROM (
+                            SELECT u.utas_id
+                            FROM utas AS u
+                            INNER JOIN utas_utazasai AS uu_ossz ON u.utas_id = uu_ossz.utas_id
+                            INNER JOIN utazas AS t_ossz ON uu_ossz.utazas_id = t_ossz.utazas_id
+                            LEFT JOIN telefon ON u.utas_id = telefon.utas_id
+                            LEFT JOIN cim ON u.utas_id = cim.utas_id
+                            LEFT JOIN fizetes ON u.utas_id = fizetes.utas_id
+                            LEFT JOIN szemelyi ON u.utas_id = szemelyi.utas_id
+                            LEFT JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
+                        ";
+
+                    string whereClause = feltetelek.Count > 0 ? "WHERE " + string.Join(" AND ", feltetelek) : "";
+
+                    // --- Lekérdezzük a szűrt sorok számát
+                    cmd.CommandText = alapCount + " " + whereClause + " GROUP BY u.utas_id ) AS al";
                     szurtSorok = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    // --- Számolja ki a maximális oldalakat és frissítse a felhasználói felület elemeit ---
+                    // Lapozás számítása
                     maxOldal = (int)Math.Ceiling((double)szurtSorok / lim);
-                    nud_oldalValaszto.Maximum = Math.Max(1, maxOldal); // Győződjön meg róla, hogy a minimum 1, még 0 sor esetén is
-
-                    // Az aktualisOldal módosítása, ha az új maxOldalhoz képest túl nagy (pl. szűrők törlése után)
+                    nud_oldalValaszto.Maximum = Math.Max(1, maxOldal);
                     if (aktualisOldal > maxOldal)
-                    {
                         aktualisOldal = Math.Max(1, maxOldal);
-                    }
-                    nud_oldalValaszto.Value = aktualisOldal; // Frissítse a NumericUpDown értékét
+                    nud_oldalValaszto.Value = aktualisOldal;
 
-
-                    // --- Adatok lekérése az aktuális oldalhoz ---
-                    // A SELECT lekérdezésnél is szükség van a GROUP BY u.utas_id-re,
-                    // hogy a lapozásnál ne legyenek duplikált utasok.
-                    cmd.CommandText = sqlSelectBase + whereClause + " GROUP BY u.utas_id ORDER BY u.utas_id LIMIT @lim OFFSET @offset";
+                    // Adatok lekérése
                     int offset = (aktualisOldal - 1) * lim;
+                    cmd.CommandText = alapSelect + " " +
+                                      whereClause + " " +
+                                      "GROUP BY u.utas_id " +
+                                      "ORDER BY u.utas_id " +
+                                      "LIMIT @lim OFFSET @offset";
+
                     cmd.Parameters.AddWithValue("@lim", lim);
                     cmd.Parameters.AddWithValue("@offset", offset);
 
@@ -649,6 +625,7 @@ namespace Projekt_feladat.Formok
 
         private void kg_torles_Click(object sender, EventArgs e)
         {
+           
             if (!bejelentkezes.bejelentkezes.Bejelentkezve())
             {
                 MessageBox.Show(

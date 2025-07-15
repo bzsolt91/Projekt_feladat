@@ -96,18 +96,22 @@ namespace Projekt_feladat.Formok
             kszm_ujRegiFelhasznalo.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_ujRegiFelhasznalo.FlatAppearance.BorderSize = 0;
             kszm_ujRegiFelhasznalo.FlatStyle = FlatStyle.Flat;
+            kszm_ujRegiFelhasznalo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
             kszm_ujRegiFelhasznalo.ForeColor = Color.White;
             kszm_ujRegiFelhasznalo.HatterSzine = Color.Chocolate;
+            kszm_ujRegiFelhasznalo.Image = (Image)resources.GetObject("kszm_ujRegiFelhasznalo.Image");
+            kszm_ujRegiFelhasznalo.ImageAlign = ContentAlignment.MiddleRight;
             kszm_ujRegiFelhasznalo.KeretMeret = 0;
             kszm_ujRegiFelhasznalo.KeretSzine = Color.PaleVioletRed;
             kszm_ujRegiFelhasznalo.Location = new Point(230, 8);
             kszm_ujRegiFelhasznalo.Name = "kszm_ujRegiFelhasznalo";
             kszm_ujRegiFelhasznalo.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kszm_ujRegiFelhasznalo.SarokSugar = 8;
-            kszm_ujRegiFelhasznalo.Size = new Size(222, 41);
+            kszm_ujRegiFelhasznalo.Size = new Size(260, 41);
             kszm_ujRegiFelhasznalo.SzovegSzine = Color.White;
             kszm_ujRegiFelhasznalo.TabIndex = 1;
             kszm_ujRegiFelhasznalo.Text = "Meglévőhöz hozzáadás";
+            kszm_ujRegiFelhasznalo.TextImageRelation = TextImageRelation.ImageBeforeText;
             kszm_ujRegiFelhasznalo.UseVisualStyleBackColor = false;
             kszm_ujRegiFelhasznalo.Click += kszm_ujRegiFelhasznalo_Click;
             // 
@@ -117,8 +121,11 @@ namespace Projekt_feladat.Formok
             kszm_mentes.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_mentes.FlatAppearance.BorderSize = 0;
             kszm_mentes.FlatStyle = FlatStyle.Flat;
+            kszm_mentes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
             kszm_mentes.ForeColor = Color.White;
             kszm_mentes.HatterSzine = Color.MediumSlateBlue;
+            kszm_mentes.Image = (Image)resources.GetObject("kszm_mentes.Image");
+            kszm_mentes.ImageAlign = ContentAlignment.MiddleRight;
             kszm_mentes.KeretMeret = 0;
             kszm_mentes.KeretSzine = Color.PaleVioletRed;
             kszm_mentes.Location = new Point(28, 8);
@@ -129,6 +136,7 @@ namespace Projekt_feladat.Formok
             kszm_mentes.SzovegSzine = Color.White;
             kszm_mentes.TabIndex = 0;
             kszm_mentes.Text = "Mentés";
+            kszm_mentes.TextImageRelation = TextImageRelation.ImageBeforeText;
             kszm_mentes.UseVisualStyleBackColor = false;
             kszm_mentes.Click += kszm_mentes_Click;
             // 
@@ -443,6 +451,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -466,6 +475,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasIdeje
             // 
+            rcb_utazasIdeje.adatForras = null;
             rcb_utazasIdeje.BackColor = Color.Transparent;
             rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
             rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
@@ -489,6 +499,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasElnevezese
             // 
+            rcb_utazasElnevezese.adatForras = null;
             rcb_utazasElnevezese.BackColor = Color.Transparent;
             rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
             rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
@@ -528,18 +539,22 @@ namespace Projekt_feladat.Formok
             kszm_utazasTorlese.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_utazasTorlese.FlatAppearance.BorderSize = 0;
             kszm_utazasTorlese.FlatStyle = FlatStyle.Flat;
+            kszm_utazasTorlese.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
             kszm_utazasTorlese.ForeColor = Color.White;
             kszm_utazasTorlese.HatterSzine = Color.MediumSlateBlue;
+            kszm_utazasTorlese.Image = (Image)resources.GetObject("kszm_utazasTorlese.Image");
+            kszm_utazasTorlese.ImageAlign = ContentAlignment.MiddleRight;
             kszm_utazasTorlese.KeretMeret = 0;
             kszm_utazasTorlese.KeretSzine = Color.PaleVioletRed;
             kszm_utazasTorlese.Location = new Point(823, 104);
             kszm_utazasTorlese.Name = "kszm_utazasTorlese";
             kszm_utazasTorlese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kszm_utazasTorlese.SarokSugar = 8;
-            kszm_utazasTorlese.Size = new Size(188, 50);
+            kszm_utazasTorlese.Size = new Size(274, 50);
             kszm_utazasTorlese.SzovegSzine = Color.White;
             kszm_utazasTorlese.TabIndex = 18;
             kszm_utazasTorlese.Text = "Kiválasztott eltávolítása";
+            kszm_utazasTorlese.TextImageRelation = TextImageRelation.ImageBeforeText;
             kszm_utazasTorlese.UseVisualStyleBackColor = false;
             kszm_utazasTorlese.Click += kszm_utazasTorlese_Click;
             // 

@@ -124,6 +124,29 @@
     <value>200, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="kszm_ujRegiFelhasznalo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAE9SURBVEhLrZZJTgMxEEWTbAlbwgYJuAxnSeAQjBJXAQ4Q
+        yB1YMFyAaQFr2JDFQx9VwF3BpOz0k0rqdNv/x+VydXc6BQBdhb9fDbAO7AIT4BmYAp92fQWMgIGftxBg
+        FTgBPljMO3AE9L3OnwDbwL1XCXAHbHm9Bib+5mcW8Jo1sbTU/HOPVjKfLst5Wxx6cVVLZEOjaON/qwvY
+        8yMynFlEGKUGqvMIxxYRLlODF/80Q4nB40y8Z6czxzlwarFjMft94QcnSLMXMZBIvYGt4sk/zVCSood0
+        D9S4IpQYjFMDdcwIKlHtSYRhajCww9EW0lr7MTATtdy22G+Im0HfGtWy3AArXv8btVprubVo7qbXbQBs
+        ANd+ZoDb7LvAoyWq5QY3XmMOsmn5D6suvdjHdhh1OhW61r3hXLUsQ81nyxd7V2ETZ+YLTQAAAABJRU5E
+        rkJggg==
+</value>
+  </data>
+  <data name="kszm_mentes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAEHSURBVEhL7dXPKgVhGMfxI2JloaQsbNyHUkquhK2dhRtQ
+        ip1yC65AWcg1ECs7UhaK/Fl+9NRg5mmOmWMOnYVvPYu3fr/3O1NvPb3eX4IpzPxwJvJ9FbCKN1/c4rrl
+        RPYcc/neT3BQujxYypl+RLboXPSV4LCtANM4wn5x/hAE9X8yoGC2yFwW57IguMJ8Lg1TEOzk0rAFe7mU
+        BSuVQAmMYxELxXk5dYNGwRk2sN4wkTlN3aBR0JXREDziocU85WIbwVYl8A0Yw3bqNwr6PtM6sJb6/4Iq
+        IyOIZ3nSUXCMlzpBLJybeJ4dBZu4x24OxMp8LULBICsz5q7Ufa79wI5LvzyT+e5f4x04rJDDE7SFHAAA
+        AABJRU5ErkJggg==
+</value>
+  </data>
   <data name="rcb_desztinacio.Ikon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
@@ -174,6 +197,16 @@
         DoMQPFo1nTkf4qwZFcNb3yytudPYunp+W5KDTMdMzyAECTFNlOG2pNZTNUkbpJOb0sx1gwEJMh2bn08j
         UYZYfqMhyPpEa//dMCBB8A0m48/6k8UW1Dhu7u/FEtFtVdRGktUk7rmarO1k/pdlAg/+F87Kqody8LxQ
         AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="kszm_utazasTorlese.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAADGSURBVEhL7ZTbCcJAEEUDftuApArtQtAitAB/RdsQrMQ+
+        bMICFMUHmiMTXNm9aEA2WfzIgcAyM9ybmWQny1r+EqADDCKfXHXfACviKYClapv4TCsjOKj4ELhrVQy+
+        eB84aoHHCXhI7ALcJBbgxHNgp0lhDkw9ExO3jtdSF2DiXWCriQ9cgTEwAc7A6HXWrgLMYKPBCtxb96Sb
+        ryQx+GVEbiw2IjeuSpPmP3KS39Qzae6ieSZ1roq96pfUuOwWql3S+LpuScoTctocEHi59NAAAAAASUVO
+        RK5CYII=
 </value>
   </data>
 </root>

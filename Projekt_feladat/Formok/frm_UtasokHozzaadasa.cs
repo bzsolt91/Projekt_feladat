@@ -712,6 +712,10 @@ namespace Projekt_feladat.Formok
 
         private void kszm_ujRegiFelhasznalo_Click(object sender, EventArgs e)
         {
+            kszm_ujRegiFelhasznalo.ImageAlign = ContentAlignment.TopRight;
+            kszm_ujRegiFelhasznalo.Padding = new Padding(0, 5, 0, 0);
+
+
             if (pnl_ujhozzaadas.Visible)
             {
 
