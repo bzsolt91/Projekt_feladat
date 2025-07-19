@@ -43,6 +43,7 @@
             rcb_utazasIdeje = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             rcb_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             kg_utazasTorlese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
+            kerekitettNumericUpDown1 = new Projekt_feladat.egyeni_vezerlok.KerekitettNumericUpDown();
             ev_torles = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             pnl_torles.SuspendLayout();
             SuspendLayout();
@@ -191,6 +192,8 @@
             kszm_hozzaadas.Font = new Font("Segoe UI", 14F);
             kszm_hozzaadas.ForeColor = Color.White;
             kszm_hozzaadas.HatterSzine = Color.MediumSlateBlue;
+            kszm_hozzaadas.Image = (Image)resources.GetObject("kszm_hozzaadas.Image");
+            kszm_hozzaadas.ImageAlign = ContentAlignment.MiddleRight;
             kszm_hozzaadas.KeretMeret = 0;
             kszm_hozzaadas.KeretSzine = Color.PaleVioletRed;
             kszm_hozzaadas.Location = new Point(90, 309);
@@ -201,12 +204,12 @@
             kszm_hozzaadas.SzovegSzine = Color.White;
             kszm_hozzaadas.TabIndex = 3;
             kszm_hozzaadas.Text = "Új utazás hozzáadása";
+            kszm_hozzaadas.TextImageRelation = TextImageRelation.ImageBeforeText;
             kszm_hozzaadas.UseVisualStyleBackColor = false;
             kszm_hozzaadas.Click += kszm_hozzaadas_Click;
             // 
             // rcb_desztinacio
             // 
-            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -231,7 +234,6 @@
             // 
             // rcb_utazasIdeje
             // 
-            rcb_utazasIdeje.adatForras = null;
             rcb_utazasIdeje.BackColor = Color.Transparent;
             rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
             rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
@@ -256,7 +258,6 @@
             // 
             // rcb_utazasElnevezese
             // 
-            rcb_utazasElnevezese.adatForras = null;
             rcb_utazasElnevezese.BackColor = Color.Transparent;
             rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
             rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
@@ -288,6 +289,8 @@
             kg_utazasTorlese.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
             kg_utazasTorlese.ForeColor = Color.White;
             kg_utazasTorlese.HatterSzine = Color.Crimson;
+            kg_utazasTorlese.Image = (Image)resources.GetObject("kg_utazasTorlese.Image");
+            kg_utazasTorlese.ImageAlign = ContentAlignment.MiddleRight;
             kg_utazasTorlese.KeretMeret = 0;
             kg_utazasTorlese.KeretSzine = Color.PaleVioletRed;
             kg_utazasTorlese.Location = new Point(580, 309);
@@ -298,8 +301,25 @@
             kg_utazasTorlese.SzovegSzine = Color.White;
             kg_utazasTorlese.TabIndex = 10;
             kg_utazasTorlese.Text = "Utazás törlése";
+            kg_utazasTorlese.TextImageRelation = TextImageRelation.ImageBeforeText;
             kg_utazasTorlese.UseVisualStyleBackColor = false;
             kg_utazasTorlese.Click += kg_utazasTorlese_Click;
+            // 
+            // kerekitettNumericUpDown1
+            // 
+            kerekitettNumericUpDown1.BackColor = Color.Transparent;
+            kerekitettNumericUpDown1.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+            kerekitettNumericUpDown1.KeretSzin = Color.Gray;
+            kerekitettNumericUpDown1.KeretVastagsag = 1.5F;
+            kerekitettNumericUpDown1.Location = new Point(601, 561);
+            kerekitettNumericUpDown1.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+            kerekitettNumericUpDown1.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            kerekitettNumericUpDown1.MinimumSize = new Size(80, 25);
+            kerekitettNumericUpDown1.Name = "kerekitettNumericUpDown1";
+            kerekitettNumericUpDown1.Radius = 10;
+            kerekitettNumericUpDown1.Size = new Size(114, 58);
+            kerekitettNumericUpDown1.TabIndex = 12;
+            kerekitettNumericUpDown1.Value = new decimal(new int[] { 0, 0, 0, 0 });
             // 
             // frm_UtazasokHozzaadasa
             // 
@@ -307,6 +327,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1229, 690);
+            Controls.Add(kerekitettNumericUpDown1);
             Controls.Add(pnl_torles);
             Controls.Add(kg_utazasTorlese);
             Controls.Add(rcb_utazasElnevezese);
@@ -341,5 +362,6 @@
         private egyeni_vezerlok.KerekitettGomb kg_nem;
         private egyeni_vezerlok.KerekitettGomb kg_igen;
         private egyeni_vezerlok.ellipszisVezerlo ev_torles;
+        private egyeni_vezerlok.KerekitettNumericUpDown kerekitettNumericUpDown1;
     }
 }

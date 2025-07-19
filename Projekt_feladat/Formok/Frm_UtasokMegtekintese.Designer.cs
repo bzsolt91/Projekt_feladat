@@ -112,6 +112,7 @@ namespace Projekt_feladat.Formok
             kg_nyomtatas.SzovegSzine = Color.White;
             kg_nyomtatas.TabIndex = 7;
             kg_nyomtatas.Text = "Nyomtatás";
+            kg_nyomtatas.TextAlign = ContentAlignment.MiddleRight;
             kg_nyomtatas.TextImageRelation = TextImageRelation.ImageBeforeText;
             kg_nyomtatas.UseVisualStyleBackColor = false;
             kg_nyomtatas.Click += kg_nyomtatas_Click;

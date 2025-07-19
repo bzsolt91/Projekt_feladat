@@ -149,6 +149,7 @@ namespace Projekt_feladat
         }
         private void btn_statisztika_Click(object sender, EventArgs e)
         {
+            GyermekFormMegnyitas(new Frm_Statisztika(), sender); //utazások form beágyazása
             AlmenuElrejtés();
         }
 
