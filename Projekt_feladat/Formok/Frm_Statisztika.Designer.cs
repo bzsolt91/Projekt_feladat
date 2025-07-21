@@ -37,6 +37,7 @@
             szp_tendencia = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
             pnl_geopanel = new Panel();
             flp_rendezoPanel = new FlowLayoutPanel();
+            szpn_penzugyiJelentes = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
             szpl_utasokSzama.SuspendLayout();
             szpn_utazasokSzama.SuspendLayout();
             szpn_atlagosUtazasokSzama.SuspendLayout();
@@ -160,6 +161,7 @@
             flp_rendezoPanel.AutoSize = true;
             flp_rendezoPanel.Controls.Add(pnl_geopanel);
             flp_rendezoPanel.Controls.Add(szp_tendencia);
+            flp_rendezoPanel.Controls.Add(szpn_penzugyiJelentes);
             flp_rendezoPanel.Dock = DockStyle.Fill;
             flp_rendezoPanel.FlowDirection = FlowDirection.TopDown;
             flp_rendezoPanel.Location = new Point(0, 0);
@@ -168,6 +170,24 @@
             flp_rendezoPanel.TabIndex = 0;
             flp_rendezoPanel.WrapContents = false;
             flp_rendezoPanel.Resize += flp_rendezoPanel_Resize;
+            // 
+            // szpn_penzugyiJelentes
+            // 
+            szpn_penzugyiJelentes.BackColor = Color.Transparent;
+            szpn_penzugyiJelentes.Dock = DockStyle.Top;
+            szpn_penzugyiJelentes.ForeColor = Color.Black;
+            szpn_penzugyiJelentes.KeretSzin = Color.Black;
+            szpn_penzugyiJelentes.KeretVastagsag = 0F;
+            szpn_penzugyiJelentes.Location = new Point(40, 737);
+            szpn_penzugyiJelentes.Margin = new Padding(40, 100, 40, 3);
+            szpn_penzugyiJelentes.Name = "szpn_penzugyiJelentes";
+            szpn_penzugyiJelentes.Padding = new Padding(10);
+            szpn_penzugyiJelentes.SarkokLekerekitese = 40;
+            szpn_penzugyiJelentes.Size = new Size(1157, 331);
+            szpn_penzugyiJelentes.SzinatmenetAlsoSzine = Color.WhiteSmoke;
+            szpn_penzugyiJelentes.SzinatmenetFelsoSzine = Color.WhiteSmoke;
+            szpn_penzugyiJelentes.SzinatmenetSzog = 90F;
+            szpn_penzugyiJelentes.TabIndex = 6;
             // 
             // Frm_Statisztika
             // 
@@ -205,5 +225,6 @@
         private Panel pnl_geopanel;
        
         private FlowLayoutPanel flp_rendezoPanel;
+        private egyeni_vezerlok.SzinatmenetPanel szpn_penzugyiJelentes;
     }
 }
