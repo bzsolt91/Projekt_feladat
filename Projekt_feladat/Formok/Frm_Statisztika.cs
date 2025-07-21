@@ -11,12 +11,14 @@ using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.WinForms;
 using MySqlConnector;
+using LiveChartsCore.Measure;
 
 namespace Projekt_feladat.Formok
 {
     public partial class Frm_Statisztika : Form
     {
         string kapcsolat = "server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;";
+
         private GeoMap geoMap;
         private CartesianChart oszlopDiagram;
         public Frm_Statisztika()
@@ -83,86 +85,106 @@ namespace Projekt_feladat.Formok
                     }
                  },
                 MapProjection = MapProjection.Default,
-                Location = new Point(0, 0),
-
-                Size = new Size(this.Width - 10, 250),
-                Anchor = AnchorStyles.Top
+                Location = new Point(0, 10),
+                Size = new Size(600, 250),
+                Anchor = AnchorStyles.None
             };
-            Controls.Add(geoMap);
+            pnl_geopanel.Controls.Add(geoMap);
+
 
         }
 
         private void Frm_Statisztika_Load(object sender, EventArgs e)
         {
-            // heat map adatok
+            // heat map adatok betöltése
             geoAdatok();
+            //kisebb statisztika
+            lbl_osszUtas.Text += " " + utasokSzama().ToString();
+            lb_utazasokSzama.Text += " " + utazasokSzama().ToString();
+            lbl_atlagosUtazasokSzama.Text += " " + idenUtzazokSzama().ToString();
+            //utazási tendencia
+            utazasiTendencia();
 
-            // MySQL lekérdezés az oszlopdiagramhoz
-            var adatok = new List<DateTimePoint>();
-            using var kapcsolatObj = new MySqlConnection(kapcsolat);
-            kapcsolatObj.Open();
-
-            string lekerdezes = @"
-                SELECT
-                    utazas.utazas_ideje,
-                    COUNT(DISTINCT utas_utazasai.utas_id) AS utasok_szama
-                FROM
-                    utazas
-                JOIN
-                    utas_utazasai ON utazas.utazas_id = utas_utazasai.utazas_id
-                WHERE
-                    YEAR(utazas.utazas_ideje) = 2025
-                GROUP BY
-                    utazas.utazas_ideje
-                ORDER BY
-                    utazas.utazas_ideje;
-            ";
-
-            using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
-            using var reader = parancs.ExecuteReader();
-
-            while (reader.Read())
-            {
-                DateTime datum = reader.GetDateTime("utazas_ideje");
-                int utasokSzama = reader.GetInt32("utasok_szama");
-                adatok.Add(new DateTimePoint(datum, utasokSzama));
-            }
-
-            // Diagram cím
-            var cimFelirat = new Label
-            {
-                Text = "Utasok száma naponta (2025)",
-                Font = new Font("Segoe UI", 14, FontStyle.Bold),
-                AutoSize = true,
-                Location = new Point(10, geoMap.Bottom + 10),
-                Anchor = AnchorStyles.Top | AnchorStyles.Left
-            };
-            Controls.Add(cimFelirat);
-
-            // Oszlopdiagram
-            oszlopDiagram = new CartesianChart
-            {
-                Series = new ISeries[]
-                {
-                    new ColumnSeries<DateTimePoint>
-                    {
-                        Values = adatok,
-                        MaxBarWidth = 60,
-                        Padding = 0.2
-                    }
-                },
-                XAxes = new ICartesianAxis[]
-                {
-                    new DateTimeAxis(TimeSpan.FromDays(1), date => date.ToString("yyyy.MM.dd", new CultureInfo("hu-HU")))
-                },
-                Location = new Point(10, cimFelirat.Bottom + 5),
-                Size = new Size(ClientSize.Width - 20, (ClientSize.Height - 60) / 2 - 40),
-                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                BackColor = Color.WhiteSmoke
-            };
-
-            Controls.Add(oszlopDiagram);
         }
+
+        private void utazasiTendencia()
+        {
+            try
+            {
+                var adatok = new List<DateTimePoint>();
+                using var kapcsolatObj = new MySqlConnection(kapcsolat);
+                kapcsolatObj.Open();
+
+                string lekerdezes = @"
+            SELECT
+                utazas.utazas_ideje,
+                COUNT(DISTINCT utas_utazasai.utas_id) AS utasok_szama
+            FROM
+                utazas
+            JOIN
+                utas_utazasai ON utazas.utazas_id = utas_utazasai.utazas_id
+            WHERE
+                YEAR(utazas.utazas_ideje) = YEAR(NOW())
+            GROUP BY
+                utazas.utazas_ideje
+            ORDER BY
+                utazas.utazas_ideje;
+        ";
+
+                using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
+                using var reader = parancs.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    DateTime datum = reader.GetDateTime("utazas_ideje");
+                    int utasokSzama = reader.GetInt32("utasok_szama");
+                    adatok.Add(new DateTimePoint(datum, utasokSzama));
+                }
+
+                // PANEL (pl. SzinatmenetPanel nevű) törlése a régi vezérlőktől
+                szp_tendencia.Controls.Clear();
+
+                // Cím felirat
+                var cimFelirat = new Label
+                {
+                    Text = "Utazási tendencia idén",
+                    Font = new Font("Segoe UI", 14, FontStyle.Regular),
+                    AutoSize = true,
+                    ForeColor = Color.Black,
+                    Location = new Point(10, 10),
+                    Anchor = AnchorStyles.Top | AnchorStyles.Left
+                };
+                szp_tendencia.Controls.Add(cimFelirat);
+
+                // Oszlopdiagram létrehozása
+                oszlopDiagram = new CartesianChart
+                {
+                    Series = new ISeries[]
+                    {
+                new ColumnSeries<DateTimePoint>
+                {
+                    Values = adatok,
+                    MaxBarWidth = 60,
+                    Padding = 0.2
+                }
+                    },
+                    XAxes = new ICartesianAxis[]
+                    {
+                new DateTimeAxis(TimeSpan.FromDays(1), date => date.ToString("yyyy.MM.dd", new CultureInfo("hu-HU")))
+                    },
+                    Location = new Point(10, cimFelirat.Bottom + 5),
+                    Size = new Size(szp_tendencia.Width - 20, szp_tendencia.Height - 60),
+                    Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
+                    BackColor = Color.WhiteSmoke
+                };
+                szp_tendencia.Controls.Add(oszlopDiagram);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a lekérdezés során: {ex.Message}");
+            }
+        }
+
         private string OrszagKodDesztinacio(string desztinacio)
         {
 
@@ -540,21 +562,148 @@ namespace Projekt_feladat.Formok
 
         private void Frm_Statisztika_Resize(object sender, EventArgs e)
         {
-   
+
             ablakUjraRendezes();
         }
         private void ablakUjraRendezes()
         {
+         ///   pnl_geopanel.Size = new Size(this.ClientRectangle.Width - 10, 300);
+            ///szp_tendencia.Size = new Size(this.ClientRectangle.Width - 10, 300);
 
-            if (geoMap == null)
+            // GeoMap igazítása
+            if (geoMap == null) return;
+
+            int geoMapX;
+
+            if (this.ClientSize.Width > 1200)
             {
-                return;
+
+                geoMapX = (this.ClientSize.Width - geoMap.Width) / 2;
+            }
+            else
+            {
+
+
+                geoMap.Dock = DockStyle.Top;
+
+
+                geoMapX = this.ClientSize.Width - geoMap.Width;
             }
 
-          
-            szpn_atlagosUtazasokSzama.Location = new Point(this.Width- szpn_atlagosUtazasokSzama.Width-10,75);
-            szpn_utazasokSzama.Location = new Point(this.Width - szpn_utazasokSzama.Width - 10, 260);
-            geoMap.Anchor = AnchorStyles.Top;
+            int geoMapY = 30; // felül maradjon
+
+            geoMap.Location = new Point(geoMapX, geoMapY);
+
+            // További vezérlők igazítása (példák)
+            szpn_atlagosUtazasokSzama.Location = new Point(
+                this.ClientSize.Width - szpn_atlagosUtazasokSzama.Width - 10,
+                geoMapY + 10
+            );
+
+            szpn_utazasokSzama.Location = new Point((this.ClientRectangle.Width / 2) + szpn_utazasokSzama.Width / 2, geoMapY + geoMap.Height - 20);
+            
+            szpl_utasokSzama.Location = new Point(10, geoMapY + 10);
+        }
+
+        private int utasokSzama()
+        {
+            int utasokSzama = 0;
+
+            try
+            {
+                using var kapcsolatObj = new MySqlConnection(kapcsolat); // "kapcsolat" = connection stringed
+                kapcsolatObj.Open();
+
+                string lekerdezes = @"
+        SELECT COUNT( utas.utas_id) AS utasok_szama FROM utas;
+    ";
+
+                using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
+                object eredmeny = parancs.ExecuteScalar();
+
+                if (eredmeny != null && int.TryParse(eredmeny.ToString(), out int szam))
+                {
+                    utasokSzama = szam;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a lekérdezés során: {ex.Message}");
+            }
+
+            return utasokSzama;
+
+        }
+        private int utazasokSzama()
+        {
+            int utazasokSzama = 0;
+
+            try
+            {
+                using var kapcsolatObj = new MySqlConnection(kapcsolat); // "kapcsolat" = connection stringed
+                kapcsolatObj.Open();
+
+                string lekerdezes = @"
+        SELECT COUNT( utazas.utazas_id) AS utazasok_szama FROM utazas;
+    ";
+
+                using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
+                object eredmeny = parancs.ExecuteScalar();
+
+                if (eredmeny != null && int.TryParse(eredmeny.ToString(), out int szam))
+                {
+                    utazasokSzama = szam;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a lekérdezés során: {ex.Message}");
+            }
+
+            return utazasokSzama;
+
+        }
+        private int idenUtzazokSzama()
+        {
+            int utazasokSzama = 0;
+
+            try
+            {
+                using var kapcsolatObj = new MySqlConnection(kapcsolat); // "kapcsolat" = connection stringed
+                kapcsolatObj.Open();
+
+                string lekerdezes = @"SELECT 
+                                        COUNT(DISTINCT uu.utas_id) AS iden_utazok_szama
+                                    FROM utas_utazasai uu
+                                    JOIN utazas u ON uu.utazas_id = u.utazas_id
+                                    WHERE YEAR(u.utazas_ideje) = YEAR(NOW());
+                                    ";
+
+                using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
+                object eredmeny = parancs.ExecuteScalar();
+
+                if (eredmeny != null && int.TryParse(eredmeny.ToString(), out int szam))
+                {
+                    utazasokSzama = szam;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a lekérdezés során: {ex.Message}");
+            }
+
+            return utazasokSzama;
+
+        }
+
+        private void flp_rendezoPanel_Resize(object sender, EventArgs e)
+        {
+                foreach (Control ctrl in flp_rendezoPanel.Controls)
+                {
+                    ctrl.Width = flp_rendezoPanel.ClientSize.Width - flp_rendezoPanel.Padding.Horizontal;
+                }
+            
         }
     }
+
 }
