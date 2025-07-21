@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -12,6 +13,10 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.WinForms;
 using MySqlConnector;
 using LiveChartsCore.Measure;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
+using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Projekt_feladat.Formok
 {
@@ -103,87 +108,107 @@ namespace Projekt_feladat.Formok
             lb_utazasokSzama.Text += " " + utazasokSzama().ToString();
             lbl_atlagosUtazasokSzama.Text += " " + idenUtzazokSzama().ToString();
             //utazási tendencia
-            utazasiTendencia();
+            utazasiTendencia("yyyy.MM");
 
         }
 
-        private void utazasiTendencia()
+
+
+        private void utazasiTendencia(string v)
         {
             try
             {
-                var adatok = new List<DateTimePoint>();
-                using var kapcsolatObj = new MySqlConnection(kapcsolat);
+             
+                var cim = new Label
+                {
+                    Text = "Éves utazási tendencia",
+                    Font = new Font("Segoe UI", 12F, FontStyle.Regular),
+                    ForeColor = Color.Black,
+                    Dock = DockStyle.Top,
+                    TextAlign = ContentAlignment.TopLeft,
+                    Height = 40,
+                    Padding = new Padding(10,0,0,0)
+
+                };
+                szp_tendencia.Controls.Add(cim);
+
+                List<DateTime> honapok = new();       // X tengely (pl. 2025.03)
+                List<double> utasokSzama = new();   // Y tengely értékek
+
+                using var kapcsolatObj = new MySqlConnection(kapcsolat); // 'kapcsolat' a connection stringed
                 kapcsolatObj.Open();
 
-                string lekerdezes = @"
-            SELECT
-                utazas.utazas_ideje,
-                COUNT(DISTINCT utas_utazasai.utas_id) AS utasok_szama
-            FROM
-                utazas
-            JOIN
-                utas_utazasai ON utazas.utazas_id = utas_utazasai.utazas_id
-            WHERE
-                YEAR(utazas.utazas_ideje) = YEAR(NOW())
-            GROUP BY
-                utazas.utazas_ideje
-            ORDER BY
-                utazas.utazas_ideje;
-        ";
+                string lekerdezes = @"SELECT
+                 utazas.utazas_ideje,
+                 COUNT(DISTINCT utas_utazasai.utas_id) AS utasok_szama 
+             FROM
+                 utazas
+             JOIN
+                 utas_utazasai ON utazas.utazas_id = utas_utazasai.utazas_id
+             WHERE
+                 YEAR(utazas.utazas_ideje) = YEAR(NOW())
+             GROUP BY
+                 utazas.utazas_ideje
+             ORDER BY
+                 utazas.utazas_ideje limit 15;";
 
                 using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
                 using var reader = parancs.ExecuteReader();
 
+
                 while (reader.Read())
                 {
-                    DateTime datum = reader.GetDateTime("utazas_ideje");
-                    int utasokSzama = reader.GetInt32("utasok_szama");
-                    adatok.Add(new DateTimePoint(datum, utasokSzama));
+                    honapok.Add(reader.GetDateTime("utazas_ideje"));
+                    utasokSzama.Add(reader.GetInt32("utasok_szama"));
                 }
 
-                // PANEL (pl. SzinatmenetPanel nevű) törlése a régi vezérlőktől
-                szp_tendencia.Controls.Clear();
-
-                // Cím felirat
-                var cimFelirat = new Label
+                while (reader.Read())
                 {
-                    Text = "Utazási tendencia idén",
-                    Font = new Font("Segoe UI", 14, FontStyle.Regular),
-                    AutoSize = true,
-                    ForeColor = Color.Black,
-                    Location = new Point(10, 10),
-                    Anchor = AnchorStyles.Top | AnchorStyles.Left
-                };
-                szp_tendencia.Controls.Add(cimFelirat);
+                    honapok.Add(reader.GetDateTime("utazas_ideje"));
+                    utasokSzama.Add(reader.GetInt32("utasok_szama"));
+                }
 
-                // Oszlopdiagram létrehozása
-                oszlopDiagram = new CartesianChart
+                var diagram = new CartesianChart
                 {
                     Series = new ISeries[]
                     {
-                new ColumnSeries<DateTimePoint>
-                {
-                    Values = adatok,
-                    MaxBarWidth = 60,
-                    Padding = 0.2
-                }
+            new ColumnSeries<double>
+            {
+                Name = "Utasok száma",
+                Rx = 8,
+                Ry = 8,
+                Values = utasokSzama
+            }
                     },
-                    XAxes = new ICartesianAxis[]
+                    XAxes = new Axis[]
                     {
-                new DateTimeAxis(TimeSpan.FromDays(1), date => date.ToString("yyyy.MM.dd", new CultureInfo("hu-HU")))
+            new Axis
+            {
+                Labels = honapok.Select(h => h.ToString("yyyy.MM", new CultureInfo("hu-HU"))).ToArray(),
+                ForceStepToMin = true,
+                MinStep = 1,
+                LabelsRotation = 0,
+                SeparatorsPaint = new SolidColorPaint(SKColors.Gray)
+            }
                     },
-                    Location = new Point(10, cimFelirat.Bottom + 5),
-                    Size = new Size(szp_tendencia.Width - 20, szp_tendencia.Height - 60),
+                    Dock = DockStyle.Fill,
+                    BackColor = Color.WhiteSmoke,
                     Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                    BackColor = Color.WhiteSmoke
+                    Location = new Point(10, cim.Bottom + 5), // 10px beljebb balról és fentről
+                    Size = new Size(szp_tendencia.Width - 30, szp_tendencia.Height - cim.Height - 30), // 10px margó jobbra, alulra is
+                    Padding = new Padding(5) // belső tartalom paddingje, ha kell
                 };
-                szp_tendencia.Controls.Add(oszlopDiagram);
+               
+                szp_tendencia.Controls.Add(diagram);
+
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Hiba történt a lekérdezés során: {ex.Message}");
+                MessageBox.Show("Hiba az utazási tendencia betöltésekor: " + ex.Message);
             }
         }
+
 
         private string OrszagKodDesztinacio(string desztinacio)
         {
@@ -698,7 +723,7 @@ namespace Projekt_feladat.Formok
 
         private void flp_rendezoPanel_Resize(object sender, EventArgs e)
         {
-                foreach (Control ctrl in flp_rendezoPanel.Controls)
+                foreach (Control ctrl in flp_rendezoPanel.Controls)// a flow panel tartalmát át kell méretezni mert maguktól nem akarnak
                 {
                     ctrl.Width = flp_rendezoPanel.ClientSize.Width - flp_rendezoPanel.Padding.Horizontal;
                 }

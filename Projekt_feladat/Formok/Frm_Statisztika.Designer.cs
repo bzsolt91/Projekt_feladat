@@ -137,7 +137,7 @@
             szp_tendencia.Name = "szp_tendencia";
             szp_tendencia.Padding = new Padding(10);
             szp_tendencia.SarkokLekerekitese = 40;
-            szp_tendencia.Size = new Size(1157, 300);
+            szp_tendencia.Size = new Size(1157, 331);
             szp_tendencia.SzinatmenetAlsoSzine = Color.WhiteSmoke;
             szp_tendencia.SzinatmenetFelsoSzine = Color.WhiteSmoke;
             szp_tendencia.SzinatmenetSzog = 90F;
