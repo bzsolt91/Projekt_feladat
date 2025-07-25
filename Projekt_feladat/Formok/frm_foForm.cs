@@ -45,13 +45,39 @@ namespace Projekt_feladat
         }
         private void elemekAtrendezese()
         {
-            pnl_bejelentkezes.Location = new Point((pnl_fopanel.Width - pnl_bejelentkezes.Width) / 2, (pnl_fopanel.Height - pnl_bejelentkezes.Height) / 2);
-            pnl_bejelentkezve.Location = new Point((pnl_fopanel.Width - pnl_bejelentkezve.Width) / 2, (pnl_fopanel.Height - pnl_bejelentkezve.Height) / 2);
-            pnl_regisztacio.Location = new Point((pnl_fopanel.Width - pnl_regisztacio.Width) / 2, (pnl_fopanel.Height - pnl_regisztacio.Height) / 2);
-            lbl_udvozlet.Location = new Point((pnl_regisztacio.Width - lbl_udvozlet.Width) / 2, lbl_udvozlet.Location.Y);
-            lbl_nev.Location = new Point((pnl_regisztacio.Width - lbl_nev.Width) / 2, lbl_nev.Location.Y);
-            lbl_hozzaferes.Location = new Point((pnl_regisztacio.Width - lbl_hozzaferes.Width) / 2, lbl_hozzaferes.Location.Y);
-            lbl_pkeszenall.Location = new Point((pnl_regisztacio.Width - lbl_pkeszenall.Width) / 2, lbl_pkeszenall.Location.Y);
+            // Panelek 
+            pnl_bejelentkezes.Location = new Point(
+                (pnl_fopanel.Width - pnl_bejelentkezes.Width) / 2,
+                (pnl_fopanel.Height - pnl_bejelentkezes.Height) / 2
+            );
+
+            pnl_bejelentkezve.Location = new Point(
+                (pnl_fopanel.Width - pnl_bejelentkezve.Width) / 2,
+                (pnl_fopanel.Height - pnl_bejelentkezve.Height) / 2
+            );
+
+            // Címkék 
+            lbl_udvozlet.Location = new Point(
+                (pnl_bejelentkezve.Width - lbl_udvozlet.Width) / 2,
+                lbl_udvozlet.Location.Y
+            );
+
+            lbl_nev.Location = new Point(
+                (pnl_bejelentkezve.Width - lbl_nev.Width) / 2,
+                lbl_nev.Location.Y
+            );
+
+            lbl_hozzaferes.Location = new Point(
+                (pnl_bejelentkezve.Width - lbl_hozzaferes.Width) / 2,
+                lbl_hozzaferes.Location.Y
+            );
+
+            lbl_pkeszenall.Location = new Point(
+                (pnl_bejelentkezve.Width - lbl_pkeszenall.Width) / 2,
+                lbl_pkeszenall.Location.Y
+            );
+
+            // Üdvözlõ 
             lbl_udvozlet.Text = NapszakosUdvozles();
         }
 
@@ -83,14 +109,14 @@ namespace Projekt_feladat
 
         private void btn_ablakmeret_valto_Click(object sender, EventArgs e)
         {
-            ///a form állapotának vizsgálata(maximalizált minimalizált)
+            ///a form állapotának vizsgálata
             switch (((int)this.WindowState))
             {
                 case 0:
-                    this.WindowState = FormWindowState.Maximized; // ha normál akkor legyen maximalizált
+                    this.WindowState = FormWindowState.Maximized; 
                     break;
                 case 2:
-                    this.WindowState = FormWindowState.Normal; // ha maximalizált legyen normál
+                    this.WindowState = FormWindowState.Normal; 
                     break;
             }
         }
@@ -144,7 +170,7 @@ namespace Projekt_feladat
         private void bejelentkezesElrejtes()
         {
             pnl_bejelentkezes.Visible = false;
-            pnl_regisztacio.Visible = false;
+        
             pnl_bejelentkezve.Visible = false;
         }
         private void btn_statisztika_Click(object sender, EventArgs e)
@@ -225,14 +251,19 @@ namespace Projekt_feladat
                                 int id = reader.GetInt32("id");
                                 int jog = reader.GetInt32("jogosultsag");
 
-                                // Memóriában tárolt jelszónak itt lehet a sima jelszó, ha szükséges,
-                                // de az adatbázisba ne kerüljön visszafejthetetlenül hashelt formában.
-                                // A fájlba mentésnél viszont titkosított formában.
+                             
+                             
+                                // A fájlba  titkosított formában.
                                 bejelentkezes.bejelentkezes.Beallit(id, felhasznalo, jelszo, jog);
 
                                 pnl_bejelentkezes.Visible = false;
                                 pnl_bejelentkezve.Visible = true;
                                 lbl_nev.Text = felhasznalo;
+
+                                lbl_nev.Location = new Point(
+                                    (pnl_bejelentkezve.Width - lbl_nev.Width) / 2,
+                                    lbl_nev.Location.Y
+                                );
                                 if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
                                     lbl_hozzaferes.Text = "Önnek korlátozott hozzáférése van.";
                                 else
@@ -247,7 +278,10 @@ namespace Projekt_feladat
                                     MaradBejelentkezve = kg_bejelentkezvemarad.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Be
                                 };
                                 bejelentkezesSeged.Mentes(adatok);
-                                lbl_hozzaferes.Location = new Point((pnl_regisztacio.Width - lbl_hozzaferes.Width) / 2, lbl_hozzaferes.Location.Y);
+                                lbl_hozzaferes.Location = new Point(
+                                      (pnl_bejelentkezve.Width - lbl_hozzaferes.Width) / 2,
+                                      lbl_hozzaferes.Location.Y
+                                  );
                             }
                             else
                             {
@@ -272,7 +306,7 @@ namespace Projekt_feladat
             pnl_bejelentkezve.Visible = false;
             pnl_bejelentkezes.Visible = true;
             kszm_jelszo.Texts = "";
-            //törlöm a jsont
+            // a jsont törlés
             bejelentkezesSeged.Torles();
         }
 
@@ -281,93 +315,9 @@ namespace Projekt_feladat
             elemekAtrendezese();
         }
 
-        private void kszm_regisztralas_Click(object sender, EventArgs e)
-        {
-            pnl_bejelentkezes.Visible = false;
-            pnl_regisztacio.Visible = true;
-        }
+ 
 
-        private void kg_regisztacio_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(kszm_regnev.Texts))
-            {
-                MessageBox.Show("A felhasználónév üres", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                kszm_regnev.KeretSzin = Color.Crimson;
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(kszm_regjelszo.Texts) || string.IsNullOrWhiteSpace(kszm_regjelszoujra.Texts))
-            {
-                MessageBox.Show("A jelszó mezõ(ke)t ki kell tölteni", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                kszm_regjelszo.KeretSzin = Color.Crimson;
-                kszm_regjelszoujra.KeretSzin = Color.Crimson;
-                return;
-            }
-
-            if (kszm_regjelszo.Texts != kszm_regjelszoujra.Texts)
-            {
-                MessageBox.Show("A jelszavak nem egyeznek", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                kszm_regjelszo.KeretSzin = Color.Crimson;
-                kszm_regjelszoujra.KeretSzin = Color.Crimson;
-                return;
-            }
-
-            string felhasznalonev = kszm_regnev.Texts.Trim();
-            string jelszo = kszm_regjelszo.Texts.Trim();
-
-            // Jelszó hashelése adatbázisba írás elõtt
-            string hasheltJelszo = bejelentkezesSeged.GetSha256Hash(jelszo);
-
-            using (var conn = new MySqlConnection("server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;"))
-            {
-                try
-                {
-                    conn.Open();
-
-                    // Létezik-e már ilyen felhasználó
-                    string ellenorzesSql = "SELECT COUNT(*) FROM felhasznalok WHERE felhasznalonev = @nev";
-                    using (var ellenorzo = new MySqlCommand(ellenorzesSql, conn))
-                    {
-                        ellenorzo.Parameters.AddWithValue("@nev", felhasznalonev);
-                        long letezik = (long)ellenorzo.ExecuteScalar();
-
-                        if (letezik > 0)
-                        {
-                            MessageBox.Show("Ez a felhasználónév már létezik!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            kszm_regnev.KeretSzin = Color.Crimson;
-                            return;
-                        }
-                    }
-
-                    // Ha nem létezik
-                    string beszurasSql = "INSERT INTO felhasznalok (felhasznalonev, jelszo, jogosultsag) VALUES (@nev, @jelszo, @jog)";
-                    using (var beszuro = new MySqlCommand(beszurasSql, conn))
-                    {
-                        beszuro.Parameters.AddWithValue("@nev", felhasznalonev);
-                        beszuro.Parameters.AddWithValue("@jelszo", hasheltJelszo); // Itt a hashelt jelszó
-                        beszuro.Parameters.AddWithValue("@jog", 0); // alapértelmezett jogosultság
-
-                        int sorok = beszuro.ExecuteNonQuery();
-                        if (sorok > 0)
-                        {
-                            MessageBox.Show("Sikeres regisztráció!", "Regisztráció", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            kszm_felhasznalo.Texts = null;
-
-                            pnl_regisztacio.Visible = false;
-                            pnl_bejelentkezes.Visible = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Nem sikerült a regisztráció!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Hiba történt a regisztráció során:\n" + ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
+  
 
         private void frm_foForm_Load(object sender, EventArgs e)
         {
@@ -403,7 +353,7 @@ namespace Projekt_feladat
 
                                     pnl_bejelentkezve.Visible = true;
                                     pnl_bejelentkezes.Visible = false;
-                                    pnl_regisztacio.Visible = false;
+                                 
 
                                     lbl_nev.Text = adatok.Felhasznalonev;
                                     lbl_hozzaferes.Text = jog == 0
@@ -432,11 +382,11 @@ namespace Projekt_feladat
         {
             int ora = DateTime.Now.Hour;
 
-            if (ora >= 5 && ora < 12)
+            if (ora >= 5 && ora < 10)
             {
                 return "Jó reggelt";
             }
-            else if (ora >= 12 && ora < 18)
+            else if (ora >= 10 && ora < 18)
             {
                 return "Szép napot";
             }
@@ -462,7 +412,7 @@ namespace Projekt_feladat
 
         private void kszm_vissza_Click(object sender, EventArgs e)
         {
-            pnl_regisztacio.Visible = false;
+          
             pnl_bejelentkezes.Visible = true;
         }
 

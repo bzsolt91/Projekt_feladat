@@ -34,7 +34,6 @@ namespace Projekt_feladat
             ellipszisVezerlo ev_bejelentkezes;
             ellipszisVezerlo ev_bejelentkezve;
             ellipszisVezerlo ev_regisztacio;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_foForm));
             pnl_bejelentkezes = new Panel();
             label3 = new Label();
             kszm_regisztralas = new KerekitettGomb();
@@ -151,7 +150,6 @@ namespace Projekt_feladat
             kszm_regisztralas.TabIndex = 6;
             kszm_regisztralas.Text = "Regisztráció";
             kszm_regisztralas.UseVisualStyleBackColor = false;
-            kszm_regisztralas.Click += kszm_regisztralas_Click;
             // 
             // kg_bejelentkezvemarad
             // 
@@ -382,7 +380,6 @@ namespace Projekt_feladat
             kszm_vissza.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
             kszm_vissza.ForeColor = Color.White;
             kszm_vissza.HatterSzine = Color.MediumSlateBlue;
-            kszm_vissza.Image = (Image)resources.GetObject("kszm_vissza.Image");
             kszm_vissza.KeretMeret = 0;
             kszm_vissza.KeretSzine = Color.PaleVioletRed;
             kszm_vissza.Location = new Point(70, 319);
@@ -457,7 +454,6 @@ namespace Projekt_feladat
             kg_regisztacio.TabIndex = 2;
             kg_regisztacio.Text = "Regisztáció";
             kg_regisztacio.UseVisualStyleBackColor = false;
-            kg_regisztacio.Click += kg_regisztacio_Click;
             // 
             // kszm_regjelszo
             // 
@@ -642,7 +638,7 @@ namespace Projekt_feladat
             lbl_disz.ForeColor = Color.FromArgb(209, 213, 219);
             lbl_disz.Location = new Point(34, 53);
             lbl_disz.Name = "lbl_disz";
-            lbl_disz.Size = new Size(177, 3);
+            lbl_disz.Size = new Size(177, 1);
             lbl_disz.TabIndex = 0;
             // 
             // btn_utazasok
@@ -681,7 +677,7 @@ namespace Projekt_feladat
             button6.HatterSzine = Color.FromArgb(243, 244, 246);
             button6.KeretMeret = 0;
             button6.KeretSzine = Color.PaleVioletRed;
-            button6.Location = new Point(0, 763);
+            button6.Location = new Point(0, 761);
             button6.Margin = new Padding(3, 4, 3, 4);
             button6.MaximumSize = new Size(73, 85);
             button6.Name = "button6";
@@ -702,7 +698,7 @@ namespace Projekt_feladat
             lbl_disz2.Margin = new Padding(0, 67, 0, 0);
             lbl_disz2.Name = "lbl_disz2";
             lbl_disz2.Padding = new Padding(0, 13, 0, 0);
-            lbl_disz2.Size = new Size(256, 3);
+            lbl_disz2.Size = new Size(256, 1);
             lbl_disz2.TabIndex = 9;
             // 
             // button1
@@ -793,7 +789,7 @@ namespace Projekt_feladat
             button5.Size = new Size(256, 67);
             button5.SzovegSzine = Color.FromArgb(55, 65, 81);
             button5.TabIndex = 17;
-            button5.Text = "📤 Exportálás";
+            button5.Text = "📝 Előfoglalások";
             button5.TextAlign = ContentAlignment.MiddleLeft;
             button5.UseVisualStyleBackColor = false;
             // 
