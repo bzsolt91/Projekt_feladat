@@ -34,9 +34,9 @@ namespace Projekt_feladat.Formok
             ellipszisVezerlo ev_szuroPanel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_UtazasokMegtekintese));
             ellipszisVezerlo ev_utasLista;
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             szpn_szuroPanel = new Panel();
             kb_biztositas = new KapcsoloGomb();
             kb_befizetes = new KapcsoloGomb();
@@ -107,9 +107,10 @@ namespace Projekt_feladat.Formok
             szpn_szuroPanel.Controls.Add(kszm_email);
             szpn_szuroPanel.Controls.Add(kszm_utasNeve);
             szpn_szuroPanel.ForeColor = Color.Black;
-            szpn_szuroPanel.Location = new Point(12, 12);
+            szpn_szuroPanel.Location = new Point(10, 9);
+            szpn_szuroPanel.Margin = new Padding(3, 2, 3, 2);
             szpn_szuroPanel.Name = "szpn_szuroPanel";
-            szpn_szuroPanel.Size = new Size(818, 559);
+            szpn_szuroPanel.Size = new Size(716, 419);
             szpn_szuroPanel.TabIndex = 11;
             szpn_szuroPanel.Visible = false;
             szpn_szuroPanel.Click += szpn_szuroPanel_Click;
@@ -117,28 +118,31 @@ namespace Projekt_feladat.Formok
             // kb_biztositas
             // 
             kb_biztositas.AktualisAllas = KapcsoloGomb.KapcsoloAllas.Ki;
-            kb_biztositas.Location = new Point(623, 52);
-            kb_biztositas.MinimumSize = new Size(70, 22);
+            kb_biztositas.Location = new Point(545, 39);
+            kb_biztositas.Margin = new Padding(3, 2, 3, 2);
+            kb_biztositas.MinimumSize = new Size(61, 16);
             kb_biztositas.Name = "kb_biztositas";
-            kb_biztositas.Size = new Size(90, 35);
+            kb_biztositas.Size = new Size(79, 26);
             kb_biztositas.TabIndex = 0;
             // 
             // kb_befizetes
             // 
             kb_befizetes.AktualisAllas = KapcsoloGomb.KapcsoloAllas.Ki;
-            kb_befizetes.Location = new Point(623, 165);
-            kb_befizetes.MinimumSize = new Size(70, 22);
+            kb_befizetes.Location = new Point(545, 124);
+            kb_befizetes.Margin = new Padding(3, 2, 3, 2);
+            kb_befizetes.MinimumSize = new Size(61, 16);
             kb_befizetes.Name = "kb_befizetes";
-            kb_befizetes.Size = new Size(90, 35);
+            kb_befizetes.Size = new Size(79, 26);
             kb_befizetes.TabIndex = 1;
             // 
             // kb_okmanyErvenyes
             // 
             kb_okmanyErvenyes.AktualisAllas = KapcsoloGomb.KapcsoloAllas.Ki;
-            kb_okmanyErvenyes.Location = new Point(623, 105);
-            kb_okmanyErvenyes.MinimumSize = new Size(70, 22);
+            kb_okmanyErvenyes.Location = new Point(545, 79);
+            kb_okmanyErvenyes.Margin = new Padding(3, 2, 3, 2);
+            kb_okmanyErvenyes.MinimumSize = new Size(61, 16);
             kb_okmanyErvenyes.Name = "kb_okmanyErvenyes";
-            kb_okmanyErvenyes.Size = new Size(90, 35);
+            kb_okmanyErvenyes.Size = new Size(79, 26);
             kb_okmanyErvenyes.TabIndex = 2;
             // 
             // kg_pipa
@@ -153,11 +157,12 @@ namespace Projekt_feladat.Formok
             kg_pipa.HatterSzine = Color.WhiteSmoke;
             kg_pipa.KeretMeret = 0;
             kg_pipa.KeretSzine = Color.PaleVioletRed;
-            kg_pipa.Location = new Point(608, 375);
+            kg_pipa.Location = new Point(532, 281);
+            kg_pipa.Margin = new Padding(3, 2, 3, 2);
             kg_pipa.Name = "kg_pipa";
             kg_pipa.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_pipa.SarokSugar = 20;
-            kg_pipa.Size = new Size(105, 94);
+            kg_pipa.Size = new Size(92, 70);
             kg_pipa.SzovegSzine = Color.White;
             kg_pipa.TabIndex = 13;
             kg_pipa.UseVisualStyleBackColor = false;
@@ -166,27 +171,27 @@ namespace Projekt_feladat.Formok
             // lbl_befizetes
             // 
             lbl_befizetes.AutoSize = true;
-            lbl_befizetes.Location = new Point(473, 180);
+            lbl_befizetes.Location = new Point(414, 135);
             lbl_befizetes.Name = "lbl_befizetes";
-            lbl_befizetes.Size = new Size(108, 20);
+            lbl_befizetes.Size = new Size(84, 15);
             lbl_befizetes.TabIndex = 11;
             lbl_befizetes.Text = "Van befizetése:";
             // 
             // lbl_okmanyErvenyes
             // 
             lbl_okmanyErvenyes.AutoSize = true;
-            lbl_okmanyErvenyes.Location = new Point(473, 120);
+            lbl_okmanyErvenyes.Location = new Point(414, 90);
             lbl_okmanyErvenyes.Name = "lbl_okmanyErvenyes";
-            lbl_okmanyErvenyes.Size = new Size(144, 20);
+            lbl_okmanyErvenyes.Size = new Size(116, 15);
             lbl_okmanyErvenyes.TabIndex = 10;
             lbl_okmanyErvenyes.Text = "Érvényes az okmány:";
             // 
             // lbl_biztositas
             // 
             lbl_biztositas.AutoSize = true;
-            lbl_biztositas.Location = new Point(473, 56);
+            lbl_biztositas.Location = new Point(414, 42);
             lbl_biztositas.Name = "lbl_biztositas";
-            lbl_biztositas.Size = new Size(102, 20);
+            lbl_biztositas.Size = new Size(81, 15);
             lbl_biztositas.TabIndex = 9;
             lbl_biztositas.Text = "Biztosítás van:";
             // 
@@ -203,11 +208,11 @@ namespace Projekt_feladat.Formok
             kszm_megjegyzes.KeretMeret = 2;
             kszm_megjegyzes.KeretSugar = 8;
             kszm_megjegyzes.KeretSzin = Color.MediumSlateBlue;
-            kszm_megjegyzes.Location = new Point(45, 370);
-            kszm_megjegyzes.Margin = new Padding(4);
+            kszm_megjegyzes.Location = new Point(39, 278);
+            kszm_megjegyzes.Margin = new Padding(4, 3, 4, 3);
             kszm_megjegyzes.Name = "kszm_megjegyzes";
-            kszm_megjegyzes.Padding = new Padding(10, 7, 10, 7);
-            kszm_megjegyzes.Size = new Size(392, 35);
+            kszm_megjegyzes.Padding = new Padding(9, 5, 9, 5);
+            kszm_megjegyzes.Size = new Size(343, 27);
             kszm_megjegyzes.TabIndex = 6;
             kszm_megjegyzes.Texts = "";
             kszm_megjegyzes.TobbSor = true;
@@ -228,11 +233,11 @@ namespace Projekt_feladat.Formok
             kszm_okmanySzam.KeretMeret = 2;
             kszm_okmanySzam.KeretSugar = 8;
             kszm_okmanySzam.KeretSzin = Color.MediumSlateBlue;
-            kszm_okmanySzam.Location = new Point(45, 303);
-            kszm_okmanySzam.Margin = new Padding(4);
+            kszm_okmanySzam.Location = new Point(39, 227);
+            kszm_okmanySzam.Margin = new Padding(4, 3, 4, 3);
             kszm_okmanySzam.Name = "kszm_okmanySzam";
-            kszm_okmanySzam.Padding = new Padding(10, 7, 10, 7);
-            kszm_okmanySzam.Size = new Size(392, 35);
+            kszm_okmanySzam.Padding = new Padding(9, 5, 9, 5);
+            kszm_okmanySzam.Size = new Size(343, 27);
             kszm_okmanySzam.TabIndex = 4;
             kszm_okmanySzam.Texts = "";
             kszm_okmanySzam.TobbSor = false;
@@ -253,11 +258,11 @@ namespace Projekt_feladat.Formok
             kszm_lakcim.KeretMeret = 2;
             kszm_lakcim.KeretSugar = 8;
             kszm_lakcim.KeretSzin = Color.MediumSlateBlue;
-            kszm_lakcim.Location = new Point(45, 244);
-            kszm_lakcim.Margin = new Padding(4);
+            kszm_lakcim.Location = new Point(39, 183);
+            kszm_lakcim.Margin = new Padding(4, 3, 4, 3);
             kszm_lakcim.Name = "kszm_lakcim";
-            kszm_lakcim.Padding = new Padding(10, 7, 10, 7);
-            kszm_lakcim.Size = new Size(392, 35);
+            kszm_lakcim.Padding = new Padding(9, 5, 9, 5);
+            kszm_lakcim.Size = new Size(343, 27);
             kszm_lakcim.TabIndex = 3;
             kszm_lakcim.Texts = "";
             kszm_lakcim.TobbSor = false;
@@ -278,11 +283,11 @@ namespace Projekt_feladat.Formok
             kszm_telefon.KeretMeret = 2;
             kszm_telefon.KeretSugar = 8;
             kszm_telefon.KeretSzin = Color.MediumSlateBlue;
-            kszm_telefon.Location = new Point(45, 180);
-            kszm_telefon.Margin = new Padding(4);
+            kszm_telefon.Location = new Point(39, 135);
+            kszm_telefon.Margin = new Padding(4, 3, 4, 3);
             kszm_telefon.Name = "kszm_telefon";
-            kszm_telefon.Padding = new Padding(10, 7, 10, 7);
-            kszm_telefon.Size = new Size(392, 35);
+            kszm_telefon.Padding = new Padding(9, 5, 9, 5);
+            kszm_telefon.Size = new Size(343, 27);
             kszm_telefon.TabIndex = 2;
             kszm_telefon.Texts = "";
             kszm_telefon.TobbSor = false;
@@ -303,11 +308,11 @@ namespace Projekt_feladat.Formok
             kszm_email.KeretMeret = 2;
             kszm_email.KeretSugar = 8;
             kszm_email.KeretSzin = Color.MediumSlateBlue;
-            kszm_email.Location = new Point(45, 115);
-            kszm_email.Margin = new Padding(4);
+            kszm_email.Location = new Point(39, 86);
+            kszm_email.Margin = new Padding(4, 3, 4, 3);
             kszm_email.Name = "kszm_email";
-            kszm_email.Padding = new Padding(10, 7, 10, 7);
-            kszm_email.Size = new Size(392, 35);
+            kszm_email.Padding = new Padding(9, 5, 9, 5);
+            kszm_email.Size = new Size(343, 27);
             kszm_email.TabIndex = 1;
             kszm_email.Texts = "";
             kszm_email.TobbSor = false;
@@ -328,11 +333,11 @@ namespace Projekt_feladat.Formok
             kszm_utasNeve.KeretMeret = 2;
             kszm_utasNeve.KeretSugar = 8;
             kszm_utasNeve.KeretSzin = Color.MediumSlateBlue;
-            kszm_utasNeve.Location = new Point(45, 52);
-            kszm_utasNeve.Margin = new Padding(4);
+            kszm_utasNeve.Location = new Point(39, 39);
+            kszm_utasNeve.Margin = new Padding(4, 3, 4, 3);
             kszm_utasNeve.Name = "kszm_utasNeve";
-            kszm_utasNeve.Padding = new Padding(10, 7, 10, 7);
-            kszm_utasNeve.Size = new Size(392, 35);
+            kszm_utasNeve.Padding = new Padding(9, 5, 9, 5);
+            kszm_utasNeve.Size = new Size(343, 27);
             kszm_utasNeve.TabIndex = 0;
             kszm_utasNeve.Texts = "";
             kszm_utasNeve.TobbSor = false;
@@ -358,9 +363,10 @@ namespace Projekt_feladat.Formok
             pnl_utasLista.Controls.Add(kszm_datum);
             pnl_utasLista.Controls.Add(kszm_uticel);
             pnl_utasLista.Controls.Add(kszm_indulasHelye);
-            pnl_utasLista.Location = new Point(180, 9);
+            pnl_utasLista.Location = new Point(158, 7);
+            pnl_utasLista.Margin = new Padding(3, 2, 3, 2);
             pnl_utasLista.Name = "pnl_utasLista";
-            pnl_utasLista.Size = new Size(847, 701);
+            pnl_utasLista.Size = new Size(741, 526);
             pnl_utasLista.TabIndex = 14;
             pnl_utasLista.Visible = false;
             // 
@@ -368,9 +374,9 @@ namespace Projekt_feladat.Formok
             // 
             lbl_utasLista.AutoSize = true;
             lbl_utasLista.Font = new Font("Segoe UI", 19F);
-            lbl_utasLista.Location = new Point(332, 3);
+            lbl_utasLista.Location = new Point(290, 2);
             lbl_utasLista.Name = "lbl_utasLista";
-            lbl_utasLista.Size = new Size(140, 45);
+            lbl_utasLista.Size = new Size(111, 36);
             lbl_utasLista.TabIndex = 9;
             lbl_utasLista.Text = "Utaslista";
             // 
@@ -384,11 +390,12 @@ namespace Projekt_feladat.Formok
             kg_UlNyomtatas.HatterSzine = Color.MediumSlateBlue;
             kg_UlNyomtatas.KeretMeret = 0;
             kg_UlNyomtatas.KeretSzine = Color.PaleVioletRed;
-            kg_UlNyomtatas.Location = new Point(547, 636);
+            kg_UlNyomtatas.Location = new Point(479, 477);
+            kg_UlNyomtatas.Margin = new Padding(3, 2, 3, 2);
             kg_UlNyomtatas.Name = "kg_UlNyomtatas";
             kg_UlNyomtatas.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_UlNyomtatas.SarokSugar = 8;
-            kg_UlNyomtatas.Size = new Size(188, 50);
+            kg_UlNyomtatas.Size = new Size(164, 38);
             kg_UlNyomtatas.SzovegSzine = Color.White;
             kg_UlNyomtatas.TabIndex = 8;
             kg_UlNyomtatas.Text = "Nyomtatás";
@@ -405,11 +412,12 @@ namespace Projekt_feladat.Formok
             kg_kilepes.HatterSzine = Color.MediumSlateBlue;
             kg_kilepes.KeretMeret = 0;
             kg_kilepes.KeretSzine = Color.PaleVioletRed;
-            kg_kilepes.Location = new Point(81, 638);
+            kg_kilepes.Location = new Point(71, 478);
+            kg_kilepes.Margin = new Padding(3, 2, 3, 2);
             kg_kilepes.Name = "kg_kilepes";
             kg_kilepes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_kilepes.SarokSugar = 8;
-            kg_kilepes.Size = new Size(188, 50);
+            kg_kilepes.Size = new Size(164, 38);
             kg_kilepes.SzovegSzine = Color.White;
             kg_kilepes.TabIndex = 7;
             kg_kilepes.Text = "Elrejtés";
@@ -422,11 +430,12 @@ namespace Projekt_feladat.Formok
             dgv_utasLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgv_utasLista.EnableHeadersVisualStyles = false;
             dgv_utasLista.GridColor = SystemColors.InfoText;
-            dgv_utasLista.Location = new Point(83, 205);
+            dgv_utasLista.Location = new Point(73, 154);
+            dgv_utasLista.Margin = new Padding(3, 2, 3, 2);
             dgv_utasLista.Name = "dgv_utasLista";
             dgv_utasLista.RowHeadersVisible = false;
             dgv_utasLista.RowHeadersWidth = 51;
-            dgv_utasLista.Size = new Size(652, 403);
+            dgv_utasLista.Size = new Size(570, 302);
             dgv_utasLista.TabIndex = 6;
             // 
             // kszm_vezetoNeve2
@@ -442,11 +451,11 @@ namespace Projekt_feladat.Formok
             kszm_vezetoNeve2.KeretMeret = 2;
             kszm_vezetoNeve2.KeretSugar = 8;
             kszm_vezetoNeve2.KeretSzin = Color.MediumSlateBlue;
-            kszm_vezetoNeve2.Location = new Point(423, 144);
-            kszm_vezetoNeve2.Margin = new Padding(4);
+            kszm_vezetoNeve2.Location = new Point(370, 108);
+            kszm_vezetoNeve2.Margin = new Padding(4, 3, 4, 3);
             kszm_vezetoNeve2.Name = "kszm_vezetoNeve2";
-            kszm_vezetoNeve2.Padding = new Padding(10, 7, 10, 7);
-            kszm_vezetoNeve2.Size = new Size(312, 35);
+            kszm_vezetoNeve2.Padding = new Padding(9, 5, 9, 5);
+            kszm_vezetoNeve2.Size = new Size(273, 27);
             kszm_vezetoNeve2.TabIndex = 5;
             kszm_vezetoNeve2.Texts = "";
             kszm_vezetoNeve2.TobbSor = false;
@@ -464,11 +473,11 @@ namespace Projekt_feladat.Formok
             kszm_vezetoNeve1.KeretMeret = 2;
             kszm_vezetoNeve1.KeretSugar = 8;
             kszm_vezetoNeve1.KeretSzin = Color.MediumSlateBlue;
-            kszm_vezetoNeve1.Location = new Point(83, 144);
-            kszm_vezetoNeve1.Margin = new Padding(4);
+            kszm_vezetoNeve1.Location = new Point(73, 108);
+            kszm_vezetoNeve1.Margin = new Padding(4, 3, 4, 3);
             kszm_vezetoNeve1.Name = "kszm_vezetoNeve1";
-            kszm_vezetoNeve1.Padding = new Padding(10, 7, 10, 7);
-            kszm_vezetoNeve1.Size = new Size(312, 35);
+            kszm_vezetoNeve1.Padding = new Padding(9, 5, 9, 5);
+            kszm_vezetoNeve1.Size = new Size(273, 27);
             kszm_vezetoNeve1.TabIndex = 4;
             kszm_vezetoNeve1.Texts = "";
             kszm_vezetoNeve1.TobbSor = false;
@@ -486,11 +495,11 @@ namespace Projekt_feladat.Formok
             kszm_jarmuSzama.KeretMeret = 2;
             kszm_jarmuSzama.KeretSugar = 8;
             kszm_jarmuSzama.KeretSzin = Color.MediumSlateBlue;
-            kszm_jarmuSzama.Location = new Point(423, 97);
-            kszm_jarmuSzama.Margin = new Padding(4);
+            kszm_jarmuSzama.Location = new Point(370, 73);
+            kszm_jarmuSzama.Margin = new Padding(4, 3, 4, 3);
             kszm_jarmuSzama.Name = "kszm_jarmuSzama";
-            kszm_jarmuSzama.Padding = new Padding(10, 7, 10, 7);
-            kszm_jarmuSzama.Size = new Size(312, 35);
+            kszm_jarmuSzama.Padding = new Padding(9, 5, 9, 5);
+            kszm_jarmuSzama.Size = new Size(273, 27);
             kszm_jarmuSzama.TabIndex = 3;
             kszm_jarmuSzama.Texts = "";
             kszm_jarmuSzama.TobbSor = false;
@@ -508,11 +517,11 @@ namespace Projekt_feladat.Formok
             kszm_datum.KeretMeret = 2;
             kszm_datum.KeretSugar = 8;
             kszm_datum.KeretSzin = Color.MediumSlateBlue;
-            kszm_datum.Location = new Point(83, 97);
-            kszm_datum.Margin = new Padding(4);
+            kszm_datum.Location = new Point(73, 73);
+            kszm_datum.Margin = new Padding(4, 3, 4, 3);
             kszm_datum.Name = "kszm_datum";
-            kszm_datum.Padding = new Padding(10, 7, 10, 7);
-            kszm_datum.Size = new Size(312, 35);
+            kszm_datum.Padding = new Padding(9, 5, 9, 5);
+            kszm_datum.Size = new Size(273, 27);
             kszm_datum.TabIndex = 2;
             kszm_datum.Texts = "";
             kszm_datum.TobbSor = false;
@@ -530,11 +539,11 @@ namespace Projekt_feladat.Formok
             kszm_uticel.KeretMeret = 2;
             kszm_uticel.KeretSugar = 8;
             kszm_uticel.KeretSzin = Color.MediumSlateBlue;
-            kszm_uticel.Location = new Point(423, 54);
-            kszm_uticel.Margin = new Padding(4);
+            kszm_uticel.Location = new Point(370, 40);
+            kszm_uticel.Margin = new Padding(4, 3, 4, 3);
             kszm_uticel.Name = "kszm_uticel";
-            kszm_uticel.Padding = new Padding(10, 7, 10, 7);
-            kszm_uticel.Size = new Size(312, 35);
+            kszm_uticel.Padding = new Padding(9, 5, 9, 5);
+            kszm_uticel.Size = new Size(273, 27);
             kszm_uticel.TabIndex = 1;
             kszm_uticel.Texts = "";
             kszm_uticel.TobbSor = false;
@@ -552,18 +561,17 @@ namespace Projekt_feladat.Formok
             kszm_indulasHelye.KeretMeret = 2;
             kszm_indulasHelye.KeretSugar = 8;
             kszm_indulasHelye.KeretSzin = Color.MediumSlateBlue;
-            kszm_indulasHelye.Location = new Point(83, 54);
-            kszm_indulasHelye.Margin = new Padding(4);
+            kszm_indulasHelye.Location = new Point(73, 40);
+            kszm_indulasHelye.Margin = new Padding(4, 3, 4, 3);
             kszm_indulasHelye.Name = "kszm_indulasHelye";
-            kszm_indulasHelye.Padding = new Padding(10, 7, 10, 7);
-            kszm_indulasHelye.Size = new Size(312, 35);
+            kszm_indulasHelye.Padding = new Padding(9, 5, 9, 5);
+            kszm_indulasHelye.Size = new Size(273, 27);
             kszm_indulasHelye.TabIndex = 0;
             kszm_indulasHelye.Texts = "";
             kszm_indulasHelye.TobbSor = false;
             // 
             // rcb_desztinacio
             // 
-            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -574,20 +582,19 @@ namespace Projekt_feladat.Formok
             rcb_desztinacio.ItemPanelFelsoSzin = Color.WhiteSmoke;
             rcb_desztinacio.KeretSzin = Color.BlueViolet;
             rcb_desztinacio.KeretVastagsag = 1.8F;
-            rcb_desztinacio.Location = new Point(10, 12);
+            rcb_desztinacio.Location = new Point(9, 9);
             rcb_desztinacio.Margin = new Padding(0);
-            rcb_desztinacio.MinimumSize = new Size(171, 0);
+            rcb_desztinacio.MinimumSize = new Size(150, 0);
             rcb_desztinacio.Name = "rcb_desztinacio";
-            rcb_desztinacio.Padding = new Padding(0, 0, 0, 7);
+            rcb_desztinacio.Padding = new Padding(0, 0, 0, 5);
             rcb_desztinacio.Radius = 20;
-            rcb_desztinacio.Size = new Size(299, 76);
+            rcb_desztinacio.Size = new Size(262, 57);
             rcb_desztinacio.TabIndex = 7;
             rcb_desztinacio.TitleLabelSzin = Color.Black;
             rcb_desztinacio.ElemKivalasztva += rcb_desztinacio_ElemKivalasztva;
             // 
             // rcb_idoszak
             // 
-            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
@@ -599,13 +606,13 @@ namespace Projekt_feladat.Formok
             rcb_idoszak.ItemPanelFelsoSzin = Color.WhiteSmoke;
             rcb_idoszak.KeretSzin = Color.BlueViolet;
             rcb_idoszak.KeretVastagsag = 1.8F;
-            rcb_idoszak.Location = new Point(335, 12);
+            rcb_idoszak.Location = new Point(293, 9);
             rcb_idoszak.Margin = new Padding(0);
-            rcb_idoszak.MinimumSize = new Size(171, 0);
+            rcb_idoszak.MinimumSize = new Size(150, 0);
             rcb_idoszak.Name = "rcb_idoszak";
-            rcb_idoszak.Padding = new Padding(0, 0, 0, 7);
+            rcb_idoszak.Padding = new Padding(0, 0, 0, 5);
             rcb_idoszak.Radius = 20;
-            rcb_idoszak.Size = new Size(329, 73);
+            rcb_idoszak.Size = new Size(288, 57);
             rcb_idoszak.TabIndex = 6;
             rcb_idoszak.TitleLabelSzin = Color.Black;
             rcb_idoszak.ElemKivalasztva += rcb_idoszak_ElemKivalasztva;
@@ -618,46 +625,45 @@ namespace Projekt_feladat.Formok
             dgv_utazasok.BorderStyle = BorderStyle.None;
             dgv_utazasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_utazasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.White;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgv_utazasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgv_utazasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgv_utazasok.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.HotTrack;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.Padding = new Padding(3);
-            dataGridViewCellStyle5.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle5.SelectionForeColor = Color.BlueViolet;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgv_utazasok.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgv_utazasok.DefaultCellStyle = dataGridViewCellStyle2;
             dgv_utazasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_utazasok.EnableHeadersVisualStyles = false;
             dgv_utazasok.GridColor = SystemColors.InactiveBorder;
-            dgv_utazasok.Location = new Point(10, 92);
-            dgv_utazasok.Margin = new Padding(3, 4, 3, 4);
+            dgv_utazasok.Location = new Point(9, 69);
             dgv_utazasok.Name = "dgv_utazasok";
             dgv_utazasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgv_utazasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgv_utazasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgv_utazasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgv_utazasok.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dgv_utazasok.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgv_utazasok.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgv_utazasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_utazasok.ShowEditingIcon = false;
             dgv_utazasok.ShowRowErrors = false;
-            dgv_utazasok.Size = new Size(1074, 639);
+            dgv_utazasok.Size = new Size(940, 479);
             dgv_utazasok.TabIndex = 9;
             dgv_utazasok.CellMouseEnter += dataGridView1_CellMouseEnter;
             dgv_utazasok.CellValueChanged += dgv_utazasok_CellValueChanged;
@@ -665,7 +671,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
-            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;
@@ -676,12 +681,13 @@ namespace Projekt_feladat.Formok
             rcb_utazasNeve.ItemPanelFelsoSzin = Color.WhiteSmoke;
             rcb_utazasNeve.KeretSzin = Color.BlueViolet;
             rcb_utazasNeve.KeretVastagsag = 1.8F;
-            rcb_utazasNeve.Location = new Point(680, 9);
+            rcb_utazasNeve.Location = new Point(595, 7);
             rcb_utazasNeve.Margin = new Padding(0);
-            rcb_utazasNeve.MinimumSize = new Size(171, 0);
+            rcb_utazasNeve.MinimumSize = new Size(150, 0);
             rcb_utazasNeve.Name = "rcb_utazasNeve";
+            rcb_utazasNeve.Padding = new Padding(0, 0, 0, 5);
             rcb_utazasNeve.Radius = 20;
-            rcb_utazasNeve.Size = new Size(327, 76);
+            rcb_utazasNeve.Size = new Size(262, 57);
             rcb_utazasNeve.TabIndex = 8;
             rcb_utazasNeve.TitleLabelSzin = Color.Black;
             rcb_utazasNeve.ElemKivalasztva += rcb_utazasNeve_ElemKivalasztva;
@@ -696,9 +702,10 @@ namespace Projekt_feladat.Formok
             pnl_vezerlok.Controls.Add(btn_mentes);
             pnl_vezerlok.Dock = DockStyle.Bottom;
             pnl_vezerlok.ForeColor = Color.CadetBlue;
-            pnl_vezerlok.Location = new Point(0, 903);
+            pnl_vezerlok.Location = new Point(0, 677);
+            pnl_vezerlok.Margin = new Padding(3, 2, 3, 2);
             pnl_vezerlok.Name = "pnl_vezerlok";
-            pnl_vezerlok.Size = new Size(1142, 69);
+            pnl_vezerlok.Size = new Size(999, 52);
             pnl_vezerlok.TabIndex = 10;
             // 
             // kszm_torles
@@ -714,11 +721,12 @@ namespace Projekt_feladat.Formok
             kszm_torles.ImageAlign = ContentAlignment.MiddleRight;
             kszm_torles.KeretMeret = 0;
             kszm_torles.KeretSzine = Color.PaleVioletRed;
-            kszm_torles.Location = new Point(847, 8);
+            kszm_torles.Location = new Point(741, 6);
+            kszm_torles.Margin = new Padding(3, 2, 3, 2);
             kszm_torles.Name = "kszm_torles";
             kszm_torles.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kszm_torles.SarokSugar = 10;
-            kszm_torles.Size = new Size(208, 51);
+            kszm_torles.Size = new Size(182, 38);
             kszm_torles.SzovegSzine = Color.White;
             kszm_torles.TabIndex = 5;
             kszm_torles.Text = "Utazásból törlés";
@@ -739,11 +747,12 @@ namespace Projekt_feladat.Formok
             kg_szures.ImageAlign = ContentAlignment.MiddleRight;
             kg_szures.KeretMeret = 0;
             kg_szures.KeretSzine = Color.PaleVioletRed;
-            kg_szures.Location = new Point(216, 8);
+            kg_szures.Location = new Point(189, 6);
+            kg_szures.Margin = new Padding(3, 2, 3, 2);
             kg_szures.Name = "kg_szures";
             kg_szures.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_szures.SarokSugar = 10;
-            kg_szures.Size = new Size(187, 51);
+            kg_szures.Size = new Size(164, 38);
             kg_szures.SzovegSzine = Color.White;
             kg_szures.TabIndex = 4;
             kg_szures.Text = "Szűrés";
@@ -764,11 +773,12 @@ namespace Projekt_feladat.Formok
             kszm_nyomtatas.ImageAlign = ContentAlignment.MiddleRight;
             kszm_nyomtatas.KeretMeret = 0;
             kszm_nyomtatas.KeretSzine = Color.PaleVioletRed;
-            kszm_nyomtatas.Location = new Point(654, 8);
+            kszm_nyomtatas.Location = new Point(572, 6);
+            kszm_nyomtatas.Margin = new Padding(3, 2, 3, 2);
             kszm_nyomtatas.Name = "kszm_nyomtatas";
             kszm_nyomtatas.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kszm_nyomtatas.SarokSugar = 10;
-            kszm_nyomtatas.Size = new Size(187, 51);
+            kszm_nyomtatas.Size = new Size(164, 38);
             kszm_nyomtatas.SzovegSzine = Color.White;
             kszm_nyomtatas.TabIndex = 3;
             kszm_nyomtatas.Text = "Nyomtatás";
@@ -789,12 +799,13 @@ namespace Projekt_feladat.Formok
             kszm_utasLista.ImageAlign = ContentAlignment.MiddleRight;
             kszm_utasLista.KeretMeret = 0;
             kszm_utasLista.KeretSzine = Color.PaleVioletRed;
-            kszm_utasLista.Location = new Point(421, 8);
+            kszm_utasLista.Location = new Point(368, 6);
+            kszm_utasLista.Margin = new Padding(3, 2, 3, 2);
             kszm_utasLista.Name = "kszm_utasLista";
             kszm_utasLista.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kszm_utasLista.RightToLeft = RightToLeft.No;
             kszm_utasLista.SarokSugar = 10;
-            kszm_utasLista.Size = new Size(216, 51);
+            kszm_utasLista.Size = new Size(189, 38);
             kszm_utasLista.SzovegSzine = Color.White;
             kszm_utasLista.TabIndex = 1;
             kszm_utasLista.Text = "Utaslista készítése";
@@ -815,12 +826,13 @@ namespace Projekt_feladat.Formok
             btn_mentes.ImageAlign = ContentAlignment.MiddleRight;
             btn_mentes.KeretMeret = 0;
             btn_mentes.KeretSzine = Color.MediumVioletRed;
-            btn_mentes.Location = new Point(12, 8);
+            btn_mentes.Location = new Point(10, 6);
+            btn_mentes.Margin = new Padding(3, 2, 3, 2);
             btn_mentes.Name = "btn_mentes";
             btn_mentes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_mentes.RightToLeft = RightToLeft.No;
             btn_mentes.SarokSugar = 10;
-            btn_mentes.Size = new Size(187, 51);
+            btn_mentes.Size = new Size(164, 38);
             btn_mentes.SzovegSzine = Color.White;
             btn_mentes.TabIndex = 0;
             btn_mentes.Text = "Mentés";
@@ -853,10 +865,10 @@ namespace Projekt_feladat.Formok
             // 
             // Frm_UtazasokMegtekintese
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1142, 972);
+            ClientSize = new Size(999, 729);
             Controls.Add(pnl_utasLista);
             Controls.Add(szpn_szuroPanel);
             Controls.Add(pnl_vezerlok);
@@ -864,7 +876,6 @@ namespace Projekt_feladat.Formok
             Controls.Add(rcb_desztinacio);
             Controls.Add(dgv_utazasok);
             Controls.Add(rcb_utazasNeve);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Frm_UtazasokMegtekintese";
             Text = "Utazasok";
             Load += Frm_UtazasokMegtekintese_Load_1;

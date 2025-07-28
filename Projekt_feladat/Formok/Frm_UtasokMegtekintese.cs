@@ -29,10 +29,10 @@ namespace Projekt_feladat.Formok
         private void Frm_Utasok_Load(object sender, EventArgs e)
         {
             // Kezdeti betöltés: Oldalszámok beállítása az összes sor alapján
-            lekerdezes(); // Ez fogja mostantól kezelni a kezdeti maxOldal kalkulációt
+         
             nud_oldalValaszto.Minimum = 1;
             nud_oldalValaszto.Value = aktualisOldal;
-            nud_oldalValaszto.ReadOnly = true;
+            
 
             szpn_szuroPanel.Controls.Add(lst_talalatok);
             lst_talalatok.Visible = false;
@@ -306,14 +306,15 @@ namespace Projekt_feladat.Formok
 
         private void nud_oldalValaszto_ValueChanged(object sender, EventArgs e)
         {
-            // Győződjön meg róla, hogy az érték a határokon belül van, majd frissítse az aktualisOldal-t és az adatokat
+           
             if (nud_oldalValaszto.Value > nud_oldalValaszto.Maximum)
                 nud_oldalValaszto.Value = nud_oldalValaszto.Maximum;
             if (nud_oldalValaszto.Value < nud_oldalValaszto.Minimum)
                 nud_oldalValaszto.Value = nud_oldalValaszto.Minimum;
 
             aktualisOldal = (int)nud_oldalValaszto.Value;
-            lekerdezes();
+          
+               lekerdezes();
         }
 
         private void szpn_szuroPanel_Click(object sender, EventArgs e)

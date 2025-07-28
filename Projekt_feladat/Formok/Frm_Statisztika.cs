@@ -17,6 +17,9 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using LiveChartsCore.SkiaSharpView.SKCharts;
+using LiveChartsCore.SkiaSharpView.Extensions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace Projekt_feladat.Formok
 {
@@ -25,7 +28,8 @@ namespace Projekt_feladat.Formok
         string kapcsolat = "server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;";
 
         private GeoMap geoMap;
-        private CartesianChart oszlopDiagram;
+        //private  PieChart pieChart;
+        //private CartesianChart oszlopDiagram;
         public Frm_Statisztika()
         {
             InitializeComponent();
@@ -109,7 +113,11 @@ namespace Projekt_feladat.Formok
             lbl_atlagosUtazasokSzama.Text += " " + idenUtzazokSzama().ToString();
             //utazási tendencia
             utazasiTendencia("yyyy.MM");
+            penzugyiTendencia();
+            korCsoport();
+            utazasiMod();
 
+            
         }
 
 
@@ -145,12 +153,13 @@ namespace Projekt_feladat.Formok
                  utazas
              JOIN
                  utas_utazasai ON utazas.utazas_id = utas_utazasai.utazas_id
-             WHERE
-                 YEAR(utazas.utazas_ideje) = YEAR(NOW())
+             
              GROUP BY
                  utazas.utazas_ideje
              ORDER BY
-                 utazas.utazas_ideje limit 15;";
+                 utazas.utazas_ideje DESC limit 15;";
+
+             
 
                 using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
                 using var reader = parancs.ExecuteReader();
@@ -209,7 +218,415 @@ namespace Projekt_feladat.Formok
             }
         }
 
+        private void penzugyiTendencia()
+        {
+            try
+            {
+               
+                szpn_penzugyiJelentes.Controls.Clear();
 
+
+                var cim = new Label
+                {
+                    Text = "Utazásonkénti bevétel ",
+                    Font = new Font("Segoe UI", 12F, FontStyle.Regular),
+                    ForeColor = Color.Black,
+                    AutoSize = true,
+                    TextAlign = ContentAlignment.TopLeft,
+                    Padding = new Padding(5, 0, 0, 0),
+                    Location = new Point(10, 5)
+                };
+                szpn_penzugyiJelentes.Controls.Add(cim);
+
+
+                // Adatok tárolása
+                List<ObservablePoint> dataPoints = new();
+                List<string> utazasLabels = new();
+
+                using var kapcsolatObj = new MySqlConnection(kapcsolat);
+                kapcsolatObj.Open();
+
+                string lekerdezes = @"
+            SELECT u.utazas_id, u.utazas_elnevezese, u.utazas_ideje, u.desztinacio,
+                   COALESCE(SUM(f.befizetett_osszeg), 0) AS osszes_befizetes
+            FROM utazas u
+            LEFT JOIN fizetes f ON f.utas_id IN (
+                SELECT utas_id FROM utas_utazasai WHERE utazas_id = u.utazas_id
+            )
+            GROUP BY u.utazas_id, u.utazas_elnevezese, u.utazas_ideje, u.desztinacio
+            ORDER BY u.utazas_ideje DESC
+            LIMIT 15;
+        ";
+
+                using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
+                using var reader = parancs.ExecuteReader();
+
+                int index = 0;
+                while (reader.Read())
+                {
+                    string utazasNeve = reader.GetString("utazas_elnevezese");
+                    double bevitel = reader.GetDouble("osszes_befizetes");
+
+                    dataPoints.Add(new ObservablePoint(index, bevitel));
+                    utazasLabels.Add(utazasNeve);
+                    index++;
+                }
+
+                // Vonaldiagram létrehozása
+                var diagram = new CartesianChart
+                {
+                    Series = new ISeries[]
+                    {
+
+
+                new LineSeries<ObservablePoint>
+                {
+                    Name = "Bevétel",
+                    Values = dataPoints,
+                    Fill = null, // nem kell háttérkitöltés
+                    GeometrySize = 10,
+                    Stroke = new SolidColorPaint(SKColors.DarkGreen, 3),
+                    GeometryFill = new SolidColorPaint(SKColors.DarkGreen),
+                    GeometryStroke = new SolidColorPaint(SKColors.White, 2),
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                    DataLabelsPosition = LiveChartsCore.Measure.DataLabelsPosition.Top
+                }
+                    },
+                    XAxes = new Axis[]
+                    {
+                new Axis
+                {
+                    Labels = utazasLabels.ToArray(),
+                    LabelsRotation = 45,
+                    TextSize = 10,
+                    SeparatorsPaint = null
+                }
+                    },
+                    YAxes = new Axis[]
+                    {
+                new Axis
+                {
+                    Labeler = value => value.ToString("N0") + " Ft",
+                    MinStep = 1,
+                    SeparatorsPaint = null
+                }
+                    },
+                  
+                  
+
+
+
+                    Location = new Point(10, cim.Bottom-10 ),
+                   
+                    Size = new Size(szpn_penzugyiJelentes.Width - 30, szpn_penzugyiJelentes.Height - cim.Height-15 ),
+                    Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
+                    BackColor = Color.WhiteSmoke,
+                   
+                };
+
+                szpn_penzugyiJelentes.Controls.Add(diagram);
+
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba a pénzügyi tendencia betöltésekor: " + ex.Message,
+                                "Adatbetöltési hiba",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+
+        public void korCsoport()
+        {
+            var ageGroupRawData = korcsoportLekerdezese();
+
+            if (ageGroupRawData == null || ageGroupRawData.Count == 0)
+            {
+                MessageBox.Show("Nincs megjeleníthető adat a korcsoportokhoz. Ellenőrizze az adatbázis kapcsolatot és adatokat!",
+                                "Adat hiány", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                PieChart korDiagram = new PieChart
+                {
+                    Series = new List<ISeries>(),
+                    Size = new Size(150, 150),
+                    Dock = DockStyle.Left
+                };
+                flp_egyebStatisztika.Controls.Add(korDiagram);
+                return;
+            }
+       
+
+            double totalCount = ageGroupRawData.Sum(x => x.Item2);
+            var gaugeItems = new List<GaugeItem>();
+            Random random = new Random();
+
+            foreach (var item in ageGroupRawData)
+            {
+                double percentage = (totalCount > 0) ? (item.Item2 / totalCount) * 100 : 0;
+
+                Action<PieSeries<ObservableValue>> setStyleAction = (series) =>
+                {
+                    series.Name = item.Item1;
+                    series.DataLabelsPosition = PolarLabelsPosition.Start;
+                    series.DataLabelsFormatter =
+                        point => $"{point.Coordinate.PrimaryValue:N1}% {point.Context.Series.Name}";
+                    series.InnerRadius = 20;
+                    series.RelativeOuterRadius = 1;
+                    series.RelativeInnerRadius = 1;
+                    series.Fill = new SolidColorPaint(GetRandomColor());
+                    series.DataLabelsPaint = new SolidColorPaint(SKColors.Black)
+                    {
+                        SKTypeface = SKTypeface.FromFamilyName("Segoe UI", SKFontStyle.Bold)
+                    };
+                };
+
+                gaugeItems.Add(new GaugeItem(percentage, setStyleAction));
+            }
+
+            // Címke hozzáadása először
+            Label korCimke = new Label
+            {
+                Text = "Korcsoport Eloszlás (Utasok)",
+                Font = new Font("Segoe UI", 12, FontStyle.Regular),
+                TextAlign = ContentAlignment.TopLeft,
+                AutoSize = true,
+                Location = new Point(10, 10),
+                ForeColor = Color.Black,
+                BackColor = Color.Transparent
+            };
+            flp_egyebStatisztika.Controls.Add(korCimke);
+            korCimke.BringToFront();
+
+            // Diagram hozzáadása a címke alá
+            PieChart pieChart = new PieChart
+            {
+                Series = GaugeGenerator.BuildSolidGauge(gaugeItems.ToArray()),
+                InitialRotation = 90,
+                MaxAngle = 270,
+                MinValue = 0,
+                MaxValue = 100,
+                Dock = DockStyle.None,
+                BackColor = Color.WhiteSmoke,
+                Size = new Size(250, 250),
+                Location = new Point(10, korCimke.Bottom + 5)
+            };
+
+            Panel diagramKeret = new Panel
+            {
+                Width = 260,
+                Height = 300,
+                Margin = new Padding(1),
+                BackColor = Color.WhiteSmoke
+            };
+            diagramKeret.Controls.Add(pieChart);
+            diagramKeret.Controls.Add(korCimke);
+            flp_egyebStatisztika.Controls.Add(diagramKeret);
+        }
+
+        
+
+        private SKColor GetRandomColor()
+        {
+            Random random = new Random();
+            return new SKColor((byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256), (byte)200);
+        }
+
+       public void utazasiMod()
+{
+    // Tisztítjuk a panelt, ha korábban volt benne valami
+  //  sznp_egyebStatisztika.Controls.Clear();
+   // sznp_egyebStatisztika.Padding = new Padding(10, 10, 10, 10);
+
+    // Lekérdezzük az utazási módokat és darabszámokat
+    var travelModeData = utazasiModLekerdezes(); // List<(string, int)> például: [("busz", 12), ("repülő", 7)]
+
+    if (travelModeData == null || travelModeData.Count == 0)
+    {
+        MessageBox.Show("Nincs megjeleníthető adat az utazási módokhoz. Ellenőrizze az adatokat!", "Adat hiány", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        PieChart utazasimodDiagramAlap = new PieChart
+        {
+            Series = new List<ISeries>(),
+            Size = new Size(250, 250),
+            Dock = DockStyle.Left
+        };
+                flp_egyebStatisztika.Controls.Add(utazasimodDiagramAlap);
+        return;
+    }
+
+            Label utazasModCimke = new Label
+            {
+                Text = "Utazási mód eloszlás",
+                Font = new Font("Segoe UI", 12, FontStyle.Regular),
+                TextAlign = ContentAlignment.MiddleCenter,
+                AutoSize = true,
+                Height = 30,
+                Location = new Point(1, 1),
+                ForeColor = Color.Black,
+                BackColor = Color.Transparent
+            };
+
+            // PieChart sorozatok összeállítása
+            List<ISeries> seriesCollection = new();
+    int outerOffset = 0;
+    Random random = new();
+
+    foreach (var (modNev, darab) in travelModeData)
+    {
+        var series = new PieSeries<double>
+        {
+            Values = new[] { (double)darab },
+            Name = modNev,
+            OuterRadiusOffset = outerOffset,
+            DataLabelsPaint = new SolidColorPaint(SKColors.Black)
+            {
+                SKTypeface = SKTypeface.FromFamilyName("Segoe UI", SKFontStyle.Normal)
+            },
+            DataLabelsFormatter = point =>
+            {
+                var modeName = point.Context.Series.Name;
+                var pv = point.Coordinate.PrimaryValue;
+                var sv = point.StackedValue!;
+                return $"{modeName}: {pv} ({sv.Share:P2})";
+            },
+            ToolTipLabelFormatter = point =>
+            {
+                var modeName = point.Context.Series.Name;
+                var pv = point.Coordinate.PrimaryValue;
+                var sv = point.StackedValue!;
+                return $"{modeName}: {pv} fő ({sv.Share:P2})";
+            },
+            Fill = new SolidColorPaint(GetRandomColor())
+        };
+
+        seriesCollection.Add(series);
+        outerOffset += 10;
+    }
+
+   
+    PieChart utazasimodDiagram = new PieChart
+    {
+        Series = seriesCollection,
+        InitialRotation = -90,
+        Dock = DockStyle.Left,
+        Location = new Point(10, utazasModCimke.Bottom + 5),
+        BackColor = Color.WhiteSmoke,
+        Size = new Size(250, 250)
+    };
+
+    // Címke létrehozása
+ 
+            Panel diagramKeret = new Panel
+            {
+                Width = 260,
+                Height = 300,
+                Margin = new Padding(1),
+                BackColor = Color.WhiteSmoke
+            };
+            diagramKeret.Controls.Add(utazasModCimke);
+            diagramKeret.Controls.Add(utazasimodDiagram);
+            
+            flp_egyebStatisztika.Controls.Add(diagramKeret);
+
+           
+   
+}
+
+
+
+        private List<Tuple<string, int>> korcsoportLekerdezese()
+        {
+            List<Tuple<string, int>> data = new List<Tuple<string, int>>();
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=utazast_kezelo;Uid=root;Pwd=;"; // FIGYELEM!
+
+            string query = @"
+            SELECT
+                CASE
+                    WHEN TIMESTAMPDIFF(YEAR, T.szuletesi_datum, CURDATE()) BETWEEN 0 AND 29 THEN '0-29'
+                    WHEN TIMESTAMPDIFF(YEAR, T.szuletesi_datum, CURDATE()) BETWEEN 30 AND 45 THEN '30-45'
+                    WHEN TIMESTAMPDIFF(YEAR, T.szuletesi_datum, CURDATE()) BETWEEN 46 AND 65 THEN '46-65'
+                    WHEN TIMESTAMPDIFF(YEAR, T.szuletesi_datum, CURDATE()) > 65 THEN '65+'
+                END AS korcsoport,
+                COUNT(*) AS letszam
+            FROM
+                utas AS T
+            WHERE
+                T.szuletesi_datum IS NOT NULL
+            GROUP BY
+                korcsoport
+            ORDER BY
+                MIN(TIMESTAMPDIFF(YEAR, T.szuletesi_datum, CURDATE()));";
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                              
+                                data.Add(new Tuple<string, int>(
+                                    reader["korcsoport"].ToString(),
+                                    Convert.ToInt32(reader["letszam"])
+                                ));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Adatbázis hiba: {ex.Message}");
+                return new List<Tuple<string, int>>();
+            }
+
+            return data;
+        }
+        private List<Tuple<string, int>> utazasiModLekerdezes()
+        {
+            List<Tuple<string, int>> data = new List<Tuple<string, int>>();
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=utazast_kezelo;Uid=root;Pwd=;"; // FIGYELEM!
+
+            string query = @"SELECT utazas.utazas_modja, COUNT(*) AS darabszam
+                            FROM utazas
+                            GROUP BY utazas_modja
+                            ORDER BY darabszam DESC";
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                                data.Add(new Tuple<string, int>(
+                                    reader["utazas_modja"].ToString().Trim(),
+                                    Convert.ToInt32(reader["darabszam"])
+                                ));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Adatbázis hiba: {ex.Message}");
+                return new List<Tuple<string, int>>();
+            }
+
+            return data;
+        }
         private string OrszagKodDesztinacio(string desztinacio)
         {
 
@@ -625,9 +1042,9 @@ namespace Projekt_feladat.Formok
                 geoMapY + 10
             );
 
-            szpn_utazasokSzama.Location = new Point((this.ClientRectangle.Width / 2) + szpn_utazasokSzama.Width / 2, geoMapY + geoMap.Height - 20);
+            szpn_utazasokSzama.Location = new Point((this.ClientRectangle.Width / 2) + szpn_utazasokSzama.Width ,  geoMap.Height -50);
             
-            szpl_utasokSzama.Location = new Point(10, geoMapY + 10);
+          //  szpl_utasokSzama.Location = new Point(10, geoMapY + 10);
         }
 
         private int utasokSzama()

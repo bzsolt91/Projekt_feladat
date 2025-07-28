@@ -34,13 +34,13 @@ namespace Projekt_feladat.Formok
             ellipszisVezerlo ev_vezerlo;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_UtasokMegtekintese));
             ellipszisVezerlo ev_szuroPanel;
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             pnl_vezerlo = new Panel();
+            nud_oldalValaszto = new KerekitettNumericUpDown();
             kg_nyomtatas = new KerekitettGomb();
             kg_torles = new KerekitettGomb();
-            nud_oldalValaszto = new NumericUpDown();
             kg_mentes = new KerekitettGomb();
             kg_szuro = new KerekitettGomb();
             kg_kovetkezo = new KerekitettGomb();
@@ -65,7 +65,6 @@ namespace Projekt_feladat.Formok
             ev_vezerlo = new ellipszisVezerlo();
             ev_szuroPanel = new ellipszisVezerlo();
             pnl_vezerlo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nud_oldalValaszto).BeginInit();
             szpn_szuroPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_utasok).BeginInit();
             SuspendLayout();
@@ -78,9 +77,9 @@ namespace Projekt_feladat.Formok
             // pnl_vezerlo
             // 
             pnl_vezerlo.BackColor = Color.DarkViolet;
+            pnl_vezerlo.Controls.Add(nud_oldalValaszto);
             pnl_vezerlo.Controls.Add(kg_nyomtatas);
             pnl_vezerlo.Controls.Add(kg_torles);
-            pnl_vezerlo.Controls.Add(nud_oldalValaszto);
             pnl_vezerlo.Controls.Add(kg_mentes);
             pnl_vezerlo.Controls.Add(kg_szuro);
             pnl_vezerlo.Controls.Add(kg_kovetkezo);
@@ -90,6 +89,24 @@ namespace Projekt_feladat.Formok
             pnl_vezerlo.Name = "pnl_vezerlo";
             pnl_vezerlo.Size = new Size(1288, 88);
             pnl_vezerlo.TabIndex = 0;
+            // 
+            // nud_oldalValaszto
+            // 
+            nud_oldalValaszto.BackColor = Color.Transparent;
+            nud_oldalValaszto.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            nud_oldalValaszto.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+            nud_oldalValaszto.KeretSzin = Color.Gray;
+            nud_oldalValaszto.KeretVastagsag = 1.5F;
+            nud_oldalValaszto.Location = new Point(222, 19);
+            nud_oldalValaszto.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+            nud_oldalValaszto.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            nud_oldalValaszto.MinimumSize = new Size(80, 25);
+            nud_oldalValaszto.Name = "nud_oldalValaszto";
+            nud_oldalValaszto.Radius = 10;
+            nud_oldalValaszto.Size = new Size(80, 45);
+            nud_oldalValaszto.TabIndex = 8;
+            nud_oldalValaszto.Value = new decimal(new int[] { 0, 0, 0, 0 });
+            nud_oldalValaszto.ValueChanged += nud_oldalValaszto_ValueChanged;
             // 
             // kg_nyomtatas
             // 
@@ -142,15 +159,6 @@ namespace Projekt_feladat.Formok
             kg_torles.TextImageRelation = TextImageRelation.ImageBeforeText;
             kg_torles.UseVisualStyleBackColor = false;
             kg_torles.Click += kg_torles_Click;
-            // 
-            // nud_oldalValaszto
-            // 
-            nud_oldalValaszto.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            nud_oldalValaszto.Location = new Point(228, 21);
-            nud_oldalValaszto.Name = "nud_oldalValaszto";
-            nud_oldalValaszto.Size = new Size(83, 38);
-            nud_oldalValaszto.TabIndex = 5;
-            nud_oldalValaszto.ValueChanged += nud_oldalValaszto_ValueChanged;
             // 
             // kg_mentes
             // 
@@ -509,24 +517,24 @@ namespace Projekt_feladat.Formok
             dgv_utasok.BorderStyle = BorderStyle.None;
             dgv_utasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_utasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgv_utasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.White;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgv_utasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgv_utasok.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgv_utasok.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.Padding = new Padding(3);
+            dataGridViewCellStyle5.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle5.SelectionForeColor = Color.BlueViolet;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgv_utasok.DefaultCellStyle = dataGridViewCellStyle5;
             dgv_utasok.Dock = DockStyle.Fill;
             dgv_utasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_utasok.EnableHeadersVisualStyles = false;
@@ -535,16 +543,16 @@ namespace Projekt_feladat.Formok
             dgv_utasok.Margin = new Padding(3, 4, 3, 4);
             dgv_utasok.Name = "dgv_utasok";
             dgv_utasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgv_utasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgv_utasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgv_utasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgv_utasok.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dgv_utasok.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dgv_utasok.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgv_utasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_utasok.ShowEditingIcon = false;
@@ -582,7 +590,6 @@ namespace Projekt_feladat.Formok
             Load += Frm_Utasok_Load;
             Resize += Frm_UtasokMegtekintese_Resize;
             pnl_vezerlo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)nud_oldalValaszto).EndInit();
             szpn_szuroPanel.ResumeLayout(false);
             szpn_szuroPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_utasok).EndInit();
@@ -616,10 +623,10 @@ namespace Projekt_feladat.Formok
         private kerekitettSzovegMezo kszm_email;
         private kerekitettSzovegMezo kszm_utasNeve;
         private ellipszisVezerlo ev_szuroPanel;
-        private NumericUpDown nud_oldalValaszto;
         private KerekitettGomb kg_torles;
         private KerekitettGomb kg_nyomtatas;
         private System.Drawing.Printing.PrintDocument pd_utasok;
         private PrintPreviewDialog ppd_utasok;
+        private KerekitettNumericUpDown nud_oldalValaszto;
     }
 }

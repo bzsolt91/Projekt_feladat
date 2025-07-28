@@ -323,7 +323,26 @@ namespace Projekt_feladat.egyeni_vezerlok
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
             animacioTimer.Interval = 5;
             animacioTimer.Tick += AnimacioFrissitese;
+
+            BackColor = Color.Transparent;
+            CimPanelAlsoSzin = Color.White;
+            CimPanelFelsoSzin = Color.White;
+            ComboText = "Text";
+            ForeColor = Color.White;
            
+            ItemPanelAlosSzin = Color.WhiteSmoke;
+            ItemPanelFelsoSzin = Color.WhiteSmoke;
+            KeretSzin = Color.RoyalBlue;
+            KeretVastagsag = 2F;
+            Location = new Point(322, 518);
+            Margin = new Padding(2, 3, 2, 3);
+            MinimumSize = new Size(343, 0);
+            Name = "kerekitettLenyilloMenu1";
+            Radius = 30;
+            Size = new Size(482, 68);
+            TabIndex = 2;
+            TitleLabelSzin = Color.Gray;
+
 
         }
 

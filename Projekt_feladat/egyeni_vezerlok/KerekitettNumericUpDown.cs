@@ -11,7 +11,8 @@ namespace Projekt_feladat.egyeni_vezerlok
         private TextBox textBox;
         private Button btnUp;
         private Button btnDown;
-
+        private Color upArrowColor = Color.Black;
+        private Color downArrowColor = Color.Black;
         private int radius = 10;
         private Color keretSzin = Color.Gray;
         private float keretVastagsag = 1.5f;
@@ -32,19 +33,31 @@ namespace Projekt_feladat.egyeni_vezerlok
 
             btnUp.FlatStyle = FlatStyle.Flat;
             btnUp.FlatAppearance.BorderSize = 0;
-            btnUp.BackColor = Color.LightGray;
+            btnUp.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnUp.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnUp.BackColor = Color.Transparent;
             btnUp.ForeColor = Color.Black;
-            btnUp.Click += BtnUp_Click;
             btnUp.Cursor = Cursors.Hand;
+            btnUp.Click += BtnUp_Click;
             btnUp.Paint += BtnUp_Paint;
+            btnUp.MouseEnter += (s, e) => { upArrowColor = Color.MediumSlateBlue; btnUp.Invalidate(); };
+            btnUp.MouseLeave += (s, e) => { upArrowColor = Color.Black; btnUp.Invalidate(); };
+            btnUp.MouseDown += (s, e) => { upArrowColor = Color.DarkSlateBlue; btnUp.Invalidate(); };
+            btnUp.MouseUp += (s, e) => { upArrowColor = Color.MediumSlateBlue; btnUp.Invalidate(); };
 
             btnDown.FlatStyle = FlatStyle.Flat;
             btnDown.FlatAppearance.BorderSize = 0;
-            btnDown.BackColor = Color.LightGray;
+            btnDown.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnDown.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnDown.BackColor = Color.Transparent;
             btnDown.ForeColor = Color.Black;
-            btnDown.Click += BtnDown_Click;
             btnDown.Cursor = Cursors.Hand;
+            btnDown.Click += BtnDown_Click;
             btnDown.Paint += BtnDown_Paint;
+            btnDown.MouseEnter += (s, e) => { downArrowColor = Color.MediumSlateBlue; btnDown.Invalidate(); };
+            btnDown.MouseLeave += (s, e) => { downArrowColor = Color.Black; btnDown.Invalidate(); };
+            btnDown.MouseDown += (s, e) => { downArrowColor = Color.DarkSlateBlue; btnDown.Invalidate(); };
+            btnDown.MouseUp += (s, e) => { downArrowColor = Color.MediumSlateBlue; btnDown.Invalidate(); };
 
             textBox.BorderStyle = BorderStyle.None;
             textBox.TextAlign = HorizontalAlignment.Right;
@@ -76,14 +89,14 @@ namespace Projekt_feladat.egyeni_vezerlok
             // Növelt belső margó a nyíl és a gomb széle között
             int arrowInnerMargin = 4; // Ezt az értéket növelheted, ha több hely kell
 
-            int availableWidth = btn.Width - 2 * arrowInnerMargin;
-            int availableHeight = btn.Height - 2 * arrowInnerMargin;
+            int availableWidth = btn.Width-arrowInnerMargin;
+            int availableHeight = btn.Height-arrowInnerMargin;
 
             // Biztosítsuk, hogy a rendelkezésre álló terület pozitív legyen
             if (availableWidth <= 0 || availableHeight <= 0) return;
 
-            int arrowHeight = (int)(availableHeight * 0.5f); // Nyíl magassága (pl. a rendelkezésre álló magasság fele)
-            int arrowWidth = (int)(arrowHeight * 1.5f);     // Nyíl szélessége (pl. magasságának 1.5-szerese)
+            int arrowHeight = (int)(availableHeight * 1.5f); // Nyíl magassága (pl. a rendelkezésre álló magasság fele)
+            int arrowWidth = (int)(arrowHeight * 1.2f);     // Nyíl szélessége (pl. magasságának 1.5-szerese)
 
             // Ne legyen nagyobb a nyíl, mint a rendelkezésre álló hely
             if (arrowWidth > availableWidth) arrowWidth = availableWidth;
@@ -99,7 +112,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             triangle[1] = new Point(startX + arrowWidth, startY + arrowHeight); // Jobb alsó
             triangle[2] = new Point(startX + arrowWidth / 2, startY); // Felső csúcs (középen)
 
-            using (SolidBrush brush = new SolidBrush(btn.ForeColor))
+            using (SolidBrush brush = new SolidBrush(upArrowColor))
             {
                 e.Graphics.FillPolygon(brush, triangle);
             }
@@ -114,13 +127,14 @@ namespace Projekt_feladat.egyeni_vezerlok
 
             int arrowInnerMargin = 4; // Ezt az értéket növelheted, ha több hely kell
 
-            int availableWidth = btn.Width - 2 * arrowInnerMargin;
-            int availableHeight = btn.Height - 2 * arrowInnerMargin;
+            int availableWidth = btn.Width -  arrowInnerMargin;
+            int availableHeight = btn.Height -  arrowInnerMargin;
 
+            // Biztosítsuk, hogy a rendelkezésre álló terület pozitív legyen
             if (availableWidth <= 0 || availableHeight <= 0) return;
 
-            int arrowHeight = (int)(availableHeight * 0.5f);
-            int arrowWidth = (int)(arrowHeight * 1.5f);
+            int arrowHeight = (int)(availableHeight * 1.5f); // Nyíl magassága (pl. a rendelkezésre álló magasság fele)
+            int arrowWidth = (int)(arrowHeight * 1.2f);     // Nyíl szélessége (pl. magasságának 1.5-szerese)
 
             if (arrowWidth > availableWidth) arrowWidth = availableWidth;
             if (arrowHeight > availableHeight) arrowHeight = availableHeight;
@@ -134,7 +148,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             triangle[1] = new Point(startX + arrowWidth, startY); // Jobb felső
             triangle[2] = new Point(startX + arrowWidth / 2, startY + arrowHeight); // Alsó csúcs (középen)
 
-            using (SolidBrush brush = new SolidBrush(btn.ForeColor))
+            using (SolidBrush brush = new SolidBrush(downArrowColor))
             {
                 e.Graphics.FillPolygon(brush, triangle);
             }
@@ -176,7 +190,7 @@ namespace Projekt_feladat.egyeni_vezerlok
 
             // Lefelé gomb elhelyezése
             btnDown.Size = new Size(buttonWidth, buttonHeight);
-            btnDown.Location = new Point(controlWidth - buttonWidth - outerPadding, btnUp.Bottom + 2); // +2 pixel rés a két gomb között
+            btnDown.Location = new Point(controlWidth - buttonWidth - outerPadding, btnUp.Bottom ); // +2 pixel rés a két gomb között
 
             // TextBox méretének és pozíciójának beállítása
             textBox.Location = new Point(outerPadding + 2, (controlHeight - textBox.Height) / 2); // Kicsi extra padding a szövegnek
@@ -204,7 +218,8 @@ namespace Projekt_feladat.egyeni_vezerlok
         {
             if (decimal.TryParse(textBox.Text.Replace('.', ','), out decimal newVal))
             {
-                SetValue(newVal, false);
+                if (newVal != value) 
+                    SetValue(newVal, false); // 
             }
         }
 
@@ -212,7 +227,12 @@ namespace Projekt_feladat.egyeni_vezerlok
         {
             if (newVal < minimum) newVal = minimum;
             if (newVal > maximum) newVal = maximum;
+
+            if (value == newVal)
+                return;
+
             value = newVal;
+
             if (updateTextBox)
                 textBox.Text = value.ToString();
 

@@ -33,7 +33,6 @@ namespace Projekt_feladat
             components = new System.ComponentModel.Container();
             ellipszisVezerlo ev_bejelentkezes;
             ellipszisVezerlo ev_bejelentkezve;
-            ellipszisVezerlo ev_regisztacio;
             pnl_bejelentkezes = new Panel();
             label3 = new Label();
             kszm_regisztralas = new KerekitettGomb();
@@ -51,14 +50,6 @@ namespace Projekt_feladat
             lbl_nev = new Label();
             lbl_bejelentkezve = new Label();
             kg_kilepes = new KerekitettGomb();
-            pnl_regisztacio = new Panel();
-            kszm_vissza = new KerekitettGomb();
-            label2 = new Label();
-            kszm_regjelszoujra = new kerekitettSzovegMezo();
-            lbl_regisztacio = new Label();
-            kg_regisztacio = new KerekitettGomb();
-            kszm_regjelszo = new kerekitettSzovegMezo();
-            kszm_regnev = new kerekitettSzovegMezo();
             pnl_fejlec = new SzinatmenetPanel();
             btn_minimalizalas = new KerekitettGomb();
             btn_ablakmeret_valto = new KerekitettGomb();
@@ -87,10 +78,8 @@ namespace Projekt_feladat
             ev_foForm = new ellipszisVezerlo();
             ev_bejelentkezes = new ellipszisVezerlo();
             ev_bejelentkezve = new ellipszisVezerlo();
-            ev_regisztacio = new ellipszisVezerlo();
             pnl_bejelentkezes.SuspendLayout();
             pnl_bejelentkezve.SuspendLayout();
-            pnl_regisztacio.SuspendLayout();
             pnl_fejlec.SuspendLayout();
             pnl_fopanel.SuspendLayout();
             pnl_fomenu_disz.SuspendLayout();
@@ -350,155 +339,6 @@ namespace Projekt_feladat
             kg_kilepes.UseVisualStyleBackColor = false;
             kg_kilepes.Click += kg_kilepes_Click;
             // 
-            // ev_regisztacio
-            // 
-            ev_regisztacio.SarokSugar = 75;
-            ev_regisztacio.TargetControl = pnl_regisztacio;
-            // 
-            // pnl_regisztacio
-            // 
-            pnl_regisztacio.BackColor = Color.WhiteSmoke;
-            pnl_regisztacio.Controls.Add(kszm_vissza);
-            pnl_regisztacio.Controls.Add(label2);
-            pnl_regisztacio.Controls.Add(kszm_regjelszoujra);
-            pnl_regisztacio.Controls.Add(lbl_regisztacio);
-            pnl_regisztacio.Controls.Add(kg_regisztacio);
-            pnl_regisztacio.Controls.Add(kszm_regjelszo);
-            pnl_regisztacio.Controls.Add(kszm_regnev);
-            pnl_regisztacio.Location = new Point(425, 467);
-            pnl_regisztacio.Name = "pnl_regisztacio";
-            pnl_regisztacio.Size = new Size(463, 390);
-            pnl_regisztacio.TabIndex = 2;
-            pnl_regisztacio.Visible = false;
-            // 
-            // kszm_vissza
-            // 
-            kszm_vissza.BackColor = Color.MediumSlateBlue;
-            kszm_vissza.EgerTartasHatterSzine = Color.SlateBlue;
-            kszm_vissza.FlatAppearance.BorderSize = 0;
-            kszm_vissza.FlatStyle = FlatStyle.Flat;
-            kszm_vissza.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            kszm_vissza.ForeColor = Color.White;
-            kszm_vissza.HatterSzine = Color.MediumSlateBlue;
-            kszm_vissza.KeretMeret = 0;
-            kszm_vissza.KeretSzine = Color.PaleVioletRed;
-            kszm_vissza.Location = new Point(70, 319);
-            kszm_vissza.Name = "kszm_vissza";
-            kszm_vissza.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            kszm_vissza.SarokSugar = 8;
-            kszm_vissza.Size = new Size(94, 50);
-            kszm_vissza.SzovegSzine = Color.White;
-            kszm_vissza.TabIndex = 9;
-            kszm_vissza.UseVisualStyleBackColor = false;
-            kszm_vissza.Click += kszm_vissza_Click;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label2.BackColor = Color.FromArgb(209, 213, 219);
-            label2.ForeColor = Color.FromArgb(209, 213, 219);
-            label2.Location = new Point(39, 61);
-            label2.Name = "label2";
-            label2.Size = new Size(385, 1);
-            label2.TabIndex = 8;
-            // 
-            // kszm_regjelszoujra
-            // 
-            kszm_regjelszoujra.AlahuzottStilus = false;
-            kszm_regjelszoujra.BackColor = SystemColors.Window;
-            kszm_regjelszoujra.FokuszKeretSzin = Color.HotPink;
-            kszm_regjelszoujra.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            kszm_regjelszoujra.ForeColor = Color.FromArgb(64, 64, 64);
-            kszm_regjelszoujra.HelyorzoSzin = Color.DarkGray;
-            kszm_regjelszoujra.HelyorzoSzoveg = "Jelszó újra";
-            kszm_regjelszoujra.JelszoKarakter = true;
-            kszm_regjelszoujra.KeretMeret = 2;
-            kszm_regjelszoujra.KeretSugar = 8;
-            kszm_regjelszoujra.KeretSzin = Color.MediumSlateBlue;
-            kszm_regjelszoujra.Location = new Point(70, 198);
-            kszm_regjelszoujra.Margin = new Padding(4);
-            kszm_regjelszoujra.Name = "kszm_regjelszoujra";
-            kszm_regjelszoujra.Padding = new Padding(10, 7, 10, 7);
-            kszm_regjelszoujra.Size = new Size(312, 40);
-            kszm_regjelszoujra.TabIndex = 6;
-            kszm_regjelszoujra.Texts = "";
-            kszm_regjelszoujra.TobbSor = false;
-            // 
-            // lbl_regisztacio
-            // 
-            lbl_regisztacio.AutoSize = true;
-            lbl_regisztacio.Font = new Font("Segoe UI", 12F);
-            lbl_regisztacio.Location = new Point(169, 17);
-            lbl_regisztacio.Name = "lbl_regisztacio";
-            lbl_regisztacio.Size = new Size(117, 28);
-            lbl_regisztacio.TabIndex = 3;
-            lbl_regisztacio.Text = "Regisztráció";
-            // 
-            // kg_regisztacio
-            // 
-            kg_regisztacio.BackColor = Color.MediumSlateBlue;
-            kg_regisztacio.EgerTartasHatterSzine = Color.SlateBlue;
-            kg_regisztacio.FlatAppearance.BorderSize = 0;
-            kg_regisztacio.FlatStyle = FlatStyle.Flat;
-            kg_regisztacio.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            kg_regisztacio.ForeColor = Color.White;
-            kg_regisztacio.HatterSzine = Color.MediumSlateBlue;
-            kg_regisztacio.KeretMeret = 0;
-            kg_regisztacio.KeretSzine = Color.PaleVioletRed;
-            kg_regisztacio.Location = new Point(194, 319);
-            kg_regisztacio.Name = "kg_regisztacio";
-            kg_regisztacio.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            kg_regisztacio.SarokSugar = 8;
-            kg_regisztacio.Size = new Size(188, 50);
-            kg_regisztacio.SzovegSzine = Color.White;
-            kg_regisztacio.TabIndex = 2;
-            kg_regisztacio.Text = "Regisztáció";
-            kg_regisztacio.UseVisualStyleBackColor = false;
-            // 
-            // kszm_regjelszo
-            // 
-            kszm_regjelszo.AlahuzottStilus = false;
-            kszm_regjelszo.BackColor = SystemColors.Window;
-            kszm_regjelszo.FokuszKeretSzin = Color.HotPink;
-            kszm_regjelszo.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            kszm_regjelszo.ForeColor = Color.FromArgb(64, 64, 64);
-            kszm_regjelszo.HelyorzoSzin = Color.DarkGray;
-            kszm_regjelszo.HelyorzoSzoveg = "Jelszó";
-            kszm_regjelszo.JelszoKarakter = true;
-            kszm_regjelszo.KeretMeret = 2;
-            kszm_regjelszo.KeretSugar = 8;
-            kszm_regjelszo.KeretSzin = Color.MediumSlateBlue;
-            kszm_regjelszo.Location = new Point(70, 141);
-            kszm_regjelszo.Margin = new Padding(4);
-            kszm_regjelszo.Name = "kszm_regjelszo";
-            kszm_regjelszo.Padding = new Padding(10, 7, 10, 7);
-            kszm_regjelszo.Size = new Size(312, 40);
-            kszm_regjelszo.TabIndex = 1;
-            kszm_regjelszo.Texts = "";
-            kszm_regjelszo.TobbSor = false;
-            // 
-            // kszm_regnev
-            // 
-            kszm_regnev.AlahuzottStilus = false;
-            kszm_regnev.BackColor = SystemColors.Window;
-            kszm_regnev.FokuszKeretSzin = Color.HotPink;
-            kszm_regnev.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            kszm_regnev.ForeColor = Color.FromArgb(64, 64, 64);
-            kszm_regnev.HelyorzoSzin = Color.DarkGray;
-            kszm_regnev.HelyorzoSzoveg = "Felhasználó név";
-            kszm_regnev.JelszoKarakter = false;
-            kszm_regnev.KeretMeret = 2;
-            kszm_regnev.KeretSugar = 8;
-            kszm_regnev.KeretSzin = Color.MediumSlateBlue;
-            kszm_regnev.Location = new Point(70, 84);
-            kszm_regnev.Margin = new Padding(4);
-            kszm_regnev.Name = "kszm_regnev";
-            kszm_regnev.Padding = new Padding(10, 7, 10, 7);
-            kszm_regnev.Size = new Size(312, 40);
-            kszm_regnev.TabIndex = 0;
-            kszm_regnev.Texts = "";
-            kszm_regnev.TobbSor = false;
-            // 
             // pnl_fejlec
             // 
             pnl_fejlec.BackColor = Color.SlateGray;
@@ -594,7 +434,6 @@ namespace Projekt_feladat
             // pnl_fopanel
             // 
             pnl_fopanel.BackColor = Color.FromArgb(50, 70, 90);
-            pnl_fopanel.Controls.Add(pnl_regisztacio);
             pnl_fopanel.Controls.Add(pnl_bejelentkezve);
             pnl_fopanel.Controls.Add(pnl_bejelentkezes);
             pnl_fopanel.Dock = DockStyle.Fill;
@@ -723,6 +562,7 @@ namespace Projekt_feladat
             button1.Text = "⚙️ Beállítások";
             button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = false;
+            button1.Visible = false;
             // 
             // pnl_fomenu
             // 
@@ -1015,8 +855,6 @@ namespace Projekt_feladat
             pnl_bejelentkezes.PerformLayout();
             pnl_bejelentkezve.ResumeLayout(false);
             pnl_bejelentkezve.PerformLayout();
-            pnl_regisztacio.ResumeLayout(false);
-            pnl_regisztacio.PerformLayout();
             pnl_fejlec.ResumeLayout(false);
             pnl_fopanel.ResumeLayout(false);
             pnl_fomenu_disz.ResumeLayout(false);
@@ -1061,12 +899,6 @@ namespace Projekt_feladat
         private Label lbl_bejelentkezve;
         private KerekitettGomb kg_kilepes;
         private ellipszisVezerlo ev_bejelentkezve;
-        private Panel pnl_regisztacio;
-        private Label lbl_regisztacio;
-        private KerekitettGomb kg_regisztacio;
-        private kerekitettSzovegMezo kszm_regjelszo;
-        private kerekitettSzovegMezo kszm_regnev;
-        private kerekitettSzovegMezo kszm_regjelszoujra;
         private Panel pnl_bejelentkezes;
         private KerekitettGomb kszm_regisztralas;
         private KapcsoloGomb kg_bejelentkezvemarad;
@@ -1079,8 +911,6 @@ namespace Projekt_feladat
         private Label lbl_pkeszenall;
         private Label lbl_diszcsik;
         private Label label3;
-        private Label label2;
-        private KerekitettGomb kszm_vissza;
         private Label lbl_hozzaferes;
         private KerekitettGomb kg_segitseg;
     }
