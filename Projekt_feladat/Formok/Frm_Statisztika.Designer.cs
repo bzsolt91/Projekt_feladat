@@ -1,4 +1,6 @@
-﻿namespace Projekt_feladat.Formok
+﻿using System.Windows.Forms;
+
+namespace Projekt_feladat.Formok
 {
     partial class Frm_Statisztika
     {
@@ -39,7 +41,7 @@
             flp_rendezoPanel = new FlowLayoutPanel();
             szpn_penzugyiJelentes = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
             sznp_egyebStatisztika = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            flp_egyebStatisztika = new FlowLayoutPanel();
+            flp_egyebStatisztika = new TableLayoutPanel();
             szpl_utasokSzama.SuspendLayout();
             szpn_utazasokSzama.SuspendLayout();
             szpn_atlagosUtazasokSzama.SuspendLayout();
@@ -220,7 +222,9 @@
             // 
             flp_egyebStatisztika.BackColor = Color.WhiteSmoke;
             flp_egyebStatisztika.Dock = DockStyle.Fill;
-            flp_egyebStatisztika.FlowDirection = FlowDirection.TopDown;
+            flp_egyebStatisztika.ColumnCount = 3;
+            flp_egyebStatisztika.RowCount = 1;
+            flp_egyebStatisztika.Dock = DockStyle.Fill;
             flp_egyebStatisztika.Location = new Point(15, 15);
             flp_egyebStatisztika.Name = "flp_egyebStatisztika";
             flp_egyebStatisztika.Size = new Size(982, 270);
@@ -266,6 +270,6 @@
         private FlowLayoutPanel flp_rendezoPanel;
         private egyeni_vezerlok.SzinatmenetPanel szpn_penzugyiJelentes;
         private egyeni_vezerlok.SzinatmenetPanel sznp_egyebStatisztika;
-        private FlowLayoutPanel flp_egyebStatisztika;
+        private TableLayoutPanel flp_egyebStatisztika;
     }
 }

@@ -117,7 +117,9 @@ namespace Projekt_feladat.Formok
             korCsoport();
             utazasiMod();
             Topdesztinaciok();
-            
+
+            for (int i = 0; i < 3; i++)
+                flp_egyebStatisztika.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.33F));
         }
 
 
@@ -414,8 +416,9 @@ namespace Projekt_feladat.Formok
 
             Panel diagramKeret = new Panel
             {
-                Width = 260,
-                Height = 300,
+                //Width = 260,
+                //Height = 300,
+                Dock = DockStyle.Fill,
                 Margin = new Padding(1),
                 BackColor = Color.WhiteSmoke
             };
@@ -506,7 +509,7 @@ namespace Projekt_feladat.Formok
         Dock = DockStyle.Left,
         Location = new Point(10, utazasModCimke.Bottom + 5),
         BackColor = Color.WhiteSmoke,
-      
+       
         Size = new Size(250, 250)
     };
 
@@ -514,8 +517,8 @@ namespace Projekt_feladat.Formok
  
             Panel diagramKeret = new Panel
             {
-                Width = 260,
-                Height = 300,
+         
+                Dock = DockStyle.Fill,
                 Margin = new Padding(1),
                 BackColor = Color.WhiteSmoke
             };
@@ -526,7 +529,7 @@ namespace Projekt_feladat.Formok
         private List<Tuple<string, int>> korcsoportLekerdezese()
         {
             List<Tuple<string, int>> data = new List<Tuple<string, int>>();
-            string connectionString = "Server=127.0.0.1;Port=3306;Database=utazast_kezelo;Uid=root;Pwd=;"; // FIGYELEM!
+            string connectionString = kapcsolatString;
 
             string query = @"
             SELECT
@@ -578,7 +581,7 @@ namespace Projekt_feladat.Formok
         private List<Tuple<string, int>> utazasiModLekerdezes()
         {
             List<Tuple<string, int>> data = new List<Tuple<string, int>>();
-            string connectionString = "Server=127.0.0.1;Port=3306;Database=utazast_kezelo;Uid=root;Pwd=;";
+            string connectionString = kapcsolatString;
 
             string query = @"SELECT utazas.utazas_modja, COUNT(*) AS darabszam
                             FROM utazas
@@ -1027,8 +1030,11 @@ namespace Projekt_feladat.Formok
             );
 
             szpn_utazasokSzama.Location = new Point((this.ClientRectangle.Width / 2) + szpn_utazasokSzama.Width ,  geoMap.Height -50);
-            
-       
+            flp_egyebStatisztika.ColumnStyles.Clear();
+            for (int i = 0; i < 3; i++)
+                flp_egyebStatisztika.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+
+
         }
 
         private int utasokSzama()
@@ -1130,12 +1136,12 @@ namespace Projekt_feladat.Formok
                 Text = "Legkeresettebb desztinációk",
                 Font = new Font("Segoe UI", 12, FontStyle.Regular),
                 TextAlign = ContentAlignment.MiddleCenter,
-                //  AutoSize = true,
+                  AutoSize = true,
                 Height = 30,
-                //Dock = DockStyle.Top,
-                Location = new Point(1, 1),
+                Dock = DockStyle.Top,
+             
                 ForeColor = Color.Black,
-                AutoSize = true,
+          
                 BackColor = Color.Transparent
             };
 
@@ -1189,6 +1195,8 @@ namespace Projekt_feladat.Formok
                 Series = series,
                 IsClockwise = true,
                 InitialRotation = 0,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(20),
                 LegendPosition = LiveChartsCore.Measure.LegendPosition.Right,
               Size = new Size(350,300),
               
@@ -1196,13 +1204,14 @@ namespace Projekt_feladat.Formok
             };
             Panel diagramKeret = new Panel
             {
-                Width = 360,
-                Height = 400,
+                
+                Dock = DockStyle.Fill,
                 Margin = new Padding(1),
                 BackColor = Color.WhiteSmoke
             };
-            diagramKeret.Controls.Add(pieChart);
             diagramKeret.Controls.Add(desztinacioCimke);
+            diagramKeret.Controls.Add(pieChart);
+           
             desztinacioCimke.BringToFront();
             flp_egyebStatisztika.Controls.Add(diagramKeret);   
 
