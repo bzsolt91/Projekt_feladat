@@ -25,7 +25,7 @@ namespace Projekt_feladat.Formok
 {
     public partial class Frm_Statisztika : Form
     {
-        string kapcsolat = "server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;";
+        string kapcsolatString = "server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;";
 
         private GeoMap geoMap;
         //private  PieChart pieChart;
@@ -42,7 +42,7 @@ namespace Projekt_feladat.Formok
         {
             // országokhoz tartozó utaslétszámok tárolására
             Dictionary<string, int> orszagUtasokSzama = new Dictionary<string, int>();
-            using var conn = new MySqlConnection(kapcsolat);
+            using var conn = new MySqlConnection(kapcsolatString);
             conn.Open();
             // Lekérdezzük a desztinációt és az utasok számát az utazásokból
             string sql = @"
@@ -116,7 +116,7 @@ namespace Projekt_feladat.Formok
             penzugyiTendencia();
             korCsoport();
             utazasiMod();
-
+            Topdesztinaciok();
             
         }
 
@@ -143,7 +143,7 @@ namespace Projekt_feladat.Formok
                 List<DateTime> honapok = new();       // X tengely (pl. 2025.03)
                 List<double> utasokSzama = new();   // Y tengely értékek
 
-                using var kapcsolatObj = new MySqlConnection(kapcsolat); // 'kapcsolat' a connection stringed
+                using var kapcsolatObj = new MySqlConnection(kapcsolatString); // 'kapcsolat' a connection stringed
                 kapcsolatObj.Open();
 
                 string lekerdezes = @"SELECT
@@ -157,7 +157,7 @@ namespace Projekt_feladat.Formok
              GROUP BY
                  utazas.utazas_ideje
              ORDER BY
-                 utazas.utazas_ideje DESC limit 15;";
+                 utazas.utazas_ideje DESC limit 10;";
 
              
 
@@ -243,7 +243,7 @@ namespace Projekt_feladat.Formok
                 List<ObservablePoint> dataPoints = new();
                 List<string> utazasLabels = new();
 
-                using var kapcsolatObj = new MySqlConnection(kapcsolat);
+                using var kapcsolatObj = new MySqlConnection(kapcsolatString);
                 kapcsolatObj.Open();
 
                 string lekerdezes = @"
@@ -255,7 +255,7 @@ namespace Projekt_feladat.Formok
             )
             GROUP BY u.utazas_id, u.utazas_elnevezese, u.utazas_ideje, u.desztinacio
             ORDER BY u.utazas_ideje DESC
-            LIMIT 15;
+            LIMIT 10;
         ";
 
                 using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
@@ -337,7 +337,6 @@ namespace Projekt_feladat.Formok
             }
         }
 
-
         public void korCsoport()
         {
             var ageGroupRawData = korcsoportLekerdezese();
@@ -385,7 +384,7 @@ namespace Projekt_feladat.Formok
                 gaugeItems.Add(new GaugeItem(percentage, setStyleAction));
             }
 
-            // Címke hozzáadása először
+        
             Label korCimke = new Label
             {
                 Text = "Korcsoport Eloszlás (Utasok)",
@@ -424,9 +423,6 @@ namespace Projekt_feladat.Formok
             diagramKeret.Controls.Add(korCimke);
             flp_egyebStatisztika.Controls.Add(diagramKeret);
         }
-
-        
-
         private SKColor GetRandomColor()
         {
             Random random = new Random();
@@ -435,12 +431,9 @@ namespace Projekt_feladat.Formok
 
        public void utazasiMod()
 {
-    // Tisztítjuk a panelt, ha korábban volt benne valami
-  //  sznp_egyebStatisztika.Controls.Clear();
-   // sznp_egyebStatisztika.Padding = new Padding(10, 10, 10, 10);
 
-    // Lekérdezzük az utazási módokat és darabszámokat
-    var travelModeData = utazasiModLekerdezes(); // List<(string, int)> például: [("busz", 12), ("repülő", 7)]
+
+    var travelModeData = utazasiModLekerdezes(); 
 
     if (travelModeData == null || travelModeData.Count == 0)
     {
@@ -468,7 +461,7 @@ namespace Projekt_feladat.Formok
                 BackColor = Color.Transparent
             };
 
-            // PieChart sorozatok összeállítása
+        
             List<ISeries> seriesCollection = new();
     int outerOffset = 0;
     Random random = new();
@@ -496,7 +489,7 @@ namespace Projekt_feladat.Formok
                 var modeName = point.Context.Series.Name;
                 var pv = point.Coordinate.PrimaryValue;
                 var sv = point.StackedValue!;
-                return $"{modeName}: {pv} fő ({sv.Share:P2})";
+                return $" {pv} fő ({sv.Share:P2})";
             },
             Fill = new SolidColorPaint(GetRandomColor())
         };
@@ -513,10 +506,11 @@ namespace Projekt_feladat.Formok
         Dock = DockStyle.Left,
         Location = new Point(10, utazasModCimke.Bottom + 5),
         BackColor = Color.WhiteSmoke,
+      
         Size = new Size(250, 250)
     };
 
-    // Címke létrehozása
+
  
             Panel diagramKeret = new Panel
             {
@@ -526,16 +520,9 @@ namespace Projekt_feladat.Formok
                 BackColor = Color.WhiteSmoke
             };
             diagramKeret.Controls.Add(utazasModCimke);
-            diagramKeret.Controls.Add(utazasimodDiagram);
-            
-            flp_egyebStatisztika.Controls.Add(diagramKeret);
-
-           
-   
+            diagramKeret.Controls.Add(utazasimodDiagram);           
+            flp_egyebStatisztika.Controls.Add(diagramKeret);   
 }
-
-
-
         private List<Tuple<string, int>> korcsoportLekerdezese()
         {
             List<Tuple<string, int>> data = new List<Tuple<string, int>>();
@@ -591,7 +578,7 @@ namespace Projekt_feladat.Formok
         private List<Tuple<string, int>> utazasiModLekerdezes()
         {
             List<Tuple<string, int>> data = new List<Tuple<string, int>>();
-            string connectionString = "Server=127.0.0.1;Port=3306;Database=utazast_kezelo;Uid=root;Pwd=;"; // FIGYELEM!
+            string connectionString = "Server=127.0.0.1;Port=3306;Database=utazast_kezelo;Uid=root;Pwd=;";
 
             string query = @"SELECT utazas.utazas_modja, COUNT(*) AS darabszam
                             FROM utazas
@@ -1009,10 +996,7 @@ namespace Projekt_feladat.Formok
         }
         private void ablakUjraRendezes()
         {
-         ///   pnl_geopanel.Size = new Size(this.ClientRectangle.Width - 10, 300);
-            ///szp_tendencia.Size = new Size(this.ClientRectangle.Width - 10, 300);
-
-            // GeoMap igazítása
+         
             if (geoMap == null) return;
 
             int geoMapX;
@@ -1044,7 +1028,7 @@ namespace Projekt_feladat.Formok
 
             szpn_utazasokSzama.Location = new Point((this.ClientRectangle.Width / 2) + szpn_utazasokSzama.Width ,  geoMap.Height -50);
             
-          //  szpl_utasokSzama.Location = new Point(10, geoMapY + 10);
+       
         }
 
         private int utasokSzama()
@@ -1053,12 +1037,10 @@ namespace Projekt_feladat.Formok
 
             try
             {
-                using var kapcsolatObj = new MySqlConnection(kapcsolat); // "kapcsolat" = connection stringed
+                using var kapcsolatObj = new MySqlConnection(kapcsolatString); // "kapcsolat" = connection stringed
                 kapcsolatObj.Open();
 
-                string lekerdezes = @"
-        SELECT COUNT( utas.utas_id) AS utasok_szama FROM utas;
-    ";
+                string lekerdezes = @"SELECT COUNT( utas.utas_id) AS utasok_szama FROM utas;";
 
                 using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
                 object eredmeny = parancs.ExecuteScalar();
@@ -1082,7 +1064,7 @@ namespace Projekt_feladat.Formok
 
             try
             {
-                using var kapcsolatObj = new MySqlConnection(kapcsolat); // "kapcsolat" = connection stringed
+                using var kapcsolatObj = new MySqlConnection(kapcsolatString); // "kapcsolat" = connection stringed
                 kapcsolatObj.Open();
 
                 string lekerdezes = @"
@@ -1111,7 +1093,7 @@ namespace Projekt_feladat.Formok
 
             try
             {
-                using var kapcsolatObj = new MySqlConnection(kapcsolat); // "kapcsolat" = connection stringed
+                using var kapcsolatObj = new MySqlConnection(kapcsolatString ); // "kapcsolat" = connection stringed
                 kapcsolatObj.Open();
 
                 string lekerdezes = @"SELECT 
@@ -1136,6 +1118,95 @@ namespace Projekt_feladat.Formok
 
             return utazasokSzama;
 
+        }
+
+        public void Topdesztinaciok()
+        {
+            var lista = new List<(string desztinacio, int utasokSzama)>();
+
+
+            Label desztinacioCimke = new Label
+            {
+                Text = "Legkeresettebb desztinációk",
+                Font = new Font("Segoe UI", 12, FontStyle.Regular),
+                TextAlign = ContentAlignment.MiddleCenter,
+                //  AutoSize = true,
+                Height = 30,
+                //Dock = DockStyle.Top,
+                Location = new Point(1, 1),
+                ForeColor = Color.Black,
+                AutoSize = true,
+                BackColor = Color.Transparent
+            };
+
+            // --- Lekérdezés az adatbázisból ---
+            using (var kapcsolat = new MySqlConnection(kapcsolatString))
+            {
+                kapcsolat.Open();
+                var parancs = new MySqlCommand(@"
+            SELECT u.desztinacio, COUNT(uu.utas_id) AS utasszam
+            FROM utazas u
+            LEFT JOIN utas_utazasai uu ON u.utazas_id = uu.utazas_id
+            GROUP BY u.desztinacio
+            ORDER BY utasszam DESC
+            LIMIT 8;
+        ", kapcsolat);
+
+                using var reader = parancs.ExecuteReader();
+                while (reader.Read())
+                {
+                    lista.Add((
+                        reader.GetString("desztinacio"),
+                        reader.GetInt32("utasszam")
+                    ));
+                }
+            }
+
+            // --- PieSeries generálása ---
+            var series = new List<ISeries>();
+            foreach (var (desztinacio, utasszam) in lista)
+            {
+                series.Add(new PieSeries<int>
+                {
+                    Values = new[] { utasszam },
+                    Name = desztinacio,
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.End,
+                    DataLabelsSize = 0,
+           
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Red),
+
+
+                    DataLabelsFormatter = point => "",
+
+
+                    ToolTipLabelFormatter = point => $"{point.StackedValue!.Share:P0}"
+                });
+            }
+
+            // --- PieChart létrehozása ---
+            var pieChart = new PieChart
+            {
+                Series = series,
+                IsClockwise = true,
+                InitialRotation = 0,
+                LegendPosition = LiveChartsCore.Measure.LegendPosition.Right,
+              Size = new Size(350,300),
+              
+                BackColor = System.Drawing.Color.WhiteSmoke
+            };
+            Panel diagramKeret = new Panel
+            {
+                Width = 360,
+                Height = 400,
+                Margin = new Padding(1),
+                BackColor = Color.WhiteSmoke
+            };
+            diagramKeret.Controls.Add(pieChart);
+            diagramKeret.Controls.Add(desztinacioCimke);
+            desztinacioCimke.BringToFront();
+            flp_egyebStatisztika.Controls.Add(diagramKeret);   
+
+          
         }
 
         private void flp_rendezoPanel_Resize(object sender, EventArgs e)

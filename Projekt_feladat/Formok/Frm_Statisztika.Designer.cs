@@ -140,7 +140,7 @@
             szp_tendencia.KeretSzin = Color.Black;
             szp_tendencia.KeretVastagsag = 0F;
             szp_tendencia.Location = new Point(35, 245);
-            szp_tendencia.Margin = new Padding(35, 20, 35, 2);
+            szp_tendencia.Margin = new Padding(35, 20, 35, 30);
             szp_tendencia.Name = "szp_tendencia";
             szp_tendencia.Padding = new Padding(9, 8, 9, 8);
             szp_tendencia.SarkokLekerekitese = 40;
@@ -186,8 +186,8 @@
             szpn_penzugyiJelentes.ForeColor = Color.Black;
             szpn_penzugyiJelentes.KeretSzin = Color.Black;
             szpn_penzugyiJelentes.KeretVastagsag = 0F;
-            szpn_penzugyiJelentes.Location = new Point(35, 515);
-            szpn_penzugyiJelentes.Margin = new Padding(35, 20, 35, 2);
+            szpn_penzugyiJelentes.Location = new Point(35, 543);
+            szpn_penzugyiJelentes.Margin = new Padding(35, 20, 35, 20);
             szpn_penzugyiJelentes.Name = "szpn_penzugyiJelentes";
             szpn_penzugyiJelentes.Padding = new Padding(30, 30, 30, 65);
             szpn_penzugyiJelentes.SarkokLekerekitese = 40;
@@ -205,8 +205,8 @@
             sznp_egyebStatisztika.ForeColor = Color.Black;
             sznp_egyebStatisztika.KeretSzin = Color.Black;
             sznp_egyebStatisztika.KeretVastagsag = 0F;
-            sznp_egyebStatisztika.Location = new Point(35, 947);
-            sznp_egyebStatisztika.Margin = new Padding(35, 30, 35, 2);
+            sznp_egyebStatisztika.Location = new Point(35, 993);
+            sznp_egyebStatisztika.Margin = new Padding(35, 30, 35, 60);
             sznp_egyebStatisztika.Name = "sznp_egyebStatisztika";
             sznp_egyebStatisztika.Padding = new Padding(15);
             sznp_egyebStatisztika.SarkokLekerekitese = 40;
