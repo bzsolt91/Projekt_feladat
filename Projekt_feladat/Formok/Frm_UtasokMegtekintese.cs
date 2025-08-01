@@ -32,8 +32,8 @@ namespace Projekt_feladat.Formok
          
             nud_oldalValaszto.Minimum = 1;
             nud_oldalValaszto.Value = aktualisOldal;
-            
-
+            lst_talalatok.DrawMode = DrawMode.OwnerDrawFixed;
+     
             szpn_szuroPanel.Controls.Add(lst_talalatok);
             lst_talalatok.Visible = false;
             lst_talalatok.DrawMode = DrawMode.OwnerDrawFixed;
@@ -100,7 +100,8 @@ namespace Projekt_feladat.Formok
 
             var listBox = sender as ListBox;
             var item = listBox.Items[e.Index].ToString();
-
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // Kiválasztott elem
             bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 

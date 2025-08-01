@@ -104,9 +104,10 @@ namespace Projekt_feladat
             pnl_bejelentkezes.Controls.Add(kg_belepes);
             pnl_bejelentkezes.Controls.Add(kszm_jelszo);
             pnl_bejelentkezes.Controls.Add(kszm_felhasznalo);
-            pnl_bejelentkezes.Location = new Point(56, 61);
+            pnl_bejelentkezes.Location = new Point(63, 64);
+            pnl_bejelentkezes.Margin = new Padding(4, 3, 4, 3);
             pnl_bejelentkezes.Name = "pnl_bejelentkezes";
-            pnl_bejelentkezes.Size = new Size(463, 390);
+            pnl_bejelentkezes.Size = new Size(521, 409);
             pnl_bejelentkezes.TabIndex = 0;
             // 
             // label3
@@ -114,9 +115,10 @@ namespace Projekt_feladat
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.BackColor = Color.FromArgb(209, 213, 219);
             label3.ForeColor = Color.FromArgb(209, 213, 219);
-            label3.Location = new Point(39, 66);
+            label3.Location = new Point(44, 70);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(385, 1);
+            label3.Size = new Size(433, 1);
             label3.TabIndex = 8;
             // 
             // kszm_regisztralas
@@ -130,11 +132,12 @@ namespace Projekt_feladat
             kszm_regisztralas.HatterSzine = Color.MediumSlateBlue;
             kszm_regisztralas.KeretMeret = 0;
             kszm_regisztralas.KeretSzine = Color.PaleVioletRed;
-            kszm_regisztralas.Location = new Point(240, 314);
+            kszm_regisztralas.Location = new Point(270, 330);
+            kszm_regisztralas.Margin = new Padding(4, 3, 4, 3);
             kszm_regisztralas.Name = "kszm_regisztralas";
             kszm_regisztralas.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kszm_regisztralas.SarokSugar = 8;
-            kszm_regisztralas.Size = new Size(188, 50);
+            kszm_regisztralas.Size = new Size(211, 53);
             kszm_regisztralas.SzovegSzine = Color.White;
             kszm_regisztralas.TabIndex = 6;
             kszm_regisztralas.Text = "Regisztráció";
@@ -144,19 +147,21 @@ namespace Projekt_feladat
             // 
             kg_bejelentkezvemarad.AktualisAllas = KapcsoloGomb.KapcsoloAllas.Ki;
             kg_bejelentkezvemarad.KetAllasuModAktiv = true;
-            kg_bejelentkezvemarad.Location = new Point(295, 242);
-            kg_bejelentkezvemarad.MinimumSize = new Size(70, 22);
+            kg_bejelentkezvemarad.Location = new Point(332, 255);
+            kg_bejelentkezvemarad.Margin = new Padding(4, 3, 4, 3);
+            kg_bejelentkezvemarad.MinimumSize = new Size(78, 22);
             kg_bejelentkezvemarad.Name = "kg_bejelentkezvemarad";
-            kg_bejelentkezvemarad.Size = new Size(87, 36);
+            kg_bejelentkezvemarad.Size = new Size(98, 38);
             kg_bejelentkezvemarad.TabIndex = 5;
             // 
             // lbl_bejelentkezvemarad
             // 
             lbl_bejelentkezvemarad.AutoSize = true;
             lbl_bejelentkezvemarad.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lbl_bejelentkezvemarad.Location = new Point(70, 242);
+            lbl_bejelentkezvemarad.Location = new Point(78, 255);
+            lbl_bejelentkezvemarad.Margin = new Padding(4, 0, 4, 0);
             lbl_bejelentkezvemarad.Name = "lbl_bejelentkezvemarad";
-            lbl_bejelentkezvemarad.Size = new Size(191, 28);
+            lbl_bejelentkezvemarad.Size = new Size(204, 30);
             lbl_bejelentkezvemarad.TabIndex = 4;
             lbl_bejelentkezvemarad.Text = "Bejelentkezve marad";
             // 
@@ -164,9 +169,10 @@ namespace Projekt_feladat
             // 
             lbl_belepes.AutoSize = true;
             lbl_belepes.Font = new Font("Segoe UI", 12F);
-            lbl_belepes.Location = new Point(123, 20);
+            lbl_belepes.Location = new Point(139, 21);
+            lbl_belepes.Margin = new Padding(4, 0, 4, 0);
             lbl_belepes.Name = "lbl_belepes";
-            lbl_belepes.Size = new Size(212, 28);
+            lbl_belepes.Size = new Size(228, 30);
             lbl_belepes.TabIndex = 3;
             lbl_belepes.Text = "Belépés az adatbázisba";
             // 
@@ -181,11 +187,12 @@ namespace Projekt_feladat
             kg_belepes.HatterSzine = Color.MediumSlateBlue;
             kg_belepes.KeretMeret = 0;
             kg_belepes.KeretSzine = Color.PaleVioletRed;
-            kg_belepes.Location = new Point(37, 314);
+            kg_belepes.Location = new Point(41, 330);
+            kg_belepes.Margin = new Padding(4, 3, 4, 3);
             kg_belepes.Name = "kg_belepes";
             kg_belepes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_belepes.SarokSugar = 8;
-            kg_belepes.Size = new Size(188, 50);
+            kg_belepes.Size = new Size(211, 53);
             kg_belepes.SzovegSzine = Color.White;
             kg_belepes.TabIndex = 2;
             kg_belepes.Text = "Belépés";
@@ -205,11 +212,11 @@ namespace Projekt_feladat
             kszm_jelszo.KeretMeret = 2;
             kszm_jelszo.KeretSugar = 8;
             kszm_jelszo.KeretSzin = Color.MediumSlateBlue;
-            kszm_jelszo.Location = new Point(70, 169);
-            kszm_jelszo.Margin = new Padding(4);
+            kszm_jelszo.Location = new Point(78, 178);
+            kszm_jelszo.Margin = new Padding(5, 4, 5, 4);
             kszm_jelszo.Name = "kszm_jelszo";
-            kszm_jelszo.Padding = new Padding(10, 7, 10, 7);
-            kszm_jelszo.Size = new Size(312, 40);
+            kszm_jelszo.Padding = new Padding(12, 7, 12, 7);
+            kszm_jelszo.Size = new Size(351, 40);
             kszm_jelszo.TabIndex = 1;
             kszm_jelszo.Texts = "";
             kszm_jelszo.TobbSor = false;
@@ -227,11 +234,11 @@ namespace Projekt_feladat
             kszm_felhasznalo.KeretMeret = 2;
             kszm_felhasznalo.KeretSugar = 8;
             kszm_felhasznalo.KeretSzin = Color.MediumSlateBlue;
-            kszm_felhasznalo.Location = new Point(70, 84);
-            kszm_felhasznalo.Margin = new Padding(4);
+            kszm_felhasznalo.Location = new Point(78, 88);
+            kszm_felhasznalo.Margin = new Padding(5, 4, 5, 4);
             kszm_felhasznalo.Name = "kszm_felhasznalo";
-            kszm_felhasznalo.Padding = new Padding(10, 7, 10, 7);
-            kszm_felhasznalo.Size = new Size(312, 40);
+            kszm_felhasznalo.Padding = new Padding(12, 7, 12, 7);
+            kszm_felhasznalo.Size = new Size(351, 40);
             kszm_felhasznalo.TabIndex = 0;
             kszm_felhasznalo.Texts = "";
             kszm_felhasznalo.TobbSor = false;
@@ -251,9 +258,10 @@ namespace Projekt_feladat
             pnl_bejelentkezve.Controls.Add(lbl_nev);
             pnl_bejelentkezve.Controls.Add(lbl_bejelentkezve);
             pnl_bejelentkezve.Controls.Add(kg_kilepes);
-            pnl_bejelentkezve.Location = new Point(525, 61);
+            pnl_bejelentkezve.Location = new Point(590, 64);
+            pnl_bejelentkezve.Margin = new Padding(4, 3, 4, 3);
             pnl_bejelentkezve.Name = "pnl_bejelentkezve";
-            pnl_bejelentkezve.Size = new Size(463, 390);
+            pnl_bejelentkezve.Size = new Size(521, 409);
             pnl_bejelentkezve.TabIndex = 1;
             pnl_bejelentkezve.Visible = false;
             // 
@@ -262,9 +270,10 @@ namespace Projekt_feladat
             lbl_hozzaferes.AutoSize = true;
             lbl_hozzaferes.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
             lbl_hozzaferes.ForeColor = Color.FromArgb(55, 65, 81);
-            lbl_hozzaferes.Location = new Point(91, 201);
+            lbl_hozzaferes.Location = new Point(103, 211);
+            lbl_hozzaferes.Margin = new Padding(4, 0, 4, 0);
             lbl_hozzaferes.Name = "lbl_hozzaferes";
-            lbl_hozzaferes.Size = new Size(0, 23);
+            lbl_hozzaferes.Size = new Size(0, 25);
             lbl_hozzaferes.TabIndex = 8;
             // 
             // lbl_diszcsik
@@ -272,18 +281,20 @@ namespace Projekt_feladat
             lbl_diszcsik.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lbl_diszcsik.BackColor = Color.FromArgb(209, 213, 219);
             lbl_diszcsik.ForeColor = Color.FromArgb(209, 213, 219);
-            lbl_diszcsik.Location = new Point(41, 67);
+            lbl_diszcsik.Location = new Point(46, 70);
+            lbl_diszcsik.Margin = new Padding(4, 0, 4, 0);
             lbl_diszcsik.Name = "lbl_diszcsik";
-            lbl_diszcsik.Size = new Size(385, 1);
+            lbl_diszcsik.Size = new Size(433, 1);
             lbl_diszcsik.TabIndex = 7;
             // 
             // lbl_pkeszenall
             // 
             lbl_pkeszenall.AutoSize = true;
             lbl_pkeszenall.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lbl_pkeszenall.Location = new Point(88, 255);
+            lbl_pkeszenall.Location = new Point(99, 267);
+            lbl_pkeszenall.Margin = new Padding(4, 0, 4, 0);
             lbl_pkeszenall.Name = "lbl_pkeszenall";
-            lbl_pkeszenall.Size = new Size(290, 25);
+            lbl_pkeszenall.Size = new Size(310, 25);
             lbl_pkeszenall.TabIndex = 6;
             lbl_pkeszenall.Text = "A program készen áll a használatra.";
             // 
@@ -291,9 +302,10 @@ namespace Projekt_feladat
             // 
             lbl_udvozlet.AutoSize = true;
             lbl_udvozlet.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lbl_udvozlet.Location = new Point(168, 96);
+            lbl_udvozlet.Location = new Point(189, 101);
+            lbl_udvozlet.Margin = new Padding(4, 0, 4, 0);
             lbl_udvozlet.Name = "lbl_udvozlet";
-            lbl_udvozlet.Size = new Size(0, 28);
+            lbl_udvozlet.Size = new Size(0, 30);
             lbl_udvozlet.TabIndex = 5;
             // 
             // lbl_nev
@@ -301,9 +313,10 @@ namespace Projekt_feladat
             lbl_nev.AutoSize = true;
             lbl_nev.Font = new Font("Segoe UI", 14F);
             lbl_nev.ForeColor = Color.DarkViolet;
-            lbl_nev.Location = new Point(196, 135);
+            lbl_nev.Location = new Point(221, 141);
+            lbl_nev.Margin = new Padding(4, 0, 4, 0);
             lbl_nev.Name = "lbl_nev";
-            lbl_nev.Size = new Size(53, 32);
+            lbl_nev.Size = new Size(54, 35);
             lbl_nev.TabIndex = 4;
             lbl_nev.Text = "nev";
             // 
@@ -311,9 +324,10 @@ namespace Projekt_feladat
             // 
             lbl_bejelentkezve.AutoSize = true;
             lbl_bejelentkezve.Font = new Font("Segoe UI", 12F);
-            lbl_bejelentkezve.Location = new Point(123, 20);
+            lbl_bejelentkezve.Location = new Point(139, 21);
+            lbl_bejelentkezve.Margin = new Padding(4, 0, 4, 0);
             lbl_bejelentkezve.Name = "lbl_bejelentkezve";
-            lbl_bejelentkezve.Size = new Size(214, 28);
+            lbl_bejelentkezve.Size = new Size(229, 30);
             lbl_bejelentkezve.TabIndex = 3;
             lbl_bejelentkezve.Text = "Belépve az adatbázisba";
             // 
@@ -328,11 +342,12 @@ namespace Projekt_feladat
             kg_kilepes.HatterSzine = Color.MediumSlateBlue;
             kg_kilepes.KeretMeret = 0;
             kg_kilepes.KeretSzine = Color.PaleVioletRed;
-            kg_kilepes.Location = new Point(133, 302);
+            kg_kilepes.Location = new Point(149, 316);
+            kg_kilepes.Margin = new Padding(4, 3, 4, 3);
             kg_kilepes.Name = "kg_kilepes";
             kg_kilepes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_kilepes.SarokSugar = 8;
-            kg_kilepes.Size = new Size(188, 50);
+            kg_kilepes.Size = new Size(211, 53);
             kg_kilepes.SzovegSzine = Color.White;
             kg_kilepes.TabIndex = 2;
             kg_kilepes.Text = "Kilépés";
@@ -350,10 +365,10 @@ namespace Projekt_feladat
             pnl_fejlec.KeretSzin = Color.Black;
             pnl_fejlec.KeretVastagsag = 0F;
             pnl_fejlec.Location = new Point(0, 0);
-            pnl_fejlec.Margin = new Padding(3, 4, 3, 4);
+            pnl_fejlec.Margin = new Padding(4, 4, 4, 4);
             pnl_fejlec.Name = "pnl_fejlec";
             pnl_fejlec.SarkokLekerekitese = 0;
-            pnl_fejlec.Size = new Size(1403, 37);
+            pnl_fejlec.Size = new Size(1579, 39);
             pnl_fejlec.SzinatmenetAlsoSzine = Color.Silver;
             pnl_fejlec.SzinatmenetFelsoSzine = Color.DimGray;
             pnl_fejlec.SzinatmenetSzog = 100F;
@@ -373,12 +388,12 @@ namespace Projekt_feladat
             btn_minimalizalas.HatterSzine = Color.Transparent;
             btn_minimalizalas.KeretMeret = 0;
             btn_minimalizalas.KeretSzine = Color.PaleVioletRed;
-            btn_minimalizalas.Location = new Point(1212, 3);
-            btn_minimalizalas.Margin = new Padding(3, 4, 3, 4);
+            btn_minimalizalas.Location = new Point(1363, 3);
+            btn_minimalizalas.Margin = new Padding(4, 4, 4, 4);
             btn_minimalizalas.Name = "btn_minimalizalas";
             btn_minimalizalas.NyomottAllapotHatterSzine = Color.Yellow;
             btn_minimalizalas.SarokSugar = 0;
-            btn_minimalizalas.Size = new Size(61, 31);
+            btn_minimalizalas.Size = new Size(68, 32);
             btn_minimalizalas.SzovegSzine = Color.White;
             btn_minimalizalas.TabIndex = 3;
             btn_minimalizalas.Text = "➖";
@@ -396,12 +411,12 @@ namespace Projekt_feladat
             btn_ablakmeret_valto.HatterSzine = Color.Transparent;
             btn_ablakmeret_valto.KeretMeret = 0;
             btn_ablakmeret_valto.KeretSzine = Color.PaleVioletRed;
-            btn_ablakmeret_valto.Location = new Point(1275, 3);
-            btn_ablakmeret_valto.Margin = new Padding(3, 4, 3, 4);
+            btn_ablakmeret_valto.Location = new Point(1435, 3);
+            btn_ablakmeret_valto.Margin = new Padding(4, 4, 4, 4);
             btn_ablakmeret_valto.Name = "btn_ablakmeret_valto";
             btn_ablakmeret_valto.NyomottAllapotHatterSzine = Color.Aqua;
             btn_ablakmeret_valto.SarokSugar = 0;
-            btn_ablakmeret_valto.Size = new Size(61, 31);
+            btn_ablakmeret_valto.Size = new Size(68, 32);
             btn_ablakmeret_valto.SzovegSzine = Color.White;
             btn_ablakmeret_valto.TabIndex = 2;
             btn_ablakmeret_valto.Text = "🔲";
@@ -419,12 +434,12 @@ namespace Projekt_feladat
             btn_kilepes.HatterSzine = Color.Transparent;
             btn_kilepes.KeretMeret = 0;
             btn_kilepes.KeretSzine = Color.PaleVioletRed;
-            btn_kilepes.Location = new Point(1335, 3);
-            btn_kilepes.Margin = new Padding(3, 4, 3, 4);
+            btn_kilepes.Location = new Point(1502, 3);
+            btn_kilepes.Margin = new Padding(4, 4, 4, 4);
             btn_kilepes.Name = "btn_kilepes";
             btn_kilepes.NyomottAllapotHatterSzine = Color.Red;
             btn_kilepes.SarokSugar = 0;
-            btn_kilepes.Size = new Size(61, 31);
+            btn_kilepes.Size = new Size(68, 32);
             btn_kilepes.SzovegSzine = Color.White;
             btn_kilepes.TabIndex = 1;
             btn_kilepes.Text = "❌";
@@ -438,10 +453,10 @@ namespace Projekt_feladat
             pnl_fopanel.Controls.Add(pnl_bejelentkezes);
             pnl_fopanel.Dock = DockStyle.Fill;
             pnl_fopanel.ForeColor = Color.Black;
-            pnl_fopanel.Location = new Point(277, 37);
-            pnl_fopanel.Margin = new Padding(3, 4, 3, 4);
+            pnl_fopanel.Location = new Point(311, 39);
+            pnl_fopanel.Margin = new Padding(4, 4, 4, 4);
             pnl_fopanel.Name = "pnl_fopanel";
-            pnl_fopanel.Size = new Size(1126, 698);
+            pnl_fopanel.Size = new Size(1268, 732);
             pnl_fopanel.TabIndex = 2;
             pnl_fopanel.ControlAdded += pnl_fopanel_ControlAdded;
             pnl_fopanel.ControlRemoved += pnl_fopanel_ControlRemoved;
@@ -453,18 +468,19 @@ namespace Projekt_feladat
             pnl_fomenu_disz.Controls.Add(lbl_disz);
             pnl_fomenu_disz.Dock = DockStyle.Top;
             pnl_fomenu_disz.Location = new Point(0, 0);
-            pnl_fomenu_disz.Margin = new Padding(3, 4, 3, 4);
+            pnl_fomenu_disz.Margin = new Padding(4, 4, 4, 4);
             pnl_fomenu_disz.Name = "pnl_fomenu_disz";
-            pnl_fomenu_disz.Size = new Size(256, 61);
+            pnl_fomenu_disz.Size = new Size(289, 64);
             pnl_fomenu_disz.TabIndex = 2;
             // 
             // lbl_utazas_kezelo
             // 
             lbl_utazas_kezelo.BackColor = Color.Transparent;
             lbl_utazas_kezelo.Font = new Font("Sans Serif Collection", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 150);
-            lbl_utazas_kezelo.Location = new Point(3, 4);
+            lbl_utazas_kezelo.Location = new Point(4, 4);
+            lbl_utazas_kezelo.Margin = new Padding(4, 0, 4, 0);
             lbl_utazas_kezelo.Name = "lbl_utazas_kezelo";
-            lbl_utazas_kezelo.Size = new Size(246, 40);
+            lbl_utazas_kezelo.Size = new Size(276, 42);
             lbl_utazas_kezelo.TabIndex = 4;
             lbl_utazas_kezelo.Text = "Utazást kezelő";
             lbl_utazas_kezelo.TextAlign = ContentAlignment.MiddleCenter;
@@ -475,9 +491,10 @@ namespace Projekt_feladat
             lbl_disz.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lbl_disz.BackColor = Color.FromArgb(209, 213, 219);
             lbl_disz.ForeColor = Color.FromArgb(209, 213, 219);
-            lbl_disz.Location = new Point(34, 53);
+            lbl_disz.Location = new Point(39, 56);
+            lbl_disz.Margin = new Padding(4, 0, 4, 0);
             lbl_disz.Name = "lbl_disz";
-            lbl_disz.Size = new Size(177, 1);
+            lbl_disz.Size = new Size(199, 1);
             lbl_disz.TabIndex = 0;
             // 
             // btn_utazasok
@@ -491,12 +508,12 @@ namespace Projekt_feladat
             btn_utazasok.HatterSzine = Color.FromArgb(243, 244, 246);
             btn_utazasok.KeretMeret = 0;
             btn_utazasok.KeretSzine = Color.PaleVioletRed;
-            btn_utazasok.Location = new Point(0, 61);
-            btn_utazasok.Margin = new Padding(3, 4, 3, 4);
+            btn_utazasok.Location = new Point(0, 64);
+            btn_utazasok.Margin = new Padding(4, 4, 4, 4);
             btn_utazasok.Name = "btn_utazasok";
             btn_utazasok.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utazasok.SarokSugar = 10;
-            btn_utazasok.Size = new Size(256, 67);
+            btn_utazasok.Size = new Size(289, 70);
             btn_utazasok.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasok.TabIndex = 3;
             btn_utazasok.Text = "✈️  Utazások";
@@ -516,13 +533,13 @@ namespace Projekt_feladat
             button6.HatterSzine = Color.FromArgb(243, 244, 246);
             button6.KeretMeret = 0;
             button6.KeretSzine = Color.PaleVioletRed;
-            button6.Location = new Point(0, 761);
-            button6.Margin = new Padding(3, 4, 3, 4);
-            button6.MaximumSize = new Size(73, 85);
+            button6.Location = new Point(0, 795);
+            button6.Margin = new Padding(4, 4, 4, 4);
+            button6.MaximumSize = new Size(82, 90);
             button6.Name = "button6";
             button6.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             button6.SarokSugar = 10;
-            button6.Size = new Size(73, 85);
+            button6.Size = new Size(82, 90);
             button6.SzovegSzine = Color.FromArgb(55, 65, 81);
             button6.TabIndex = 8;
             button6.Text = "🔔";
@@ -533,11 +550,11 @@ namespace Projekt_feladat
             lbl_disz2.BackColor = Color.FromArgb(209, 213, 219);
             lbl_disz2.Dock = DockStyle.Bottom;
             lbl_disz2.ForeColor = Color.FromArgb(209, 213, 219);
-            lbl_disz2.Location = new Point(0, 760);
-            lbl_disz2.Margin = new Padding(0, 67, 0, 0);
+            lbl_disz2.Location = new Point(0, 794);
+            lbl_disz2.Margin = new Padding(0, 70, 0, 0);
             lbl_disz2.Name = "lbl_disz2";
-            lbl_disz2.Padding = new Padding(0, 13, 0, 0);
-            lbl_disz2.Size = new Size(256, 1);
+            lbl_disz2.Padding = new Padding(0, 14, 0, 0);
+            lbl_disz2.Size = new Size(289, 1);
             lbl_disz2.TabIndex = 9;
             // 
             // button1
@@ -551,12 +568,12 @@ namespace Projekt_feladat
             button1.HatterSzine = Color.FromArgb(243, 244, 246);
             button1.KeretMeret = 0;
             button1.KeretSzine = Color.PaleVioletRed;
-            button1.Location = new Point(0, 693);
-            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Location = new Point(0, 724);
+            button1.Margin = new Padding(4, 4, 4, 4);
             button1.Name = "button1";
             button1.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             button1.SarokSugar = 10;
-            button1.Size = new Size(256, 67);
+            button1.Size = new Size(289, 70);
             button1.SzovegSzine = Color.FromArgb(55, 65, 81);
             button1.TabIndex = 10;
             button1.Text = "⚙️ Beállítások";
@@ -581,10 +598,10 @@ namespace Projekt_feladat
             pnl_fomenu.Controls.Add(btn_utazasok);
             pnl_fomenu.Controls.Add(pnl_fomenu_disz);
             pnl_fomenu.Dock = DockStyle.Left;
-            pnl_fomenu.Location = new Point(0, 37);
-            pnl_fomenu.Margin = new Padding(3, 4, 3, 4);
+            pnl_fomenu.Location = new Point(0, 39);
+            pnl_fomenu.Margin = new Padding(4, 4, 4, 4);
             pnl_fomenu.Name = "pnl_fomenu";
-            pnl_fomenu.Size = new Size(277, 698);
+            pnl_fomenu.Size = new Size(311, 732);
             pnl_fomenu.TabIndex = 1;
             // 
             // kg_segitseg
@@ -598,12 +615,12 @@ namespace Projekt_feladat
             kg_segitseg.HatterSzine = Color.FromArgb(243, 244, 246);
             kg_segitseg.KeretMeret = 0;
             kg_segitseg.KeretSzine = Color.PaleVioletRed;
-            kg_segitseg.Location = new Point(0, 626);
-            kg_segitseg.Margin = new Padding(3, 4, 3, 4);
+            kg_segitseg.Location = new Point(0, 654);
+            kg_segitseg.Margin = new Padding(4, 4, 4, 4);
             kg_segitseg.Name = "kg_segitseg";
             kg_segitseg.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_segitseg.SarokSugar = 10;
-            kg_segitseg.Size = new Size(256, 67);
+            kg_segitseg.Size = new Size(289, 70);
             kg_segitseg.SzovegSzine = Color.FromArgb(55, 65, 81);
             kg_segitseg.TabIndex = 18;
             kg_segitseg.Text = "\U0001f9fe Útmutató";
@@ -621,12 +638,12 @@ namespace Projekt_feladat
             button5.HatterSzine = Color.FromArgb(243, 244, 246);
             button5.KeretMeret = 0;
             button5.KeretSzine = Color.PaleVioletRed;
-            button5.Location = new Point(0, 559);
-            button5.Margin = new Padding(3, 4, 3, 4);
+            button5.Location = new Point(0, 584);
+            button5.Margin = new Padding(4, 4, 4, 4);
             button5.Name = "button5";
             button5.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             button5.SarokSugar = 10;
-            button5.Size = new Size(256, 67);
+            button5.Size = new Size(289, 70);
             button5.SzovegSzine = Color.FromArgb(55, 65, 81);
             button5.TabIndex = 17;
             button5.Text = "📝 Előfoglalások";
@@ -644,12 +661,12 @@ namespace Projekt_feladat
             button4.HatterSzine = Color.FromArgb(243, 244, 246);
             button4.KeretMeret = 0;
             button4.KeretSzine = Color.PaleVioletRed;
-            button4.Location = new Point(0, 492);
-            button4.Margin = new Padding(3, 4, 3, 4);
+            button4.Location = new Point(0, 514);
+            button4.Margin = new Padding(4, 4, 4, 4);
             button4.Name = "button4";
             button4.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             button4.SarokSugar = 10;
-            button4.Size = new Size(256, 67);
+            button4.Size = new Size(289, 70);
             button4.SzovegSzine = Color.FromArgb(55, 65, 81);
             button4.TabIndex = 16;
             button4.Text = "💾 Biztonsági mentés";
@@ -667,12 +684,12 @@ namespace Projekt_feladat
             btn_statisztika.HatterSzine = Color.FromArgb(243, 244, 246);
             btn_statisztika.KeretMeret = 0;
             btn_statisztika.KeretSzine = Color.PaleVioletRed;
-            btn_statisztika.Location = new Point(0, 425);
-            btn_statisztika.Margin = new Padding(3, 4, 3, 4);
+            btn_statisztika.Location = new Point(0, 444);
+            btn_statisztika.Margin = new Padding(4, 4, 4, 4);
             btn_statisztika.Name = "btn_statisztika";
             btn_statisztika.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_statisztika.SarokSugar = 10;
-            btn_statisztika.Size = new Size(256, 67);
+            btn_statisztika.Size = new Size(289, 70);
             btn_statisztika.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_statisztika.TabIndex = 15;
             btn_statisztika.Text = "📈 Statisztika";
@@ -686,10 +703,10 @@ namespace Projekt_feladat
             pnl_UtasokAlmenu.Controls.Add(btn_utasokHozzadasa);
             pnl_UtasokAlmenu.Controls.Add(btn_utasokMegtekintese);
             pnl_UtasokAlmenu.Dock = DockStyle.Top;
-            pnl_UtasokAlmenu.Location = new Point(0, 310);
-            pnl_UtasokAlmenu.Margin = new Padding(3, 4, 3, 4);
+            pnl_UtasokAlmenu.Location = new Point(0, 324);
+            pnl_UtasokAlmenu.Margin = new Padding(4, 4, 4, 4);
             pnl_UtasokAlmenu.Name = "pnl_UtasokAlmenu";
-            pnl_UtasokAlmenu.Size = new Size(256, 115);
+            pnl_UtasokAlmenu.Size = new Size(289, 120);
             pnl_UtasokAlmenu.TabIndex = 12;
             // 
             // btn_utasokHozzadasa
@@ -703,12 +720,12 @@ namespace Projekt_feladat
             btn_utasokHozzadasa.HatterSzine = Color.FromArgb(209, 213, 219);
             btn_utasokHozzadasa.KeretMeret = 0;
             btn_utasokHozzadasa.KeretSzine = Color.PaleVioletRed;
-            btn_utasokHozzadasa.Location = new Point(0, 53);
-            btn_utasokHozzadasa.Margin = new Padding(3, 4, 3, 4);
+            btn_utasokHozzadasa.Location = new Point(0, 56);
+            btn_utasokHozzadasa.Margin = new Padding(0);
             btn_utasokHozzadasa.Name = "btn_utasokHozzadasa";
             btn_utasokHozzadasa.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utasokHozzadasa.SarokSugar = 10;
-            btn_utasokHozzadasa.Size = new Size(256, 53);
+            btn_utasokHozzadasa.Size = new Size(289, 56);
             btn_utasokHozzadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasokHozzadasa.TabIndex = 2;
             btn_utasokHozzadasa.Text = "🖆 Hozzáadás";
@@ -732,7 +749,7 @@ namespace Projekt_feladat
             btn_utasokMegtekintese.Name = "btn_utasokMegtekintese";
             btn_utasokMegtekintese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utasokMegtekintese.SarokSugar = 10;
-            btn_utasokMegtekintese.Size = new Size(256, 53);
+            btn_utasokMegtekintese.Size = new Size(289, 56);
             btn_utasokMegtekintese.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasokMegtekintese.TabIndex = 0;
             btn_utasokMegtekintese.Text = "📖 Megtekintés";
@@ -752,12 +769,12 @@ namespace Projekt_feladat
             btn_utasok.ImageAlign = ContentAlignment.MiddleLeft;
             btn_utasok.KeretMeret = 0;
             btn_utasok.KeretSzine = Color.PaleVioletRed;
-            btn_utasok.Location = new Point(0, 243);
-            btn_utasok.Margin = new Padding(3, 4, 3, 4);
+            btn_utasok.Location = new Point(0, 254);
+            btn_utasok.Margin = new Padding(4, 4, 4, 4);
             btn_utasok.Name = "btn_utasok";
             btn_utasok.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utasok.SarokSugar = 10;
-            btn_utasok.Size = new Size(256, 67);
+            btn_utasok.Size = new Size(289, 70);
             btn_utasok.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasok.TabIndex = 11;
             btn_utasok.Text = "👩‍👩‍👦 Utasok";
@@ -771,10 +788,10 @@ namespace Projekt_feladat
             pnl_UtazasokAlmenu.Controls.Add(btn_utazasokHozzaadasa);
             pnl_UtazasokAlmenu.Controls.Add(btn_utazasokmegtekintese);
             pnl_UtazasokAlmenu.Dock = DockStyle.Top;
-            pnl_UtazasokAlmenu.Location = new Point(0, 128);
-            pnl_UtazasokAlmenu.Margin = new Padding(3, 4, 3, 4);
+            pnl_UtazasokAlmenu.Location = new Point(0, 134);
+            pnl_UtazasokAlmenu.Margin = new Padding(4, 4, 4, 4);
             pnl_UtazasokAlmenu.Name = "pnl_UtazasokAlmenu";
-            pnl_UtazasokAlmenu.Size = new Size(256, 115);
+            pnl_UtazasokAlmenu.Size = new Size(289, 120);
             pnl_UtazasokAlmenu.TabIndex = 0;
             // 
             // btn_utazasokHozzaadasa
@@ -788,12 +805,12 @@ namespace Projekt_feladat
             btn_utazasokHozzaadasa.HatterSzine = Color.FromArgb(209, 213, 219);
             btn_utazasokHozzaadasa.KeretMeret = 0;
             btn_utazasokHozzaadasa.KeretSzine = Color.PaleVioletRed;
-            btn_utazasokHozzaadasa.Location = new Point(0, 53);
+            btn_utazasokHozzaadasa.Location = new Point(0, 56);
             btn_utazasokHozzaadasa.Margin = new Padding(0);
             btn_utazasokHozzaadasa.Name = "btn_utazasokHozzaadasa";
             btn_utazasokHozzaadasa.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utazasokHozzaadasa.SarokSugar = 10;
-            btn_utazasokHozzaadasa.Size = new Size(256, 53);
+            btn_utazasokHozzaadasa.Size = new Size(289, 56);
             btn_utazasokHozzaadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasokHozzaadasa.TabIndex = 1;
             btn_utazasokHozzaadasa.Text = "🖆 Szerkesztés";
@@ -817,7 +834,7 @@ namespace Projekt_feladat
             btn_utazasokmegtekintese.Name = "btn_utazasokmegtekintese";
             btn_utazasokmegtekintese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_utazasokmegtekintese.SarokSugar = 10;
-            btn_utazasokmegtekintese.Size = new Size(256, 53);
+            btn_utazasokmegtekintese.Size = new Size(289, 56);
             btn_utazasokmegtekintese.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasokmegtekintese.TabIndex = 0;
             btn_utazasokmegtekintese.Text = "📖 Megtekintés";
@@ -837,16 +854,16 @@ namespace Projekt_feladat
             // 
             // frm_foForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1403, 735);
+            ClientSize = new Size(1579, 771);
             ControlBox = false;
             Controls.Add(pnl_fopanel);
             Controls.Add(pnl_fomenu);
             Controls.Add(pnl_fejlec);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "frm_foForm";
             SizeGripStyle = SizeGripStyle.Hide;
             Text = "Utas kezelő";

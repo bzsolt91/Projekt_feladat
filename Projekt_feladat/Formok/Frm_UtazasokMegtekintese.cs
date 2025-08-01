@@ -94,6 +94,7 @@ namespace Projekt_feladat.Formok
                 egyeniTooltip = null;
             }
 
+
             base.OnFormClosing(e);
         }
         private void MeretezdCellakAlapjan(DataGridView dgv)
@@ -1159,7 +1160,8 @@ namespace Projekt_feladat.Formok
 
             var listBox = sender as ListBox;
             var item = listBox.Items[e.Index].ToString();
-
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // Kiválasztott elem
             bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 

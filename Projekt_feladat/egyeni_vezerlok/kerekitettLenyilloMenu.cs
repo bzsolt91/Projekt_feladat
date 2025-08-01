@@ -1,8 +1,10 @@
 ﻿using Projekt_feladat.Properties;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Label = System.Windows.Forms.Label;
 using Timer = System.Windows.Forms.Timer;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 /*
  * Modernebb dizájnt alkalmazó ComboBox vezérlő
@@ -32,13 +34,18 @@ namespace Projekt_feladat.egyeni_vezerlok
         public event EventHandler TimerStopped;
         private int celMagassag;
         private int animacioLepes = 10;
+        private bool nyilForgatva = false;
+        private ToolTip pnl_tooltip;
+
+        // Beállítjuk a toolTip szövegét a pnl_title panelhez
+
         /*kattintási eseménsy*/
         public class ElemKivalasztvaEventArgs : EventArgs
         {
             public string Ertek { get; }
             public int Index { get; }
             public object? Tag { get; } // opcionálisan használható extra adat
-
+            private Image eredetiNyil;
             public ElemKivalasztvaEventArgs(string ertek, int index, object? tag = null)
             {
                 Ertek = ertek;
@@ -87,6 +94,7 @@ namespace Projekt_feladat.egyeni_vezerlok
 
                 adat = value;
                 Invalidate();
+               
             }
         }
 
@@ -113,17 +121,21 @@ namespace Projekt_feladat.egyeni_vezerlok
                 this.VerticalScroll.Visible = true;
                 this.VerticalScroll.Enabled = true;
                 this.AutoScroll = true;
+               
             }
         }
 
 
         public string ComboText
         {
-            get => lb_text.Text;
+            get => pnl_title.Text;
             set
             {
-                lb_text.Text = value;
+                pnl_title.Text = value;
+            
                 Invalidate();
+                if (pnl_title.Text != null)
+                    pnl_tooltip.SetToolTip(pnl_title, value);
             }
         }
 
@@ -194,11 +206,11 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         public Color TitleLabelSzin
         {
-            get => lb_text.ForeColor;
+            get => pnl_title.ForeColor;
             set
             {
-                lb_text.ForeColor = value;
-                // lb_emojy.ForeColor = value;
+                pnl_title.ForeColor = value;
+            
 
                 Invalidate();
             }
@@ -224,6 +236,14 @@ namespace Projekt_feladat.egyeni_vezerlok
                 value = true;
             }
         }
+
+    
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+       
+        }
         private void Label_selected(object? sender, MouseEventArgs e)
         {
             Label label = (Label)sender;
@@ -238,9 +258,12 @@ namespace Projekt_feladat.egyeni_vezerlok
             label.ForeColor = Color.White;
             kivalasztottLabel = label;
 
-            lb_text.Text = label.Text;
+            pnl_title.Text = label.Text;
+
+            if (label.Text != null)
+                pnl_tooltip.SetToolTip(this.pnl_title, label.Text);
             i = 0;
-          //  int index = (int)label.Tag;
+            
 
             ElemKivalasztva?.Invoke(this,
                 new ElemKivalasztvaEventArgs(label.Text, 0));
@@ -327,7 +350,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             BackColor = Color.Transparent;
             CimPanelAlsoSzin = Color.White;
             CimPanelFelsoSzin = Color.White;
-            ComboText = "Text";
+            pnl_title.Text = "Text";
             ForeColor = Color.White;
            
             ItemPanelAlosSzin = Color.WhiteSmoke;
@@ -341,18 +364,17 @@ namespace Projekt_feladat.egyeni_vezerlok
             Radius = 30;
             Size = new Size(482, 68);
             TabIndex = 2;
-            TitleLabelSzin = Color.Gray;
-
+            pnl_title.ForeColor = Color.Gray;
+            pnl_tooltip = new ToolTip();
+            pnl_tooltip.OwnerDraw = true;
+            pnl_tooltip.Draw += EgyeniTooltip_Draw; // Feliratkozás a Draw eseményre
+            pnl_tooltip.Popup += EgyeniTooltip_Popup;
 
         }
 
 
 
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            this.Invalidate();
-        }
+   
         protected override void OnMove(EventArgs e)
         {
             base.OnMove(e);
@@ -365,48 +387,69 @@ namespace Projekt_feladat.egyeni_vezerlok
             {
                 animacioTimer.Stop();
                 TimerStopped?.Invoke(this, EventArgs.Empty);
-               
+            }
+
+            int keret = this.Padding.Top + this.Padding.Bottom;
+
+            if (!nyitva)
+            {
+                pnl_item.Visible = false;
+                this.Height = pnl_title.Height + keret;
             }
             else
-                pnl_item.Visible = false;
+            {
+                this.Height = pnl_title.Height + celMagassag + keret;
+            }
 
-
+            pnl_item.Height = this.Height - pnl_title.Height - keret;
         }
-
 
         private void AnimacioFrissitese(object? sender, EventArgs e)
         {
-            int kulonbseg = Math.Abs(celMagassag - Height);
-            int lepes = Math.Max(2, kulonbseg / 5);
+           
+            int keret = this.Padding.Top + this.Padding.Bottom;
+            int celTeljesMagassag = pnl_title.Height + celMagassag + keret;
+            int kulonbseg = Math.Abs(this.Height - celTeljesMagassag);
+            int lepes = Math.Max(2, kulonbseg / 2);
 
             if (nyitva)
             {
-                if (Height < celMagassag)
+                if (this.Height < celTeljesMagassag)
                 {
-                    Height = Math.Min(Height + lepes, celMagassag+4);
+                    this.Height = Math.Min(this.Height + lepes, celTeljesMagassag);
                 }
                 else
                 {
+                    this.Height = celTeljesMagassag;
                     StopTimer();
-                    kepforgatas(180);
+                    kepforgatas();
                 }
             }
             else
             {
-                if (Height > celMagassag)
+                int zartMagassag = pnl_title.Height + keret + 10;
+
+                if (this.Height > zartMagassag)
                 {
-                    Height = Math.Max(Height - lepes, celMagassag+4);
+                    this.Height = Math.Max(this.Height - lepes, zartMagassag);
                 }
                 else
                 {
+                    this.Height = zartMagassag;
+                    pnl_item.Visible = false;
                     StopTimer();
-                    kepforgatas(0);
-                    pnl_item.Visible = false; // 
+                    kepforgatas();
                 }
+              
             }
+
+            // Ez mindig frissíti a lenyíló rész magasságát pontosan
+            pnl_item.Height = this.Height - pnl_title.Height - keret;
 
             pnl_item.SarkokLekerekitese = 25;
         }
+
+
         private void AnimacioStop(object? sender, EventArgs e)
         {
 
@@ -416,28 +459,25 @@ namespace Projekt_feladat.egyeni_vezerlok
                 
             }
             }
-        private void kepforgatas(int fok)
+        private void kepforgatas()
         {
-            if (fok == 0)
+            if (nyilForgatva)
             {
-                // Lemásoljuk az eredeti képet
-                Image img = pcb_nyil.Image;
-                img.RotateFlip(RotateFlipType.Rotate180FlipX);
-
-                // Frissítjük a PictureBox képét
-                pcb_nyil.Image = img;
+                pcb_nyil.Image.RotateFlip(RotateFlipType.Rotate180FlipX);
+                nyilForgatva = false;
             }
             else
             {
-
-                Image img = pcb_nyil.Image;
-                img.RotateFlip(RotateFlipType.RotateNoneFlipY);
-
-
-                pcb_nyil.Image = img;
+                pcb_nyil.Image.RotateFlip(RotateFlipType.Rotate180FlipX);
+                nyilForgatva = true;
             }
 
+            pcb_nyil.Invalidate(); // biztos újrarajzolás
         }
+
+   
+
+  
         private class ClickOutsideMessageFilter : IMessageFilter //kezeli a félrekattintást aés záródik a combo list
         {
             private readonly Control targetControl;
@@ -462,6 +502,69 @@ namespace Projekt_feladat.egyeni_vezerlok
                 return false;
             }
         }
+        ///tooltip cuccai
+        ///
+        private void EgyeniTooltip_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            Font font = new Font("Segoe UI", 18);
+            using (LinearGradientBrush brush = new LinearGradientBrush(e.Bounds, Color.BlueViolet, Color.BlueViolet, 90f))
+            {
+                e.Graphics.FillRectangle(brush, e.Bounds);
+            }
+
+            e.Graphics.DrawRectangle(Pens.DarkViolet, new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1));
+            TextRenderer.DrawText(e.Graphics, e.ToolTipText, font, e.Bounds, Color.White, TextFormatFlags.WordBreak);
+        }
+
+        private void EgyeniTooltip_Popup(object sender, PopupEventArgs e)
+        {
+            Font font = new Font("Segoe UI", 18);
+
+            // Itt a 'sender' a ToolTip objektum, tehát le tudjuk kérni belőle a szöveget
+            ToolTip tooltip = (ToolTip)sender;
+            string szoveg = tooltip.GetToolTip(e.AssociatedControl);
+
+            Size meret = TextRenderer.MeasureText(szoveg, font, new Size(1000, 0), TextFormatFlags.WordBreak);
+            e.ToolTipSize = new Size(meret.Width + 10, meret.Height + 10);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Felszabadítjuk a ToolTip komponenst, ha létezik
+                if (pnl_tooltip != null)
+                {
+                    pnl_tooltip.RemoveAll();
+                    pnl_tooltip.Dispose();
+                    pnl_tooltip = null;
+                }
+
+                // Felszabadítjuk az animáció timert is
+                if (animacioTimer != null)
+                {
+                    animacioTimer.Stop();
+                    animacioTimer.Dispose();
+                    animacioTimer = null;
+                }
+
+                // Felszabadítjuk a ClickOutsideMessageFilter-t is, ha létezik
+                if (clickOutsideFilter != null)
+                {
+                    Application.RemoveMessageFilter(clickOutsideFilter);
+                    clickOutsideFilter = null;
+                }
+
+                // Felszabadítjuk azokat a kontrollokat, amiket a designer hozott létre
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        ////
 
 
     }

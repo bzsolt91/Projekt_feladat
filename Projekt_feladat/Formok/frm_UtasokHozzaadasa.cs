@@ -417,52 +417,64 @@ namespace Projekt_feladat.Formok
             var item = listBox.Items[e.Index].ToString();
             bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
-            Rectangle bounds = e.Bounds;
-            int radius = 8; // kerekítés mértéke
+            // A simítás és a szöveg renderelésének beállítása
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-            // Kerekített kijelölés háttér
+            // A kijelölés hátterének kitöltése, függetlenül attól, hogy ki van-e jelölve.
+            // Így elkerüljük a maradék pixeleket a korábbi rajzolásból.
+            e.Graphics.FillRectangle(new SolidBrush(listBox.BackColor), e.Bounds);
+
+            // Kerekített háttérrajzolás, ha ki van jelölve
             if (isSelected)
             {
-                using (GraphicsPath path = GetRoundedRectanglePath(bounds, radius))
+                int radius = 8; // Kerekítés mértéke
+                                // Kicsi margót hagyunk a kijelölés körül
+                Rectangle selectionBounds = new Rectangle(e.Bounds.X + 2, e.Bounds.Y + 1, e.Bounds.Width - 4, e.Bounds.Height - 2);
+
+                using (GraphicsPath path = GetRoundedRectanglePath(selectionBounds, radius))
                 using (Brush bgBrush = new SolidBrush(Color.DarkViolet))
                 {
-                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                     e.Graphics.FillPath(bgBrush, path);
                 }
             }
-            else
-            {
-                e.Graphics.FillRectangle(new SolidBrush(listBox.BackColor), bounds);
-            }
 
-            // Szöveg
+            // Szöveg rajzolása a megfelelő színekkel
             using (Brush textBrush = new SolidBrush(isSelected ? Color.White : listBox.ForeColor))
             {
-                e.Graphics.DrawString(item, e.Font, textBrush, bounds.X + 4, bounds.Y + 1);
+                // A szöveg rajzolásához érdemes egy kicsit beljebb húzódni, hogy ne érjen a lekerekített szélhez
+                Rectangle textBounds = new Rectangle(e.Bounds.X + 6, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
+                TextRenderer.DrawText(e.Graphics, item, e.Font, textBounds, isSelected ? Color.White : listBox.ForeColor, TextFormatFlags.VerticalCenter);
             }
-
-            // Ne rajzolj fókuszkeretet, ha nem illik a stílusba:
-            // e.DrawFocusRectangle();
         }
+
+
+        // A GetRoundedRectanglePath metódus javítása, amely pontosabban adja hozzá az íveket és vonalakat.
         private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
             int diameter = radius * 2;
+            Rectangle arc = new Rectangle(rect.Location, new Size(diameter, diameter));
 
-            path.StartFigure();
+            // Bal felső sarok
+            path.AddArc(arc, 180, 90);
 
-            path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
-            path.AddLine(rect.X + radius, rect.Y, rect.Right - radius, rect.Y);
-            path.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
-            path.AddLine(rect.Right, rect.Y + radius, rect.Right, rect.Bottom - radius);
-            path.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
-            path.AddLine(rect.Right - radius, rect.Bottom, rect.X + radius, rect.Bottom);
-            path.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
-            path.AddLine(rect.X, rect.Bottom - radius, rect.X, rect.Y + radius);
+            // Jobb felső sarok
+            arc.X = rect.Right - diameter;
+            path.AddArc(arc, 270, 90);
+
+            // Jobb alsó sarok
+            arc.Y = rect.Bottom - diameter;
+            path.AddArc(arc, 0, 90);
+
+            // Bal alsó sarok
+            arc.X = rect.Left;
+            path.AddArc(arc, 90, 90);
 
             path.CloseFigure();
             return path;
         }
+     
         private void kszm_utazasTorlese_Click(object sender, EventArgs e)
         {
             if (lb_utazasok.SelectedItem != null)

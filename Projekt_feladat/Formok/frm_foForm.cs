@@ -163,7 +163,12 @@ namespace Projekt_feladat
         {
             animaltPanel = pnl;
             animacioKezdoMagassag = pnl.Height;
-            animacioCelMagassag = pnl.Controls.OfType<Button>().Count() * 54;
+
+            // Pontosan számoljuk ki a célmagasságot, DPI-függetlenül
+            animacioCelMagassag = pnl.Controls
+                .OfType<KerekitettGomb>() // vagy .OfType<KerekitettGomb>() ha biztos vagy benne
+                .Sum(ctrl => ctrl.Height + ctrl.Margin.Top + ctrl.Margin.Bottom);
+
             animacioStopper.Restart();
             tmr_almenuAnimacio.Start();
         }
@@ -206,6 +211,7 @@ namespace Projekt_feladat
 
             if (progress >= 1.0)
             {
+                animaltPanel.Height = animacioCelMagassag; 
                 tmr_almenuAnimacio.Stop();
             }
 
