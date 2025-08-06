@@ -124,6 +124,23 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="klm_utazasiMod.Ikon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAE
+        AQAABAEBy2R4jwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJ8SURBVEhLvZXX
+        64hhFMc/5o29EnInSkZZV4pkhkslqyQhq8yMJHvvvTeRoty6kMSlcueGK/4NfX59H16P9Yty6vQ+4zxn
+        fs954T/SNuAUcBjoCbQHeoQ718J/QyqW+gMXgNHAR2AvcAA4D4yv3rSKrkXBY+BIPJ4CLI2xKzHWDlgM
+        nANG1Ep+RypdBcwB1gL7c74EOBEDRuL3InAT+ATcy77JZ+NEm6YBN4OB28BmYBEwsnE/PxEuA8ZlvQsY
+        2EjfUGBh1m+ANY33X2k7sACYDCwHNuT8UL7WqNRJZcpMBfpG9mjuJCP/ARjdk4aS3+nAbGBlwt8CTGqk
+        YkgK735MvC6pug5crTLRQkJzN3A84f4LW9t3tYFCcxOmNWmyD7cGUZJp2AF8Bk5WssoZ4S+p2WiDgpqJ
+        uesIrI5SC1zkam4V2VzmtQ/QNih7GK7TYqGH1wokH7U27yq5VKVjRkCyDngPDKsNHAPGptm6AbPCrj3z
+        zl5xLR8MTEsqTidlet8LuAz0bhoQ3xbE4q5INLJrz7zTCUdG4TPVe3vBnpA0IuQ7NAVsKHHr2FBYdu2Z
+        d6XJCu3M9DVtQlujOlFSeQfYV4R9rLBImQY8BZ6k2TwTLZtSbMPvmjwL5ZI2edT3Pnxz6nkK3RrSqMV0
+        pLysiq0OzwvfLY+09OgnjSU7OixgyadNZpTKy6+APcCH5P1ZprIG+hUDemLohj0PGNBAiIpNiSSqZgYh
+        G4G3wK30hGPc74PGTGoZlLb760BPZExIgWr8yzfSeHrq/kU6/rfkGLifCPTema+iOlX+A1Tq/fogRiAY
+        1R+pS370Di7Dct7Xc0W2L4xUCLvvVCv67/QFQ8WfyWFYGyUAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="kg_pipa.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAB

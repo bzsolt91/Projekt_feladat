@@ -94,28 +94,68 @@ namespace Projekt_feladat.Formok
             }
         }
 
-        private void lst_talalatok_DrawItem(object? sender, DrawItemEventArgs e)
+        private void lst_talalatok_DrawItem(object sender, DrawItemEventArgs e)
         {
             if (e.Index < 0) return;
 
             var listBox = sender as ListBox;
             var item = listBox.Items[e.Index].ToString();
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            // Kiválasztott elem
             bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
-            // Háttérszín
-            e.Graphics.FillRectangle(new SolidBrush(isSelected ? Color.DarkViolet : listBox.BackColor), e.Bounds);
+            // A simítás és a szöveg renderelésének beállítása
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-            // Szövegszín
-            using (Brush textBrush = new SolidBrush(isSelected ? Color.White : listBox.ForeColor))
+            // A kijelölés hátterének kitöltése, függetlenül attól, hogy ki van-e jelölve.
+            // Így elkerüljük a maradék pixeleket a korábbi rajzolásból.
+            e.Graphics.FillRectangle(new SolidBrush(listBox.BackColor), e.Bounds);
+
+            // Kerekített háttérrajzolás, ha ki van jelölve
+            if (isSelected)
             {
-                e.Graphics.DrawString(item, e.Font, textBrush, e.Bounds.X, e.Bounds.Y);
+                int radius = 8; // Kerekítés mértéke
+                                // Kicsi margót hagyunk a kijelölés körül
+                Rectangle selectionBounds = new Rectangle(e.Bounds.X + 2, e.Bounds.Y + 1, e.Bounds.Width - 4, e.Bounds.Height - 2);
+
+                using (GraphicsPath path = GetRoundedRectanglePath(selectionBounds, radius))
+                using (Brush bgBrush = new SolidBrush(Color.DarkViolet))
+                {
+                    e.Graphics.FillPath(bgBrush, path);
+                }
             }
 
-            // Fókuszkeret (opcionális)
-            e.DrawFocusRectangle();
+            // Szöveg rajzolása a megfelelő színekkel
+            using (Brush textBrush = new SolidBrush(isSelected ? Color.White : listBox.ForeColor))
+            {
+                // A szöveg rajzolásához érdemes egy kicsit beljebb húzódni, hogy ne érjen a lekerekített szélhez
+                Rectangle textBounds = new Rectangle(e.Bounds.X + 6, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
+                TextRenderer.DrawText(e.Graphics, item, e.Font, textBounds, isSelected ? Color.White : listBox.ForeColor, TextFormatFlags.VerticalCenter);
+            }
+        }
+
+        private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            int diameter = radius * 2;
+            Rectangle arc = new Rectangle(rect.Location, new Size(diameter, diameter));
+
+            // Bal felső sarok
+            path.AddArc(arc, 180, 90);
+
+            // Jobb felső sarok
+            arc.X = rect.Right - diameter;
+            path.AddArc(arc, 270, 90);
+
+            // Jobb alsó sarok
+            arc.Y = rect.Bottom - diameter;
+            path.AddArc(arc, 0, 90);
+
+            // Bal alsó sarok
+            arc.X = rect.Left;
+            path.AddArc(arc, 90, 90);
+
+            path.CloseFigure();
+            return path;
         }
 
         public void lekerdezes()
@@ -201,6 +241,12 @@ namespace Projekt_feladat.Formok
                         {
                             feltetelek.Add("megjegyzes.megjegyzes LIKE @megjegyzes");
                             cmd.Parameters.AddWithValue("@megjegyzes", "%" + kszm_megjegyzes.Texts + "%");
+                        }
+                        string mod = klm_utazasiMod.ComboText.ToLower();
+                        if (mod != "mind" && mod != "utazási mód")
+                        {
+                            feltetelek.Add("t_ossz.utazas_modja = @kozmod");
+                            cmd.Parameters.AddWithValue("@kozmod", klm_utazasiMod.ComboText);
                         }
                     }
 
@@ -329,14 +375,15 @@ namespace Projekt_feladat.Formok
             szpn_szuroPanel.Visible = false;
 
             bool barmiszuroaktiv = !string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) ||
-                                   !string.IsNullOrWhiteSpace(kszm_email.Texts) ||
-                                   !string.IsNullOrWhiteSpace(kszm_lakcim.Texts) ||
-                                   !string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts) ||
-                                   !string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts) ||
-                                   !string.IsNullOrWhiteSpace(kszm_telefon.Texts) ||
-                                   kb_befizetes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
-                                   kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
-                                   kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki;
+                        !string.IsNullOrWhiteSpace(kszm_email.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_lakcim.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_telefon.Texts) ||
+                        kb_befizetes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
+                        kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
+                        kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
+                        (klm_utazasiMod.ComboText.ToLower() != "mind" && klm_utazasiMod.ComboText.ToLower() !="utazási mód") ;
 
             if (barmiszuroaktiv)
             {
