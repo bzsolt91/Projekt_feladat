@@ -32,12 +32,13 @@ namespace Projekt_feladat.Formok
         private void InitializeComponent()
         {
             ellipszisVezerlo ev_szuroPanel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_UtazasokMegtekintese));
             ellipszisVezerlo ev_utasLista;
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_UtazasokMegtekintese));
             szpn_szuroPanel = new Panel();
+            klm_utazasiMod = new kerekitettLenyilloMenu();
             kb_biztositas = new KapcsoloGomb();
             kb_befizetes = new KapcsoloGomb();
             kb_okmanyErvenyes = new KapcsoloGomb();
@@ -76,7 +77,6 @@ namespace Projekt_feladat.Formok
             pd_utasLista = new System.Drawing.Printing.PrintDocument();
             ppd_utasLista = new PrintPreviewDialog();
             pd_utazasok = new System.Drawing.Printing.PrintDocument();
-            klm_utazasiMod = new kerekitettLenyilloMenu();
             ev_szuroPanel = new ellipszisVezerlo();
             ev_utasLista = new ellipszisVezerlo();
             szpn_szuroPanel.SuspendLayout();
@@ -116,6 +116,39 @@ namespace Projekt_feladat.Formok
             szpn_szuroPanel.TabIndex = 11;
             szpn_szuroPanel.Visible = false;
             szpn_szuroPanel.Click += szpn_szuroPanel_Click;
+            // 
+            // klm_utazasiMod
+            // 
+            klm_utazasiMod.adatForras = new string[]
+    {
+    "Mind",
+    "Busz",
+    "Repülő",
+    "Hajó",
+    "Egyéni"
+    };
+            klm_utazasiMod.BackColor = Color.Transparent;
+            klm_utazasiMod.CimPanelAlsoSzin = Color.White;
+            klm_utazasiMod.CimPanelFelsoSzin = Color.White;
+            klm_utazasiMod.ComboText = "Utazási mód";
+            klm_utazasiMod.EgerTrartasSzin = Color.CornflowerBlue;
+            klm_utazasiMod.ForeColor = Color.White;
+            klm_utazasiMod.Ikon = (Image)resources.GetObject("klm_utazasiMod.Ikon");
+            klm_utazasiMod.ItemHatterSzin = Color.White;
+            klm_utazasiMod.ItemPanelAlosSzin = Color.White;
+            klm_utazasiMod.ItemPanelFelsoSzin = Color.White;
+            klm_utazasiMod.KeretSzin = Color.MediumSlateBlue;
+            klm_utazasiMod.KeretVastagsag = 2F;
+            klm_utazasiMod.KivalasztottElemSzin = Color.BlueViolet;
+            klm_utazasiMod.LenyiloMagassag = 150;
+            klm_utazasiMod.Location = new Point(409, 46);
+            klm_utazasiMod.Margin = new Padding(2, 3, 2, 3);
+            klm_utazasiMod.MinimumSize = new Size(150, 0);
+            klm_utazasiMod.Name = "klm_utazasiMod";
+            klm_utazasiMod.Radius = 10;
+            klm_utazasiMod.Size = new Size(251, 63);
+            klm_utazasiMod.TabIndex = 14;
+            klm_utazasiMod.TitleLabelSzin = Color.Black;
             // 
             // kb_biztositas
             // 
@@ -214,7 +247,7 @@ namespace Projekt_feladat.Formok
             kszm_megjegyzes.Margin = new Padding(4, 3, 4, 3);
             kszm_megjegyzes.Name = "kszm_megjegyzes";
             kszm_megjegyzes.Padding = new Padding(9, 6, 9, 6);
-            kszm_megjegyzes.Size = new Size(343, 26);
+            kszm_megjegyzes.Size = new Size(343, 30);
             kszm_megjegyzes.TabIndex = 6;
             kszm_megjegyzes.Texts = "";
             kszm_megjegyzes.TobbSor = true;
@@ -365,7 +398,7 @@ namespace Projekt_feladat.Formok
             pnl_utasLista.Controls.Add(kszm_datum);
             pnl_utasLista.Controls.Add(kszm_uticel);
             pnl_utasLista.Controls.Add(kszm_indulasHelye);
-            pnl_utasLista.Location = new Point(68, 505);
+            pnl_utasLista.Location = new Point(761, 118);
             pnl_utasLista.Margin = new Padding(3, 2, 3, 2);
             pnl_utasLista.Name = "pnl_utasLista";
             pnl_utasLista.Size = new Size(741, 596);
@@ -574,6 +607,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -601,6 +635,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_idoszak
             // 
+            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
@@ -681,6 +716,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
+            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;
@@ -876,39 +912,6 @@ namespace Projekt_feladat.Formok
             // pd_utazasok
             // 
             pd_utazasok.PrintPage += pd_utazasok_PrintPage;
-            // 
-            // klm_utazasiMod
-            // 
-            klm_utazasiMod.adatForras = new string[]
-    {
-    "Mind",
-    "Busz",
-    "Repülő",
-    "Hajó",
-    "Egyéni"
-    };
-            klm_utazasiMod.BackColor = Color.Transparent;
-            klm_utazasiMod.CimPanelAlsoSzin = Color.White;
-            klm_utazasiMod.CimPanelFelsoSzin = Color.White;
-            klm_utazasiMod.ComboText = "Utazási mód";
-            klm_utazasiMod.EgerTrartasSzin = Color.CornflowerBlue;
-            klm_utazasiMod.ForeColor = Color.White;
-            klm_utazasiMod.Ikon = (Image)resources.GetObject("klm_utazasiMod.Ikon");
-            klm_utazasiMod.ItemHatterSzin = Color.White;
-            klm_utazasiMod.ItemPanelAlosSzin = Color.White;
-            klm_utazasiMod.ItemPanelFelsoSzin = Color.White;
-            klm_utazasiMod.KeretSzin = Color.MediumSlateBlue;
-            klm_utazasiMod.KeretVastagsag = 2F;
-            klm_utazasiMod.KivalasztottElemSzin = Color.BlueViolet;
-            klm_utazasiMod.LenyiloMagassag = 150;
-            klm_utazasiMod.Location = new Point(409, 46);
-            klm_utazasiMod.Margin = new Padding(2, 3, 2, 3);
-            klm_utazasiMod.MinimumSize = new Size(150, 0);
-            klm_utazasiMod.Name = "klm_utazasiMod";
-            klm_utazasiMod.Radius = 10;
-            klm_utazasiMod.Size = new Size(251, 63);
-            klm_utazasiMod.TabIndex = 14;
-            klm_utazasiMod.TitleLabelSzin = Color.Black;
             // 
             // Frm_UtazasokMegtekintese
             // 

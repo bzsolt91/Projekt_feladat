@@ -21,6 +21,7 @@ namespace Projekt_feladat.Formok
         string? utazasDesztinacio = null;
         string? utazasIdoszak = null;
         string? utazasNeve = null;
+        private bool szuresAktiv = false;
         private int sorIndexAHolFolytatniKell = 0;
         public Frm_UtazasokMegtekintese()
         {
@@ -489,6 +490,35 @@ namespace Projekt_feladat.Formok
             }
             lst_talalatok.Visible = false;
             szpn_szuroPanel.Visible = false;
+
+           
+
+            bool barmiszuroaktiv = !string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_email.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_lakcim.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts) ||
+                        !string.IsNullOrWhiteSpace(kszm_telefon.Texts) ||
+                        kb_befizetes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
+                        kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
+                        kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
+                        (klm_utazasiMod.ComboText.ToLower() != "mind" && klm_utazasiMod.ComboText.ToLower() != "utazási mód");
+
+            if (barmiszuroaktiv)
+            {
+                kg_szures.HatterSzine = Color.Orange;
+                szuresAktiv = true;
+            }
+            else
+            {
+                kg_szures.HatterSzine = Color.MediumSlateBlue;
+                if(szuresAktiv)
+                    lekerdezes_kivalasztva();
+                szuresAktiv = false;
+            }
+
+        
+         
             lekerdezes();
           
         }

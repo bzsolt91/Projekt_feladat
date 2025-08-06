@@ -29,11 +29,11 @@ namespace Projekt_feladat.Formok
         private void Frm_Utasok_Load(object sender, EventArgs e)
         {
             // Kezdeti betöltés: Oldalszámok beállítása az összes sor alapján
-         
+
             nud_oldalValaszto.Minimum = 1;
             nud_oldalValaszto.Value = aktualisOldal;
             lst_talalatok.DrawMode = DrawMode.OwnerDrawFixed;
-     
+
             szpn_szuroPanel.Controls.Add(lst_talalatok);
             lst_talalatok.Visible = false;
             lst_talalatok.DrawMode = DrawMode.OwnerDrawFixed;
@@ -277,7 +277,7 @@ namespace Projekt_feladat.Formok
                         LEFT JOIN megjegyzes ON u.utas_id = megjegyzes.utas_id
                         ";
 
-                      string alapCount = @"
+                    string alapCount = @"
                         SELECT COUNT(*) FROM (
                             SELECT u.utas_id
                             FROM utas AS u
@@ -353,15 +353,15 @@ namespace Projekt_feladat.Formok
 
         private void nud_oldalValaszto_ValueChanged(object sender, EventArgs e)
         {
-           
+
             if (nud_oldalValaszto.Value > nud_oldalValaszto.Maximum)
                 nud_oldalValaszto.Value = nud_oldalValaszto.Maximum;
             if (nud_oldalValaszto.Value < nud_oldalValaszto.Minimum)
                 nud_oldalValaszto.Value = nud_oldalValaszto.Minimum;
 
             aktualisOldal = (int)nud_oldalValaszto.Value;
-          
-               lekerdezes();
+
+            lekerdezes();
         }
 
         private void szpn_szuroPanel_Click(object sender, EventArgs e)
@@ -383,7 +383,7 @@ namespace Projekt_feladat.Formok
                         kb_befizetes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
                         kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
                         kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
-                        (klm_utazasiMod.ComboText.ToLower() != "mind" && klm_utazasiMod.ComboText.ToLower() !="utazási mód") ;
+                        (klm_utazasiMod.ComboText.ToLower() != "mind" && klm_utazasiMod.ComboText.ToLower() != "utazási mód");
 
             if (barmiszuroaktiv)
             {
@@ -474,7 +474,7 @@ namespace Projekt_feladat.Formok
                     switch (nev)
                     {
                         case "kszm_utasNeve":
-                              sql = @"SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2
+                            sql = @"SELECT u.titulus, u.vezeteknev, u.keresztnev1, u.keresztnev2
                                 FROM utas AS u
                                 INNER JOIN utas_utazasai AS uu ON u.utas_id = uu.utas_id
                                 INNER JOIN utazas AS t ON uu.utazas_id = t.utazas_id
@@ -616,7 +616,7 @@ namespace Projekt_feladat.Formok
                     string biztositas = sor.Cells["Biztosítás van"].Value.ToString();
                     string megjegyzes = sor.Cells["Megjegyzés"].Value?.ToString();
 
-             
+
                     using (var cmd = new MySqlCommand(@"UPDATE utas SET 
                 titulus = @titulus, vezeteknev = @vezeteknev, keresztnev1 = @kn1, keresztnev2 = @kn2 
                 WHERE utas_id = @id", kapcsolat))
@@ -674,7 +674,7 @@ namespace Projekt_feladat.Formok
 
         private void kg_torles_Click(object sender, EventArgs e)
         {
-           
+
             if (!bejelentkezes.bejelentkezes.Bejelentkezve())
             {
                 MessageBox.Show(
@@ -905,6 +905,11 @@ namespace Projekt_feladat.Formok
                     egyeniTooltip.Show(szoveg, this, formPozicio.X + 10, formPozicio.Y + 20, 3000);
                 }
             }
+        }
+
+        private void kb_befizetes_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
