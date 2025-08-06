@@ -93,7 +93,7 @@ namespace Projekt_feladat.egyeni_vezerlok
                         BackColor = Color.Transparent,
                         TextAlign = ContentAlignment.MiddleLeft,
                         Height = 25,
-                        Width = flp_items.Width
+                        Width = flp_items.Width-10
                     };
 
                     label.MouseClick += Label_selected;
@@ -127,6 +127,7 @@ namespace Projekt_feladat.egyeni_vezerlok
                 }
 
                 adat = value;
+                
                 Invalidate();
             }
         }
