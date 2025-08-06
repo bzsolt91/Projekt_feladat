@@ -56,37 +56,71 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         public event EventHandler<ElemKivalasztvaEventArgs>? ElemKivalasztva;
         /*********/
+        private Color egerTartasSzin = Color.LightGray;
+        public Color EgerTrartasSzin
+        {
+            get => egerTartasSzin;
+            set
+            {
+                egerTartasSzin = value;
+                Invalidate();
+            }
+        }
+        private void SetLabelStyles(Label label)
+        {
+            var methodInfo = typeof(Control).GetMethod("SetStyle", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
+            if (methodInfo != null)
+            {
+                methodInfo.Invoke(label, new object[] { ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true });
+            }
+        }
         public string[] adatForras
         {
             get => adat;
             set
             {
                 if (value == null)
-                    value = Array.Empty<string>(); // vagy: return;
-
-                flp_items.BackColor = Color.WhiteSmoke;
+                    value = Array.Empty<string>(); // 
                 flp_items.Controls.Clear();
-
+           //     flp_items.BackColor = Color.Transparent;
                 foreach (var item in value)
                 {
                     Label label = new()
                     {
                         Text = item,
                         ForeColor = Color.Black,
-                        BackColor = Color.WhiteSmoke,
+                        BackColor = Color.Transparent,
                         TextAlign = ContentAlignment.MiddleLeft,
                         Height = 25,
                         Width = flp_items.Width
                     };
 
                     label.MouseClick += Label_selected;
+                    label.Paint += Label_Paint;
+                    SetLabelStyles(label);
 
-                    label.MouseEnter += (s, e) => label.BackColor = Color.LightGray;
+                    // Új eseménykezelők a hover effekthez
+                    label.MouseEnter += (s, e) =>
+                    {
+                        Label lbl = (Label)s;
+                        if (lbl != kivalasztottLabel) // 
+                        {
+                            lbl.ForeColor = Color.White;
+                            lbl.BackColor = Color.Transparent;
+                            lbl.Invalidate(); // Azonnal frissítjük a kinézetet
+                        }
+                    };
 
                     label.MouseLeave += (s, e) =>
                     {
-                        label.BackColor = label == kivalasztottLabel ? Color.BlueViolet : Color.WhiteSmoke;
+                        Label lbl = (Label)s;
+                        if (lbl != kivalasztottLabel) // Csak akkor állítsuk vissza, ha nincs kiválasztva
+                        {
+                            lbl.ForeColor = Color.White;
+                            lbl.BackColor = Color.Transparent;
+                            lbl.Invalidate(); // Azonnal frissítjük a kinézetet
+                        }
                     };
 
                     flp_items.Controls.Add(label);
@@ -94,7 +128,6 @@ namespace Projekt_feladat.egyeni_vezerlok
 
                 adat = value;
                 Invalidate();
-               
             }
         }
 
@@ -125,7 +158,16 @@ namespace Projekt_feladat.egyeni_vezerlok
             }
         }
 
-
+        private Color kivalasztottElemSzin = Color.BlueViolet;
+        public Color KivalasztottElemSzin
+        {
+            get => kivalasztottElemSzin;
+            set
+            {
+                kivalasztottElemSzin = value;
+                Invalidate();
+            }
+        }
         public string ComboText
         {
             get => pnl_title.Text;
@@ -203,6 +245,26 @@ namespace Projekt_feladat.egyeni_vezerlok
                 Invalidate();
             }
         }
+        public Color ItemHatterSzin
+        {
+            get => flp_items.BackColor;
+            set
+            {
+                flp_items.BackColor = value;
+
+                // 💡 Frissítsd a már létező itemek háttérszínét is
+                foreach (Control ctrl in flp_items.Controls)
+                {
+                    if (ctrl is Label lbl)
+                    {
+                        lbl.BackColor = value;
+                        lbl.Invalidate(); // újrarajzolás
+                    }
+                }
+
+                Invalidate();
+            }
+        }
 
         public Color TitleLabelSzin
         {
@@ -237,7 +299,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             }
         }
 
-    
+        public int LenyiloMagassag { get; set; } = 300;
 
         protected override void OnResize(EventArgs e)
         {
@@ -246,15 +308,23 @@ namespace Projekt_feladat.egyeni_vezerlok
         }
         private void Label_selected(object? sender, MouseEventArgs e)
         {
+
+            Label? elozoKivalasztott = kivalasztottLabel;
             Label label = (Label)sender;
-            foreach (var item in flp_items.Controls.OfType<Label>())
-            {
-                item.BackColor = Color.WhiteSmoke; // Minden elem visszafehérítése
-                item.ForeColor = Color.Black; // Szövegszín vissza feketére
-            }
+
+            kivalasztottLabel = label;
+
+            // Frissítsük a régi és az új kijelölt elemet
+            elozoKivalasztott?.Invalidate();
+            kivalasztottLabel.Invalidate();
+
+            // A pnl_title frissítése
+            pnl_title.Text = label.Text;
+            if (label.Text != null)
+                pnl_tooltip.SetToolTip(this.pnl_title, label.Text);
 
             // Kattintott labelt beállítjuk kiválasztottnak
-            label.BackColor = Color.BlueViolet;
+            label.BackColor = Color.Transparent;
             label.ForeColor = Color.White;
             kivalasztottLabel = label;
 
@@ -303,7 +373,7 @@ namespace Projekt_feladat.egyeni_vezerlok
         private void Click(object sender, EventArgs e)
         {
             nyitva = !nyitva;
-            celMagassag = nyitva ? 300  : 61;
+            celMagassag = nyitva ? this.LenyiloMagassag : 61; 
             animacioTimer.Start();
             pnl_item.Visible = true;
 
@@ -346,20 +416,20 @@ namespace Projekt_feladat.egyeni_vezerlok
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
             animacioTimer.Interval = 5;
             animacioTimer.Tick += AnimacioFrissitese;
-
+           
             BackColor = Color.Transparent;
             CimPanelAlsoSzin = Color.White;
             CimPanelFelsoSzin = Color.White;
             pnl_title.Text = "Text";
             ForeColor = Color.White;
-           
+            this.ItemHatterSzin = Color.WhiteSmoke;
             ItemPanelAlosSzin = Color.WhiteSmoke;
             ItemPanelFelsoSzin = Color.WhiteSmoke;
             KeretSzin = Color.RoyalBlue;
             KeretVastagsag = 2F;
             Location = new Point(322, 518);
             Margin = new Padding(2, 3, 2, 3);
-            MinimumSize = new Size(343, 0);
+            MinimumSize = new Size(150, 0);
             Name = "kerekitettLenyilloMenu1";
             Radius = 30;
             Size = new Size(482, 68);
@@ -372,9 +442,8 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         }
 
+ 
 
-
-   
         protected override void OnMove(EventArgs e)
         {
             base.OnMove(e);
@@ -527,7 +596,49 @@ namespace Projekt_feladat.egyeni_vezerlok
             Size meret = TextRenderer.MeasureText(szoveg, font, new Size(1000, 0), TextFormatFlags.WordBreak);
             e.ToolTipSize = new Size(meret.Width + 10, meret.Height + 10);
         }
+        private void Label_Paint(object? sender, PaintEventArgs e)
+        {
+            Label label = (Label)sender;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
+            Rectangle rect = new Rectangle(0, 0, label.Width - 1, label.Height - 1);
+            int radius = 10;
+
+            Color fillColor;
+
+            if (label == kivalasztottLabel)
+            {
+                fillColor = this.KivalasztottElemSzin;
+                label.ForeColor = Color.White;
+            }
+            else if (label.ClientRectangle.Contains(label.PointToClient(Cursor.Position)))
+            {
+                fillColor = this.EgerTrartasSzin;
+                label.ForeColor = Color.Black;
+            }
+            else
+            {
+                fillColor = this.ItemHatterSzin;
+                label.ForeColor = Color.Black;
+            }
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
+                path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90);
+                path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90);
+                path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90);
+                path.CloseFigure();
+
+                using (SolidBrush brush = new SolidBrush(fillColor))
+                {
+                    e.Graphics.FillPath(brush, path);
+                }
+            }
+
+            TextRenderer.DrawText(e.Graphics, label.Text, label.Font, rect, label.ForeColor,
+                TextFormatFlags.VerticalCenter | TextFormatFlags.Left);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
