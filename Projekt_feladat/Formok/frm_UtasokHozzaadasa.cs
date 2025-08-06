@@ -734,7 +734,8 @@ namespace Projekt_feladat.Formok
                 pnl_ujhozzaadas.Visible = false;
                 kszm_ujRegiFelhasznalo.HatterSzine = Color.Chocolate;
                 pnl_meglevoutasokhozAdas.Visible = true;
-                kszm_ujRegiFelhasznalo.Text = "Új felhasználó hozzáadása";
+
+                kszm_ujRegiFelhasznalo.Text = "Meglévő felhasználóhoz adás";
             }
             else
             {
@@ -742,7 +743,8 @@ namespace Projekt_feladat.Formok
                 pnl_ujhozzaadas.Visible = true;
                 kszm_ujRegiFelhasznalo.HatterSzine = Color.SteelBlue;
                 pnl_meglevoutasokhozAdas.Visible = false;
-                kszm_ujRegiFelhasznalo.Text = "Meglévő felhasználóhoz adás";
+                kszm_ujRegiFelhasznalo.Text = "Új felhasználó hozzáadása";
+
             }
         }
         private void KeresesiSzuroValtozott(object sender, EventArgs e)
