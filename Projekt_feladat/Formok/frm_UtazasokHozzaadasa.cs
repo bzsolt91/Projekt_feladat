@@ -94,7 +94,7 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-            
+
             try
             {
                 using (var conn = new MySqlConnection(constr))
@@ -174,7 +174,7 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-          
+
             try
             {
                 using (var conn = new MySqlConnection(constr))
@@ -255,7 +255,7 @@ namespace Projekt_feladat.Formok
                         }
                     }
                     rcb_utazasElnevezese.adatForras = lista.ToArray();
-                    
+
                 }
             }
             catch (Exception e)
@@ -275,7 +275,7 @@ namespace Projekt_feladat.Formok
         private void kg_utazasTorlese_Click(object sender, EventArgs e)
         {
             pnl_torles.BringToFront();
-            lb_utazas.Text = utazasDesztinacio + ", "+utazasIdoszak +", "+ utazasNeve;
+            lb_utazas.Text = utazasDesztinacio + ", " + utazasIdoszak + ", " + utazasNeve;
             if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
                 pnl_torles.Visible = true;
             pnl_torles.Location = new Point(this.Width / 2 - pnl_torles.Width / 2, this.Height / 2 - pnl_torles.Height / 2);
@@ -286,7 +286,7 @@ namespace Projekt_feladat.Formok
             if (e.Ertek != null)
                 utazasNeve = e.Ertek;
 
-            
+
 
         }
 
@@ -374,8 +374,20 @@ namespace Projekt_feladat.Formok
                 MessageBox.Show("Hiányos adatok. Ellenőrizd, hogy ki van-e választva a desztináció, időszak és az utazás neve.");
             }
         }
+
+        private void kszm_ujRegiFelhasznalo_Click(object sender, EventArgs e)
+        {
+            tlp_utazasHozzaadasa.Visible = true;
+            tlp_utazasTorlese.Visible = false;
+        }
+
+        private void kszm_utazasTorles_Click(object sender, EventArgs e)
+        {
+            tlp_utazasHozzaadasa.Visible = false;
+            tlp_utazasTorlese.Visible = true;
+        }
     }
-    }
+}
 
 
 
