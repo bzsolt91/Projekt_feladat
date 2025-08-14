@@ -196,8 +196,8 @@ namespace Projekt_feladat.egyeni_vezerlok
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            if (this.DesignMode)
-                UpdateControlHeight();
+            UpdateControlHeight();
+            this.Invalidate(); 
         }
         protected override void OnLoad(EventArgs e)
         {

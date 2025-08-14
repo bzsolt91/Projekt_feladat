@@ -20,6 +20,7 @@ namespace Projekt_feladat.Formok
         public frm_UtazasokHozzaadasa()
         {
             InitializeComponent();
+
         }
         string constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
         private void kszm_hozzaadas_Click(object sender, EventArgs e)
@@ -127,6 +128,8 @@ namespace Projekt_feladat.Formok
         private void frm_UtazasokHozzaadasa_Load(object sender, EventArgs e)
         {
             utazasok_betoltes();
+            ablakUjrarajzolas();
+
         }
 
         private void rcb_desztinacio_Load(object sender, EventArgs e)
@@ -377,17 +380,61 @@ namespace Projekt_feladat.Formok
 
         private void kszm_ujRegiFelhasznalo_Click(object sender, EventArgs e)
         {
-            tlp_utazasHozzaadasa.Visible = true;
+            flp_rendezoPanel.Visible = true;
             tlp_utazasTorlese.Visible = false;
         }
 
         private void kszm_utazasTorles_Click(object sender, EventArgs e)
         {
-            tlp_utazasHozzaadasa.Visible = false;
+            flp_rendezoPanel.Visible = false;
             tlp_utazasTorlese.Visible = true;
         }
+
+
+        private void ablakUjrarajzolas()
+        {
+            int celMeret = this.ClientSize.Width;
+            if (celMeret < 0) celMeret = 0;
+
+            pl_terkezelo.Width = celMeret - 20;
+
+            // Kényszerítsd az FLP-t, hogy újraszámolja a belső területét
+            flp_rendezoPanel.PerformLayout();
+            flp_rendezoPanel.Invalidate();
+
+
+
+        }
+
+        private void flp_rendezoPanel_Resize(object sender, EventArgs e)
+        {
+            flp_rendezoPanel.HorizontalScroll.Maximum = 0;
+            flp_rendezoPanel.SuspendLayout();
+            flp_rendezoPanel.AutoScroll = false;
+
+            ablakUjrarajzolas();
+
+            flp_rendezoPanel.PerformLayout();
+            flp_rendezoPanel.Invalidate();
+
+            flp_rendezoPanel.AutoScroll = true;
+            flp_rendezoPanel.ResumeLayout();
+        }
+
+        private void frm_UtazasokHozzaadasa_Resize(object sender, EventArgs e)
+        {
+            const int margin = 10;
+
+            // jobb alsó sarokhoz igazítás
+            kszm_hozzaadas.Left = flp_rendezoPanel.Right - kszm_hozzaadas.Width - margin-15;
+            kszm_hozzaadas.Top = flp_rendezoPanel.Bottom - kszm_hozzaadas.Height - margin;
+        }
     }
-}
+    }
+
+
+    
+
 
 
 
