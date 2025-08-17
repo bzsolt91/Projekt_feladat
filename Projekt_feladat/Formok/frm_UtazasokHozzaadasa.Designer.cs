@@ -29,70 +29,76 @@
         private void InitializeComponent()
         {
             egyeni_vezerlok.ellipszisVezerlo ev_torles;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_UtazasokHozzaadasa));
             egyeni_vezerlok.ellipszisVezerlo ev_vezerloPanel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_UtazasokHozzaadasa));
             pnl_torles = new Panel();
             kg_nem = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kg_igen = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             lb_utazas = new Label();
-            tlp_utazasTorlese = new TableLayoutPanel();
-            rcb_desztinacio = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
-            rcb_utazasIdeje = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
-            rcb_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
-            kg_utazasTorlese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             lb_torolni = new Label();
             pnl_vezerlopanel = new Panel();
             kszm_ujRegiFelhasznalo = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kszm_utazasTorles = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
+            tlp_utazasTorlese = new DoubleBufferedTableLayoutPanel();
+            rcb_desztinacio = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
+            rcb_utazasIdeje = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
+            rcb_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
+            kg_utazasTorlese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kszm_hozzaadas = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
-            tlp_ar = new TableLayoutPanel();
+            tlp_ar = new DoubleBufferedTableLayoutPanel();
             kszm_ar = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
             bl_ar = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
-            tlp_leiras = new TableLayoutPanel();
+            tlp_leiras = new DoubleBufferedTableLayoutPanel();
             bl_leiras = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
             kszm_leiras = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            tlp_utazasIdeje = new TableLayoutPanel();
-            dt_datumvalaszto = new DateTimePicker();
+            tlp_utazasIdeje = new DoubleBufferedTableLayoutPanel();
+            dtp_indulas = new DateTimePicker();
             bl_utazasIdeje = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
-            tlp_indulasHelye = new TableLayoutPanel();
-            kerekitettSzovegMezo1 = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            bufferedLabel1 = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
-            tlp_erkezesiDatum = new TableLayoutPanel();
-            dtp_erkezesiDatum = new DateTimePicker();
+            tlp_indulasHelye = new DoubleBufferedTableLayoutPanel();
+            kszm_indulasiHely = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            blbl_indulas_helye = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
+            tlp_erkezesiDatum = new DoubleBufferedTableLayoutPanel();
+            dtp_vissza = new DateTimePicker();
             bl_erkezesiDatum = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
             szp_utazasNeve = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            DoubleBufferedTableLayoutPanel1 = new DoubleBufferedTableLayoutPanel();
             kszm_desztinacio = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
             kszm_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
             szinatmenetPanel1 = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
             panel1 = new Panel();
             flp_rendezoPanel = new FlowLayoutPanel();
             pl_terkezelo = new Panel();
-            szinatmenetPanel2 = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            szinatmenetPanel3 = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            szinatmenetPanel4 = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            tlp_kep = new TableLayoutPanel();
+            szp_utazasAdatok = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
+            tlp_utazasAdatok = new DoubleBufferedTableLayoutPanel();
+            szp_leiras = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
+            sznp_utazasModja = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
+            doubleBufferedTableLayoutPanel2 = new DoubleBufferedTableLayoutPanel();
+            klm_utazasiMod = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
+            blbl_utazasModja = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
+            szp_borito = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
+            tlp_kep = new DoubleBufferedTableLayoutPanel();
             pcb_borito = new PictureBox();
             kg_boritoValasztas = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             ev_torles = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             ev_vezerloPanel = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             pnl_torles.SuspendLayout();
-            tlp_utazasTorlese.SuspendLayout();
             pnl_vezerlopanel.SuspendLayout();
+            tlp_utazasTorlese.SuspendLayout();
             tlp_ar.SuspendLayout();
             tlp_leiras.SuspendLayout();
             tlp_utazasIdeje.SuspendLayout();
             tlp_indulasHelye.SuspendLayout();
             tlp_erkezesiDatum.SuspendLayout();
             szp_utazasNeve.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            DoubleBufferedTableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             flp_rendezoPanel.SuspendLayout();
-            szinatmenetPanel2.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
-            szinatmenetPanel3.SuspendLayout();
-            szinatmenetPanel4.SuspendLayout();
+            szp_utazasAdatok.SuspendLayout();
+            tlp_utazasAdatok.SuspendLayout();
+            szp_leiras.SuspendLayout();
+            sznp_utazasModja.SuspendLayout();
+            doubleBufferedTableLayoutPanel2.SuspendLayout();
+            szp_borito.SuspendLayout();
             tlp_kep.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcb_borito).BeginInit();
             SuspendLayout();
@@ -108,12 +114,11 @@
             pnl_torles.Controls.Add(kg_nem);
             pnl_torles.Controls.Add(kg_igen);
             pnl_torles.Controls.Add(lb_utazas);
-            pnl_torles.Controls.Add(tlp_utazasTorlese);
             pnl_torles.Controls.Add(lb_torolni);
-            pnl_torles.Location = new Point(1073, 11);
+            pnl_torles.Location = new Point(1044, 84);
             pnl_torles.Margin = new Padding(3, 2, 3, 2);
             pnl_torles.Name = "pnl_torles";
-            pnl_torles.Size = new Size(454, 219);
+            pnl_torles.Size = new Size(576, 286);
             pnl_torles.TabIndex = 11;
             pnl_torles.Visible = false;
             // 
@@ -127,7 +132,7 @@
             kg_nem.HatterSzine = Color.MediumSlateBlue;
             kg_nem.KeretMeret = 0;
             kg_nem.KeretSzine = Color.PaleVioletRed;
-            kg_nem.Location = new Point(239, 139);
+            kg_nem.Location = new Point(370, 217);
             kg_nem.Margin = new Padding(3, 2, 3, 2);
             kg_nem.Name = "kg_nem";
             kg_nem.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
@@ -149,7 +154,7 @@
             kg_igen.HatterSzine = Color.Crimson;
             kg_igen.KeretMeret = 0;
             kg_igen.KeretSzine = Color.PaleVioletRed;
-            kg_igen.Location = new Point(44, 139);
+            kg_igen.Location = new Point(45, 217);
             kg_igen.Margin = new Padding(3, 2, 3, 2);
             kg_igen.Name = "kg_igen";
             kg_igen.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
@@ -165,147 +170,16 @@
             // 
             lb_utazas.AutoSize = true;
             lb_utazas.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lb_utazas.Location = new Point(59, 67);
+            lb_utazas.Location = new Point(100, 66);
             lb_utazas.Name = "lb_utazas";
             lb_utazas.Size = new Size(0, 30);
             lb_utazas.TabIndex = 1;
-            // 
-            // tlp_utazasTorlese
-            // 
-            tlp_utazasTorlese.ColumnCount = 3;
-            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tlp_utazasTorlese.Controls.Add(rcb_desztinacio, 0, 0);
-            tlp_utazasTorlese.Controls.Add(rcb_utazasIdeje, 1, 0);
-            tlp_utazasTorlese.Controls.Add(rcb_utazasElnevezese, 2, 0);
-            tlp_utazasTorlese.Controls.Add(kg_utazasTorlese, 0, 1);
-            tlp_utazasTorlese.Location = new Point(3, 74);
-            tlp_utazasTorlese.Name = "tlp_utazasTorlese";
-            tlp_utazasTorlese.RowCount = 2;
-            tlp_utazasTorlese.RowStyles.Add(new RowStyle(SizeType.Percent, 78.82528F));
-            tlp_utazasTorlese.RowStyles.Add(new RowStyle(SizeType.Percent, 21.1747246F));
-            tlp_utazasTorlese.Size = new Size(1129, 126);
-            tlp_utazasTorlese.TabIndex = 12;
-            // 
-            // rcb_desztinacio
-            // 
-            rcb_desztinacio.adatForras = null;
-            rcb_desztinacio.BackColor = Color.Transparent;
-            rcb_desztinacio.CimPanelAlsoSzin = Color.White;
-            rcb_desztinacio.CimPanelFelsoSzin = Color.White;
-            rcb_desztinacio.ComboText = "Desztináció";
-            rcb_desztinacio.EgerTrartasSzin = Color.LightGray;
-            rcb_desztinacio.ForeColor = Color.White;
-            rcb_desztinacio.Ikon = (Image)resources.GetObject("rcb_desztinacio.Ikon");
-            rcb_desztinacio.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_desztinacio.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_desztinacio.ItemPanelFelsoSzin = Color.WhiteSmoke;
-            rcb_desztinacio.KeretSzin = Color.BlueViolet;
-            rcb_desztinacio.KeretVastagsag = 1.8F;
-            rcb_desztinacio.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_desztinacio.LenyiloMagassag = 300;
-            rcb_desztinacio.Location = new Point(10, 10);
-            rcb_desztinacio.Margin = new Padding(10, 10, 0, 0);
-            rcb_desztinacio.MinimumSize = new Size(150, 0);
-            rcb_desztinacio.Name = "rcb_desztinacio";
-            rcb_desztinacio.Padding = new Padding(0, 0, 0, 11);
-            rcb_desztinacio.Radius = 20;
-            rcb_desztinacio.Size = new Size(304, 65);
-            rcb_desztinacio.TabIndex = 7;
-            rcb_desztinacio.TitleLabelSzin = Color.Black;
-            rcb_desztinacio.ElemKivalasztva += rcb_desztinacio_ElemKivalasztva;
-            rcb_desztinacio.Load += rcb_desztinacio_Load;
-            // 
-            // rcb_utazasIdeje
-            // 
-            rcb_utazasIdeje.adatForras = null;
-            rcb_utazasIdeje.BackColor = Color.Transparent;
-            rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
-            rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
-            rcb_utazasIdeje.ComboText = "Utazás ideje";
-            rcb_utazasIdeje.EgerTrartasSzin = Color.LightGray;
-            rcb_utazasIdeje.ForeColor = Color.White;
-            rcb_utazasIdeje.Ikon = (Image)resources.GetObject("rcb_utazasIdeje.Ikon");
-            rcb_utazasIdeje.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_utazasIdeje.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_utazasIdeje.ItemPanelFelsoSzin = Color.WhiteSmoke;
-            rcb_utazasIdeje.KeretSzin = Color.BlueViolet;
-            rcb_utazasIdeje.KeretVastagsag = 1.8F;
-            rcb_utazasIdeje.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_utazasIdeje.LenyiloMagassag = 300;
-            rcb_utazasIdeje.Location = new Point(386, 10);
-            rcb_utazasIdeje.Margin = new Padding(10, 10, 0, 0);
-            rcb_utazasIdeje.MinimumSize = new Size(150, 0);
-            rcb_utazasIdeje.Name = "rcb_utazasIdeje";
-            rcb_utazasIdeje.Padding = new Padding(0, 0, 0, 11);
-            rcb_utazasIdeje.Radius = 20;
-            rcb_utazasIdeje.Size = new Size(304, 65);
-            rcb_utazasIdeje.TabIndex = 8;
-            rcb_utazasIdeje.TitleLabelSzin = Color.Black;
-            rcb_utazasIdeje.ElemKivalasztva += rcb_idoszak_ElemKivalasztva;
-            rcb_utazasIdeje.Load += rcb_utazasIdeje_Load;
-            // 
-            // rcb_utazasElnevezese
-            // 
-            rcb_utazasElnevezese.adatForras = null;
-            rcb_utazasElnevezese.BackColor = Color.Transparent;
-            rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
-            rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
-            rcb_utazasElnevezese.ComboText = "Utazás elnevezése";
-            rcb_utazasElnevezese.EgerTrartasSzin = Color.LightGray;
-            rcb_utazasElnevezese.ForeColor = Color.White;
-            rcb_utazasElnevezese.Ikon = (Image)resources.GetObject("rcb_utazasElnevezese.Ikon");
-            rcb_utazasElnevezese.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_utazasElnevezese.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_utazasElnevezese.ItemPanelFelsoSzin = Color.WhiteSmoke;
-            rcb_utazasElnevezese.KeretSzin = Color.BlueViolet;
-            rcb_utazasElnevezese.KeretVastagsag = 1.8F;
-            rcb_utazasElnevezese.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_utazasElnevezese.LenyiloMagassag = 300;
-            rcb_utazasElnevezese.Location = new Point(762, 10);
-            rcb_utazasElnevezese.Margin = new Padding(10, 10, 0, 0);
-            rcb_utazasElnevezese.MinimumSize = new Size(150, 0);
-            rcb_utazasElnevezese.Name = "rcb_utazasElnevezese";
-            rcb_utazasElnevezese.Padding = new Padding(0, 0, 0, 6);
-            rcb_utazasElnevezese.Radius = 20;
-            rcb_utazasElnevezese.Size = new Size(304, 65);
-            rcb_utazasElnevezese.TabIndex = 9;
-            rcb_utazasElnevezese.TitleLabelSzin = Color.Black;
-            rcb_utazasElnevezese.ElemKivalasztva += rcb_utazasNeve_ElemKivalasztva;
-            rcb_utazasElnevezese.Load += rcb_utazasElnevezese_Load;
-            // 
-            // kg_utazasTorlese
-            // 
-            kg_utazasTorlese.BackColor = Color.Crimson;
-            kg_utazasTorlese.EgerTartasHatterSzine = Color.SlateBlue;
-            kg_utazasTorlese.FlatAppearance.BorderSize = 0;
-            kg_utazasTorlese.FlatStyle = FlatStyle.Flat;
-            kg_utazasTorlese.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            kg_utazasTorlese.ForeColor = Color.White;
-            kg_utazasTorlese.HatterSzine = Color.Crimson;
-            kg_utazasTorlese.Image = (Image)resources.GetObject("kg_utazasTorlese.Image");
-            kg_utazasTorlese.ImageAlign = ContentAlignment.MiddleRight;
-            kg_utazasTorlese.KeretMeret = 0;
-            kg_utazasTorlese.KeretSzine = Color.PaleVioletRed;
-            kg_utazasTorlese.Location = new Point(10, 101);
-            kg_utazasTorlese.Margin = new Padding(10, 2, 3, 2);
-            kg_utazasTorlese.Name = "kg_utazasTorlese";
-            kg_utazasTorlese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            kg_utazasTorlese.SarokSugar = 8;
-            kg_utazasTorlese.Size = new Size(199, 23);
-            kg_utazasTorlese.SzovegSzine = Color.White;
-            kg_utazasTorlese.TabIndex = 10;
-            kg_utazasTorlese.Text = "Utazás törlése";
-            kg_utazasTorlese.TextImageRelation = TextImageRelation.ImageBeforeText;
-            kg_utazasTorlese.UseVisualStyleBackColor = false;
-            kg_utazasTorlese.Click += kg_utazasTorlese_Click;
             // 
             // lb_torolni
             // 
             lb_torolni.AutoSize = true;
             lb_torolni.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lb_torolni.Location = new Point(59, 28);
+            lb_torolni.Location = new Point(100, 27);
             lb_torolni.Name = "lb_torolni";
             lb_torolni.Size = new Size(364, 30);
             lb_torolni.TabIndex = 0;
@@ -322,9 +196,11 @@
             pnl_vezerlopanel.Controls.Add(kszm_ujRegiFelhasznalo);
             pnl_vezerlopanel.Controls.Add(kszm_utazasTorles);
             pnl_vezerlopanel.Dock = DockStyle.Bottom;
-            pnl_vezerlopanel.Location = new Point(0, 535);
+            pnl_vezerlopanel.Location = new Point(0, 651);
+            pnl_vezerlopanel.Margin = new Padding(3, 3, 15, 15);
             pnl_vezerlopanel.Name = "pnl_vezerlopanel";
-            pnl_vezerlopanel.Size = new Size(956, 52);
+            pnl_vezerlopanel.Padding = new Padding(0, 0, 20, 0);
+            pnl_vezerlopanel.Size = new Size(960, 52);
             pnl_vezerlopanel.TabIndex = 13;
             // 
             // kszm_ujRegiFelhasznalo
@@ -378,6 +254,135 @@
             kszm_utazasTorles.UseVisualStyleBackColor = false;
             kszm_utazasTorles.Click += kszm_utazasTorles_Click;
             // 
+            // tlp_utazasTorlese
+            // 
+            tlp_utazasTorlese.ColumnCount = 3;
+            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tlp_utazasTorlese.Controls.Add(rcb_desztinacio, 0, 0);
+            tlp_utazasTorlese.Controls.Add(rcb_utazasIdeje, 1, 0);
+            tlp_utazasTorlese.Controls.Add(rcb_utazasElnevezese, 2, 0);
+            tlp_utazasTorlese.Controls.Add(kg_utazasTorlese, 2, 1);
+            tlp_utazasTorlese.Dock = DockStyle.Fill;
+            tlp_utazasTorlese.Location = new Point(0, 0);
+            tlp_utazasTorlese.Name = "tlp_utazasTorlese";
+            tlp_utazasTorlese.RowCount = 2;
+            tlp_utazasTorlese.RowStyles.Add(new RowStyle(SizeType.Percent, 78.82528F));
+            tlp_utazasTorlese.RowStyles.Add(new RowStyle(SizeType.Percent, 21.1747246F));
+            tlp_utazasTorlese.Size = new Size(960, 703);
+            tlp_utazasTorlese.TabIndex = 12;
+            // 
+            // rcb_desztinacio
+            // 
+            rcb_desztinacio.BackColor = Color.Transparent;
+            rcb_desztinacio.CimPanelAlsoSzin = Color.White;
+            rcb_desztinacio.CimPanelFelsoSzin = Color.White;
+            rcb_desztinacio.ComboText = "Desztináció";
+            rcb_desztinacio.EgerTrartasSzin = Color.LightGray;
+            rcb_desztinacio.ForeColor = Color.White;
+            rcb_desztinacio.Ikon = (Image)resources.GetObject("rcb_desztinacio.Ikon");
+            rcb_desztinacio.ItemHatterSzin = Color.WhiteSmoke;
+            rcb_desztinacio.ItemPanelAlosSzin = Color.WhiteSmoke;
+            rcb_desztinacio.ItemPanelFelsoSzin = Color.WhiteSmoke;
+            rcb_desztinacio.KeretSzin = Color.BlueViolet;
+            rcb_desztinacio.KeretVastagsag = 1.8F;
+            rcb_desztinacio.KivalasztottElemSzin = Color.BlueViolet;
+            rcb_desztinacio.LenyiloMagassag = 300;
+            rcb_desztinacio.Location = new Point(10, 10);
+            rcb_desztinacio.Margin = new Padding(10, 10, 0, 0);
+            rcb_desztinacio.MinimumSize = new Size(150, 0);
+            rcb_desztinacio.Name = "rcb_desztinacio";
+            rcb_desztinacio.Padding = new Padding(0, 0, 0, 11);
+            rcb_desztinacio.Radius = 20;
+            rcb_desztinacio.Size = new Size(304, 65);
+            rcb_desztinacio.TabIndex = 7;
+            rcb_desztinacio.TitleLabelSzin = Color.Black;
+            rcb_desztinacio.ElemKivalasztva += rcb_desztinacio_ElemKivalasztva;
+            rcb_desztinacio.Load += rcb_desztinacio_Load;
+            // 
+            // rcb_utazasIdeje
+            // 
+            rcb_utazasIdeje.BackColor = Color.Transparent;
+            rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
+            rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
+            rcb_utazasIdeje.ComboText = "Utazás ideje";
+            rcb_utazasIdeje.EgerTrartasSzin = Color.LightGray;
+            rcb_utazasIdeje.ForeColor = Color.White;
+            rcb_utazasIdeje.Ikon = (Image)resources.GetObject("rcb_utazasIdeje.Ikon");
+            rcb_utazasIdeje.ItemHatterSzin = Color.WhiteSmoke;
+            rcb_utazasIdeje.ItemPanelAlosSzin = Color.WhiteSmoke;
+            rcb_utazasIdeje.ItemPanelFelsoSzin = Color.WhiteSmoke;
+            rcb_utazasIdeje.KeretSzin = Color.BlueViolet;
+            rcb_utazasIdeje.KeretVastagsag = 1.8F;
+            rcb_utazasIdeje.KivalasztottElemSzin = Color.BlueViolet;
+            rcb_utazasIdeje.LenyiloMagassag = 300;
+            rcb_utazasIdeje.Location = new Point(329, 10);
+            rcb_utazasIdeje.Margin = new Padding(10, 10, 0, 0);
+            rcb_utazasIdeje.MinimumSize = new Size(150, 0);
+            rcb_utazasIdeje.Name = "rcb_utazasIdeje";
+            rcb_utazasIdeje.Padding = new Padding(0, 0, 0, 11);
+            rcb_utazasIdeje.Radius = 20;
+            rcb_utazasIdeje.Size = new Size(304, 65);
+            rcb_utazasIdeje.TabIndex = 8;
+            rcb_utazasIdeje.TitleLabelSzin = Color.Black;
+            rcb_utazasIdeje.ElemKivalasztva += rcb_idoszak_ElemKivalasztva;
+            rcb_utazasIdeje.Load += rcb_utazasIdeje_Load;
+            // 
+            // rcb_utazasElnevezese
+            // 
+            rcb_utazasElnevezese.BackColor = Color.Transparent;
+            rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
+            rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
+            rcb_utazasElnevezese.ComboText = "Utazás elnevezése";
+            rcb_utazasElnevezese.EgerTrartasSzin = Color.LightGray;
+            rcb_utazasElnevezese.ForeColor = Color.White;
+            rcb_utazasElnevezese.Ikon = (Image)resources.GetObject("rcb_utazasElnevezese.Ikon");
+            rcb_utazasElnevezese.ItemHatterSzin = Color.WhiteSmoke;
+            rcb_utazasElnevezese.ItemPanelAlosSzin = Color.WhiteSmoke;
+            rcb_utazasElnevezese.ItemPanelFelsoSzin = Color.WhiteSmoke;
+            rcb_utazasElnevezese.KeretSzin = Color.BlueViolet;
+            rcb_utazasElnevezese.KeretVastagsag = 1.8F;
+            rcb_utazasElnevezese.KivalasztottElemSzin = Color.BlueViolet;
+            rcb_utazasElnevezese.LenyiloMagassag = 300;
+            rcb_utazasElnevezese.Location = new Point(648, 10);
+            rcb_utazasElnevezese.Margin = new Padding(10, 10, 0, 0);
+            rcb_utazasElnevezese.MinimumSize = new Size(150, 0);
+            rcb_utazasElnevezese.Name = "rcb_utazasElnevezese";
+            rcb_utazasElnevezese.Padding = new Padding(0, 0, 0, 6);
+            rcb_utazasElnevezese.Radius = 20;
+            rcb_utazasElnevezese.Size = new Size(304, 65);
+            rcb_utazasElnevezese.TabIndex = 9;
+            rcb_utazasElnevezese.TitleLabelSzin = Color.Black;
+            rcb_utazasElnevezese.ElemKivalasztva += rcb_utazasNeve_ElemKivalasztva;
+            rcb_utazasElnevezese.Load += rcb_utazasElnevezese_Load;
+            // 
+            // kg_utazasTorlese
+            // 
+            kg_utazasTorlese.BackColor = Color.Crimson;
+            kg_utazasTorlese.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_utazasTorlese.FlatAppearance.BorderSize = 0;
+            kg_utazasTorlese.FlatStyle = FlatStyle.Flat;
+            kg_utazasTorlese.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            kg_utazasTorlese.ForeColor = Color.White;
+            kg_utazasTorlese.HatterSzine = Color.Crimson;
+            kg_utazasTorlese.Image = (Image)resources.GetObject("kg_utazasTorlese.Image");
+            kg_utazasTorlese.ImageAlign = ContentAlignment.MiddleRight;
+            kg_utazasTorlese.KeretMeret = 0;
+            kg_utazasTorlese.KeretSzine = Color.PaleVioletRed;
+            kg_utazasTorlese.Location = new Point(648, 556);
+            kg_utazasTorlese.Margin = new Padding(10, 2, 3, 2);
+            kg_utazasTorlese.Name = "kg_utazasTorlese";
+            kg_utazasTorlese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kg_utazasTorlese.SarokSugar = 8;
+            kg_utazasTorlese.Size = new Size(220, 52);
+            kg_utazasTorlese.SzovegSzine = Color.White;
+            kg_utazasTorlese.TabIndex = 10;
+            kg_utazasTorlese.Text = "Utazás törlése";
+            kg_utazasTorlese.TextImageRelation = TextImageRelation.ImageBeforeText;
+            kg_utazasTorlese.UseVisualStyleBackColor = false;
+            kg_utazasTorlese.Click += kg_utazasTorlese_Click;
+            // 
             // kszm_hozzaadas
             // 
             kszm_hozzaadas.Anchor = AnchorStyles.Bottom;
@@ -392,7 +397,7 @@
             kszm_hozzaadas.ImageAlign = ContentAlignment.MiddleRight;
             kszm_hozzaadas.KeretMeret = 0;
             kszm_hozzaadas.KeretSzine = Color.PaleVioletRed;
-            kszm_hozzaadas.Location = new Point(586, -38);
+            kszm_hozzaadas.Location = new Point(588, 566);
             kszm_hozzaadas.Margin = new Padding(3, 2, 3, 2);
             kszm_hozzaadas.Name = "kszm_hozzaadas";
             kszm_hozzaadas.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
@@ -408,11 +413,11 @@
             // tlp_ar
             // 
             tlp_ar.ColumnCount = 2;
-            tlp_ar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.7355747F));
-            tlp_ar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 79.26443F));
+            tlp_ar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.45633F));
+            tlp_ar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 72.54367F));
             tlp_ar.Controls.Add(kszm_ar, 1, 0);
             tlp_ar.Controls.Add(bl_ar, 0, 0);
-            tlp_ar.Dock = DockStyle.Left;
+            tlp_ar.Dock = DockStyle.Fill;
             tlp_ar.Location = new Point(352, 102);
             tlp_ar.Name = "tlp_ar";
             tlp_ar.RowCount = 1;
@@ -434,11 +439,11 @@
             kszm_ar.KeretMeret = 2;
             kszm_ar.KeretSugar = 8;
             kszm_ar.KeretSzin = Color.MediumSlateBlue;
-            kszm_ar.Location = new Point(75, 28);
+            kszm_ar.Location = new Point(98, 28);
             kszm_ar.Margin = new Padding(4, 3, 4, 3);
             kszm_ar.Name = "kszm_ar";
             kszm_ar.Padding = new Padding(9, 6, 9, 6);
-            kszm_ar.Size = new Size(265, 38);
+            kszm_ar.Size = new Size(242, 38);
             kszm_ar.TabIndex = 5;
             kszm_ar.Texts = "";
             kszm_ar.TobbSor = false;
@@ -450,7 +455,7 @@
             bl_ar.Font = new Font("Segoe UI", 14.2641506F, FontStyle.Regular, GraphicsUnit.Point, 238);
             bl_ar.Location = new Point(3, 0);
             bl_ar.Name = "bl_ar";
-            bl_ar.Size = new Size(65, 94);
+            bl_ar.Size = new Size(88, 94);
             bl_ar.TabIndex = 4;
             bl_ar.Text = "Ár:";
             bl_ar.TextAlign = ContentAlignment.MiddleCenter;
@@ -510,9 +515,9 @@
             tlp_utazasIdeje.ColumnCount = 2;
             tlp_utazasIdeje.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.5F));
             tlp_utazasIdeje.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 62.5F));
-            tlp_utazasIdeje.Controls.Add(dt_datumvalaszto, 1, 0);
+            tlp_utazasIdeje.Controls.Add(dtp_indulas, 1, 0);
             tlp_utazasIdeje.Controls.Add(bl_utazasIdeje, 0, 0);
-            tlp_utazasIdeje.Dock = DockStyle.Left;
+            tlp_utazasIdeje.Dock = DockStyle.Fill;
             tlp_utazasIdeje.Location = new Point(3, 3);
             tlp_utazasIdeje.Name = "tlp_utazasIdeje";
             tlp_utazasIdeje.RowCount = 1;
@@ -520,19 +525,19 @@
             tlp_utazasIdeje.Size = new Size(343, 93);
             tlp_utazasIdeje.TabIndex = 15;
             // 
-            // dt_datumvalaszto
+            // dtp_indulas
             // 
-            dt_datumvalaszto.Anchor = AnchorStyles.Left;
-            dt_datumvalaszto.CalendarFont = new Font("Segoe UI", 22.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dt_datumvalaszto.CalendarMonthBackground = Color.SlateBlue;
-            dt_datumvalaszto.CalendarTitleBackColor = Color.SlateBlue;
-            dt_datumvalaszto.CalendarTrailingForeColor = Color.SlateBlue;
-            dt_datumvalaszto.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dt_datumvalaszto.Location = new Point(131, 29);
-            dt_datumvalaszto.Margin = new Padding(3, 2, 3, 2);
-            dt_datumvalaszto.Name = "dt_datumvalaszto";
-            dt_datumvalaszto.Size = new Size(209, 35);
-            dt_datumvalaszto.TabIndex = 2;
+            dtp_indulas.Anchor = AnchorStyles.Left;
+            dtp_indulas.CalendarFont = new Font("Segoe UI", 22.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dtp_indulas.CalendarMonthBackground = Color.SlateBlue;
+            dtp_indulas.CalendarTitleBackColor = Color.SlateBlue;
+            dtp_indulas.CalendarTrailingForeColor = Color.SlateBlue;
+            dtp_indulas.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dtp_indulas.Location = new Point(131, 29);
+            dtp_indulas.Margin = new Padding(3, 2, 3, 2);
+            dtp_indulas.Name = "dtp_indulas";
+            dtp_indulas.Size = new Size(209, 35);
+            dtp_indulas.TabIndex = 2;
             // 
             // bl_utazasIdeje
             // 
@@ -548,62 +553,61 @@
             // tlp_indulasHelye
             // 
             tlp_indulasHelye.ColumnCount = 2;
-            tlp_indulasHelye.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.7355747F));
-            tlp_indulasHelye.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 79.26443F));
-            tlp_indulasHelye.Controls.Add(kerekitettSzovegMezo1, 1, 0);
-            tlp_indulasHelye.Controls.Add(bufferedLabel1, 0, 0);
-            tlp_indulasHelye.Dock = DockStyle.Left;
+            tlp_indulasHelye.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.45633F));
+            tlp_indulasHelye.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 72.54367F));
+            tlp_indulasHelye.Controls.Add(kszm_indulasiHely, 1, 0);
+            tlp_indulasHelye.Controls.Add(blbl_indulas_helye, 0, 0);
+            tlp_indulasHelye.Dock = DockStyle.Fill;
             tlp_indulasHelye.Location = new Point(3, 102);
             tlp_indulasHelye.Name = "tlp_indulasHelye";
             tlp_indulasHelye.RowCount = 1;
             tlp_indulasHelye.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlp_indulasHelye.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tlp_indulasHelye.Size = new Size(343, 94);
             tlp_indulasHelye.TabIndex = 23;
             // 
-            // kerekitettSzovegMezo1
+            // kszm_indulasiHely
             // 
-            kerekitettSzovegMezo1.AlahuzottStilus = false;
-            kerekitettSzovegMezo1.Anchor = AnchorStyles.Left;
-            kerekitettSzovegMezo1.BackColor = SystemColors.Window;
-            kerekitettSzovegMezo1.FokuszKeretSzin = Color.HotPink;
-            kerekitettSzovegMezo1.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            kerekitettSzovegMezo1.ForeColor = Color.FromArgb(64, 64, 64);
-            kerekitettSzovegMezo1.HelyorzoSzin = Color.DarkGray;
-            kerekitettSzovegMezo1.HelyorzoSzoveg = "Adja meg az indulás helyét";
-            kerekitettSzovegMezo1.JelszoKarakter = false;
-            kerekitettSzovegMezo1.KeretMeret = 2;
-            kerekitettSzovegMezo1.KeretSugar = 8;
-            kerekitettSzovegMezo1.KeretSzin = Color.MediumSlateBlue;
-            kerekitettSzovegMezo1.Location = new Point(75, 28);
-            kerekitettSzovegMezo1.Margin = new Padding(4, 3, 4, 3);
-            kerekitettSzovegMezo1.Name = "kerekitettSzovegMezo1";
-            kerekitettSzovegMezo1.Padding = new Padding(9, 6, 9, 6);
-            kerekitettSzovegMezo1.Size = new Size(264, 38);
-            kerekitettSzovegMezo1.TabIndex = 5;
-            kerekitettSzovegMezo1.Texts = "";
-            kerekitettSzovegMezo1.TobbSor = true;
+            kszm_indulasiHely.AlahuzottStilus = false;
+            kszm_indulasiHely.Anchor = AnchorStyles.Left;
+            kszm_indulasiHely.BackColor = SystemColors.Window;
+            kszm_indulasiHely.FokuszKeretSzin = Color.HotPink;
+            kszm_indulasiHely.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            kszm_indulasiHely.ForeColor = Color.FromArgb(64, 64, 64);
+            kszm_indulasiHely.HelyorzoSzin = Color.DarkGray;
+            kszm_indulasiHely.HelyorzoSzoveg = "Adja meg az indulás helyét";
+            kszm_indulasiHely.JelszoKarakter = false;
+            kszm_indulasiHely.KeretMeret = 2;
+            kszm_indulasiHely.KeretSugar = 8;
+            kszm_indulasiHely.KeretSzin = Color.MediumSlateBlue;
+            kszm_indulasiHely.Location = new Point(98, 28);
+            kszm_indulasiHely.Margin = new Padding(4, 3, 4, 3);
+            kszm_indulasiHely.Name = "kszm_indulasiHely";
+            kszm_indulasiHely.Padding = new Padding(9, 6, 9, 6);
+            kszm_indulasiHely.Size = new Size(241, 38);
+            kszm_indulasiHely.TabIndex = 5;
+            kszm_indulasiHely.Texts = "";
+            kszm_indulasiHely.TobbSor = true;
             // 
-            // bufferedLabel1
+            // blbl_indulas_helye
             // 
-            bufferedLabel1.Anchor = AnchorStyles.Left;
-            bufferedLabel1.AutoSize = true;
-            bufferedLabel1.Font = new Font("Segoe UI", 14.2641506F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            bufferedLabel1.Location = new Point(3, 0);
-            bufferedLabel1.Name = "bufferedLabel1";
-            bufferedLabel1.Size = new Size(62, 94);
-            bufferedLabel1.TabIndex = 4;
-            bufferedLabel1.Text = "Indulás helye:";
-            bufferedLabel1.TextAlign = ContentAlignment.MiddleCenter;
+            blbl_indulas_helye.Anchor = AnchorStyles.Left;
+            blbl_indulas_helye.AutoSize = true;
+            blbl_indulas_helye.Font = new Font("Segoe UI", 14.2641506F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            blbl_indulas_helye.Location = new Point(3, 17);
+            blbl_indulas_helye.Name = "blbl_indulas_helye";
+            blbl_indulas_helye.Size = new Size(80, 60);
+            blbl_indulas_helye.TabIndex = 4;
+            blbl_indulas_helye.Text = "Indulás helye:";
+            blbl_indulas_helye.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tlp_erkezesiDatum
             // 
             tlp_erkezesiDatum.ColumnCount = 2;
             tlp_erkezesiDatum.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.5F));
             tlp_erkezesiDatum.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 62.5F));
-            tlp_erkezesiDatum.Controls.Add(dtp_erkezesiDatum, 1, 0);
+            tlp_erkezesiDatum.Controls.Add(dtp_vissza, 1, 0);
             tlp_erkezesiDatum.Controls.Add(bl_erkezesiDatum, 0, 0);
-            tlp_erkezesiDatum.Dock = DockStyle.Left;
+            tlp_erkezesiDatum.Dock = DockStyle.Fill;
             tlp_erkezesiDatum.Location = new Point(352, 3);
             tlp_erkezesiDatum.Name = "tlp_erkezesiDatum";
             tlp_erkezesiDatum.RowCount = 1;
@@ -612,19 +616,19 @@
             tlp_erkezesiDatum.Size = new Size(344, 93);
             tlp_erkezesiDatum.TabIndex = 18;
             // 
-            // dtp_erkezesiDatum
+            // dtp_vissza
             // 
-            dtp_erkezesiDatum.Anchor = AnchorStyles.Left;
-            dtp_erkezesiDatum.CalendarFont = new Font("Segoe UI", 22.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dtp_erkezesiDatum.CalendarMonthBackground = Color.SlateBlue;
-            dtp_erkezesiDatum.CalendarTitleBackColor = Color.SlateBlue;
-            dtp_erkezesiDatum.CalendarTrailingForeColor = Color.SlateBlue;
-            dtp_erkezesiDatum.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dtp_erkezesiDatum.Location = new Point(132, 29);
-            dtp_erkezesiDatum.Margin = new Padding(3, 2, 3, 2);
-            dtp_erkezesiDatum.Name = "dtp_erkezesiDatum";
-            dtp_erkezesiDatum.Size = new Size(209, 35);
-            dtp_erkezesiDatum.TabIndex = 2;
+            dtp_vissza.Anchor = AnchorStyles.Left;
+            dtp_vissza.CalendarFont = new Font("Segoe UI", 22.2F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dtp_vissza.CalendarMonthBackground = Color.SlateBlue;
+            dtp_vissza.CalendarTitleBackColor = Color.SlateBlue;
+            dtp_vissza.CalendarTrailingForeColor = Color.SlateBlue;
+            dtp_vissza.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dtp_vissza.Location = new Point(132, 29);
+            dtp_vissza.Margin = new Padding(3, 2, 3, 2);
+            dtp_vissza.Name = "dtp_vissza";
+            dtp_vissza.Size = new Size(209, 35);
+            dtp_vissza.TabIndex = 2;
             // 
             // bl_erkezesiDatum
             // 
@@ -640,7 +644,7 @@
             // szp_utazasNeve
             // 
             szp_utazasNeve.BackColor = Color.Transparent;
-            szp_utazasNeve.Controls.Add(tableLayoutPanel1);
+            szp_utazasNeve.Controls.Add(DoubleBufferedTableLayoutPanel1);
             szp_utazasNeve.Dock = DockStyle.Fill;
             szp_utazasNeve.ForeColor = Color.Black;
             szp_utazasNeve.KeretSzin = Color.Black;
@@ -656,20 +660,20 @@
             szp_utazasNeve.SzinatmenetSzog = 90F;
             szp_utazasNeve.TabIndex = 7;
             // 
-            // tableLayoutPanel1
+            // DoubleBufferedTableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(kszm_desztinacio, 0, 0);
-            tableLayoutPanel1.Controls.Add(kszm_utazasElnevezese, 0, 1);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(9, 9);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(699, 129);
-            tableLayoutPanel1.TabIndex = 0;
+            DoubleBufferedTableLayoutPanel1.ColumnCount = 1;
+            DoubleBufferedTableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            DoubleBufferedTableLayoutPanel1.Controls.Add(kszm_desztinacio, 0, 0);
+            DoubleBufferedTableLayoutPanel1.Controls.Add(kszm_utazasElnevezese, 0, 1);
+            DoubleBufferedTableLayoutPanel1.Dock = DockStyle.Fill;
+            DoubleBufferedTableLayoutPanel1.Location = new Point(9, 9);
+            DoubleBufferedTableLayoutPanel1.Name = "DoubleBufferedTableLayoutPanel1";
+            DoubleBufferedTableLayoutPanel1.RowCount = 2;
+            DoubleBufferedTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            DoubleBufferedTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            DoubleBufferedTableLayoutPanel1.Size = new Size(699, 129);
+            DoubleBufferedTableLayoutPanel1.TabIndex = 0;
             // 
             // kszm_desztinacio
             // 
@@ -752,15 +756,16 @@
             flp_rendezoPanel.BackColor = Color.FromArgb(50, 70, 90);
             flp_rendezoPanel.Controls.Add(pl_terkezelo);
             flp_rendezoPanel.Controls.Add(szp_utazasNeve);
-            flp_rendezoPanel.Controls.Add(szinatmenetPanel2);
-            flp_rendezoPanel.Controls.Add(szinatmenetPanel3);
-            flp_rendezoPanel.Controls.Add(szinatmenetPanel4);
+            flp_rendezoPanel.Controls.Add(szp_utazasAdatok);
+            flp_rendezoPanel.Controls.Add(szp_leiras);
+            flp_rendezoPanel.Controls.Add(sznp_utazasModja);
+            flp_rendezoPanel.Controls.Add(szp_borito);
             flp_rendezoPanel.Dock = DockStyle.Fill;
             flp_rendezoPanel.FlowDirection = FlowDirection.TopDown;
             flp_rendezoPanel.Location = new Point(0, 0);
             flp_rendezoPanel.Margin = new Padding(0);
             flp_rendezoPanel.Name = "flp_rendezoPanel";
-            flp_rendezoPanel.Size = new Size(956, 535);
+            flp_rendezoPanel.Size = new Size(960, 651);
             flp_rendezoPanel.TabIndex = 20;
             flp_rendezoPanel.WrapContents = false;
             flp_rendezoPanel.Resize += flp_rendezoPanel_Resize;
@@ -774,80 +779,161 @@
             pl_terkezelo.Size = new Size(837, 12);
             pl_terkezelo.TabIndex = 8;
             // 
-            // szinatmenetPanel2
+            // szp_utazasAdatok
             // 
-            szinatmenetPanel2.BackColor = Color.Transparent;
-            szinatmenetPanel2.Controls.Add(tableLayoutPanel2);
-            szinatmenetPanel2.Dock = DockStyle.Top;
-            szinatmenetPanel2.ForeColor = Color.Black;
-            szinatmenetPanel2.KeretSzin = Color.Black;
-            szinatmenetPanel2.KeretVastagsag = 0F;
-            szinatmenetPanel2.Location = new Point(60, 239);
-            szinatmenetPanel2.Margin = new Padding(60, 23, 60, 34);
-            szinatmenetPanel2.Name = "szinatmenetPanel2";
-            szinatmenetPanel2.Padding = new Padding(9);
-            szinatmenetPanel2.SarkokLekerekitese = 20;
-            szinatmenetPanel2.Size = new Size(717, 217);
-            szinatmenetPanel2.SzinatmenetAlsoSzine = Color.WhiteSmoke;
-            szinatmenetPanel2.SzinatmenetFelsoSzine = Color.WhiteSmoke;
-            szinatmenetPanel2.SzinatmenetSzog = 90F;
-            szinatmenetPanel2.TabIndex = 9;
+            szp_utazasAdatok.BackColor = Color.Transparent;
+            szp_utazasAdatok.Controls.Add(tlp_utazasAdatok);
+            szp_utazasAdatok.Dock = DockStyle.Top;
+            szp_utazasAdatok.ForeColor = Color.Black;
+            szp_utazasAdatok.KeretSzin = Color.Black;
+            szp_utazasAdatok.KeretVastagsag = 0F;
+            szp_utazasAdatok.Location = new Point(60, 239);
+            szp_utazasAdatok.Margin = new Padding(60, 23, 60, 34);
+            szp_utazasAdatok.Name = "szp_utazasAdatok";
+            szp_utazasAdatok.Padding = new Padding(9);
+            szp_utazasAdatok.SarkokLekerekitese = 20;
+            szp_utazasAdatok.Size = new Size(717, 217);
+            szp_utazasAdatok.SzinatmenetAlsoSzine = Color.WhiteSmoke;
+            szp_utazasAdatok.SzinatmenetFelsoSzine = Color.WhiteSmoke;
+            szp_utazasAdatok.SzinatmenetSzog = 90F;
+            szp_utazasAdatok.TabIndex = 9;
             // 
-            // tableLayoutPanel2
+            // tlp_utazasAdatok
             // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(tlp_ar, 1, 1);
-            tableLayoutPanel2.Controls.Add(tlp_utazasIdeje, 0, 0);
-            tableLayoutPanel2.Controls.Add(tlp_erkezesiDatum, 1, 0);
-            tableLayoutPanel2.Controls.Add(tlp_indulasHelye, 0, 1);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(9, 9);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 2;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(699, 199);
-            tableLayoutPanel2.TabIndex = 0;
+            tlp_utazasAdatok.ColumnCount = 2;
+            tlp_utazasAdatok.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlp_utazasAdatok.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlp_utazasAdatok.Controls.Add(tlp_ar, 1, 1);
+            tlp_utazasAdatok.Controls.Add(tlp_utazasIdeje, 0, 0);
+            tlp_utazasAdatok.Controls.Add(tlp_erkezesiDatum, 1, 0);
+            tlp_utazasAdatok.Controls.Add(tlp_indulasHelye, 0, 1);
+            tlp_utazasAdatok.Dock = DockStyle.Fill;
+            tlp_utazasAdatok.Location = new Point(9, 9);
+            tlp_utazasAdatok.Name = "tlp_utazasAdatok";
+            tlp_utazasAdatok.RowCount = 2;
+            tlp_utazasAdatok.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tlp_utazasAdatok.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tlp_utazasAdatok.Size = new Size(699, 199);
+            tlp_utazasAdatok.TabIndex = 0;
             // 
-            // szinatmenetPanel3
+            // szp_leiras
             // 
-            szinatmenetPanel3.BackColor = Color.Transparent;
-            szinatmenetPanel3.Controls.Add(tlp_leiras);
-            szinatmenetPanel3.Dock = DockStyle.Top;
-            szinatmenetPanel3.ForeColor = Color.Black;
-            szinatmenetPanel3.KeretSzin = Color.Black;
-            szinatmenetPanel3.KeretVastagsag = 0F;
-            szinatmenetPanel3.Location = new Point(60, 513);
-            szinatmenetPanel3.Margin = new Padding(60, 23, 60, 34);
-            szinatmenetPanel3.Name = "szinatmenetPanel3";
-            szinatmenetPanel3.Padding = new Padding(9);
-            szinatmenetPanel3.SarkokLekerekitese = 20;
-            szinatmenetPanel3.Size = new Size(717, 147);
-            szinatmenetPanel3.SzinatmenetAlsoSzine = Color.WhiteSmoke;
-            szinatmenetPanel3.SzinatmenetFelsoSzine = Color.WhiteSmoke;
-            szinatmenetPanel3.SzinatmenetSzog = 90F;
-            szinatmenetPanel3.TabIndex = 10;
+            szp_leiras.BackColor = Color.Transparent;
+            szp_leiras.Controls.Add(tlp_leiras);
+            szp_leiras.Dock = DockStyle.Top;
+            szp_leiras.ForeColor = Color.Black;
+            szp_leiras.KeretSzin = Color.Black;
+            szp_leiras.KeretVastagsag = 0F;
+            szp_leiras.Location = new Point(60, 513);
+            szp_leiras.Margin = new Padding(60, 23, 60, 34);
+            szp_leiras.Name = "szp_leiras";
+            szp_leiras.Padding = new Padding(9);
+            szp_leiras.SarkokLekerekitese = 20;
+            szp_leiras.Size = new Size(717, 147);
+            szp_leiras.SzinatmenetAlsoSzine = Color.WhiteSmoke;
+            szp_leiras.SzinatmenetFelsoSzine = Color.WhiteSmoke;
+            szp_leiras.SzinatmenetSzog = 90F;
+            szp_leiras.TabIndex = 10;
             // 
-            // szinatmenetPanel4
+            // sznp_utazasModja
             // 
-            szinatmenetPanel4.BackColor = Color.Transparent;
-            szinatmenetPanel4.Controls.Add(tlp_kep);
-            szinatmenetPanel4.Dock = DockStyle.Top;
-            szinatmenetPanel4.ForeColor = Color.Black;
-            szinatmenetPanel4.KeretSzin = Color.Black;
-            szinatmenetPanel4.KeretVastagsag = 0F;
-            szinatmenetPanel4.Location = new Point(60, 717);
-            szinatmenetPanel4.Margin = new Padding(60, 23, 60, 34);
-            szinatmenetPanel4.Name = "szinatmenetPanel4";
-            szinatmenetPanel4.Padding = new Padding(9);
-            szinatmenetPanel4.SarkokLekerekitese = 20;
-            szinatmenetPanel4.Size = new Size(717, 347);
-            szinatmenetPanel4.SzinatmenetAlsoSzine = Color.WhiteSmoke;
-            szinatmenetPanel4.SzinatmenetFelsoSzine = Color.WhiteSmoke;
-            szinatmenetPanel4.SzinatmenetSzog = 90F;
-            szinatmenetPanel4.TabIndex = 11;
+            sznp_utazasModja.BackColor = Color.Transparent;
+            sznp_utazasModja.Controls.Add(doubleBufferedTableLayoutPanel2);
+            sznp_utazasModja.Dock = DockStyle.Top;
+            sznp_utazasModja.ForeColor = Color.Black;
+            sznp_utazasModja.KeretSzin = Color.Black;
+            sznp_utazasModja.KeretVastagsag = 0F;
+            sznp_utazasModja.Location = new Point(60, 717);
+            sznp_utazasModja.Margin = new Padding(60, 23, 60, 34);
+            sznp_utazasModja.Name = "sznp_utazasModja";
+            sznp_utazasModja.Padding = new Padding(9);
+            sznp_utazasModja.SarkokLekerekitese = 20;
+            sznp_utazasModja.Size = new Size(717, 246);
+            sznp_utazasModja.SzinatmenetAlsoSzine = Color.WhiteSmoke;
+            sznp_utazasModja.SzinatmenetFelsoSzine = Color.WhiteSmoke;
+            sznp_utazasModja.SzinatmenetSzog = 90F;
+            sznp_utazasModja.TabIndex = 12;
+            // 
+            // doubleBufferedTableLayoutPanel2
+            // 
+            doubleBufferedTableLayoutPanel2.ColumnCount = 2;
+            doubleBufferedTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.0824089F));
+            doubleBufferedTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 74.91759F));
+            doubleBufferedTableLayoutPanel2.Controls.Add(klm_utazasiMod, 1, 0);
+            doubleBufferedTableLayoutPanel2.Controls.Add(blbl_utazasModja, 0, 0);
+            doubleBufferedTableLayoutPanel2.Dock = DockStyle.Fill;
+            doubleBufferedTableLayoutPanel2.Location = new Point(9, 9);
+            doubleBufferedTableLayoutPanel2.Name = "doubleBufferedTableLayoutPanel2";
+            doubleBufferedTableLayoutPanel2.RowCount = 1;
+            doubleBufferedTableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            doubleBufferedTableLayoutPanel2.Size = new Size(699, 228);
+            doubleBufferedTableLayoutPanel2.TabIndex = 21;
+            // 
+            // klm_utazasiMod
+            // 
+            klm_utazasiMod.adatForras = new string[]
+    {
+    "Mind",
+    "Busz",
+    "Repülő",
+    "Hajó",
+    "Egyéni"
+    };
+            klm_utazasiMod.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            klm_utazasiMod.BackColor = Color.Transparent;
+            klm_utazasiMod.CimPanelAlsoSzin = Color.White;
+            klm_utazasiMod.CimPanelFelsoSzin = Color.White;
+            klm_utazasiMod.ComboText = "Utazási mód";
+            klm_utazasiMod.EgerTrartasSzin = Color.CornflowerBlue;
+            klm_utazasiMod.ForeColor = Color.White;
+            klm_utazasiMod.Ikon = (Image)resources.GetObject("klm_utazasiMod.Ikon");
+            klm_utazasiMod.ItemHatterSzin = Color.White;
+            klm_utazasiMod.ItemPanelAlosSzin = Color.White;
+            klm_utazasiMod.ItemPanelFelsoSzin = Color.White;
+            klm_utazasiMod.KeretSzin = Color.MediumSlateBlue;
+            klm_utazasiMod.KeretVastagsag = 2F;
+            klm_utazasiMod.KivalasztottElemSzin = Color.BlueViolet;
+            klm_utazasiMod.LenyiloMagassag = 150;
+            klm_utazasiMod.Location = new Point(177, 3);
+            klm_utazasiMod.Margin = new Padding(2, 3, 2, 3);
+            klm_utazasiMod.MinimumSize = new Size(150, 0);
+            klm_utazasiMod.Name = "klm_utazasiMod";
+            klm_utazasiMod.Radius = 10;
+            klm_utazasiMod.Size = new Size(520, 63);
+            klm_utazasiMod.TabIndex = 22;
+            klm_utazasiMod.TitleLabelSzin = Color.Black;
+            // 
+            // blbl_utazasModja
+            // 
+            blbl_utazasModja.AutoSize = true;
+            blbl_utazasModja.Dock = DockStyle.Fill;
+            blbl_utazasModja.Font = new Font("Segoe UI", 14.2641506F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            blbl_utazasModja.Location = new Point(3, 15);
+            blbl_utazasModja.Margin = new Padding(3, 15, 3, 0);
+            blbl_utazasModja.Name = "blbl_utazasModja";
+            blbl_utazasModja.Size = new Size(169, 213);
+            blbl_utazasModja.TabIndex = 21;
+            blbl_utazasModja.Text = "Utazás módja";
+            blbl_utazasModja.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // szp_borito
+            // 
+            szp_borito.BackColor = Color.Transparent;
+            szp_borito.Controls.Add(tlp_kep);
+            szp_borito.Dock = DockStyle.Top;
+            szp_borito.ForeColor = Color.Black;
+            szp_borito.KeretSzin = Color.Black;
+            szp_borito.KeretVastagsag = 0F;
+            szp_borito.Location = new Point(60, 1020);
+            szp_borito.Margin = new Padding(60, 23, 60, 34);
+            szp_borito.Name = "szp_borito";
+            szp_borito.Padding = new Padding(9);
+            szp_borito.SarkokLekerekitese = 20;
+            szp_borito.Size = new Size(717, 347);
+            szp_borito.SzinatmenetAlsoSzine = Color.WhiteSmoke;
+            szp_borito.SzinatmenetFelsoSzine = Color.WhiteSmoke;
+            szp_borito.SzinatmenetSzog = 90F;
+            szp_borito.TabIndex = 11;
             // 
             // tlp_kep
             // 
@@ -871,7 +957,7 @@
             pcb_borito.Location = new Point(189, 3);
             pcb_borito.Name = "pcb_borito";
             pcb_borito.Size = new Size(507, 323);
-            pcb_borito.SizeMode = PictureBoxSizeMode.StretchImage;
+            pcb_borito.SizeMode = PictureBoxSizeMode.Zoom;
             pcb_borito.TabIndex = 0;
             pcb_borito.TabStop = false;
             // 
@@ -900,16 +986,18 @@
             kg_boritoValasztas.Text = "Borító választás";
             kg_boritoValasztas.TextImageRelation = TextImageRelation.ImageBeforeText;
             kg_boritoValasztas.UseVisualStyleBackColor = false;
+            kg_boritoValasztas.Click += kg_boritoValasztas_Click;
             // 
             // frm_UtazasokHozzaadasa
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(50, 70, 90);
-            ClientSize = new Size(956, 587);
+            ClientSize = new Size(960, 703);
             Controls.Add(kszm_hozzaadas);
             Controls.Add(flp_rendezoPanel);
             Controls.Add(pnl_vezerlopanel);
+            Controls.Add(tlp_utazasTorlese);
             Controls.Add(pnl_torles);
             Margin = new Padding(3, 2, 3, 2);
             Name = "frm_UtazasokHozzaadasa";
@@ -918,8 +1006,8 @@
             Resize += frm_UtazasokHozzaadasa_Resize;
             pnl_torles.ResumeLayout(false);
             pnl_torles.PerformLayout();
-            tlp_utazasTorlese.ResumeLayout(false);
             pnl_vezerlopanel.ResumeLayout(false);
+            tlp_utazasTorlese.ResumeLayout(false);
             tlp_ar.ResumeLayout(false);
             tlp_ar.PerformLayout();
             tlp_leiras.ResumeLayout(false);
@@ -931,13 +1019,16 @@
             tlp_erkezesiDatum.ResumeLayout(false);
             tlp_erkezesiDatum.PerformLayout();
             szp_utazasNeve.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
+            DoubleBufferedTableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             flp_rendezoPanel.ResumeLayout(false);
-            szinatmenetPanel2.ResumeLayout(false);
-            tableLayoutPanel2.ResumeLayout(false);
-            szinatmenetPanel3.ResumeLayout(false);
-            szinatmenetPanel4.ResumeLayout(false);
+            szp_utazasAdatok.ResumeLayout(false);
+            tlp_utazasAdatok.ResumeLayout(false);
+            szp_leiras.ResumeLayout(false);
+            sznp_utazasModja.ResumeLayout(false);
+            doubleBufferedTableLayoutPanel2.ResumeLayout(false);
+            doubleBufferedTableLayoutPanel2.PerformLayout();
+            szp_borito.ResumeLayout(false);
             tlp_kep.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pcb_borito).EndInit();
             ResumeLayout(false);
@@ -945,7 +1036,7 @@
         }
 
         #endregion
-        private DateTimePicker dt_datumvalaszto;
+        private DateTimePicker dtp_indulas;
         private egyeni_vezerlok.KerekitettGomb kszm_hozzaadas;
         private egyeni_vezerlok.kerekitettLenyilloMenu kerekitettLenyilloMenu1;
         private egyeni_vezerlok.kerekitettLenyilloMenu rcb_desztinacio;
@@ -958,38 +1049,42 @@
         private egyeni_vezerlok.KerekitettGomb kg_nem;
         private egyeni_vezerlok.KerekitettGomb kg_igen;
         private egyeni_vezerlok.ellipszisVezerlo ev_torles;
-        private TableLayoutPanel tlp_utazasTorlese;
+        private DoubleBufferedTableLayoutPanel tlp_utazasTorlese;
         private Panel pnl_vezerlopanel;
         private egyeni_vezerlok.KerekitettGomb kszm_utazasTorles;
         private egyeni_vezerlok.KerekitettGomb kszm_ujRegiFelhasznalo;
         private egyeni_vezerlok.BufferedLabel bl_utazasIdeje;
-        private TableLayoutPanel tlp_utazasIdeje;
-        private TableLayoutPanel tlp_erkezesiDatum;
+        private DoubleBufferedTableLayoutPanel tlp_utazasIdeje;
+        private DoubleBufferedTableLayoutPanel tlp_erkezesiDatum;
         private egyeni_vezerlok.BufferedLabel bl_erkezesiDatum;
-        private DateTimePicker dtp_erkezesiDatum;
+        private DateTimePicker dtp_vissza;
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_leiras;
-        private TableLayoutPanel tlp_leiras;
+        private DoubleBufferedTableLayoutPanel tlp_leiras;
         private egyeni_vezerlok.BufferedLabel bl_leiras;
-        private TableLayoutPanel tlp_ar;
+        private DoubleBufferedTableLayoutPanel tlp_ar;
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_ar;
         private egyeni_vezerlok.BufferedLabel bl_ar;
-        private TableLayoutPanel tlp_indulasHelye;
-        private egyeni_vezerlok.kerekitettSzovegMezo kerekitettSzovegMezo1;
-        private egyeni_vezerlok.BufferedLabel bufferedLabel1;
+        private DoubleBufferedTableLayoutPanel tlp_indulasHelye;
+        private egyeni_vezerlok.kerekitettSzovegMezo kszm_indulasiHely;
+        private egyeni_vezerlok.BufferedLabel blbl_indulas_helye;
         private egyeni_vezerlok.SzinatmenetPanel szp_utazasNeve;
-        private TableLayoutPanel tableLayoutPanel1;
+        private DoubleBufferedTableLayoutPanel DoubleBufferedTableLayoutPanel1;
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_desztinacio;
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_utazasElnevezese;
         private egyeni_vezerlok.SzinatmenetPanel szinatmenetPanel1;
         private Panel panel1;
         private FlowLayoutPanel flp_rendezoPanel;
         private Panel pl_terkezelo;
-        private egyeni_vezerlok.SzinatmenetPanel szinatmenetPanel2;
-        private TableLayoutPanel tableLayoutPanel2;
-        private egyeni_vezerlok.SzinatmenetPanel szinatmenetPanel3;
-        private egyeni_vezerlok.SzinatmenetPanel szinatmenetPanel4;
-        private TableLayoutPanel tlp_kep;
+        private egyeni_vezerlok.SzinatmenetPanel szp_utazasAdatok;
+        private DoubleBufferedTableLayoutPanel tlp_utazasAdatok;
+        private egyeni_vezerlok.SzinatmenetPanel szp_leiras;
+        private egyeni_vezerlok.SzinatmenetPanel szp_borito;
+        private DoubleBufferedTableLayoutPanel tlp_kep;
         private egyeni_vezerlok.KerekitettGomb kg_boritoValasztas;
         private PictureBox pcb_borito;
+        private egyeni_vezerlok.SzinatmenetPanel sznp_utazasModja;
+        private DoubleBufferedTableLayoutPanel doubleBufferedTableLayoutPanel2;
+        private egyeni_vezerlok.BufferedLabel blbl_utazasModja;
+        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasiMod;
     }
 }

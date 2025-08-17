@@ -22,7 +22,7 @@ namespace Projekt_feladat.Formok
             InitializeComponent();
 
         }
-        string constr = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
+        string kapcsolatString = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "root", "", "utazast_kezelo");
         private void kszm_hozzaadas_Click(object sender, EventArgs e)
         {
             if (!bejelentkezes.bejelentkezes.Bejelentkezve())
@@ -46,43 +46,90 @@ namespace Projekt_feladat.Formok
                 return;
             }
             if (string.IsNullOrWhiteSpace(kszm_desztinacio.Texts) &&
-                string.IsNullOrWhiteSpace(kszm_utazasElnevezese.Texts) &&
-                dt_datumvalaszto.Value.Date == DateTime.Now.Date)
+                string.IsNullOrWhiteSpace(kszm_utazasElnevezese.Texts))
             {
+                kszm_hozzaadas.HatterSzine = Color.Red;
                 return;
             }
-            using (var kapcsolatObj = new MySqlConnection(constr))
+
+        
+            try
             {
-                try
+                using (var kapcsolatObj = new MySqlConnection(kapcsolatString))
                 {
                     kapcsolatObj.Open();
 
-                    string sql = @"INSERT INTO utazas (utazas_elnevezese, utazas_ideje, desztinacio)
-                           VALUES (@elnevezes, @ido, @desztinacio)";
+                  
+                    string utazas = @"
+                INSERT INTO utazas
+                (utazas_modja, utazas_elnevezese, utazas_ideje, desztinacio)
+                VALUES (@mod, @nev, @ido, @hely)";
 
-                    using (var cmd = new MySqlCommand(sql, kapcsolatObj))
+                    using (var cmd = new MySqlCommand(utazas, kapcsolatObj))
                     {
-                        cmd.Parameters.AddWithValue("@elnevezes", kszm_utazasElnevezese.Texts.Trim());
-                        cmd.Parameters.AddWithValue("@ido", dt_datumvalaszto.Value.ToString("yyyy-MM-dd")); // Biztonságos formátum SQL-hez
-                        cmd.Parameters.AddWithValue("@desztinacio", kszm_desztinacio.Texts.Trim());
+                        cmd.Parameters.AddWithValue("@mod", klm_utazasiMod.ComboText);
+                        cmd.Parameters.AddWithValue("@nev", kszm_utazasElnevezese.Texts);
+                        cmd.Parameters.AddWithValue("@ido", dtp_indulas.Value.Date);
+                        cmd.Parameters.AddWithValue("@hely", kszm_desztinacio.Texts);
+                        cmd.ExecuteNonQuery();
+                    }
 
-                        int siker = cmd.ExecuteNonQuery();
+                    // Az újonnan beszúrt utazás ID-jának lekérése
+                    long utazasId;
+                    using (var cmdId = new MySqlCommand("SELECT LAST_INSERT_ID()", kapcsolatObj))
+                    {
+                        utazasId = Convert.ToInt64(cmdId.ExecuteScalar());
+                    }
+
+             
+                    string leiras = kszm_leiras.Texts;
+                    DateTime indulasiDatum = dtp_indulas.Value.Date;
+                    DateTime visszaDatum = dtp_vissza.Value.Date;
+                    int ar = int.TryParse(kszm_ar.Texts, out int tempAr) ? tempAr : 0;
+                    string helyszin = kszm_indulasiHely.Texts;
+                    string boritoFajlnev = "";
+                    if (pcb_borito.Image != null && !string.IsNullOrEmpty(pcb_borito.Tag as string))
+                    {
+                        boritoFajlnev = Path.GetFileName(pcb_borito.Tag.ToString());
+                    }
+
+             
+                    string insertUj = @"
+                INSERT INTO utazas_reszletek
+                (utazas_id, leiras, indulasi_datum, visszaindulas_datum, ar, indulasi_helyszin, boritokep)
+                VALUES (@id, @leiras, @indulas, @vissza, @ar, @helyszin, @kep)";
+
+                    using (var cmd = new MySqlCommand(insertUj, kapcsolatObj)) // Helyes SQL parancs használata
+                    {
+                        cmd.Parameters.AddWithValue("@id", utazasId);
+                        cmd.Parameters.AddWithValue("@leiras", leiras);
+                        cmd.Parameters.AddWithValue("@indulas", indulasiDatum);
+                        cmd.Parameters.AddWithValue("@vissza", visszaDatum);
+                        cmd.Parameters.AddWithValue("@ar", ar);
+                        cmd.Parameters.AddWithValue("@helyszin", helyszin);
+                        cmd.Parameters.AddWithValue("@kep", boritoFajlnev);
+
+                        int siker = cmd.ExecuteNonQuery(); // Csak egyszer kell meghívni
 
                         if (siker > 0)
-                            //MessageBox.Show("Sikeres mentés!");
+                        {
                             kszm_hozzaadas.HatterSzine = Color.Green;
+                            MessageBox.Show("Az utazás sikeresen rögzítve lett!", "Siker", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                         else
-                            // MessageBox.Show("Nem sikerült menteni.");
+                        {
                             kszm_hozzaadas.HatterSzine = Color.Red;
+                            MessageBox.Show("Nem sikerült menteni.", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Hiba történt: " + ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba történt a mentés során: " + ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                kszm_hozzaadas.HatterSzine = Color.Red;
             }
         }
-
         private void utazasok_betoltes()
         {
             if (!bejelentkezes.bejelentkezes.Bejelentkezve())
@@ -98,7 +145,7 @@ namespace Projekt_feladat.Formok
 
             try
             {
-                using (var conn = new MySqlConnection(constr))
+                using (var conn = new MySqlConnection(kapcsolatString))
                 {
                     conn.Open();
                     var lista = new List<string>();
@@ -127,8 +174,11 @@ namespace Projekt_feladat.Formok
 
         private void frm_UtazasokHozzaadasa_Load(object sender, EventArgs e)
         {
+
             utazasok_betoltes();
             ablakUjrarajzolas();
+
+
 
         }
 
@@ -180,7 +230,7 @@ namespace Projekt_feladat.Formok
 
             try
             {
-                using (var conn = new MySqlConnection(constr))
+                using (var conn = new MySqlConnection(kapcsolatString))
                 {
                     conn.Open();
                     var lista = new List<string>();
@@ -238,7 +288,7 @@ namespace Projekt_feladat.Formok
         {
             try
             {
-                using (var conn = new MySqlConnection(constr))
+                using (var conn = new MySqlConnection(kapcsolatString))
                 {
                     conn.Open();
                     var lista = new List<string>();
@@ -326,7 +376,7 @@ namespace Projekt_feladat.Formok
             {
                 try
                 {
-                    using (var kapcsolat = new MySqlConnection(constr))
+                    using (var kapcsolat = new MySqlConnection(kapcsolatString))
                     {
                         kapcsolat.Open();
 
@@ -382,11 +432,13 @@ namespace Projekt_feladat.Formok
         {
             flp_rendezoPanel.Visible = true;
             tlp_utazasTorlese.Visible = false;
+            kszm_hozzaadas.Visible = true;
         }
 
         private void kszm_utazasTorles_Click(object sender, EventArgs e)
         {
             flp_rendezoPanel.Visible = false;
+            kszm_hozzaadas.Visible = false;
             tlp_utazasTorlese.Visible = true;
         }
 
@@ -426,11 +478,40 @@ namespace Projekt_feladat.Formok
             const int margin = 10;
 
             // jobb alsó sarokhoz igazítás
-            kszm_hozzaadas.Left = flp_rendezoPanel.Right - kszm_hozzaadas.Width - margin-15;
+            kszm_hozzaadas.Left = flp_rendezoPanel.Right - kszm_hozzaadas.Width - margin - 15;
             kszm_hozzaadas.Top = flp_rendezoPanel.Bottom - kszm_hozzaadas.Height - margin;
+        }
+
+        private void kg_boritoValasztas_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Borítókép kiválasztása";
+                ofd.Filter = "Képfájlok (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+                ofd.Multiselect = false;
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // Kép betöltése a PictureBox-ba
+                        pcb_borito.Image = Image.FromFile(ofd.FileName);
+                        pcb_borito.SizeMode = PictureBoxSizeMode.Zoom;
+
+                        // Elérési út eltárolása a Tag-ben
+                        pcb_borito.Tag = ofd.FileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Nem sikerült betölteni a képet: " + ex.Message,
+                                        "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
     }
+
 
 
     
