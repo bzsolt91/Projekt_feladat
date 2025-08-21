@@ -607,7 +607,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
-            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -635,15 +634,14 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_idoszak
             // 
-            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
             rcb_idoszak.ComboText = "Időszak";
             rcb_idoszak.EgerTrartasSzin = Color.LightGray;
-            rcb_idoszak.ForeColor = Color.Black;
+            rcb_idoszak.ForeColor = Color.Transparent;
             rcb_idoszak.Ikon = (Image)resources.GetObject("rcb_idoszak.Ikon");
-            rcb_idoszak.ImeMode = ImeMode.Alpha;
+            rcb_idoszak.ImeMode = ImeMode.NoControl;
             rcb_idoszak.ItemHatterSzin = Color.WhiteSmoke;
             rcb_idoszak.ItemPanelAlosSzin = Color.WhiteSmoke;
             rcb_idoszak.ItemPanelFelsoSzin = Color.WhiteSmoke;
@@ -657,7 +655,7 @@ namespace Projekt_feladat.Formok
             rcb_idoszak.Name = "rcb_idoszak";
             rcb_idoszak.Padding = new Padding(0, 0, 0, 6);
             rcb_idoszak.Radius = 20;
-            rcb_idoszak.Size = new Size(288, 65);
+            rcb_idoszak.Size = new Size(262, 65);
             rcb_idoszak.TabIndex = 6;
             rcb_idoszak.TitleLabelSzin = Color.Black;
             rcb_idoszak.ElemKivalasztva += rcb_idoszak_ElemKivalasztva;
@@ -716,7 +714,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
-            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;

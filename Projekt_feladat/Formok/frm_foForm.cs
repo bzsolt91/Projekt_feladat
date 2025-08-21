@@ -113,10 +113,10 @@ namespace Projekt_feladat
             switch (((int)this.WindowState))
             {
                 case 0:
-                    this.WindowState = FormWindowState.Maximized; 
+                    this.WindowState = FormWindowState.Maximized;
                     break;
                 case 2:
-                    this.WindowState = FormWindowState.Normal; 
+                    this.WindowState = FormWindowState.Normal;
                     break;
             }
         }
@@ -175,7 +175,7 @@ namespace Projekt_feladat
         private void bejelentkezesElrejtes()
         {
             pnl_bejelentkezes.Visible = false;
-        
+
             pnl_bejelentkezve.Visible = false;
         }
         private void btn_statisztika_Click(object sender, EventArgs e)
@@ -211,7 +211,7 @@ namespace Projekt_feladat
 
             if (progress >= 1.0)
             {
-                animaltPanel.Height = animacioCelMagassag; 
+                animaltPanel.Height = animacioCelMagassag;
                 tmr_almenuAnimacio.Stop();
             }
 
@@ -257,8 +257,8 @@ namespace Projekt_feladat
                                 int id = reader.GetInt32("id");
                                 int jog = reader.GetInt32("jogosultsag");
 
-                             
-                             
+
+
                                 // A fájlba  titkosított formában.
                                 bejelentkezes.bejelentkezes.Beallit(id, felhasznalo, jelszo, jog);
 
@@ -321,9 +321,9 @@ namespace Projekt_feladat
             elemekAtrendezese();
         }
 
- 
 
-  
+
+
 
         private void frm_foForm_Load(object sender, EventArgs e)
         {
@@ -359,7 +359,7 @@ namespace Projekt_feladat
 
                                     pnl_bejelentkezve.Visible = true;
                                     pnl_bejelentkezes.Visible = false;
-                                 
+
 
                                     lbl_nev.Text = adatok.Felhasznalonev;
                                     lbl_hozzaferes.Text = jog == 0
@@ -418,7 +418,7 @@ namespace Projekt_feladat
 
         private void kszm_vissza_Click(object sender, EventArgs e)
         {
-          
+
             pnl_bejelentkezes.Visible = true;
         }
 
@@ -441,5 +441,13 @@ namespace Projekt_feladat
         {
             pnl_bejelentkezve.Visible = false;
         }
+
+        private void btn_elofoglalasok_Click(object sender, EventArgs e)
+        {
+       
+            GyermekFormMegnyitas(new frm_Elofoglalasok(), sender); 
+            AlmenuElrejtés();
+        }
+    
     }
 }

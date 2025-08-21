@@ -280,7 +280,7 @@
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
             rcb_desztinacio.ComboText = "Desztináció";
             rcb_desztinacio.EgerTrartasSzin = Color.LightGray;
-            rcb_desztinacio.ForeColor = Color.White;
+            rcb_desztinacio.ForeColor = Color.Transparent;
             rcb_desztinacio.Ikon = (Image)resources.GetObject("rcb_desztinacio.Ikon");
             rcb_desztinacio.ItemHatterSzin = Color.WhiteSmoke;
             rcb_desztinacio.ItemPanelAlosSzin = Color.WhiteSmoke;
@@ -308,7 +308,7 @@
             rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
             rcb_utazasIdeje.ComboText = "Utazás ideje";
             rcb_utazasIdeje.EgerTrartasSzin = Color.LightGray;
-            rcb_utazasIdeje.ForeColor = Color.White;
+            rcb_utazasIdeje.ForeColor = Color.Transparent;
             rcb_utazasIdeje.Ikon = (Image)resources.GetObject("rcb_utazasIdeje.Ikon");
             rcb_utazasIdeje.ItemHatterSzin = Color.WhiteSmoke;
             rcb_utazasIdeje.ItemPanelAlosSzin = Color.WhiteSmoke;
@@ -336,7 +336,7 @@
             rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
             rcb_utazasElnevezese.ComboText = "Utazás elnevezése";
             rcb_utazasElnevezese.EgerTrartasSzin = Color.LightGray;
-            rcb_utazasElnevezese.ForeColor = Color.White;
+            rcb_utazasElnevezese.ForeColor = Color.Transparent;
             rcb_utazasElnevezese.Ikon = (Image)resources.GetObject("rcb_utazasElnevezese.Ikon");
             rcb_utazasElnevezese.ItemHatterSzin = Color.WhiteSmoke;
             rcb_utazasElnevezese.ItemPanelAlosSzin = Color.WhiteSmoke;

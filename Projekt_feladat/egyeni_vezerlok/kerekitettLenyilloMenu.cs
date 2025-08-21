@@ -302,11 +302,70 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         public int LenyiloMagassag { get; set; } = 300;
 
+        //protected override void OnResize(EventArgs e)
+        //{
+        //    base.OnResize(e);
+
+        //}
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-       
+
+            int sugar = Math.Min(Radius, Math.Min(Width, Height) / 2);
+            Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(rect.X, rect.Y, sugar, sugar, 180, 90);
+                path.AddArc(rect.Right - sugar, rect.Y, sugar, sugar, 270, 90);
+                path.AddArc(rect.Right - sugar, rect.Bottom - sugar, sugar, sugar, 0, 90);
+                path.AddArc(rect.X, rect.Bottom - sugar, sugar, sugar, 90, 90);
+                path.CloseFigure();
+
+                this.Region = new Region(path);
+            }
+
+            Invalidate(); // kényszerítjük az újrarajzolást
         }
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            if (Parent != null)
+            {
+                var state = e.Graphics.Save();
+                e.Graphics.TranslateTransform(-this.Left, -this.Top);
+                var pe = new PaintEventArgs(e.Graphics, new Rectangle(this.Left, this.Top, this.Width, this.Height));
+                InvokePaintBackground(Parent, pe);
+                InvokePaint(Parent, pe);
+                e.Graphics.Restore(state);
+            }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            int sugar = Math.Min(Radius, Math.Min(Width, Height) / 2);
+            Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(rect.X, rect.Y, sugar, sugar, 180, 90);
+                path.AddArc(rect.Right - sugar, rect.Y, sugar, sugar, 270, 90);
+                path.AddArc(rect.Right - sugar, rect.Bottom - sugar, sugar, sugar, 0, 90);
+                path.AddArc(rect.X, rect.Bottom - sugar, sugar, sugar, 90, 90);
+                path.CloseFigure();
+
+                using (SolidBrush b = new SolidBrush(BackColor))
+                    e.Graphics.FillPath(b, path);
+                using (Pen p = new Pen(ForeColor, 1))
+                    e.Graphics.DrawPath(p, path);
+            }
+        }
+
+
         private void Label_selected(object? sender, MouseEventArgs e)
         {
 
