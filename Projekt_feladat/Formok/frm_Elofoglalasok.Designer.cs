@@ -100,9 +100,11 @@
             // dtp_relativDatum
             // 
             dtp_relativDatum.CalendarFont = new Font("Segoe UI", 14.2641506F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dtp_relativDatum.Checked = false;
             dtp_relativDatum.Font = new Font("Segoe UI", 14.2641506F, FontStyle.Regular, GraphicsUnit.Point, 238);
             dtp_relativDatum.Location = new Point(39, 300);
             dtp_relativDatum.Name = "dtp_relativDatum";
+            dtp_relativDatum.ShowCheckBox = true;
             dtp_relativDatum.Size = new Size(343, 35);
             dtp_relativDatum.TabIndex = 14;
             // 
@@ -531,6 +533,7 @@
             dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgv_utasok.DefaultCellStyle = dataGridViewCellStyle2;
+            dgv_utasok.Dock = DockStyle.Fill;
             dgv_utasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_utasok.EnableHeadersVisualStyles = false;
             dgv_utasok.GridColor = SystemColors.InactiveBorder;
@@ -553,7 +556,7 @@
             dgv_utasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_utasok.ShowEditingIcon = false;
             dgv_utasok.ShowRowErrors = false;
-            dgv_utasok.Size = new Size(150, 404);
+            dgv_utasok.Size = new Size(1068, 404);
             dgv_utasok.TabIndex = 8;
             // 
             // frm_Elofoglalasok
@@ -567,6 +570,7 @@
             Controls.Add(pnl_vezerlopanel);
             Name = "frm_Elofoglalasok";
             Text = "frm_Elofoglalasok";
+            Resize += frm_Elofoglalasok_Resize;
             szpn_szuroPanel.ResumeLayout(false);
             szpn_szuroPanel.PerformLayout();
             pnl_vezerlopanel.ResumeLayout(false);
