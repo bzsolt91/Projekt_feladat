@@ -861,7 +861,6 @@ namespace Projekt_feladat
         private SzinatmenetPanel pnl_fejlec;
         private KerekitettGomb btn_kilepes;
         private KerekitettGomb btn_ablakmeret_valto;
-        private Panel pnl_fopanel;
        private KerekitettGomb btn_minimalizalas;
         private Panel pnl_fomenu_disz;
         private Label lbl_utazas_kezelo;
@@ -902,6 +901,7 @@ namespace Projekt_feladat
         private Label label3;
         private Label lbl_hozzaferes;
         private KerekitettGomb kg_segitseg;
+        public Panel pnl_fopanel;
     }
 }
 

@@ -24,6 +24,7 @@ namespace Projekt_feladat.Formok
             this.Load += Frm_Elofoglalasok_Load;
 
         }
+        public frm_foForm FoForm { get; set; }
 
         private void Frm_Elofoglalasok_Load(object sender, EventArgs e)
         {
@@ -51,6 +52,10 @@ namespace Projekt_feladat.Formok
                 dgv_utasok.DataSource = dt;
                 dgv_utasok.Columns["elofoglalas_id"].Visible = false;
             }
+           
+            dgv_utasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
         }
 
         private void Kg_email_Click(object sender, EventArgs e)
@@ -203,7 +208,7 @@ namespace Projekt_feladat.Formok
             {
                 szuresAktiv = true;
                 szpn_szuroPanel.Visible = true;
-                kg_szures.HatterSzine = Color.Orange;
+                kg_szures.HatterSzine = Color.DarkGoldenrod;
             }
         }
         public void lekerdezes()
@@ -287,14 +292,14 @@ namespace Projekt_feladat.Formok
                     string alapSelect = @"
                 SELECT 
                     e.elofoglalas_id,
-                    e.teljes_nev,
-                    e.telefon,
-                    e.email,
-                    e.lakcim,
-                    e.regisztracio_idopont,
-                    e.allapot,
-                    u.utazas_elnevezese,
-                    u.utazas_ideje
+                    e.teljes_nev as 'Név',
+                    e.telefon as 'Telefon',
+                    e.email as 'E-mail cím',
+                    e.lakcim as 'Lakcím',
+                    e.regisztracio_idopont as 'Regisztráció időpont',
+                    e.allapot as 'Állapot',
+                    u.utazas_elnevezese as 'Utazás neve',
+                    u.utazas_ideje as 'Utazás ideje'
                 FROM elofoglalas e
                 JOIN utazas u ON e.utazas_id = u.utazas_id
             ";
@@ -320,6 +325,10 @@ namespace Projekt_feladat.Formok
                     if (dgv_utasok.Columns.Contains("elofoglalas_id"))
                         dgv_utasok.Columns["elofoglalas_id"].Visible = false;
                 }
+   
+                dgv_utasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+                dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             }
             catch (Exception ex)
             {
@@ -361,7 +370,34 @@ namespace Projekt_feladat.Formok
         private void frm_Elofoglalasok_Resize(object sender, EventArgs e)
         {
             szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height / 2 - szpn_szuroPanel.Height / 2);
+            klm_foglalasiAllapot.Location = new Point(pnl_segedPanel.Location.X,
+                                                    pnl_segedPanel.Location.Y + klm_foglalasiAllapot.Height + 10);
         }
+
+        private void kg_felvetelUtasnak_Click(object sender, EventArgs e)
+        {
+            if (dgv_utasok.CurrentRow == null)
+            {
+                MessageBox.Show("Nincs kijelölt sor!");
+                return;
+            }
+
+          
+            DataRowView drv = dgv_utasok.CurrentRow.DataBoundItem as DataRowView;
+            if (drv == null) return;
+            var ujForm = new frm_UtasokHozzaadasa();
+            ujForm.BetoltAdatok(drv.Row); // Adatok átadása
+
+            var utasForm = new frm_UtasokHozzaadasa();
+            utasForm.BetoltAdatok(drv.Row);
+
+            if (FoForm != null)
+                FoForm.GyermekFormMegnyitas(utasForm, sender);
+
+
+
+        }
+       
     }
 }
 

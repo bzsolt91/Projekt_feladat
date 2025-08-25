@@ -34,6 +34,62 @@ namespace Projekt_feladat.Formok
 
             this.Controls.Add(lst_talalatok);
         }
+        public frm_UtasokHozzaadasa(DataRow utasAdat) : this()
+        {
+            BetoltAdatok(utasAdat);
+        }
+
+        // Vagy készíthetsz külön publikus metódust:
+        public void BetoltAdatok(DataRow utasAdat)
+        {
+            if (utasAdat == null) return;
+
+            string teljesNev = utasAdat["Név"].ToString().Trim();
+            var reszek = teljesNev.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            kszm_titulus.Texts = "";
+            kszm_vezeteknev.Texts = "";
+            kszm_keresztnev1.Texts = "";
+            kszm_keresztnev2.Texts = "";
+
+            // Darabszám alapján osztjuk szét
+            if (reszek.Length == 1)
+            {
+                // Csak vezetéknév vagy keresztnév → te döntöd el, hova írod
+                kszm_vezeteknev.Texts = reszek[0];
+            }
+            else if (reszek.Length == 2)
+            {
+                // Vezetéknév + keresztnév1
+                kszm_vezeteknev.Texts = reszek[0];
+                kszm_keresztnev1.Texts = reszek[1];
+            }
+            else if (reszek.Length == 3)
+            {
+                // Titulus + vezetéknév + keresztnév1
+                kszm_titulus.Texts = reszek[0];
+                kszm_vezeteknev.Texts = reszek[1];
+                kszm_keresztnev1.Texts = reszek[2];
+            }
+            else if (reszek.Length >= 4)
+            {
+                // Titulus + vezetéknév + keresztnév1 + keresztnév2 (ha van több, egybeírjuk)
+                kszm_titulus.Texts = reszek[0];
+                kszm_vezeteknev.Texts = reszek[1];
+                kszm_keresztnev1.Texts = reszek[2];
+                kszm_keresztnev2.Texts = string.Join(" ", reszek.Skip(3));
+            }
+            kszm_telefon.Texts = utasAdat["Telefon"].ToString();
+            kszm_email.Texts = utasAdat["E-mail cím"].ToString();
+            kszm_lakcim.Texts = utasAdat["Lakcím"].ToString();
+
+            pnl_ujhozzaadas.Visible = true;
+            kszm_ujRegiFelhasznalo.HatterSzine = Color.SteelBlue;
+            pnl_meglevoutasokhozAdas.Visible = false;
+            lst_talalatok.Visible = false;
+            kszm_ujRegiFelhasznalo.Text = "Meglévő felhasználóhoz adás";
+
+        }
 
         private void lst_talalatok_MouseDown(object? sender, MouseEventArgs e)
         {
@@ -218,16 +274,7 @@ namespace Projekt_feladat.Formok
                 lst_talalatok.Visible = false;
             }
 
-            /*
-            this.BeginInvoke(new Action(() =>
-            {
-                // Csak akkor zárjuk be a ListBox-ot, ha az egér nincs rajta és nem aktív vezérlő
-                if (!lst_talalatok.Bounds.Contains(PointToClient(Cursor.Position)) &&
-                    !lst_talalatok.Focused)
-                {
-                    lst_talalatok.Visible = false;
-                }
-            }));*/
+      
         }
         private void rcb_desztinacio_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
@@ -734,8 +781,8 @@ namespace Projekt_feladat.Formok
                 pnl_ujhozzaadas.Visible = false;
                 kszm_ujRegiFelhasznalo.HatterSzine = Color.Chocolate;
                 pnl_meglevoutasokhozAdas.Visible = true;
-
-                kszm_ujRegiFelhasznalo.Text = "Meglévő felhasználóhoz adás";
+                kszm_ujRegiFelhasznalo.Text = "Új felhasználó hozzáadása";
+                
             }
             else
             {
@@ -743,7 +790,7 @@ namespace Projekt_feladat.Formok
                 pnl_ujhozzaadas.Visible = true;
                 kszm_ujRegiFelhasznalo.HatterSzine = Color.SteelBlue;
                 pnl_meglevoutasokhozAdas.Visible = false;
-                kszm_ujRegiFelhasznalo.Text = "Új felhasználó hozzáadása";
+                kszm_ujRegiFelhasznalo.Text = "Meglévő felhasználóhoz adás";
 
             }
         }

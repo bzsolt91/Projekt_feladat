@@ -30,9 +30,9 @@
         {
             egyeni_vezerlok.ellipszisVezerlo ev_szuroPanel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Elofoglalasok));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             szpn_szuroPanel = new Panel();
             blbl_datum = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
             dtp_relativDatum = new DateTimePicker();
@@ -44,10 +44,11 @@
             kg_pipa = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             pnl_vezerlopanel = new Panel();
             tlp_szerkesztes = new TableLayoutPanel();
+            kg_felvetelUtasnak = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kg_mentes = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
-            kg_torles = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             pnl_segedPanel = new Panel();
             lbl_allapotModositas = new Label();
+            kg_torles = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             tlp_fomenu = new TableLayoutPanel();
             kszm_szerkesztes = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kg_telefonszamMasolas = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
@@ -55,6 +56,7 @@
             kg_email = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             klm_foglalasiAllapot = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             dgv_utasok = new Projekt_feladat.egyeni_vezerlok.DoubleBufferedDataGridView();
+            ev_fomenu = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             ev_szuroPanel = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             szpn_szuroPanel.SuspendLayout();
             pnl_vezerlopanel.SuspendLayout();
@@ -265,15 +267,17 @@
             // tlp_szerkesztes
             // 
             tlp_szerkesztes.BackColor = Color.FromArgb(243, 244, 246);
-            tlp_szerkesztes.ColumnCount = 4;
-            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.333333F));
-            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.333333F));
-            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.333333F));
-            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.333333F));
+            tlp_szerkesztes.ColumnCount = 5;
+            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle());
+            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle());
+            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle());
+            tlp_szerkesztes.ColumnStyles.Add(new ColumnStyle());
+            tlp_szerkesztes.Controls.Add(kg_felvetelUtasnak, 2, 0);
             tlp_szerkesztes.Controls.Add(kg_mentes, 0, 0);
+            tlp_szerkesztes.Controls.Add(pnl_segedPanel, 4, 0);
+            tlp_szerkesztes.Controls.Add(lbl_allapotModositas, 3, 0);
             tlp_szerkesztes.Controls.Add(kg_torles, 1, 0);
-            tlp_szerkesztes.Controls.Add(pnl_segedPanel, 3, 0);
-            tlp_szerkesztes.Controls.Add(lbl_allapotModositas, 2, 0);
             tlp_szerkesztes.Dock = DockStyle.Top;
             tlp_szerkesztes.Location = new Point(0, 70);
             tlp_szerkesztes.Name = "tlp_szerkesztes";
@@ -281,6 +285,32 @@
             tlp_szerkesztes.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlp_szerkesztes.Size = new Size(1068, 70);
             tlp_szerkesztes.TabIndex = 7;
+            // 
+            // kg_felvetelUtasnak
+            // 
+            kg_felvetelUtasnak.Anchor = AnchorStyles.Left;
+            kg_felvetelUtasnak.BackColor = Color.MediumSlateBlue;
+            kg_felvetelUtasnak.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_felvetelUtasnak.FlatAppearance.BorderSize = 0;
+            kg_felvetelUtasnak.FlatStyle = FlatStyle.Flat;
+            kg_felvetelUtasnak.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            kg_felvetelUtasnak.ForeColor = Color.White;
+            kg_felvetelUtasnak.HatterSzine = Color.MediumSlateBlue;
+            kg_felvetelUtasnak.Image = (Image)resources.GetObject("kg_felvetelUtasnak.Image");
+            kg_felvetelUtasnak.ImageAlign = ContentAlignment.MiddleRight;
+            kg_felvetelUtasnak.KeretMeret = 0;
+            kg_felvetelUtasnak.KeretSzine = Color.PaleVioletRed;
+            kg_felvetelUtasnak.Location = new Point(309, 17);
+            kg_felvetelUtasnak.Name = "kg_felvetelUtasnak";
+            kg_felvetelUtasnak.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            kg_felvetelUtasnak.SarokSugar = 8;
+            kg_felvetelUtasnak.Size = new Size(184, 35);
+            kg_felvetelUtasnak.SzovegSzine = Color.White;
+            kg_felvetelUtasnak.TabIndex = 6;
+            kg_felvetelUtasnak.Text = "Felvétel utasnak";
+            kg_felvetelUtasnak.TextImageRelation = TextImageRelation.ImageBeforeText;
+            kg_felvetelUtasnak.UseVisualStyleBackColor = false;
+            kg_felvetelUtasnak.Click += kg_felvetelUtasnak_Click;
             // 
             // kg_mentes
             // 
@@ -308,6 +338,24 @@
             kg_mentes.UseVisualStyleBackColor = false;
             kg_mentes.Click += Kg_mentes_Click;
             // 
+            // pnl_segedPanel
+            // 
+            pnl_segedPanel.Location = new Point(823, 3);
+            pnl_segedPanel.Name = "pnl_segedPanel";
+            pnl_segedPanel.Size = new Size(242, 60);
+            pnl_segedPanel.TabIndex = 4;
+            // 
+            // lbl_allapotModositas
+            // 
+            lbl_allapotModositas.Anchor = AnchorStyles.Right;
+            lbl_allapotModositas.AutoSize = true;
+            lbl_allapotModositas.Font = new Font("Segoe UI", 14.2641506F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            lbl_allapotModositas.Location = new Point(632, 20);
+            lbl_allapotModositas.Name = "lbl_allapotModositas";
+            lbl_allapotModositas.Size = new Size(185, 30);
+            lbl_allapotModositas.TabIndex = 5;
+            lbl_allapotModositas.Text = "Állapot módosítás:";
+            // 
             // kg_torles
             // 
             kg_torles.Anchor = AnchorStyles.Left;
@@ -322,7 +370,7 @@
             kg_torles.ImageAlign = ContentAlignment.MiddleRight;
             kg_torles.KeretMeret = 0;
             kg_torles.KeretSzine = Color.PaleVioletRed;
-            kg_torles.Location = new Point(270, 17);
+            kg_torles.Location = new Point(156, 17);
             kg_torles.Name = "kg_torles";
             kg_torles.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_torles.SarokSugar = 8;
@@ -333,24 +381,6 @@
             kg_torles.TextImageRelation = TextImageRelation.ImageBeforeText;
             kg_torles.UseVisualStyleBackColor = false;
             kg_torles.Click += Kg_torles_Click;
-            // 
-            // pnl_segedPanel
-            // 
-            pnl_segedPanel.Location = new Point(804, 3);
-            pnl_segedPanel.Name = "pnl_segedPanel";
-            pnl_segedPanel.Size = new Size(221, 64);
-            pnl_segedPanel.TabIndex = 4;
-            // 
-            // lbl_allapotModositas
-            // 
-            lbl_allapotModositas.Anchor = AnchorStyles.Right;
-            lbl_allapotModositas.AutoSize = true;
-            lbl_allapotModositas.Font = new Font("Segoe UI", 14.2641506F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lbl_allapotModositas.Location = new Point(613, 20);
-            lbl_allapotModositas.Name = "lbl_allapotModositas";
-            lbl_allapotModositas.Size = new Size(185, 30);
-            lbl_allapotModositas.TabIndex = 5;
-            lbl_allapotModositas.Text = "Állapot módosítás:";
             // 
             // tlp_fomenu
             // 
@@ -510,29 +540,30 @@
             // dgv_utasok
             // 
             dgv_utasok.AllowUserToAddRows = false;
+            dgv_utasok.AllowUserToResizeRows = false;
             dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dgv_utasok.BackgroundColor = SystemColors.ControlLightLight;
             dgv_utasok.BorderStyle = BorderStyle.None;
             dgv_utasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_utasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgv_utasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.White;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgv_utasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgv_utasok.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgv_utasok.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.Padding = new Padding(3);
+            dataGridViewCellStyle8.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle8.SelectionForeColor = Color.BlueViolet;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgv_utasok.DefaultCellStyle = dataGridViewCellStyle8;
             dgv_utasok.Dock = DockStyle.Fill;
             dgv_utasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_utasok.EnableHeadersVisualStyles = false;
@@ -542,22 +573,27 @@
             dgv_utasok.Name = "dgv_utasok";
             dgv_utasok.ReadOnly = true;
             dgv_utasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgv_utasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.White;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgv_utasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgv_utasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgv_utasok.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dgv_utasok.RowsDefaultCellStyle = dataGridViewCellStyle9;
             dgv_utasok.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgv_utasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_utasok.ShowEditingIcon = false;
             dgv_utasok.ShowRowErrors = false;
             dgv_utasok.Size = new Size(1068, 404);
             dgv_utasok.TabIndex = 8;
+            // 
+            // ev_fomenu
+            // 
+            ev_fomenu.SarokSugar = 20;
+            ev_fomenu.TargetControl = pnl_vezerlopanel;
             // 
             // frm_Elofoglalasok
             // 
@@ -605,5 +641,7 @@
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_utasNeve;
         private egyeni_vezerlok.KerekitettGomb kg_pipa;
         private egyeni_vezerlok.BufferedLabel blbl_datum;
+        private egyeni_vezerlok.ellipszisVezerlo ev_fomenu;
+        private egyeni_vezerlok.KerekitettGomb kg_felvetelUtasnak;
     }
 }

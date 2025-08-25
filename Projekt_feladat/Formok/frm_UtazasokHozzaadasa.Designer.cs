@@ -953,7 +953,6 @@
             // pcb_borito
             // 
             pcb_borito.Dock = DockStyle.Fill;
-            pcb_borito.Image = (Image)resources.GetObject("pcb_borito.Image");
             pcb_borito.Location = new Point(189, 3);
             pcb_borito.Name = "pcb_borito";
             pcb_borito.Size = new Size(507, 323);

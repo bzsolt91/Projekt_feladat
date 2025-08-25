@@ -120,7 +120,7 @@ namespace Projekt_feladat
                     break;
             }
         }
-        private void GyermekFormMegnyitas(Form form_gyermek, object kuldo_gomb)
+        public void GyermekFormMegnyitas(Form form_gyermek, object kuldo_gomb)
         {
             bejelentkezesElrejtes();
             if (aktivForm != null)
@@ -444,8 +444,9 @@ namespace Projekt_feladat
 
         private void btn_elofoglalasok_Click(object sender, EventArgs e)
         {
-       
-            GyermekFormMegnyitas(new frm_Elofoglalasok(), sender); 
+            var elofoglalasForm = new frm_Elofoglalasok();
+            elofoglalasForm.FoForm = this; // átadjuk a hivatkozást a fõformra
+            GyermekFormMegnyitas(elofoglalasForm, sender); // <-- EZT kell átadni
             AlmenuElrejtés();
         }
     
