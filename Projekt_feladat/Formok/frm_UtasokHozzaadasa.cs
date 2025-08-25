@@ -39,7 +39,7 @@ namespace Projekt_feladat.Formok
             BetoltAdatok(utasAdat);
         }
 
-        // Vagy készíthetsz külön publikus metódust:
+  
         public void BetoltAdatok(DataRow utasAdat)
         {
             if (utasAdat == null) return;
@@ -292,13 +292,12 @@ namespace Projekt_feladat.Formok
 
                 utazasDesztinacio = e.Ertek;
 
-                // Töröljük a további két combobox tartalmát
                 rcb_utazasIdeje.adatForras = new string[0];
                 rcb_utazasElnevezese.adatForras = new string[0];
                 utazasIdoszak = null;
                 utazasNeve = null;
 
-                // Betöltjük az időszakokat az 2-es comboboxba
+                // betöltjük az időszakokat az 2-es comboboxba
                 idoszak_betoltes();
             }
             else

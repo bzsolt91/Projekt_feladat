@@ -449,6 +449,11 @@ namespace Projekt_feladat
             GyermekFormMegnyitas(elofoglalasForm, sender); // <-- EZT kell átadni
             AlmenuElrejtés();
         }
-    
+
+        private void btn_ertesitesek_Click(object sender, EventArgs e)
+        {
+            GyermekFormMegnyitas(new frm_ertesitesek(), sender); //utazások form beágyazása
+            AlmenuElrejtés();
+        }
     }
 }

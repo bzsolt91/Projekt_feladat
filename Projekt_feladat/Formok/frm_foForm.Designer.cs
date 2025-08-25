@@ -59,9 +59,8 @@ namespace Projekt_feladat
             lbl_utazas_kezelo = new Label();
             lbl_disz = new Label();
             btn_utazasok = new KerekitettGomb();
-            button6 = new KerekitettGomb();
+            btn_ertesitesek = new KerekitettGomb();
             lbl_disz2 = new Label();
-            button1 = new KerekitettGomb();
             pnl_fomenu = new Panel();
             kg_segitseg = new KerekitettGomb();
             btn_elofoglalasok = new KerekitettGomb();
@@ -503,63 +502,39 @@ namespace Projekt_feladat
             btn_utazasok.UseVisualStyleBackColor = false;
             btn_utazasok.Click += btn_utazasok_Click;
             // 
-            // button6
+            // btn_ertesitesek
             // 
-            button6.AutoSize = true;
-            button6.BackColor = Color.FromArgb(243, 244, 246);
-            button6.Dock = DockStyle.Bottom;
-            button6.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
-            button6.ForeColor = Color.FromArgb(55, 65, 81);
-            button6.HatterSzine = Color.FromArgb(243, 244, 246);
-            button6.KeretMeret = 0;
-            button6.KeretSzine = Color.PaleVioletRed;
-            button6.Location = new Point(0, 646);
-            button6.MaximumSize = new Size(64, 73);
-            button6.Name = "button6";
-            button6.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            button6.SarokSugar = 10;
-            button6.Size = new Size(64, 73);
-            button6.SzovegSzine = Color.FromArgb(55, 65, 81);
-            button6.TabIndex = 8;
-            button6.Text = "🔔";
-            button6.UseVisualStyleBackColor = false;
+            btn_ertesitesek.BackColor = Color.FromArgb(243, 244, 246);
+            btn_ertesitesek.Dock = DockStyle.Bottom;
+            btn_ertesitesek.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_ertesitesek.FlatStyle = FlatStyle.Flat;
+            btn_ertesitesek.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
+            btn_ertesitesek.ForeColor = Color.FromArgb(55, 65, 81);
+            btn_ertesitesek.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_ertesitesek.KeretMeret = 0;
+            btn_ertesitesek.KeretSzine = Color.PaleVioletRed;
+            btn_ertesitesek.Location = new Point(0, 589);
+            btn_ertesitesek.Name = "btn_ertesitesek";
+            btn_ertesitesek.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            btn_ertesitesek.SarokSugar = 0;
+            btn_ertesitesek.Size = new Size(223, 67);
+            btn_ertesitesek.SzovegSzine = Color.FromArgb(55, 65, 81);
+            btn_ertesitesek.TabIndex = 8;
+            btn_ertesitesek.Text = "🔔";
+            btn_ertesitesek.UseVisualStyleBackColor = false;
+            btn_ertesitesek.Click += btn_ertesitesek_Click;
             // 
             // lbl_disz2
             // 
             lbl_disz2.BackColor = Color.FromArgb(209, 213, 219);
             lbl_disz2.Dock = DockStyle.Bottom;
             lbl_disz2.ForeColor = Color.FromArgb(209, 213, 219);
-            lbl_disz2.Location = new Point(0, 645);
+            lbl_disz2.Location = new Point(0, 588);
             lbl_disz2.Margin = new Padding(0, 57, 0, 0);
             lbl_disz2.Name = "lbl_disz2";
             lbl_disz2.Padding = new Padding(0, 11, 0, 0);
             lbl_disz2.Size = new Size(223, 1);
             lbl_disz2.TabIndex = 9;
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.FromArgb(243, 244, 246);
-            button1.Dock = DockStyle.Bottom;
-            button1.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
-            button1.ForeColor = Color.FromArgb(55, 65, 81);
-            button1.HatterSzine = Color.FromArgb(243, 244, 246);
-            button1.KeretMeret = 0;
-            button1.KeretSzine = Color.PaleVioletRed;
-            button1.Location = new Point(0, 588);
-            button1.Name = "button1";
-            button1.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            button1.SarokSugar = 10;
-            button1.Size = new Size(223, 57);
-            button1.SzovegSzine = Color.FromArgb(55, 65, 81);
-            button1.TabIndex = 10;
-            button1.Text = "⚙️ Beállítások";
-            button1.TextAlign = ContentAlignment.MiddleLeft;
-            button1.UseVisualStyleBackColor = false;
-            button1.Visible = false;
             // 
             // pnl_fomenu
             // 
@@ -572,9 +547,8 @@ namespace Projekt_feladat
             pnl_fomenu.Controls.Add(pnl_UtasokAlmenu);
             pnl_fomenu.Controls.Add(btn_utasok);
             pnl_fomenu.Controls.Add(pnl_UtazasokAlmenu);
-            pnl_fomenu.Controls.Add(button1);
             pnl_fomenu.Controls.Add(lbl_disz2);
-            pnl_fomenu.Controls.Add(button6);
+            pnl_fomenu.Controls.Add(btn_ertesitesek);
             pnl_fomenu.Controls.Add(btn_utazasok);
             pnl_fomenu.Controls.Add(pnl_fomenu_disz);
             pnl_fomenu.Dock = DockStyle.Left;
@@ -848,7 +822,6 @@ namespace Projekt_feladat
             pnl_fopanel.ResumeLayout(false);
             pnl_fomenu_disz.ResumeLayout(false);
             pnl_fomenu.ResumeLayout(false);
-            pnl_fomenu.PerformLayout();
             pnl_UtasokAlmenu.ResumeLayout(false);
             pnl_UtazasokAlmenu.ResumeLayout(false);
             ResumeLayout(false);
@@ -866,9 +839,8 @@ namespace Projekt_feladat
         private Label lbl_utazas_kezelo;
         private Label lbl_disz;
         private KerekitettGomb btn_utazasok;
-        private KerekitettGomb button6;
+        private KerekitettGomb btn_ertesitesek;
         private Label lbl_disz2;
-        private KerekitettGomb button1;
         private Panel pnl_fomenu;
         private KerekitettGomb btn_elofoglalasok;
         private KerekitettGomb button4;
