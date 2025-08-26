@@ -1,4 +1,6 @@
-﻿using MySqlConnector;
+﻿using LiveChartsCore.Measure;
+using MySqlConnector;
+using Projekt_feladat.egyeni_vezerlok;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,14 +54,14 @@ namespace Projekt_feladat.Formok
                 return;
             }
 
-        
+
             try
             {
                 using (var kapcsolatObj = new MySqlConnection(kapcsolatString))
                 {
                     kapcsolatObj.Open();
 
-                  
+
                     string utazas = @"
                 INSERT INTO utazas
                 (utazas_modja, utazas_elnevezese, utazas_ideje, desztinacio)
@@ -81,7 +83,7 @@ namespace Projekt_feladat.Formok
                         utazasId = Convert.ToInt64(cmdId.ExecuteScalar());
                     }
 
-             
+
                     string leiras = kszm_leiras.Texts;
                     DateTime indulasiDatum = dtp_indulas.Value.Date;
                     DateTime visszaDatum = dtp_vissza.Value.Date;
@@ -93,7 +95,7 @@ namespace Projekt_feladat.Formok
                         boritoFajlnev = Path.GetFileName(pcb_borito.Tag.ToString());
                     }
 
-             
+
                     string insertUj = @"
                 INSERT INTO utazas_reszletek
                 (utazas_id, leiras, indulasi_datum, visszaindulas_datum, ar, indulasi_helyszin, boritokep)
@@ -159,7 +161,7 @@ namespace Projekt_feladat.Formok
                             lista.Add(reader.GetString(0));
                         }
                     }
-
+                    klm_utazasSzerkeszeseDesztinacio.adatForras = lista.ToArray();
                     rcb_desztinacio.adatForras = lista.ToArray();
                 }
             }
@@ -196,6 +198,11 @@ namespace Projekt_feladat.Formok
                     rcb_utazasElnevezese.ComboText = "Utazás neve";
                     rcb_utazasIdeje.adatForras = new string[0];
                     rcb_utazasElnevezese.adatForras = new string[0];
+
+                    klm_utazasSzerkeszeseIdoszak.ComboText = "Időszak";
+                    klm_utazasSzerkeszeseUtazasNeve.ComboText = "Utazás neve";
+                    klm_utazasSzerkeszeseIdoszak.adatForras = new string[0];
+                    klm_utazasSzerkeszeseIdoszak.adatForras = new string[0];
                     utazasIdoszak = null;
                     utazasNeve = null;
                 }
@@ -205,6 +212,8 @@ namespace Projekt_feladat.Formok
                 // Töröljük a további két combobox tartalmát
                 rcb_utazasIdeje.adatForras = new string[0];
                 rcb_utazasElnevezese.adatForras = new string[0];
+                klm_utazasSzerkeszeseIdoszak.adatForras = new string[0];
+                klm_utazasSzerkeszeseUtazasNeve.adatForras = new string[0];
                 utazasIdoszak = null;
                 utazasNeve = null;
 
@@ -249,8 +258,10 @@ namespace Projekt_feladat.Formok
                             }
                         }
                     }
-
-                    rcb_utazasIdeje.adatForras = lista.ToArray();
+                    if (!szp_utazasSzerkeszese.Visible)
+                        rcb_utazasIdeje.adatForras = lista.ToArray();
+                    else
+                        klm_utazasSzerkeszeseIdoszak.adatForras = lista.ToArray();
                 }
             }
             catch (Exception e)
@@ -272,9 +283,16 @@ namespace Projekt_feladat.Formok
             {
                 if (e.Ertek != utazasIdoszak)
                 {
-
-                    rcb_utazasElnevezese.ComboText = "Utazás neve";
-                    rcb_utazasElnevezese.adatForras = new string[0];
+                    if (!szp_utazasSzerkeszese.Visible)
+                    {
+                        rcb_utazasElnevezese.ComboText = "Utazás neve";
+                        rcb_utazasElnevezese.adatForras = new string[0];
+                    }
+                    else
+                    {
+                        klm_utazasSzerkeszeseUtazasNeve.ComboText = "Utazás neve";
+                        klm_utazasSzerkeszeseUtazasNeve.adatForras = new string[0];
+                    }
                     utazasNeve = null;
                 }
                 utazasIdoszak = e.Ertek;
@@ -307,7 +325,10 @@ namespace Projekt_feladat.Formok
                             }
                         }
                     }
-                    rcb_utazasElnevezese.adatForras = lista.ToArray();
+                    if (!szp_utazasSzerkeszese.Visible)
+                        rcb_utazasElnevezese.adatForras = lista.ToArray();
+                    else
+                        klm_utazasSzerkeszeseUtazasNeve.adatForras = lista.ToArray();
 
                 }
             }
@@ -431,26 +452,32 @@ namespace Projekt_feladat.Formok
         private void kszm_ujRegiFelhasznalo_Click(object sender, EventArgs e)
         {
             flp_rendezoPanel.Visible = true;
+            kszm_mentes.Visible = false;
             tlp_utazasTorlese.Visible = false;
             kszm_hozzaadas.Visible = true;
+            flp_utazasSzerkesztese.Visible = false;
         }
 
         private void kszm_utazasTorles_Click(object sender, EventArgs e)
         {
+            flp_utazasSzerkesztese.Visible = false;
             flp_rendezoPanel.Visible = false;
             kszm_hozzaadas.Visible = false;
             tlp_utazasTorlese.Visible = true;
+            kszm_mentes.Visible = false;
         }
 
 
         private void ablakUjrarajzolas()
         {
+            const int margin = 10;
             int celMeret = this.ClientSize.Width;
             if (celMeret < 0) celMeret = 0;
 
             pl_terkezelo.Width = celMeret - 20;
-
-            // Kényszerítsd az FLP-t, hogy újraszámolja a belső területét
+            pnl_utazasokSzerkeszteseTerkoz.Width = celMeret - 20;
+            flp_utazasSzerkesztese.PerformLayout();
+            flp_utazasSzerkesztese.Invalidate();
             flp_rendezoPanel.PerformLayout();
             flp_rendezoPanel.Invalidate();
 
@@ -471,15 +498,44 @@ namespace Projekt_feladat.Formok
 
             flp_rendezoPanel.AutoScroll = true;
             flp_rendezoPanel.ResumeLayout();
+            RendezLenyilloMenu(szp_utazasSzerkeszese);
+        }
+        private void RendezLenyilloMenu(SzinatmenetPanel panel)
+        {
+
+
+            // A kombódobozok listája
+            kerekitettLenyilloMenu[] comboList = new kerekitettLenyilloMenu[]
+            {
+        klm_utazasSzerkeszeseDesztinacio,
+        klm_utazasSzerkeszeseIdoszak,
+        klm_utazasSzerkeszeseUtazasNeve
+            };
+
+            // A panel szélessége és a margó (helykihagyás az elemek között)
+            int panelSzelesseg = panel.Width;
+            int margó = 10; // A margó értéke (10 pixel)
+
+            int comboSzelesseg = (panelSzelesseg - (comboList.Length + 1) * margó) / comboList.Length;
+
+            int currentX = margó; // Kezdő X pozíció
+
+            for (int i = 0; i < comboList.Length; i++)
+            {
+                kerekitettLenyilloMenu combo = comboList[i];
+
+                // Beállítjuk a méretet és a pozíciót
+                combo.Width = comboSzelesseg;
+                combo.Location = new Point(currentX, 20); // A 20 az Y koordináta
+
+                // Frissítjük a következő elem X pozícióját
+                currentX += combo.Width + margó;
+            }
         }
 
         private void frm_UtazasokHozzaadasa_Resize(object sender, EventArgs e)
         {
-            const int margin = 10;
-
-            // jobb alsó sarokhoz igazítás
-            kszm_hozzaadas.Left = flp_rendezoPanel.Right - kszm_hozzaadas.Width - margin - 15;
-            kszm_hozzaadas.Top = flp_rendezoPanel.Bottom - kszm_hozzaadas.Height - margin;
+            ablakUjrarajzolas();
         }
 
         private void kg_boritoValasztas_Click(object sender, EventArgs e)
@@ -509,8 +565,27 @@ namespace Projekt_feladat.Formok
                 }
             }
         }
+
+        private void klm_utazasSzerkeszeseUtazasNeve_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
+        {
+
+        }
+
+        private void kg_meglevoSzerkesztese_Click(object sender, EventArgs e)
+        {
+            flp_utazasSzerkesztese.Visible = true;
+            flp_rendezoPanel.Visible = false;
+            tlp_utazasTorlese.Visible = false;
+            kszm_hozzaadas.Visible = false;
+            kszm_mentes.Visible = true;
+        }
+
+        private void kszm_mentes_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-    }
+}
 
 
 
