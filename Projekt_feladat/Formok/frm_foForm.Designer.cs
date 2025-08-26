@@ -64,7 +64,7 @@ namespace Projekt_feladat
             pnl_fomenu = new Panel();
             kg_segitseg = new KerekitettGomb();
             btn_elofoglalasok = new KerekitettGomb();
-            button4 = new KerekitettGomb();
+            btn_biztonsagiMentes = new KerekitettGomb();
             btn_statisztika = new KerekitettGomb();
             pnl_UtasokAlmenu = new Panel();
             btn_utasokHozzadasa = new KerekitettGomb();
@@ -123,6 +123,10 @@ namespace Projekt_feladat
             // 
             kszm_regisztralas.BackColor = Color.MediumSlateBlue;
             kszm_regisztralas.EgerTartasHatterSzine = Color.SlateBlue;
+            kszm_regisztralas.ErtesitesMutatasa = false;
+            kszm_regisztralas.ErtesitesSzam = 0;
+            kszm_regisztralas.ErtesitesSzin = Color.Red;
+            kszm_regisztralas.ErtesitesSzovegSzin = Color.White;
             kszm_regisztralas.FlatAppearance.BorderSize = 0;
             kszm_regisztralas.FlatStyle = FlatStyle.Flat;
             kszm_regisztralas.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -176,6 +180,10 @@ namespace Projekt_feladat
             // 
             kg_belepes.BackColor = Color.MediumSlateBlue;
             kg_belepes.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_belepes.ErtesitesMutatasa = false;
+            kg_belepes.ErtesitesSzam = 0;
+            kg_belepes.ErtesitesSzin = Color.Red;
+            kg_belepes.ErtesitesSzovegSzin = Color.White;
             kg_belepes.FlatAppearance.BorderSize = 0;
             kg_belepes.FlatStyle = FlatStyle.Flat;
             kg_belepes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -325,6 +333,10 @@ namespace Projekt_feladat
             // 
             kg_kilepes.BackColor = Color.MediumSlateBlue;
             kg_kilepes.EgerTartasHatterSzine = Color.Crimson;
+            kg_kilepes.ErtesitesMutatasa = false;
+            kg_kilepes.ErtesitesSzam = 0;
+            kg_kilepes.ErtesitesSzin = Color.Red;
+            kg_kilepes.ErtesitesSzovegSzin = Color.White;
             kg_kilepes.FlatAppearance.BorderSize = 0;
             kg_kilepes.FlatStyle = FlatStyle.Flat;
             kg_kilepes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -371,6 +383,10 @@ namespace Projekt_feladat
             btn_minimalizalas.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_minimalizalas.BackColor = Color.Transparent;
             btn_minimalizalas.EgerTartasHatterSzine = Color.Yellow;
+            btn_minimalizalas.ErtesitesMutatasa = false;
+            btn_minimalizalas.ErtesitesSzam = 0;
+            btn_minimalizalas.ErtesitesSzin = Color.Red;
+            btn_minimalizalas.ErtesitesSzovegSzin = Color.White;
             btn_minimalizalas.FlatStyle = FlatStyle.Flat;
             btn_minimalizalas.Font = new Font("Segoe Fluent Icons", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_minimalizalas.ForeColor = Color.White;
@@ -393,6 +409,10 @@ namespace Projekt_feladat
             btn_ablakmeret_valto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_ablakmeret_valto.BackColor = Color.Transparent;
             btn_ablakmeret_valto.EgerTartasHatterSzine = Color.Aqua;
+            btn_ablakmeret_valto.ErtesitesMutatasa = false;
+            btn_ablakmeret_valto.ErtesitesSzam = 0;
+            btn_ablakmeret_valto.ErtesitesSzin = Color.Red;
+            btn_ablakmeret_valto.ErtesitesSzovegSzin = Color.White;
             btn_ablakmeret_valto.FlatStyle = FlatStyle.Flat;
             btn_ablakmeret_valto.Font = new Font("Segoe Fluent Icons", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ablakmeret_valto.ForeColor = Color.White;
@@ -415,6 +435,10 @@ namespace Projekt_feladat
             btn_kilepes.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_kilepes.BackColor = Color.Transparent;
             btn_kilepes.EgerTartasHatterSzine = Color.Red;
+            btn_kilepes.ErtesitesMutatasa = false;
+            btn_kilepes.ErtesitesSzam = 0;
+            btn_kilepes.ErtesitesSzin = Color.Red;
+            btn_kilepes.ErtesitesSzovegSzin = Color.White;
             btn_kilepes.FlatStyle = FlatStyle.Flat;
             btn_kilepes.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 238);
             btn_kilepes.ForeColor = Color.White;
@@ -484,6 +508,10 @@ namespace Projekt_feladat
             btn_utazasok.BackColor = Color.FromArgb(243, 244, 246);
             btn_utazasok.Dock = DockStyle.Top;
             btn_utazasok.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_utazasok.ErtesitesMutatasa = false;
+            btn_utazasok.ErtesitesSzam = 0;
+            btn_utazasok.ErtesitesSzin = Color.Red;
+            btn_utazasok.ErtesitesSzovegSzin = Color.White;
             btn_utazasok.FlatStyle = FlatStyle.Flat;
             btn_utazasok.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
             btn_utazasok.ForeColor = Color.FromArgb(55, 65, 81);
@@ -507,6 +535,10 @@ namespace Projekt_feladat
             btn_ertesitesek.BackColor = Color.FromArgb(243, 244, 246);
             btn_ertesitesek.Dock = DockStyle.Bottom;
             btn_ertesitesek.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_ertesitesek.ErtesitesMutatasa = true;
+            btn_ertesitesek.ErtesitesSzam = 0;
+            btn_ertesitesek.ErtesitesSzin = Color.Firebrick;
+            btn_ertesitesek.ErtesitesSzovegSzin = Color.White;
             btn_ertesitesek.FlatStyle = FlatStyle.Flat;
             btn_ertesitesek.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
             btn_ertesitesek.ForeColor = Color.FromArgb(55, 65, 81);
@@ -542,7 +574,7 @@ namespace Projekt_feladat
             pnl_fomenu.BackColor = Color.FromArgb(243, 244, 246);
             pnl_fomenu.Controls.Add(kg_segitseg);
             pnl_fomenu.Controls.Add(btn_elofoglalasok);
-            pnl_fomenu.Controls.Add(button4);
+            pnl_fomenu.Controls.Add(btn_biztonsagiMentes);
             pnl_fomenu.Controls.Add(btn_statisztika);
             pnl_fomenu.Controls.Add(pnl_UtasokAlmenu);
             pnl_fomenu.Controls.Add(btn_utasok);
@@ -562,6 +594,10 @@ namespace Projekt_feladat
             kg_segitseg.BackColor = Color.FromArgb(243, 244, 246);
             kg_segitseg.Dock = DockStyle.Bottom;
             kg_segitseg.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            kg_segitseg.ErtesitesMutatasa = false;
+            kg_segitseg.ErtesitesSzam = 0;
+            kg_segitseg.ErtesitesSzin = Color.Red;
+            kg_segitseg.ErtesitesSzovegSzin = Color.White;
             kg_segitseg.FlatStyle = FlatStyle.Flat;
             kg_segitseg.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kg_segitseg.ForeColor = Color.FromArgb(55, 65, 81);
@@ -584,6 +620,10 @@ namespace Projekt_feladat
             btn_elofoglalasok.BackColor = Color.FromArgb(243, 244, 246);
             btn_elofoglalasok.Dock = DockStyle.Top;
             btn_elofoglalasok.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_elofoglalasok.ErtesitesMutatasa = false;
+            btn_elofoglalasok.ErtesitesSzam = 0;
+            btn_elofoglalasok.ErtesitesSzin = Color.Red;
+            btn_elofoglalasok.ErtesitesSzovegSzin = Color.White;
             btn_elofoglalasok.FlatStyle = FlatStyle.Flat;
             btn_elofoglalasok.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
             btn_elofoglalasok.ForeColor = Color.FromArgb(55, 65, 81);
@@ -602,33 +642,42 @@ namespace Projekt_feladat
             btn_elofoglalasok.UseVisualStyleBackColor = false;
             btn_elofoglalasok.Click += btn_elofoglalasok_Click;
             // 
-            // button4
+            // btn_biztonsagiMentes
             // 
-            button4.BackColor = Color.FromArgb(243, 244, 246);
-            button4.Dock = DockStyle.Top;
-            button4.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
-            button4.ForeColor = Color.FromArgb(55, 65, 81);
-            button4.HatterSzine = Color.FromArgb(243, 244, 246);
-            button4.KeretMeret = 0;
-            button4.KeretSzine = Color.PaleVioletRed;
-            button4.Location = new Point(0, 417);
-            button4.Name = "button4";
-            button4.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            button4.SarokSugar = 10;
-            button4.Size = new Size(223, 57);
-            button4.SzovegSzine = Color.FromArgb(55, 65, 81);
-            button4.TabIndex = 16;
-            button4.Text = "💾 Biztonsági mentés";
-            button4.TextAlign = ContentAlignment.MiddleLeft;
-            button4.UseVisualStyleBackColor = false;
+            btn_biztonsagiMentes.BackColor = Color.FromArgb(243, 244, 246);
+            btn_biztonsagiMentes.Dock = DockStyle.Top;
+            btn_biztonsagiMentes.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_biztonsagiMentes.ErtesitesMutatasa = false;
+            btn_biztonsagiMentes.ErtesitesSzam = 0;
+            btn_biztonsagiMentes.ErtesitesSzin = Color.Red;
+            btn_biztonsagiMentes.ErtesitesSzovegSzin = Color.White;
+            btn_biztonsagiMentes.FlatStyle = FlatStyle.Flat;
+            btn_biztonsagiMentes.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
+            btn_biztonsagiMentes.ForeColor = Color.FromArgb(55, 65, 81);
+            btn_biztonsagiMentes.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_biztonsagiMentes.KeretMeret = 0;
+            btn_biztonsagiMentes.KeretSzine = Color.PaleVioletRed;
+            btn_biztonsagiMentes.Location = new Point(0, 417);
+            btn_biztonsagiMentes.Name = "btn_biztonsagiMentes";
+            btn_biztonsagiMentes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            btn_biztonsagiMentes.SarokSugar = 10;
+            btn_biztonsagiMentes.Size = new Size(223, 57);
+            btn_biztonsagiMentes.SzovegSzine = Color.FromArgb(55, 65, 81);
+            btn_biztonsagiMentes.TabIndex = 16;
+            btn_biztonsagiMentes.Text = "💾 Biztonsági mentés";
+            btn_biztonsagiMentes.TextAlign = ContentAlignment.MiddleLeft;
+            btn_biztonsagiMentes.UseVisualStyleBackColor = false;
+            btn_biztonsagiMentes.Click += btn_biztonsagiMentes_Click;
             // 
             // btn_statisztika
             // 
             btn_statisztika.BackColor = Color.FromArgb(243, 244, 246);
             btn_statisztika.Dock = DockStyle.Top;
             btn_statisztika.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_statisztika.ErtesitesMutatasa = false;
+            btn_statisztika.ErtesitesSzam = 0;
+            btn_statisztika.ErtesitesSzin = Color.Red;
+            btn_statisztika.ErtesitesSzovegSzin = Color.White;
             btn_statisztika.FlatStyle = FlatStyle.Flat;
             btn_statisztika.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
             btn_statisztika.ForeColor = Color.FromArgb(55, 65, 81);
@@ -663,6 +712,10 @@ namespace Projekt_feladat
             btn_utasokHozzadasa.BackColor = Color.FromArgb(209, 213, 219);
             btn_utasokHozzadasa.Dock = DockStyle.Top;
             btn_utasokHozzadasa.EgerTartasHatterSzine = SystemColors.ButtonShadow;
+            btn_utasokHozzadasa.ErtesitesMutatasa = false;
+            btn_utasokHozzadasa.ErtesitesSzam = 0;
+            btn_utasokHozzadasa.ErtesitesSzin = Color.Red;
+            btn_utasokHozzadasa.ErtesitesSzovegSzin = Color.White;
             btn_utasokHozzadasa.FlatStyle = FlatStyle.Flat;
             btn_utasokHozzadasa.Font = new Font("Sans Serif Collection", 9.749998F, FontStyle.Bold);
             btn_utasokHozzadasa.ForeColor = Color.FromArgb(55, 65, 81);
@@ -687,6 +740,10 @@ namespace Projekt_feladat
             btn_utasokMegtekintese.BackColor = Color.FromArgb(209, 213, 219);
             btn_utasokMegtekintese.Dock = DockStyle.Top;
             btn_utasokMegtekintese.EgerTartasHatterSzine = SystemColors.ButtonShadow;
+            btn_utasokMegtekintese.ErtesitesMutatasa = false;
+            btn_utasokMegtekintese.ErtesitesSzam = 0;
+            btn_utasokMegtekintese.ErtesitesSzin = Color.Red;
+            btn_utasokMegtekintese.ErtesitesSzovegSzin = Color.White;
             btn_utasokMegtekintese.FlatStyle = FlatStyle.Flat;
             btn_utasokMegtekintese.Font = new Font("Sans Serif Collection", 9.749998F, FontStyle.Bold);
             btn_utasokMegtekintese.ForeColor = Color.FromArgb(55, 65, 81);
@@ -711,6 +768,10 @@ namespace Projekt_feladat
             btn_utasok.BackColor = Color.FromArgb(243, 244, 246);
             btn_utasok.Dock = DockStyle.Top;
             btn_utasok.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_utasok.ErtesitesMutatasa = false;
+            btn_utasok.ErtesitesSzam = 0;
+            btn_utasok.ErtesitesSzin = Color.Red;
+            btn_utasok.ErtesitesSzovegSzin = Color.White;
             btn_utasok.FlatStyle = FlatStyle.Flat;
             btn_utasok.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
             btn_utasok.ForeColor = Color.FromArgb(55, 65, 81);
@@ -746,6 +807,10 @@ namespace Projekt_feladat
             btn_utazasokHozzaadasa.BackColor = Color.FromArgb(209, 213, 219);
             btn_utazasokHozzaadasa.Dock = DockStyle.Top;
             btn_utazasokHozzaadasa.EgerTartasHatterSzine = SystemColors.ButtonShadow;
+            btn_utazasokHozzaadasa.ErtesitesMutatasa = false;
+            btn_utazasokHozzaadasa.ErtesitesSzam = 0;
+            btn_utazasokHozzaadasa.ErtesitesSzin = Color.Red;
+            btn_utazasokHozzaadasa.ErtesitesSzovegSzin = Color.White;
             btn_utazasokHozzaadasa.FlatStyle = FlatStyle.Flat;
             btn_utazasokHozzaadasa.Font = new Font("Sans Serif Collection", 9.749998F, FontStyle.Bold);
             btn_utazasokHozzaadasa.ForeColor = Color.FromArgb(55, 65, 81);
@@ -770,6 +835,10 @@ namespace Projekt_feladat
             btn_utazasokmegtekintese.BackColor = Color.FromArgb(209, 213, 219);
             btn_utazasokmegtekintese.Dock = DockStyle.Top;
             btn_utazasokmegtekintese.EgerTartasHatterSzine = SystemColors.ButtonShadow;
+            btn_utazasokmegtekintese.ErtesitesMutatasa = false;
+            btn_utazasokmegtekintese.ErtesitesSzam = 0;
+            btn_utazasokmegtekintese.ErtesitesSzin = Color.Red;
+            btn_utazasokmegtekintese.ErtesitesSzovegSzin = Color.White;
             btn_utazasokmegtekintese.FlatStyle = FlatStyle.Flat;
             btn_utazasokmegtekintese.Font = new Font("Sans Serif Collection", 9.749998F, FontStyle.Bold);
             btn_utazasokmegtekintese.ForeColor = Color.FromArgb(55, 65, 81);
@@ -843,7 +912,7 @@ namespace Projekt_feladat
         private Label lbl_disz2;
         private Panel pnl_fomenu;
         private KerekitettGomb btn_elofoglalasok;
-        private KerekitettGomb button4;
+        private KerekitettGomb btn_biztonsagiMentes;
         private KerekitettGomb btn_statisztika;
         private Panel pnl_UtasokAlmenu;
         private KerekitettGomb btn_utasok;

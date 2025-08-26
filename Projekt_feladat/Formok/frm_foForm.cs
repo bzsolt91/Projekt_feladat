@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic.Logging;
+using Microsoft.Win32;
 using MySqlConnector;
 using Projekt_feladat.bejelentkezes;
 using Projekt_feladat.egyeni_vezerlok;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
+using System.Text;
 
 
 namespace Projekt_feladat
@@ -18,6 +20,7 @@ namespace Projekt_feladat
         private Point mozgatasi_pont; //a kurzor új pozíciója ahová az ablak mozgatódik
         private Point form_mozgatasi_pont; //
         /************************/
+        private string configFile = Path.Combine(Application.StartupPath, "mysqldump_path.txt");
 
         private int borderRadius = 20;
         private int borderSize = 2;
@@ -323,7 +326,35 @@ namespace Projekt_feladat
 
 
 
+        private void ertesitesek()
+        {
 
+
+            int lejaroDb = 0;
+            int erdeklodikDb = 0;
+
+            string connStr = "server=localhost;database=utazast_kezelo;uid=utazast_kezelo;pwd=utazast_kezelo1234;";
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+
+                // 1. lejaro_okmanyok sorok száma
+                using (MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM lejaro_okmanyok;", conn))
+                {
+                    lejaroDb = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+
+                // 2. elofoglalas érdeklõdik sorok száma
+                using (MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM elofoglalas WHERE allapot = 'érdeklõdik';", conn))
+                {
+                    erdeklodikDb = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+
+            // 3. Értesítés beállítása a gombon
+            btn_ertesitesek.ErtesitesMutatasa = true;
+            btn_ertesitesek.ErtesitesSzam = lejaroDb + erdeklodikDb;
+        }
 
         private void frm_foForm_Load(object sender, EventArgs e)
         {
@@ -377,6 +408,7 @@ namespace Projekt_feladat
                             }
                         }
                     }
+                    ertesitesek();
                 }
                 catch (Exception ex)
                 {
@@ -454,6 +486,122 @@ namespace Projekt_feladat
         {
             GyermekFormMegnyitas(new frm_ertesitesek(), sender); //utazások form beágyazása
             AlmenuElrejtés();
+        }
+        private string GetMySqlDumpPath()
+        {
+            // Ha van elmentett útvonal, és létezik a fájl, azt használjuk
+            if (File.Exists(configFile))
+            {
+                string savedPath = File.ReadAllText(configFile).Trim();
+                if (File.Exists(savedPath))
+                    return savedPath;
+            }
+
+            // 1. Megpróbáljuk registrybõl kiolvasni WAMP telepítési mappáját
+            string wampPath = null;
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WampServer"))
+            {
+                if (key != null)
+                    wampPath = key.GetValue("InstallDir") as string;
+            }
+            if (string.IsNullOrEmpty(wampPath))
+            {
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\WampServer"))
+                {
+                    if (key != null)
+                        wampPath = key.GetValue("InstallDir") as string;
+                }
+            }
+
+            // 2. Ha van WAMP path, megkeressük a mysql könyvtárat
+            if (!string.IsNullOrEmpty(wampPath))
+            {
+                string mysqlBinFolder = Path.Combine(wampPath, "bin", "mysql");
+                if (Directory.Exists(mysqlBinFolder))
+                {
+                    string[] mysqlDirs = Directory.GetDirectories(mysqlBinFolder);
+                    if (mysqlDirs.Length > 0)
+                    {
+                        string mysqldumpPath = Path.Combine(mysqlDirs[0], "bin", "mysqldump.exe");
+                        if (File.Exists(mysqldumpPath))
+                        {
+                            File.WriteAllText(configFile, mysqldumpPath); // elmentjük
+                            return mysqldumpPath;
+                        }
+                    }
+                }
+            }
+
+            // 3. Ha semmit nem találtunk, felhasználótól kérünk be útvonalat
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Keresd meg a mysqldump.exe fájlt";
+                ofd.Filter = "mysqldump.exe|mysqldump.exe";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(configFile, ofd.FileName);
+                    return ofd.FileName;
+                }
+            }
+
+            return null;
+        }
+        private void btn_biztonsagiMentes_Click(object sender, EventArgs e)
+        {
+            string mysqldumpPath = GetMySqlDumpPath();
+            if (mysqldumpPath == null)
+            {
+                MessageBox.Show("Nem található a mysqldump.exe. Add meg manuálisan!",
+                                "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "SQL fájl (*.sql)|*.sql";
+                sfd.Title = "Biztonsági mentés helyének kiválasztása";
+                sfd.FileName = "adatbazis_mentes_" + DateTime.Now.ToString("yyyyMMdd_HHmm") + ".sql";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    string fajlnev = sfd.FileName;
+
+                    try
+                    {
+                        string szerver = "localhost";
+                        string felhasznalo = "utazast_kezelo";
+                        string jelszo = "utazast_kezelo1234";      // ha nincs jelszó, üresen hagyhatod
+                        string adatbazis = "utazast_kezelo";
+
+                        string arguments = $"-h {szerver} -u {felhasznalo} -p{jelszo} {adatbazis}";
+
+                        ProcessStartInfo psi = new ProcessStartInfo
+                        {
+                            FileName = mysqldumpPath,
+                            Arguments = arguments,
+                            RedirectStandardOutput = true,
+                            UseShellExecute = false,
+                            CreateNoWindow = true
+                        };
+
+                        using (Process process = Process.Start(psi))
+                        using (StreamReader reader = process.StandardOutput)
+                        using (StreamWriter writer = new StreamWriter(fajlnev, false, Encoding.UTF8))
+                        {
+                            string output = reader.ReadToEnd();
+                            writer.Write(output);
+                        }
+
+                        MessageBox.Show("Biztonsági mentés elkészült:\n" + fajlnev,
+                                        "Siker", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Hiba történt a mentés során:\n" + ex.Message,
+                                        "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

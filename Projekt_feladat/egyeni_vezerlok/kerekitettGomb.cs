@@ -12,7 +12,10 @@ namespace Projekt_feladat.egyeni_vezerlok
         private Color nyomottAllapotHatterSzine = Color.DarkSlateBlue;
         private Color egerTartasHatterSzine = Color.SlateBlue;
         private Color alapHatterSzine;
-
+        private bool ertesitesMutatasa = false;
+        private int ertesitesSzam = 0;
+        private Color ertesitesSzin = Color.Red;
+        private Color ertesitesSzovegSzin = Color.White;
         //Properties
         [Category("Egyéni gomb")]
         public int KeretMeret
@@ -62,7 +65,33 @@ namespace Projekt_feladat.egyeni_vezerlok
             get { return egerTartasHatterSzine; }
             set { egerTartasHatterSzine = value; }
         }
+        [Category("Egyéni gomb - Értesítés")]
+        public bool ErtesitesMutatasa
+        {
+            get { return ertesitesMutatasa; }
+            set { ertesitesMutatasa = value; Invalidate(); }
+        }
 
+        [Category("Egyéni gomb - Értesítés")]
+        public int ErtesitesSzam
+        {
+            get { return ertesitesSzam; }
+            set { ertesitesSzam = value; Invalidate(); }
+        }
+
+        [Category("Egyéni gomb - Értesítés")]
+        public Color ErtesitesSzin
+        {
+            get { return ertesitesSzin; }
+            set { ertesitesSzin = value; Invalidate(); }
+        }
+
+        [Category("Egyéni gomb - Értesítés")]
+        public Color ErtesitesSzovegSzin
+        {
+            get { return ertesitesSzovegSzin; }
+            set { ertesitesSzovegSzin = value; Invalidate(); }
+        }
         //Constructor
         public KerekitettGomb()
         {
@@ -141,6 +170,30 @@ namespace Projekt_feladat.egyeni_vezerlok
                         penBorder.Alignment = PenAlignment.Inset;
                         pevent.Graphics.DrawRectangle(penBorder, 0, 0, Width - 1, Height - 1);
                     }
+                }
+            }
+            // Értesítés badge kirajzolása
+            if (ertesitesMutatasa && ertesitesSzam > 0)
+            {
+                int badgeMeret = 40; // piros kör átmérője
+                using (SolidBrush badgeBrush = new SolidBrush(ertesitesSzin))
+                using (SolidBrush textBrush = new SolidBrush(ertesitesSzovegSzin))
+                using (Font badgeFont = new Font(Font.FontFamily, 10, FontStyle.Bold))
+                {
+                    // Piros kör pozíciója (kicsit jobbra és feljebb)
+                    int x = Width - badgeMeret - 5;
+                    int y = (Height / 2) - (badgeMeret / 2) - 8;
+
+                    pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    pevent.Graphics.FillEllipse(badgeBrush, x, y, badgeMeret, badgeMeret);
+
+                    // Szám szöveg kirajzolása középre
+                    string szamStr = ertesitesSzam.ToString();
+                    SizeF szamMeret = pevent.Graphics.MeasureString(szamStr, badgeFont);
+                    float szX = x + (badgeMeret - szamMeret.Width) / 2;
+                    float szY = y + (badgeMeret - szamMeret.Height) / 2 - 1;
+
+                    pevent.Graphics.DrawString(szamStr, badgeFont, textBrush, szX, szY);
                 }
             }
         }
