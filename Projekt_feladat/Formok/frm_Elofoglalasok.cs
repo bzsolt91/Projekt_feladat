@@ -12,8 +12,10 @@ namespace Projekt_feladat.Formok
     {
         bool szerkesztesAktiv = false;
         bool szuresAktiv = false;
-        string kapcsolatString = String.Format("Server={0};User ID={1};Password={2};Database={3}", "127.0.0.1", "utazast_kezelo", "utazast_kezelo1234", "utazast_kezelo");
+        string kapcsolatString = String.Format("Server={0};User ID={1};Password={2};Database={3}",
+            "127.0.0.1", "utazast_kezelo", "utazast_kezelo1234", "utazast_kezelo");
 
+        int oldalMeret = 100;   // ÚJ: oldalankénti sorok száma
 
         public frm_Elofoglalasok()
         {
@@ -23,6 +25,8 @@ namespace Projekt_feladat.Formok
 
             this.Load += Frm_Elofoglalasok_Load;
 
+            // ÚJ: NumericUpDown esemény bekötése
+            nud_oldalszam.ValueChanged += nud_oldalszam_ValueChanged;
         }
         public frm_foForm FoForm { get; set; }
 
@@ -31,7 +35,145 @@ namespace Projekt_feladat.Formok
             AdatokBetoltese();
             szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height / 2 - szpn_szuroPanel.Height / 2);
         }
+        public void lekerdezes()
+        {
+            try
+            {
+                if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+                {
+                    MessageBox.Show("A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                                    "Bejelentkezés szükséges",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
 
+                using (var conn = new MySqlConnection(kapcsolatString))
+                {
+                    conn.Open();
+                    var dt = new DataTable();
+                    var cmd = new MySqlCommand();
+                    cmd.Connection = conn;
+
+                    var feltetelek = new List<string>();
+
+                    // --- Szűrési feltételek ---
+                    if (szuresAktiv)
+                    {
+                        if (!string.IsNullOrWhiteSpace(kszm_utasNeve.Texts))
+                        {
+                            var nevReszek = kszm_utasNeve.Texts.Trim()
+                                                 .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                            int nevIndex = 0;
+                            foreach (var szo in nevReszek)
+                            {
+                                string paramNev = "@nev" + nevIndex++;
+                                feltetelek.Add($"LOWER(e.teljes_nev) LIKE {paramNev}");
+                                cmd.Parameters.AddWithValue(paramNev, "%" + szo.ToLower() + "%");
+                            }
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(kszm_email.Texts))
+                        {
+                            feltetelek.Add("LOWER(e.email) LIKE @em");
+                            cmd.Parameters.AddWithValue("@em", "%" + kszm_email.Texts.ToLower() + "%");
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts))
+                        {
+                            feltetelek.Add("LOWER(e.telefon) LIKE @tel");
+                            cmd.Parameters.AddWithValue("@tel", "%" + kszm_telefon.Texts.ToLower() + "%");
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(kszm_lakcim.Texts))
+                        {
+                            feltetelek.Add("LOWER(e.lakcim) LIKE @lak");
+                            cmd.Parameters.AddWithValue("@lak", "%" + kszm_lakcim.Texts.ToLower() + "%");
+                        }
+
+                        if (klm_allapot.ComboText.ToLower() != "mind" &&
+                            klm_allapot.ComboText.ToLower() != "állapot")
+                        {
+                            feltetelek.Add("e.allapot = @allapot");
+                            cmd.Parameters.AddWithValue("@allapot", klm_allapot.ComboText);
+                        }
+
+                        if (dtp_relativDatum.Checked)
+                        {
+                            feltetelek.Add("e.regisztracio_idopont <= @datum");
+                            cmd.Parameters.AddWithValue("@datum", dtp_relativDatum.Value.Date);
+                        }
+                    }
+
+                    string alapSelect = @"
+                        SELECT 
+                            e.elofoglalas_id,
+                            e.teljes_nev as 'Név',
+                            e.telefon as 'Telefon',
+                            e.email as 'E-mail cím',
+                            e.lakcim as 'Lakcím',
+                            e.regisztracio_idopont as 'Regisztráció időpont',
+                            e.allapot as 'Állapot',
+                            u.utazas_elnevezese as 'Utazás neve',
+                            u.utazas_ideje as 'Utazás ideje'
+                        FROM elofoglalas e
+                        JOIN utazas u ON e.utazas_id = u.utazas_id
+                    ";
+
+                    string whereClause = feltetelek.Count > 0
+                        ? "WHERE " + string.Join(" AND ", feltetelek)
+                        : "";
+
+                    // --- Összes sor számolása a lapozáshoz ---
+                    string countQuery = "SELECT COUNT(*) FROM elofoglalas e JOIN utazas u ON e.utazas_id = u.utazas_id " + whereClause;
+                    using (var countCmd = new MySqlCommand(countQuery, conn))
+                    {
+                        foreach (MySqlParameter p in cmd.Parameters)
+                            countCmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+
+                        int osszesSor = Convert.ToInt32(countCmd.ExecuteScalar());
+                        int maxOldal = (int)Math.Ceiling(osszesSor / (double)oldalMeret);
+                        if (maxOldal == 0) maxOldal = 1;
+
+                        nud_oldalszam.Maximum = maxOldal;
+                        if (nud_oldalszam.Value > maxOldal)
+                            nud_oldalszam.Value = maxOldal;
+                        if (nud_oldalszam.Value < 1)
+                            nud_oldalszam.Value = 1;
+                    }
+
+                    // --- OFFSET kiszámítása ---
+                    int aktualisOldal = (int)nud_oldalszam.Value;
+                    if (aktualisOldal < 1) aktualisOldal = 1;
+                    int offset = (aktualisOldal - 1) * oldalMeret;
+
+                    cmd.CommandText = alapSelect + " " + whereClause + @"
+                        ORDER BY (e.allapot='érdeklődik') DESC, e.regisztracio_idopont DESC
+                        LIMIT @limit OFFSET @offset";
+
+                    cmd.Parameters.AddWithValue("@limit", oldalMeret);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+
+                    var da = new MySqlDataAdapter(cmd);
+                    da.Fill(dt);
+                    dgv_utasok.DataSource = dt;
+
+                    if (dgv_utasok.Columns.Contains("elofoglalas_id"))
+                        dgv_utasok.Columns["elofoglalas_id"].Visible = false;
+                }
+
+                dgv_utasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+                dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.StartsWith("Unable to conn"))
+                    MessageBox.Show("Nem sikerült kapcsolódni az adatbázishoz.", "Adatbázis elérés");
+                else
+                    MessageBox.Show(ex.Message);
+            }
+        }
         private void AdatokBetoltese()
         {
             using (MySqlConnection conn = new MySqlConnection(kapcsolatString))
@@ -211,134 +353,7 @@ namespace Projekt_feladat.Formok
                 kg_szures.HatterSzine = Color.DarkGoldenrod;
             }
         }
-        public void lekerdezes()
-        {
-            try
-            {
-                if (!bejelentkezes.bejelentkezes.Bejelentkezve())
-                {
-                    MessageBox.Show("A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
-                                    "Bejelentkezés szükséges",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
-                    return;
-                }
-
-                using (var conn = new MySqlConnection(kapcsolatString))
-                {
-                    conn.Open();
-                    var dt = new DataTable();
-                    var cmd = new MySqlCommand();
-                    cmd.Connection = conn;
-
-                    var feltetelek = new List<string>();
-
-                    // --- Szűrési feltételek feldolgozása ---
-                    if (szuresAktiv)
-                    {
-                        // név szűrés
-                        if (!string.IsNullOrWhiteSpace(kszm_utasNeve.Texts))
-                        {
-                            var nevReszek = kszm_utasNeve.Texts.Trim()
-                                                 .Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                            int nevIndex = 0;
-
-                            foreach (var szo in nevReszek)
-                            {
-                                string paramNev = "@nev" + nevIndex++;
-                                feltetelek.Add($"LOWER(e.teljes_nev) LIKE {paramNev}");
-                                cmd.Parameters.AddWithValue(paramNev, "%" + szo.ToLower() + "%");
-                            }
-                        }
-
-                        // email
-                        if (!string.IsNullOrWhiteSpace(kszm_email.Texts))
-                        {
-                            feltetelek.Add("LOWER(e.email) LIKE @em");
-                            cmd.Parameters.AddWithValue("@em", "%" + kszm_email.Texts.ToLower() + "%");
-                        }
-
-                        // telefon
-                        if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts))
-                        {
-                            feltetelek.Add("LOWER(e.telefon) LIKE @tel");
-                            cmd.Parameters.AddWithValue("@tel", "%" + kszm_telefon.Texts.ToLower() + "%");
-                        }
-
-                        // lakcím
-                        if (!string.IsNullOrWhiteSpace(kszm_lakcim.Texts))
-                        {
-                            feltetelek.Add("LOWER(e.lakcim) LIKE @lak");
-                            cmd.Parameters.AddWithValue("@lak", "%" + kszm_lakcim.Texts.ToLower() + "%");
-                        }
-
-                        // állapot
-                        if (klm_allapot.ComboText.ToLower() != "mind" &&
-                            klm_allapot.ComboText.ToLower() != "állapot")
-                        {
-                            feltetelek.Add("e.allapot = @allapot");
-                            cmd.Parameters.AddWithValue("@allapot", klm_allapot.ComboText);
-                        }
-
-                        // dátum
-                        if (dtp_relativDatum.Checked)
-                        {
-                            feltetelek.Add("e.regisztracio_idopont <= @datum");
-                            cmd.Parameters.AddWithValue("@datum", dtp_relativDatum.Value.Date);
-                        }
-                    }
-
-                    // --- SQL lekérdezés összeállítása ---
-                    string alapSelect = @"
-                SELECT 
-                    e.elofoglalas_id,
-                    e.teljes_nev as 'Név',
-                    e.telefon as 'Telefon',
-                    e.email as 'E-mail cím',
-                    e.lakcim as 'Lakcím',
-                    e.regisztracio_idopont as 'Regisztráció időpont',
-                    e.allapot as 'Állapot',
-                    u.utazas_elnevezese as 'Utazás neve',
-                    u.utazas_ideje as 'Utazás ideje'
-                FROM elofoglalas e
-                JOIN utazas u ON e.utazas_id = u.utazas_id
-            ";
-
-                    string whereClause = feltetelek.Count > 0
-                        ? "WHERE " + string.Join(" AND ", feltetelek)
-                        : "";
-
-                    cmd.CommandText = alapSelect + " " + whereClause + @"
-                ORDER BY (e.allapot='érdeklődik') DESC, e.regisztracio_idopont DESC
-                LIMIT 100";
-
-                    // --- DEBUG KIÍRÁS ---
-                    Console.WriteLine(cmd.CommandText);
-                    foreach (MySqlParameter p in cmd.Parameters)
-                        Console.WriteLine($"{p.ParameterName} = {p.Value}");
-
-                    // --- Adatok lekérése ---
-                    var da = new MySqlDataAdapter(cmd);
-                    da.Fill(dt);
-                    dgv_utasok.DataSource = dt;
-
-                    if (dgv_utasok.Columns.Contains("elofoglalas_id"))
-                        dgv_utasok.Columns["elofoglalas_id"].Visible = false;
-                }
-   
-                dgv_utasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
-                dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.StartsWith("Unable to conn"))
-                    MessageBox.Show("Nem sikerült kapcsolódni az adatbázishoz.", "Adatbázis elérés");
-                else
-                    MessageBox.Show(ex.Message);
-            }
-        }
-
+     
 
         private void kg_pipa_Click(object sender, EventArgs e)
         {
@@ -373,7 +388,10 @@ namespace Projekt_feladat.Formok
             klm_foglalasiAllapot.Location = new Point(pnl_segedPanel.Location.X,
                                                     pnl_segedPanel.Location.Y + klm_foglalasiAllapot.Height + 10);
         }
-
+        private void nud_oldalszam_ValueChanged(object sender, EventArgs e)
+        {
+            lekerdezes();
+        }
         private void kg_felvetelUtasnak_Click(object sender, EventArgs e)
         {
             if (dgv_utasok.CurrentRow == null)

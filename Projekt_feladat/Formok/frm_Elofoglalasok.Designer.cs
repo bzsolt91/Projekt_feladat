@@ -30,9 +30,9 @@
         {
             egyeni_vezerlok.ellipszisVezerlo ev_szuroPanel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Elofoglalasok));
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             szpn_szuroPanel = new Panel();
             blbl_datum = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
             dtp_relativDatum = new DateTimePicker();
@@ -57,6 +57,7 @@
             klm_foglalasiAllapot = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             dgv_utasok = new Projekt_feladat.egyeni_vezerlok.DoubleBufferedDataGridView();
             ev_fomenu = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
+            nud_oldalszam = new Projekt_feladat.egyeni_vezerlok.KerekitettNumericUpDown();
             ev_szuroPanel = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             szpn_szuroPanel.SuspendLayout();
             pnl_vezerlopanel.SuspendLayout();
@@ -235,6 +236,10 @@
             kg_pipa.BackColor = Color.WhiteSmoke;
             kg_pipa.BackgroundImageLayout = ImageLayout.Center;
             kg_pipa.EgerTartasHatterSzine = Color.DarkViolet;
+            kg_pipa.ErtesitesMutatasa = false;
+            kg_pipa.ErtesitesSzam = 0;
+            kg_pipa.ErtesitesSzin = Color.Red;
+            kg_pipa.ErtesitesSzovegSzin = Color.White;
             kg_pipa.FlatAppearance.BorderSize = 0;
             kg_pipa.FlatStyle = FlatStyle.Flat;
             kg_pipa.ForeColor = Color.Violet;
@@ -291,6 +296,10 @@
             kg_felvetelUtasnak.Anchor = AnchorStyles.Left;
             kg_felvetelUtasnak.BackColor = Color.MediumSlateBlue;
             kg_felvetelUtasnak.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_felvetelUtasnak.ErtesitesMutatasa = false;
+            kg_felvetelUtasnak.ErtesitesSzam = 0;
+            kg_felvetelUtasnak.ErtesitesSzin = Color.Red;
+            kg_felvetelUtasnak.ErtesitesSzovegSzin = Color.White;
             kg_felvetelUtasnak.FlatAppearance.BorderSize = 0;
             kg_felvetelUtasnak.FlatStyle = FlatStyle.Flat;
             kg_felvetelUtasnak.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -317,6 +326,10 @@
             kg_mentes.Anchor = AnchorStyles.Left;
             kg_mentes.BackColor = Color.Green;
             kg_mentes.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_mentes.ErtesitesMutatasa = false;
+            kg_mentes.ErtesitesSzam = 0;
+            kg_mentes.ErtesitesSzin = Color.Red;
+            kg_mentes.ErtesitesSzovegSzin = Color.White;
             kg_mentes.FlatAppearance.BorderSize = 0;
             kg_mentes.FlatStyle = FlatStyle.Flat;
             kg_mentes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -361,6 +374,10 @@
             kg_torles.Anchor = AnchorStyles.Left;
             kg_torles.BackColor = Color.Crimson;
             kg_torles.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_torles.ErtesitesMutatasa = false;
+            kg_torles.ErtesitesSzam = 0;
+            kg_torles.ErtesitesSzin = Color.Red;
+            kg_torles.ErtesitesSzovegSzin = Color.White;
             kg_torles.FlatAppearance.BorderSize = 0;
             kg_torles.FlatStyle = FlatStyle.Flat;
             kg_torles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -384,15 +401,17 @@
             // 
             // tlp_fomenu
             // 
-            tlp_fomenu.ColumnCount = 4;
-            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.333333F));
-            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.333333F));
-            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.333333F));
-            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.333333F));
+            tlp_fomenu.ColumnCount = 5;
+            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tlp_fomenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             tlp_fomenu.Controls.Add(kszm_szerkesztes, 0, 0);
-            tlp_fomenu.Controls.Add(kg_telefonszamMasolas, 3, 0);
-            tlp_fomenu.Controls.Add(kg_szures, 1, 0);
-            tlp_fomenu.Controls.Add(kg_email, 2, 0);
+            tlp_fomenu.Controls.Add(kg_telefonszamMasolas, 4, 0);
+            tlp_fomenu.Controls.Add(kg_szures, 2, 0);
+            tlp_fomenu.Controls.Add(kg_email, 3, 0);
+            tlp_fomenu.Controls.Add(nud_oldalszam, 1, 0);
             tlp_fomenu.Dock = DockStyle.Top;
             tlp_fomenu.Location = new Point(0, 0);
             tlp_fomenu.Name = "tlp_fomenu";
@@ -406,6 +425,10 @@
             kszm_szerkesztes.Anchor = AnchorStyles.Left;
             kszm_szerkesztes.BackColor = Color.DarkGoldenrod;
             kszm_szerkesztes.EgerTartasHatterSzine = Color.SlateBlue;
+            kszm_szerkesztes.ErtesitesMutatasa = false;
+            kszm_szerkesztes.ErtesitesSzam = 0;
+            kszm_szerkesztes.ErtesitesSzin = Color.Red;
+            kszm_szerkesztes.ErtesitesSzovegSzin = Color.White;
             kszm_szerkesztes.FlatAppearance.BorderSize = 0;
             kszm_szerkesztes.FlatStyle = FlatStyle.Flat;
             kszm_szerkesztes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -432,6 +455,10 @@
             kg_telefonszamMasolas.Anchor = AnchorStyles.Left;
             kg_telefonszamMasolas.BackColor = Color.MediumSlateBlue;
             kg_telefonszamMasolas.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_telefonszamMasolas.ErtesitesMutatasa = false;
+            kg_telefonszamMasolas.ErtesitesSzam = 0;
+            kg_telefonszamMasolas.ErtesitesSzin = Color.Red;
+            kg_telefonszamMasolas.ErtesitesSzovegSzin = Color.White;
             kg_telefonszamMasolas.FlatAppearance.BorderSize = 0;
             kg_telefonszamMasolas.FlatStyle = FlatStyle.Flat;
             kg_telefonszamMasolas.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -441,7 +468,7 @@
             kg_telefonszamMasolas.ImageAlign = ContentAlignment.MiddleRight;
             kg_telefonszamMasolas.KeretMeret = 0;
             kg_telefonszamMasolas.KeretSzine = Color.PaleVioletRed;
-            kg_telefonszamMasolas.Location = new Point(804, 17);
+            kg_telefonszamMasolas.Location = new Point(855, 17);
             kg_telefonszamMasolas.Name = "kg_telefonszamMasolas";
             kg_telefonszamMasolas.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_telefonszamMasolas.SarokSugar = 8;
@@ -458,6 +485,10 @@
             kg_szures.Anchor = AnchorStyles.Left;
             kg_szures.BackColor = Color.MediumSlateBlue;
             kg_szures.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_szures.ErtesitesMutatasa = false;
+            kg_szures.ErtesitesSzam = 0;
+            kg_szures.ErtesitesSzin = Color.Red;
+            kg_szures.ErtesitesSzovegSzin = Color.White;
             kg_szures.FlatAppearance.BorderSize = 0;
             kg_szures.FlatStyle = FlatStyle.Flat;
             kg_szures.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -467,7 +498,7 @@
             kg_szures.ImageAlign = ContentAlignment.MiddleRight;
             kg_szures.KeretMeret = 0;
             kg_szures.KeretSzine = Color.PaleVioletRed;
-            kg_szures.Location = new Point(270, 17);
+            kg_szures.Location = new Point(429, 17);
             kg_szures.Name = "kg_szures";
             kg_szures.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_szures.SarokSugar = 8;
@@ -484,6 +515,10 @@
             kg_email.Anchor = AnchorStyles.Left;
             kg_email.BackColor = Color.MediumSlateBlue;
             kg_email.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_email.ErtesitesMutatasa = false;
+            kg_email.ErtesitesSzam = 0;
+            kg_email.ErtesitesSzin = Color.Red;
+            kg_email.ErtesitesSzovegSzin = Color.White;
             kg_email.FlatAppearance.BorderSize = 0;
             kg_email.FlatStyle = FlatStyle.Flat;
             kg_email.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -493,7 +528,7 @@
             kg_email.ImageAlign = ContentAlignment.MiddleRight;
             kg_email.KeretMeret = 0;
             kg_email.KeretSzine = Color.PaleVioletRed;
-            kg_email.Location = new Point(537, 17);
+            kg_email.Location = new Point(642, 17);
             kg_email.Name = "kg_email";
             kg_email.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_email.SarokSugar = 8;
@@ -546,24 +581,24 @@
             dgv_utasok.BorderStyle = BorderStyle.None;
             dgv_utasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_utasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.White;
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgv_utasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgv_utasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgv_utasok.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.HotTrack;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle8.Padding = new Padding(3);
-            dataGridViewCellStyle8.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle8.SelectionForeColor = Color.BlueViolet;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgv_utasok.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgv_utasok.DefaultCellStyle = dataGridViewCellStyle2;
             dgv_utasok.Dock = DockStyle.Fill;
             dgv_utasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_utasok.EnableHeadersVisualStyles = false;
@@ -573,16 +608,16 @@
             dgv_utasok.Name = "dgv_utasok";
             dgv_utasok.ReadOnly = true;
             dgv_utasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgv_utasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgv_utasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgv_utasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgv_utasok.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dgv_utasok.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgv_utasok.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgv_utasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_utasok.ShowEditingIcon = false;
@@ -594,6 +629,23 @@
             // 
             ev_fomenu.SarokSugar = 20;
             ev_fomenu.TargetControl = pnl_vezerlopanel;
+            // 
+            // nud_oldalszam
+            // 
+            nud_oldalszam.Anchor = AnchorStyles.Left;
+            nud_oldalszam.BackColor = Color.Transparent;
+            nud_oldalszam.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+            nud_oldalszam.KeretSzin = Color.Gray;
+            nud_oldalszam.KeretVastagsag = 1.5F;
+            nud_oldalszam.Location = new Point(216, 18);
+            nud_oldalszam.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+            nud_oldalszam.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            nud_oldalszam.MinimumSize = new Size(80, 25);
+            nud_oldalszam.Name = "nud_oldalszam";
+            nud_oldalszam.Radius = 10;
+            nud_oldalszam.Size = new Size(132, 33);
+            nud_oldalszam.TabIndex = 6;
+            nud_oldalszam.Value = new decimal(new int[] { 0, 0, 0, 0 });
             // 
             // frm_Elofoglalasok
             // 
@@ -643,5 +695,6 @@
         private egyeni_vezerlok.BufferedLabel blbl_datum;
         private egyeni_vezerlok.ellipszisVezerlo ev_fomenu;
         private egyeni_vezerlok.KerekitettGomb kg_felvetelUtasnak;
+        private egyeni_vezerlok.KerekitettNumericUpDown nud_oldalszam;
     }
 }

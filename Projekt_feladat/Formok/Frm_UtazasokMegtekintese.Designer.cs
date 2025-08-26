@@ -186,6 +186,10 @@ namespace Projekt_feladat.Formok
             kg_pipa.BackgroundImage = (Image)resources.GetObject("kg_pipa.BackgroundImage");
             kg_pipa.BackgroundImageLayout = ImageLayout.Stretch;
             kg_pipa.EgerTartasHatterSzine = Color.DarkViolet;
+            kg_pipa.ErtesitesMutatasa = false;
+            kg_pipa.ErtesitesSzam = 0;
+            kg_pipa.ErtesitesSzin = Color.Red;
+            kg_pipa.ErtesitesSzovegSzin = Color.White;
             kg_pipa.FlatAppearance.BorderSize = 0;
             kg_pipa.FlatStyle = FlatStyle.Flat;
             kg_pipa.ForeColor = Color.White;
@@ -419,6 +423,10 @@ namespace Projekt_feladat.Formok
             // 
             kg_UlNyomtatas.BackColor = Color.MediumSlateBlue;
             kg_UlNyomtatas.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_UlNyomtatas.ErtesitesMutatasa = false;
+            kg_UlNyomtatas.ErtesitesSzam = 0;
+            kg_UlNyomtatas.ErtesitesSzin = Color.Red;
+            kg_UlNyomtatas.ErtesitesSzovegSzin = Color.White;
             kg_UlNyomtatas.FlatAppearance.BorderSize = 0;
             kg_UlNyomtatas.FlatStyle = FlatStyle.Flat;
             kg_UlNyomtatas.ForeColor = Color.White;
@@ -441,6 +449,10 @@ namespace Projekt_feladat.Formok
             // 
             kg_kilepes.BackColor = Color.MediumSlateBlue;
             kg_kilepes.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_kilepes.ErtesitesMutatasa = false;
+            kg_kilepes.ErtesitesSzam = 0;
+            kg_kilepes.ErtesitesSzin = Color.Red;
+            kg_kilepes.ErtesitesSzovegSzin = Color.White;
             kg_kilepes.FlatAppearance.BorderSize = 0;
             kg_kilepes.FlatStyle = FlatStyle.Flat;
             kg_kilepes.ForeColor = Color.White;
@@ -607,6 +619,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -634,6 +647,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_idoszak
             // 
+            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
@@ -714,6 +728,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
+            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;
@@ -759,6 +774,10 @@ namespace Projekt_feladat.Formok
             // 
             kszm_torles.BackColor = Color.MediumSlateBlue;
             kszm_torles.EgerTartasHatterSzine = Color.Crimson;
+            kszm_torles.ErtesitesMutatasa = false;
+            kszm_torles.ErtesitesSzam = 0;
+            kszm_torles.ErtesitesSzin = Color.Red;
+            kszm_torles.ErtesitesSzovegSzin = Color.White;
             kszm_torles.FlatAppearance.BorderSize = 0;
             kszm_torles.FlatStyle = FlatStyle.Flat;
             kszm_torles.Font = new Font("Segoe UI", 12F);
@@ -785,6 +804,10 @@ namespace Projekt_feladat.Formok
             // 
             kg_szures.BackColor = Color.MediumSlateBlue;
             kg_szures.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_szures.ErtesitesMutatasa = false;
+            kg_szures.ErtesitesSzam = 0;
+            kg_szures.ErtesitesSzin = Color.Red;
+            kg_szures.ErtesitesSzovegSzin = Color.White;
             kg_szures.FlatAppearance.BorderSize = 0;
             kg_szures.FlatStyle = FlatStyle.Flat;
             kg_szures.Font = new Font("Segoe UI", 12F);
@@ -811,6 +834,10 @@ namespace Projekt_feladat.Formok
             // 
             kszm_nyomtatas.BackColor = Color.MediumSlateBlue;
             kszm_nyomtatas.EgerTartasHatterSzine = Color.SlateBlue;
+            kszm_nyomtatas.ErtesitesMutatasa = false;
+            kszm_nyomtatas.ErtesitesSzam = 0;
+            kszm_nyomtatas.ErtesitesSzin = Color.Red;
+            kszm_nyomtatas.ErtesitesSzovegSzin = Color.White;
             kszm_nyomtatas.FlatAppearance.BorderSize = 0;
             kszm_nyomtatas.FlatStyle = FlatStyle.Flat;
             kszm_nyomtatas.Font = new Font("Segoe UI", 12F);
@@ -837,6 +864,10 @@ namespace Projekt_feladat.Formok
             // 
             kszm_utasLista.BackColor = Color.MediumSlateBlue;
             kszm_utasLista.EgerTartasHatterSzine = Color.SlateBlue;
+            kszm_utasLista.ErtesitesMutatasa = false;
+            kszm_utasLista.ErtesitesSzam = 0;
+            kszm_utasLista.ErtesitesSzin = Color.Red;
+            kszm_utasLista.ErtesitesSzovegSzin = Color.White;
             kszm_utasLista.FlatAppearance.BorderSize = 0;
             kszm_utasLista.FlatStyle = FlatStyle.Flat;
             kszm_utasLista.Font = new Font("Segoe UI", 12F);
@@ -864,6 +895,10 @@ namespace Projekt_feladat.Formok
             // 
             btn_mentes.BackColor = Color.MediumSlateBlue;
             btn_mentes.EgerTartasHatterSzine = Color.SlateBlue;
+            btn_mentes.ErtesitesMutatasa = false;
+            btn_mentes.ErtesitesSzam = 0;
+            btn_mentes.ErtesitesSzin = Color.Red;
+            btn_mentes.ErtesitesSzovegSzin = Color.White;
             btn_mentes.FlatAppearance.BorderSize = 0;
             btn_mentes.FlatStyle = FlatStyle.Flat;
             btn_mentes.Font = new Font("Segoe UI", 12F);

@@ -604,7 +604,7 @@ namespace Projekt_feladat
             kg_segitseg.HatterSzine = Color.FromArgb(243, 244, 246);
             kg_segitseg.KeretMeret = 0;
             kg_segitseg.KeretSzine = Color.PaleVioletRed;
-            kg_segitseg.Location = new Point(0, 531);
+            kg_segitseg.Location = new Point(0, 474);
             kg_segitseg.Name = "kg_segitseg";
             kg_segitseg.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kg_segitseg.SarokSugar = 10;
@@ -614,6 +614,7 @@ namespace Projekt_feladat
             kg_segitseg.Text = "\U0001f9fe Útmutató";
             kg_segitseg.TextAlign = ContentAlignment.MiddleLeft;
             kg_segitseg.UseVisualStyleBackColor = false;
+            kg_segitseg.Click += kg_segitseg_Click;
             // 
             // btn_elofoglalasok
             // 
@@ -630,7 +631,7 @@ namespace Projekt_feladat
             btn_elofoglalasok.HatterSzine = Color.FromArgb(243, 244, 246);
             btn_elofoglalasok.KeretMeret = 0;
             btn_elofoglalasok.KeretSzine = Color.PaleVioletRed;
-            btn_elofoglalasok.Location = new Point(0, 474);
+            btn_elofoglalasok.Location = new Point(0, 417);
             btn_elofoglalasok.Name = "btn_elofoglalasok";
             btn_elofoglalasok.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_elofoglalasok.SarokSugar = 10;
@@ -645,19 +646,19 @@ namespace Projekt_feladat
             // btn_biztonsagiMentes
             // 
             btn_biztonsagiMentes.BackColor = Color.FromArgb(243, 244, 246);
-            btn_biztonsagiMentes.Dock = DockStyle.Top;
+            btn_biztonsagiMentes.Dock = DockStyle.Bottom;
             btn_biztonsagiMentes.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
             btn_biztonsagiMentes.ErtesitesMutatasa = false;
             btn_biztonsagiMentes.ErtesitesSzam = 0;
             btn_biztonsagiMentes.ErtesitesSzin = Color.Red;
             btn_biztonsagiMentes.ErtesitesSzovegSzin = Color.White;
             btn_biztonsagiMentes.FlatStyle = FlatStyle.Flat;
-            btn_biztonsagiMentes.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
+            btn_biztonsagiMentes.Font = new Font("Sans Serif Collection", 10.18868F, FontStyle.Bold, GraphicsUnit.Point, 238);
             btn_biztonsagiMentes.ForeColor = Color.FromArgb(55, 65, 81);
             btn_biztonsagiMentes.HatterSzine = Color.FromArgb(243, 244, 246);
             btn_biztonsagiMentes.KeretMeret = 0;
             btn_biztonsagiMentes.KeretSzine = Color.PaleVioletRed;
-            btn_biztonsagiMentes.Location = new Point(0, 417);
+            btn_biztonsagiMentes.Location = new Point(0, 531);
             btn_biztonsagiMentes.Name = "btn_biztonsagiMentes";
             btn_biztonsagiMentes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_biztonsagiMentes.SarokSugar = 10;
@@ -665,7 +666,8 @@ namespace Projekt_feladat
             btn_biztonsagiMentes.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_biztonsagiMentes.TabIndex = 16;
             btn_biztonsagiMentes.Text = "💾 Biztonsági mentés";
-            btn_biztonsagiMentes.TextAlign = ContentAlignment.MiddleLeft;
+            btn_biztonsagiMentes.TextAlign = ContentAlignment.TopLeft;
+            btn_biztonsagiMentes.UseMnemonic = false;
             btn_biztonsagiMentes.UseVisualStyleBackColor = false;
             btn_biztonsagiMentes.Click += btn_biztonsagiMentes_Click;
             // 

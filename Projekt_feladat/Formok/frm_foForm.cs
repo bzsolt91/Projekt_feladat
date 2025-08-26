@@ -603,5 +603,32 @@ namespace Projekt_feladat
                 }
             }
         }
+
+        private void kg_segitseg_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string pdfPath = Path.Combine(Application.StartupPath, "hasznalati_utmutato.pdf");
+
+                if (File.Exists(pdfPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = pdfPath,
+                        UseShellExecute = true // így az alapértelmezett PDF olvasóval nyílik meg
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("A PDF fájl nem található:\n" + pdfPath,
+                                    "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nem sikerült megnyitni a PDF-et:\n" + ex.Message,
+                                "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
