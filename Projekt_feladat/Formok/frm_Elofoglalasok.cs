@@ -353,33 +353,40 @@ namespace Projekt_feladat.Formok
                 kg_szures.HatterSzine = Color.DarkGoldenrod;
             }
         }
-     
+
 
         private void kg_pipa_Click(object sender, EventArgs e)
         {
-
             szpn_szuroPanel.Visible = false;
-            bool barmiszuroaktiv =
-                !string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) ||
-                !string.IsNullOrWhiteSpace(kszm_email.Texts) ||
-                !string.IsNullOrWhiteSpace(kszm_lakcim.Texts) ||
-                !string.IsNullOrWhiteSpace(kszm_telefon.Texts) ||
-                dtp_relativDatum.Checked ||
-                (!string.IsNullOrEmpty(klm_allapot.ComboText) &&
-                 klm_allapot.ComboText.ToLower() != "mind" &&
-                 klm_allapot.ComboText.ToLower() != "állapot");
+
+            // --- számoljuk, hány szűrő van kitöltve ---
+            int szurokSzama = 0;
+            if (!string.IsNullOrWhiteSpace(kszm_utasNeve.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_email.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_lakcim.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts)) szurokSzama++;
+            if (dtp_relativDatum.Checked) szurokSzama++;
+            if (!string.IsNullOrEmpty(klm_allapot.ComboText) &&
+                klm_allapot.ComboText.ToLower() != "mind" &&
+                klm_allapot.ComboText.ToLower() != "állapot")
+                szurokSzama++;
+
+            bool barmiszuroaktiv = szurokSzama > 0;
 
             if (barmiszuroaktiv)
             {
+                szuresAktiv = true;
+                kg_szures.ErtesitesSzam = szurokSzama;  
+                kg_szures.HatterSzine = Color.DarkGoldenrod;
                 lekerdezes();
             }
             else
             {
                 szuresAktiv = false;
+                kg_szures.ErtesitesSzam = 0;           
                 kg_szures.HatterSzine = Color.MediumSlateBlue;
                 AdatokBetoltese();
             }
-
         }
 
         private void frm_Elofoglalasok_Resize(object sender, EventArgs e)

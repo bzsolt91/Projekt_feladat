@@ -8,6 +8,7 @@ namespace Projekt_feladat.egyeni_vezerlok
         //Fields
         private int keretMeret = 0;
         private int sarokSugar = 0;
+        private int badgeMeret = 40; // piros kör átmérője
         private Color keretSzine = Color.PaleVioletRed;
         private Color nyomottAllapotHatterSzine = Color.DarkSlateBlue;
         private Color egerTartasHatterSzine = Color.SlateBlue;
@@ -22,6 +23,12 @@ namespace Projekt_feladat.egyeni_vezerlok
         {
             get { return keretMeret; }
             set { keretMeret = value; Invalidate(); }
+        }
+        [Category("Egyéni gomb - Értesítés")]
+        public int BadgeMeret
+        {
+            get { return badgeMeret; }
+            set { badgeMeret = value; Invalidate(); }
         }
 
         [Category("Egyéni gomb")]
@@ -175,7 +182,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             // Értesítés badge kirajzolása
             if (ertesitesMutatasa && ertesitesSzam > 0)
             {
-                int badgeMeret = 40; // piros kör átmérője
+               
                 using (SolidBrush badgeBrush = new SolidBrush(ertesitesSzin))
                 using (SolidBrush textBrush = new SolidBrush(ertesitesSzovegSzin))
                 using (Font badgeFont = new Font(Font.FontFamily, 10, FontStyle.Bold))

@@ -185,6 +185,7 @@ namespace Projekt_feladat.Formok
             kg_pipa.BackColor = Color.WhiteSmoke;
             kg_pipa.BackgroundImage = (Image)resources.GetObject("kg_pipa.BackgroundImage");
             kg_pipa.BackgroundImageLayout = ImageLayout.Stretch;
+            kg_pipa.BadgeMeret = 40;
             kg_pipa.EgerTartasHatterSzine = Color.DarkViolet;
             kg_pipa.ErtesitesMutatasa = false;
             kg_pipa.ErtesitesSzam = 0;
@@ -422,6 +423,7 @@ namespace Projekt_feladat.Formok
             // kg_UlNyomtatas
             // 
             kg_UlNyomtatas.BackColor = Color.MediumSlateBlue;
+            kg_UlNyomtatas.BadgeMeret = 40;
             kg_UlNyomtatas.EgerTartasHatterSzine = Color.SlateBlue;
             kg_UlNyomtatas.ErtesitesMutatasa = false;
             kg_UlNyomtatas.ErtesitesSzam = 0;
@@ -448,6 +450,7 @@ namespace Projekt_feladat.Formok
             // kg_kilepes
             // 
             kg_kilepes.BackColor = Color.MediumSlateBlue;
+            kg_kilepes.BadgeMeret = 40;
             kg_kilepes.EgerTartasHatterSzine = Color.SlateBlue;
             kg_kilepes.ErtesitesMutatasa = false;
             kg_kilepes.ErtesitesSzam = 0;
@@ -619,7 +622,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
-            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -647,7 +649,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_idoszak
             // 
-            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
@@ -728,7 +729,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
-            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;
@@ -773,6 +773,7 @@ namespace Projekt_feladat.Formok
             // kszm_torles
             // 
             kszm_torles.BackColor = Color.MediumSlateBlue;
+            kszm_torles.BadgeMeret = 40;
             kszm_torles.EgerTartasHatterSzine = Color.Crimson;
             kszm_torles.ErtesitesMutatasa = false;
             kszm_torles.ErtesitesSzam = 0;
@@ -803,8 +804,9 @@ namespace Projekt_feladat.Formok
             // kg_szures
             // 
             kg_szures.BackColor = Color.MediumSlateBlue;
+            kg_szures.BadgeMeret = 20;
             kg_szures.EgerTartasHatterSzine = Color.SlateBlue;
-            kg_szures.ErtesitesMutatasa = false;
+            kg_szures.ErtesitesMutatasa = true;
             kg_szures.ErtesitesSzam = 0;
             kg_szures.ErtesitesSzin = Color.Red;
             kg_szures.ErtesitesSzovegSzin = Color.White;
@@ -833,6 +835,7 @@ namespace Projekt_feladat.Formok
             // kszm_nyomtatas
             // 
             kszm_nyomtatas.BackColor = Color.MediumSlateBlue;
+            kszm_nyomtatas.BadgeMeret = 40;
             kszm_nyomtatas.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_nyomtatas.ErtesitesMutatasa = false;
             kszm_nyomtatas.ErtesitesSzam = 0;
@@ -863,6 +866,7 @@ namespace Projekt_feladat.Formok
             // kszm_utasLista
             // 
             kszm_utasLista.BackColor = Color.MediumSlateBlue;
+            kszm_utasLista.BadgeMeret = 40;
             kszm_utasLista.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_utasLista.ErtesitesMutatasa = false;
             kszm_utasLista.ErtesitesSzam = 0;
@@ -894,6 +898,7 @@ namespace Projekt_feladat.Formok
             // btn_mentes
             // 
             btn_mentes.BackColor = Color.MediumSlateBlue;
+            btn_mentes.BadgeMeret = 40;
             btn_mentes.EgerTartasHatterSzine = Color.SlateBlue;
             btn_mentes.ErtesitesMutatasa = false;
             btn_mentes.ErtesitesSzam = 0;

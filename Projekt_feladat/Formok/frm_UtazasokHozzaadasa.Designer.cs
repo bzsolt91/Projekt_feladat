@@ -165,6 +165,7 @@
             // kg_nem
             // 
             kg_nem.BackColor = Color.MediumSlateBlue;
+            kg_nem.BadgeMeret = 40;
             kg_nem.EgerTartasHatterSzine = Color.SlateBlue;
             kg_nem.ErtesitesMutatasa = false;
             kg_nem.ErtesitesSzam = 0;
@@ -191,6 +192,7 @@
             // kg_igen
             // 
             kg_igen.BackColor = Color.Crimson;
+            kg_igen.BadgeMeret = 40;
             kg_igen.EgerTartasHatterSzine = Color.SlateBlue;
             kg_igen.ErtesitesMutatasa = false;
             kg_igen.ErtesitesSzam = 0;
@@ -255,6 +257,7 @@
             // kg_meglevoSzerkesztese
             // 
             kg_meglevoSzerkesztese.BackColor = Color.MediumSlateBlue;
+            kg_meglevoSzerkesztese.BadgeMeret = 40;
             kg_meglevoSzerkesztese.EgerTartasHatterSzine = Color.SlateBlue;
             kg_meglevoSzerkesztese.ErtesitesMutatasa = false;
             kg_meglevoSzerkesztese.ErtesitesSzam = 0;
@@ -285,6 +288,7 @@
             // kszm_ujRegiFelhasznalo
             // 
             kszm_ujRegiFelhasznalo.BackColor = Color.Peru;
+            kszm_ujRegiFelhasznalo.BadgeMeret = 40;
             kszm_ujRegiFelhasznalo.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_ujRegiFelhasznalo.ErtesitesMutatasa = false;
             kszm_ujRegiFelhasznalo.ErtesitesSzam = 0;
@@ -314,6 +318,7 @@
             // kszm_utazasTorles
             // 
             kszm_utazasTorles.BackColor = Color.Crimson;
+            kszm_utazasTorles.BadgeMeret = 40;
             kszm_utazasTorles.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_utazasTorles.ErtesitesMutatasa = false;
             kszm_utazasTorles.ErtesitesSzam = 0;
@@ -346,6 +351,7 @@
             // 
             kszm_hozzaadas.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kszm_hozzaadas.BackColor = Color.MediumSlateBlue;
+            kszm_hozzaadas.BadgeMeret = 40;
             kszm_hozzaadas.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_hozzaadas.ErtesitesMutatasa = false;
             kszm_hozzaadas.ErtesitesSzam = 0;
@@ -377,6 +383,7 @@
             // 
             kszm_mentes.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kszm_mentes.BackColor = Color.MediumSlateBlue;
+            kszm_mentes.BadgeMeret = 40;
             kszm_mentes.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_mentes.ErtesitesMutatasa = false;
             kszm_mentes.ErtesitesSzam = 0;
@@ -932,6 +939,7 @@
             // 
             kg_boritoValasztas.Anchor = AnchorStyles.Left;
             kg_boritoValasztas.BackColor = Color.MediumSlateBlue;
+            kg_boritoValasztas.BadgeMeret = 40;
             kg_boritoValasztas.EgerTartasHatterSzine = Color.SlateBlue;
             kg_boritoValasztas.ErtesitesMutatasa = false;
             kg_boritoValasztas.ErtesitesSzam = 0;
@@ -1012,7 +1020,6 @@
             // 
             // klm_utazasSzerkeszeseUtazasNeve
             // 
-            klm_utazasSzerkeszeseUtazasNeve.adatForras = null;
             klm_utazasSzerkeszeseUtazasNeve.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelFelsoSzin = Color.White;
@@ -1040,7 +1047,6 @@
             // 
             // klm_utazasSzerkeszeseDesztinacio
             // 
-            klm_utazasSzerkeszeseDesztinacio.adatForras = null;
             klm_utazasSzerkeszeseDesztinacio.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseDesztinacio.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseDesztinacio.CimPanelFelsoSzin = Color.White;
@@ -1068,7 +1074,6 @@
             // 
             // klm_utazasSzerkeszeseIdoszak
             // 
-            klm_utazasSzerkeszeseIdoszak.adatForras = null;
             klm_utazasSzerkeszeseIdoszak.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseIdoszak.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseIdoszak.CimPanelFelsoSzin = Color.White;
@@ -1511,6 +1516,7 @@
             // 
             kg_utazasSzerkeszeseBorito.Anchor = AnchorStyles.Left;
             kg_utazasSzerkeszeseBorito.BackColor = Color.MediumSlateBlue;
+            kg_utazasSzerkeszeseBorito.BadgeMeret = 40;
             kg_utazasSzerkeszeseBorito.EgerTartasHatterSzine = Color.SlateBlue;
             kg_utazasSzerkeszeseBorito.ErtesitesMutatasa = false;
             kg_utazasSzerkeszeseBorito.ErtesitesSzam = 0;

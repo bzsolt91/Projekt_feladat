@@ -54,10 +54,10 @@
             kg_telefonszamMasolas = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kg_szures = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kg_email = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
+            nud_oldalszam = new Projekt_feladat.egyeni_vezerlok.KerekitettNumericUpDown();
             klm_foglalasiAllapot = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             dgv_utasok = new Projekt_feladat.egyeni_vezerlok.DoubleBufferedDataGridView();
             ev_fomenu = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
-            nud_oldalszam = new Projekt_feladat.egyeni_vezerlok.KerekitettNumericUpDown();
             ev_szuroPanel = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             szpn_szuroPanel.SuspendLayout();
             pnl_vezerlopanel.SuspendLayout();
@@ -235,6 +235,7 @@
             // 
             kg_pipa.BackColor = Color.WhiteSmoke;
             kg_pipa.BackgroundImageLayout = ImageLayout.Center;
+            kg_pipa.BadgeMeret = 40;
             kg_pipa.EgerTartasHatterSzine = Color.DarkViolet;
             kg_pipa.ErtesitesMutatasa = false;
             kg_pipa.ErtesitesSzam = 0;
@@ -295,6 +296,7 @@
             // 
             kg_felvetelUtasnak.Anchor = AnchorStyles.Left;
             kg_felvetelUtasnak.BackColor = Color.MediumSlateBlue;
+            kg_felvetelUtasnak.BadgeMeret = 40;
             kg_felvetelUtasnak.EgerTartasHatterSzine = Color.SlateBlue;
             kg_felvetelUtasnak.ErtesitesMutatasa = false;
             kg_felvetelUtasnak.ErtesitesSzam = 0;
@@ -325,6 +327,7 @@
             // 
             kg_mentes.Anchor = AnchorStyles.Left;
             kg_mentes.BackColor = Color.Green;
+            kg_mentes.BadgeMeret = 40;
             kg_mentes.EgerTartasHatterSzine = Color.SlateBlue;
             kg_mentes.ErtesitesMutatasa = false;
             kg_mentes.ErtesitesSzam = 0;
@@ -373,6 +376,7 @@
             // 
             kg_torles.Anchor = AnchorStyles.Left;
             kg_torles.BackColor = Color.Crimson;
+            kg_torles.BadgeMeret = 40;
             kg_torles.EgerTartasHatterSzine = Color.SlateBlue;
             kg_torles.ErtesitesMutatasa = false;
             kg_torles.ErtesitesSzam = 0;
@@ -424,6 +428,7 @@
             // 
             kszm_szerkesztes.Anchor = AnchorStyles.Left;
             kszm_szerkesztes.BackColor = Color.DarkGoldenrod;
+            kszm_szerkesztes.BadgeMeret = 40;
             kszm_szerkesztes.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_szerkesztes.ErtesitesMutatasa = false;
             kszm_szerkesztes.ErtesitesSzam = 0;
@@ -454,6 +459,7 @@
             // 
             kg_telefonszamMasolas.Anchor = AnchorStyles.Left;
             kg_telefonszamMasolas.BackColor = Color.MediumSlateBlue;
+            kg_telefonszamMasolas.BadgeMeret = 40;
             kg_telefonszamMasolas.EgerTartasHatterSzine = Color.SlateBlue;
             kg_telefonszamMasolas.ErtesitesMutatasa = false;
             kg_telefonszamMasolas.ErtesitesSzam = 0;
@@ -484,8 +490,9 @@
             // 
             kg_szures.Anchor = AnchorStyles.Left;
             kg_szures.BackColor = Color.MediumSlateBlue;
+            kg_szures.BadgeMeret = 20;
             kg_szures.EgerTartasHatterSzine = Color.SlateBlue;
-            kg_szures.ErtesitesMutatasa = false;
+            kg_szures.ErtesitesMutatasa = true;
             kg_szures.ErtesitesSzam = 0;
             kg_szures.ErtesitesSzin = Color.Red;
             kg_szures.ErtesitesSzovegSzin = Color.White;
@@ -514,6 +521,7 @@
             // 
             kg_email.Anchor = AnchorStyles.Left;
             kg_email.BackColor = Color.MediumSlateBlue;
+            kg_email.BadgeMeret = 40;
             kg_email.EgerTartasHatterSzine = Color.SlateBlue;
             kg_email.ErtesitesMutatasa = false;
             kg_email.ErtesitesSzam = 0;
@@ -539,6 +547,23 @@
             kg_email.TextImageRelation = TextImageRelation.ImageBeforeText;
             kg_email.UseVisualStyleBackColor = false;
             kg_email.Click += Kg_email_Click;
+            // 
+            // nud_oldalszam
+            // 
+            nud_oldalszam.Anchor = AnchorStyles.Left;
+            nud_oldalszam.BackColor = Color.Transparent;
+            nud_oldalszam.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+            nud_oldalszam.KeretSzin = Color.Gray;
+            nud_oldalszam.KeretVastagsag = 1.5F;
+            nud_oldalszam.Location = new Point(216, 18);
+            nud_oldalszam.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+            nud_oldalszam.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            nud_oldalszam.MinimumSize = new Size(80, 25);
+            nud_oldalszam.Name = "nud_oldalszam";
+            nud_oldalszam.Radius = 10;
+            nud_oldalszam.Size = new Size(132, 33);
+            nud_oldalszam.TabIndex = 6;
+            nud_oldalszam.Value = new decimal(new int[] { 0, 0, 0, 0 });
             // 
             // klm_foglalasiAllapot
             // 
@@ -629,23 +654,6 @@
             // 
             ev_fomenu.SarokSugar = 20;
             ev_fomenu.TargetControl = pnl_vezerlopanel;
-            // 
-            // nud_oldalszam
-            // 
-            nud_oldalszam.Anchor = AnchorStyles.Left;
-            nud_oldalszam.BackColor = Color.Transparent;
-            nud_oldalszam.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-            nud_oldalszam.KeretSzin = Color.Gray;
-            nud_oldalszam.KeretVastagsag = 1.5F;
-            nud_oldalszam.Location = new Point(216, 18);
-            nud_oldalszam.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-            nud_oldalszam.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-            nud_oldalszam.MinimumSize = new Size(80, 25);
-            nud_oldalszam.Name = "nud_oldalszam";
-            nud_oldalszam.Radius = 10;
-            nud_oldalszam.Size = new Size(132, 33);
-            nud_oldalszam.TabIndex = 6;
-            nud_oldalszam.Value = new decimal(new int[] { 0, 0, 0, 0 });
             // 
             // frm_Elofoglalasok
             // 

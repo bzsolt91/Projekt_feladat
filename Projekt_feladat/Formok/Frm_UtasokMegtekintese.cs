@@ -374,25 +374,33 @@ namespace Projekt_feladat.Formok
             lst_talalatok.Visible = false;
             szpn_szuroPanel.Visible = false;
 
-            bool barmiszuroaktiv = !string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) ||
-                        !string.IsNullOrWhiteSpace(kszm_email.Texts) ||
-                        !string.IsNullOrWhiteSpace(kszm_lakcim.Texts) ||
-                        !string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts) ||
-                        !string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts) ||
-                        !string.IsNullOrWhiteSpace(kszm_telefon.Texts) ||
-                        kb_befizetes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
-                        kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
-                        kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki ||
-                        (klm_utazasiMod.ComboText.ToLower() != "mind" && klm_utazasiMod.ComboText.ToLower() != "utazási mód");
+            // --- Szűrők számolása ---
+            int szurokSzama = 0;
+            if (!string.IsNullOrWhiteSpace(kszm_utasNeve.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_email.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_lakcim.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts)) szurokSzama++;
+            if (kb_befizetes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
+            if (kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
+            if (kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
+            if (klm_utazasiMod.ComboText.ToLower() != "mind" &&
+                klm_utazasiMod.ComboText.ToLower() != "utazási mód")
+                szurokSzama++;
+
+            bool barmiszuroaktiv = szurokSzama > 0;
 
             if (barmiszuroaktiv)
             {
                 kg_szuro.HatterSzine = Color.Orange;
+                kg_szuro.ErtesitesSzam = szurokSzama;  // <-- kiírjuk a darabszámot
                 szuresAktiv = true;
             }
             else
             {
                 kg_szuro.HatterSzine = Color.MediumSlateBlue;
+                kg_szuro.ErtesitesSzam = 0;            // <-- nullázzuk ha nincs szűrés
                 szuresAktiv = false;
             }
 

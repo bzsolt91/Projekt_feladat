@@ -114,7 +114,12 @@ namespace Projekt_feladat.Formok
             // kg_nyomtatas
             // 
             kg_nyomtatas.BackColor = Color.MediumSlateBlue;
+            kg_nyomtatas.BadgeMeret = 40;
             kg_nyomtatas.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_nyomtatas.ErtesitesMutatasa = false;
+            kg_nyomtatas.ErtesitesSzam = 0;
+            kg_nyomtatas.ErtesitesSzin = Color.Red;
+            kg_nyomtatas.ErtesitesSzovegSzin = Color.White;
             kg_nyomtatas.FlatAppearance.BorderSize = 0;
             kg_nyomtatas.FlatStyle = FlatStyle.Flat;
             kg_nyomtatas.Font = new Font("Segoe UI", 12F);
@@ -141,7 +146,12 @@ namespace Projekt_feladat.Formok
             // kg_torles
             // 
             kg_torles.BackColor = Color.MediumSlateBlue;
+            kg_torles.BadgeMeret = 40;
             kg_torles.EgerTartasHatterSzine = Color.Crimson;
+            kg_torles.ErtesitesMutatasa = false;
+            kg_torles.ErtesitesSzam = 0;
+            kg_torles.ErtesitesSzin = Color.Red;
+            kg_torles.ErtesitesSzovegSzin = Color.White;
             kg_torles.FlatAppearance.BorderSize = 0;
             kg_torles.FlatStyle = FlatStyle.Flat;
             kg_torles.Font = new Font("Segoe UI", 12F);
@@ -167,7 +177,12 @@ namespace Projekt_feladat.Formok
             // kg_mentes
             // 
             kg_mentes.BackColor = Color.MediumSlateBlue;
+            kg_mentes.BadgeMeret = 40;
             kg_mentes.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_mentes.ErtesitesMutatasa = false;
+            kg_mentes.ErtesitesSzam = 0;
+            kg_mentes.ErtesitesSzin = Color.Red;
+            kg_mentes.ErtesitesSzovegSzin = Color.White;
             kg_mentes.FlatAppearance.BorderSize = 0;
             kg_mentes.FlatStyle = FlatStyle.Flat;
             kg_mentes.Font = new Font("Segoe UI", 12F);
@@ -193,7 +208,12 @@ namespace Projekt_feladat.Formok
             // kg_szuro
             // 
             kg_szuro.BackColor = Color.MediumSlateBlue;
+            kg_szuro.BadgeMeret = 20;
             kg_szuro.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_szuro.ErtesitesMutatasa = true;
+            kg_szuro.ErtesitesSzam = 0;
+            kg_szuro.ErtesitesSzin = Color.Red;
+            kg_szuro.ErtesitesSzovegSzin = Color.White;
             kg_szuro.FlatAppearance.BorderSize = 0;
             kg_szuro.FlatStyle = FlatStyle.Flat;
             kg_szuro.Font = new Font("Segoe UI", 12F);
@@ -219,7 +239,12 @@ namespace Projekt_feladat.Formok
             // kg_kovetkezo
             // 
             kg_kovetkezo.BackColor = Color.MediumSlateBlue;
+            kg_kovetkezo.BadgeMeret = 40;
             kg_kovetkezo.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_kovetkezo.ErtesitesMutatasa = false;
+            kg_kovetkezo.ErtesitesSzam = 0;
+            kg_kovetkezo.ErtesitesSzin = Color.Red;
+            kg_kovetkezo.ErtesitesSzovegSzin = Color.White;
             kg_kovetkezo.FlatAppearance.BorderSize = 0;
             kg_kovetkezo.FlatStyle = FlatStyle.Flat;
             kg_kovetkezo.ForeColor = Color.White;
@@ -241,7 +266,12 @@ namespace Projekt_feladat.Formok
             // kg_elozo
             // 
             kg_elozo.BackColor = Color.MediumSlateBlue;
+            kg_elozo.BadgeMeret = 40;
             kg_elozo.EgerTartasHatterSzine = Color.SlateBlue;
+            kg_elozo.ErtesitesMutatasa = false;
+            kg_elozo.ErtesitesSzam = 0;
+            kg_elozo.ErtesitesSzin = Color.Red;
+            kg_elozo.ErtesitesSzovegSzin = Color.White;
             kg_elozo.FlatAppearance.BorderSize = 0;
             kg_elozo.FlatStyle = FlatStyle.Flat;
             kg_elozo.ForeColor = Color.White;
@@ -341,7 +371,7 @@ namespace Projekt_feladat.Formok
             kszm_megjegyzes.Margin = new Padding(4, 3, 4, 3);
             kszm_megjegyzes.Name = "kszm_megjegyzes";
             kszm_megjegyzes.Padding = new Padding(9, 6, 9, 6);
-            kszm_megjegyzes.Size = new Size(343, 30);
+            kszm_megjegyzes.Size = new Size(343, 31);
             kszm_megjegyzes.TabIndex = 6;
             kszm_megjegyzes.Texts = "";
             kszm_megjegyzes.TobbSor = true;
@@ -509,7 +539,12 @@ namespace Projekt_feladat.Formok
             // 
             kg_pipa.BackColor = Color.WhiteSmoke;
             kg_pipa.BackgroundImageLayout = ImageLayout.Center;
+            kg_pipa.BadgeMeret = 40;
             kg_pipa.EgerTartasHatterSzine = Color.DarkViolet;
+            kg_pipa.ErtesitesMutatasa = false;
+            kg_pipa.ErtesitesSzam = 0;
+            kg_pipa.ErtesitesSzin = Color.Red;
+            kg_pipa.ErtesitesSzovegSzin = Color.White;
             kg_pipa.FlatAppearance.BorderSize = 0;
             kg_pipa.FlatStyle = FlatStyle.Flat;
             kg_pipa.ForeColor = Color.Violet;
