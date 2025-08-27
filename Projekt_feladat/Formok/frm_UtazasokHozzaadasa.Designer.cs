@@ -40,11 +40,6 @@
             kg_meglevoSzerkesztese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kszm_ujRegiFelhasznalo = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kszm_utazasTorles = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
-            tlp_utazasTorlese = new DoubleBufferedTableLayoutPanel();
-            rcb_desztinacio = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
-            rcb_utazasIdeje = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
-            rcb_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
-            kg_utazasTorlese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kszm_hozzaadas = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kszm_mentes = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             tlp_ar = new DoubleBufferedTableLayoutPanel();
@@ -66,8 +61,6 @@
             DoubleBufferedTableLayoutPanel1 = new DoubleBufferedTableLayoutPanel();
             kszm_desztinacio = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
             kszm_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            szinatmenetPanel1 = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            panel1 = new Panel();
             flp_rendezoPanel = new FlowLayoutPanel();
             pl_terkezelo = new Panel();
             szp_utazasAdatok = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
@@ -117,7 +110,6 @@
             ev_vezerloPanel = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             pnl_torles.SuspendLayout();
             pnl_vezerlopanel.SuspendLayout();
-            tlp_utazasTorlese.SuspendLayout();
             tlp_ar.SuspendLayout();
             tlp_leiras.SuspendLayout();
             tlp_utazasIdeje.SuspendLayout();
@@ -125,7 +117,6 @@
             tlp_erkezesiDatum.SuspendLayout();
             szp_utazasNeve.SuspendLayout();
             DoubleBufferedTableLayoutPanel1.SuspendLayout();
-            panel1.SuspendLayout();
             flp_rendezoPanel.SuspendLayout();
             szp_utazasAdatok.SuspendLayout();
             tlp_utazasAdatok.SuspendLayout();
@@ -159,7 +150,7 @@
             // 
             // pnl_torles
             // 
-            pnl_torles.BackColor = Color.WhiteSmoke;
+            pnl_torles.BackColor = Color.White;
             pnl_torles.Controls.Add(kg_nem);
             pnl_torles.Controls.Add(kg_igen);
             pnl_torles.Controls.Add(lb_utazas);
@@ -348,140 +339,8 @@
             kszm_utazasTorles.TextAlign = ContentAlignment.MiddleLeft;
             kszm_utazasTorles.TextImageRelation = TextImageRelation.ImageBeforeText;
             kszm_utazasTorles.UseVisualStyleBackColor = false;
+            kszm_utazasTorles.Visible = false;
             kszm_utazasTorles.Click += kszm_utazasTorles_Click;
-            // 
-            // tlp_utazasTorlese
-            // 
-            tlp_utazasTorlese.ColumnCount = 3;
-            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tlp_utazasTorlese.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tlp_utazasTorlese.Controls.Add(rcb_desztinacio, 0, 0);
-            tlp_utazasTorlese.Controls.Add(rcb_utazasIdeje, 1, 0);
-            tlp_utazasTorlese.Controls.Add(rcb_utazasElnevezese, 2, 0);
-            tlp_utazasTorlese.Controls.Add(kg_utazasTorlese, 2, 1);
-            tlp_utazasTorlese.Dock = DockStyle.Fill;
-            tlp_utazasTorlese.Location = new Point(0, 0);
-            tlp_utazasTorlese.Name = "tlp_utazasTorlese";
-            tlp_utazasTorlese.RowCount = 2;
-            tlp_utazasTorlese.RowStyles.Add(new RowStyle(SizeType.Percent, 78.82528F));
-            tlp_utazasTorlese.RowStyles.Add(new RowStyle(SizeType.Percent, 21.1747246F));
-            tlp_utazasTorlese.Size = new Size(960, 703);
-            tlp_utazasTorlese.TabIndex = 12;
-            // 
-            // rcb_desztinacio
-            // 
-            rcb_desztinacio.BackColor = Color.Transparent;
-            rcb_desztinacio.CimPanelAlsoSzin = Color.White;
-            rcb_desztinacio.CimPanelFelsoSzin = Color.White;
-            rcb_desztinacio.ComboText = "Desztináció";
-            rcb_desztinacio.EgerTrartasSzin = Color.LightGray;
-            rcb_desztinacio.ForeColor = Color.Transparent;
-            rcb_desztinacio.Ikon = (Image)resources.GetObject("rcb_desztinacio.Ikon");
-            rcb_desztinacio.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_desztinacio.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_desztinacio.ItemPanelFelsoSzin = Color.WhiteSmoke;
-            rcb_desztinacio.KeretSzin = Color.BlueViolet;
-            rcb_desztinacio.KeretVastagsag = 1.8F;
-            rcb_desztinacio.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_desztinacio.LenyiloMagassag = 300;
-            rcb_desztinacio.Location = new Point(10, 10);
-            rcb_desztinacio.Margin = new Padding(10, 10, 0, 0);
-            rcb_desztinacio.MinimumSize = new Size(150, 0);
-            rcb_desztinacio.Name = "rcb_desztinacio";
-            rcb_desztinacio.Padding = new Padding(0, 0, 0, 11);
-            rcb_desztinacio.Radius = 20;
-            rcb_desztinacio.Size = new Size(304, 65);
-            rcb_desztinacio.TabIndex = 7;
-            rcb_desztinacio.TitleLabelSzin = Color.Black;
-            rcb_desztinacio.ElemKivalasztva += rcb_desztinacio_ElemKivalasztva;
-            rcb_desztinacio.Load += rcb_desztinacio_Load;
-            // 
-            // rcb_utazasIdeje
-            // 
-            rcb_utazasIdeje.BackColor = Color.Transparent;
-            rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
-            rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
-            rcb_utazasIdeje.ComboText = "Utazás ideje";
-            rcb_utazasIdeje.EgerTrartasSzin = Color.LightGray;
-            rcb_utazasIdeje.ForeColor = Color.Transparent;
-            rcb_utazasIdeje.Ikon = (Image)resources.GetObject("rcb_utazasIdeje.Ikon");
-            rcb_utazasIdeje.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_utazasIdeje.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_utazasIdeje.ItemPanelFelsoSzin = Color.WhiteSmoke;
-            rcb_utazasIdeje.KeretSzin = Color.BlueViolet;
-            rcb_utazasIdeje.KeretVastagsag = 1.8F;
-            rcb_utazasIdeje.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_utazasIdeje.LenyiloMagassag = 300;
-            rcb_utazasIdeje.Location = new Point(329, 10);
-            rcb_utazasIdeje.Margin = new Padding(10, 10, 0, 0);
-            rcb_utazasIdeje.MinimumSize = new Size(150, 0);
-            rcb_utazasIdeje.Name = "rcb_utazasIdeje";
-            rcb_utazasIdeje.Padding = new Padding(0, 0, 0, 11);
-            rcb_utazasIdeje.Radius = 20;
-            rcb_utazasIdeje.Size = new Size(304, 65);
-            rcb_utazasIdeje.TabIndex = 8;
-            rcb_utazasIdeje.TitleLabelSzin = Color.Black;
-            rcb_utazasIdeje.ElemKivalasztva += rcb_idoszak_ElemKivalasztva;
-            rcb_utazasIdeje.Load += rcb_utazasIdeje_Load;
-            // 
-            // rcb_utazasElnevezese
-            // 
-            rcb_utazasElnevezese.BackColor = Color.Transparent;
-            rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
-            rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
-            rcb_utazasElnevezese.ComboText = "Utazás elnevezése";
-            rcb_utazasElnevezese.EgerTrartasSzin = Color.LightGray;
-            rcb_utazasElnevezese.ForeColor = Color.Transparent;
-            rcb_utazasElnevezese.Ikon = (Image)resources.GetObject("rcb_utazasElnevezese.Ikon");
-            rcb_utazasElnevezese.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_utazasElnevezese.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_utazasElnevezese.ItemPanelFelsoSzin = Color.WhiteSmoke;
-            rcb_utazasElnevezese.KeretSzin = Color.BlueViolet;
-            rcb_utazasElnevezese.KeretVastagsag = 1.8F;
-            rcb_utazasElnevezese.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_utazasElnevezese.LenyiloMagassag = 300;
-            rcb_utazasElnevezese.Location = new Point(648, 10);
-            rcb_utazasElnevezese.Margin = new Padding(10, 10, 0, 0);
-            rcb_utazasElnevezese.MinimumSize = new Size(150, 0);
-            rcb_utazasElnevezese.Name = "rcb_utazasElnevezese";
-            rcb_utazasElnevezese.Padding = new Padding(0, 0, 0, 6);
-            rcb_utazasElnevezese.Radius = 20;
-            rcb_utazasElnevezese.Size = new Size(304, 65);
-            rcb_utazasElnevezese.TabIndex = 9;
-            rcb_utazasElnevezese.TitleLabelSzin = Color.Black;
-            rcb_utazasElnevezese.ElemKivalasztva += rcb_utazasNeve_ElemKivalasztva;
-            rcb_utazasElnevezese.Load += rcb_utazasElnevezese_Load;
-            // 
-            // kg_utazasTorlese
-            // 
-            kg_utazasTorlese.BackColor = Color.Crimson;
-            kg_utazasTorlese.EgerTartasHatterSzine = Color.SlateBlue;
-            kg_utazasTorlese.ErtesitesMutatasa = false;
-            kg_utazasTorlese.ErtesitesSzam = 0;
-            kg_utazasTorlese.ErtesitesSzin = Color.Red;
-            kg_utazasTorlese.ErtesitesSzovegSzin = Color.White;
-            kg_utazasTorlese.FlatAppearance.BorderSize = 0;
-            kg_utazasTorlese.FlatStyle = FlatStyle.Flat;
-            kg_utazasTorlese.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            kg_utazasTorlese.ForeColor = Color.White;
-            kg_utazasTorlese.HatterSzine = Color.Crimson;
-            kg_utazasTorlese.Image = (Image)resources.GetObject("kg_utazasTorlese.Image");
-            kg_utazasTorlese.ImageAlign = ContentAlignment.MiddleRight;
-            kg_utazasTorlese.KeretMeret = 0;
-            kg_utazasTorlese.KeretSzine = Color.PaleVioletRed;
-            kg_utazasTorlese.Location = new Point(648, 556);
-            kg_utazasTorlese.Margin = new Padding(10, 2, 3, 2);
-            kg_utazasTorlese.Name = "kg_utazasTorlese";
-            kg_utazasTorlese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            kg_utazasTorlese.SarokSugar = 8;
-            kg_utazasTorlese.Size = new Size(220, 52);
-            kg_utazasTorlese.SzovegSzine = Color.White;
-            kg_utazasTorlese.TabIndex = 10;
-            kg_utazasTorlese.Text = "Utazás törlése";
-            kg_utazasTorlese.TextImageRelation = TextImageRelation.ImageBeforeText;
-            kg_utazasTorlese.UseVisualStyleBackColor = false;
-            kg_utazasTorlese.Click += kg_utazasTorlese_Click;
             // 
             // kszm_hozzaadas
             // 
@@ -858,34 +717,6 @@
             kszm_utazasElnevezese.Texts = "";
             kszm_utazasElnevezese.TobbSor = false;
             // 
-            // szinatmenetPanel1
-            // 
-            szinatmenetPanel1.BackColor = Color.Transparent;
-            szinatmenetPanel1.Dock = DockStyle.Top;
-            szinatmenetPanel1.ForeColor = Color.Black;
-            szinatmenetPanel1.KeretSzin = Color.Black;
-            szinatmenetPanel1.KeretVastagsag = 0F;
-            szinatmenetPanel1.Location = new Point(30, 0);
-            szinatmenetPanel1.Margin = new Padding(300, 340, 300, 340);
-            szinatmenetPanel1.Name = "szinatmenetPanel1";
-            szinatmenetPanel1.Padding = new Padding(20);
-            szinatmenetPanel1.SarkokLekerekitese = 40;
-            szinatmenetPanel1.Size = new Size(1015, 281);
-            szinatmenetPanel1.SzinatmenetAlsoSzine = Color.WhiteSmoke;
-            szinatmenetPanel1.SzinatmenetFelsoSzine = Color.WhiteSmoke;
-            szinatmenetPanel1.SzinatmenetSzog = 90F;
-            szinatmenetPanel1.TabIndex = 18;
-            // 
-            // panel1
-            // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(szinatmenetPanel1);
-            panel1.Location = new Point(702, 198);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(30, 0, 30, 0);
-            panel1.Size = new Size(1075, 535);
-            panel1.TabIndex = 19;
-            // 
             // flp_rendezoPanel
             // 
             flp_rendezoPanel.AutoScroll = true;
@@ -1181,6 +1012,7 @@
             // 
             // klm_utazasSzerkeszeseUtazasNeve
             // 
+            klm_utazasSzerkeszeseUtazasNeve.adatForras = null;
             klm_utazasSzerkeszeseUtazasNeve.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelFelsoSzin = Color.White;
@@ -1208,6 +1040,7 @@
             // 
             // klm_utazasSzerkeszeseDesztinacio
             // 
+            klm_utazasSzerkeszeseDesztinacio.adatForras = null;
             klm_utazasSzerkeszeseDesztinacio.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseDesztinacio.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseDesztinacio.CimPanelFelsoSzin = Color.White;
@@ -1235,6 +1068,7 @@
             // 
             // klm_utazasSzerkeszeseIdoszak
             // 
+            klm_utazasSzerkeszeseIdoszak.adatForras = null;
             klm_utazasSzerkeszeseIdoszak.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseIdoszak.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseIdoszak.CimPanelFelsoSzin = Color.White;
@@ -1702,6 +1536,7 @@
             kg_utazasSzerkeszeseBorito.Text = "Borító választás";
             kg_utazasSzerkeszeseBorito.TextImageRelation = TextImageRelation.ImageBeforeText;
             kg_utazasSzerkeszeseBorito.UseVisualStyleBackColor = false;
+            kg_utazasSzerkeszeseBorito.Click += kg_utazasSzerkeszeseBorito_Click;
             // 
             // frm_UtazasokHozzaadasa
             // 
@@ -1713,7 +1548,6 @@
             Controls.Add(kszm_mentes);
             Controls.Add(flp_rendezoPanel);
             Controls.Add(pnl_vezerlopanel);
-            Controls.Add(tlp_utazasTorlese);
             Controls.Add(pnl_torles);
             Controls.Add(flp_utazasSzerkesztese);
             Margin = new Padding(3, 2, 3, 2);
@@ -1724,7 +1558,6 @@
             pnl_torles.ResumeLayout(false);
             pnl_torles.PerformLayout();
             pnl_vezerlopanel.ResumeLayout(false);
-            tlp_utazasTorlese.ResumeLayout(false);
             tlp_ar.ResumeLayout(false);
             tlp_ar.PerformLayout();
             tlp_leiras.ResumeLayout(false);
@@ -1737,7 +1570,6 @@
             tlp_erkezesiDatum.PerformLayout();
             szp_utazasNeve.ResumeLayout(false);
             DoubleBufferedTableLayoutPanel1.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             flp_rendezoPanel.ResumeLayout(false);
             szp_utazasAdatok.ResumeLayout(false);
             tlp_utazasAdatok.ResumeLayout(false);
@@ -1777,18 +1609,12 @@
         private DateTimePicker dtp_indulas;
         private egyeni_vezerlok.KerekitettGomb kszm_hozzaadas;
         private egyeni_vezerlok.KerekitettGomb kszm_mentes;
-        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasSzerkeszeseUtazasModja;
-        private egyeni_vezerlok.kerekitettLenyilloMenu rcb_desztinacio;
-        private egyeni_vezerlok.kerekitettLenyilloMenu rcb_utazasIdeje;
-        private egyeni_vezerlok.kerekitettLenyilloMenu rcb_utazasElnevezese;
-        private egyeni_vezerlok.KerekitettGomb kg_utazasTorlese;
         private Panel pnl_torles;
         private Label lb_torolni;
         private Label lb_utazas;
         private egyeni_vezerlok.KerekitettGomb kg_nem;
         private egyeni_vezerlok.KerekitettGomb kg_igen;
         private egyeni_vezerlok.ellipszisVezerlo ev_torles;
-        private DoubleBufferedTableLayoutPanel tlp_utazasTorlese;
         private Panel pnl_vezerlopanel;
         private egyeni_vezerlok.KerekitettGomb kszm_utazasTorles;
         private egyeni_vezerlok.KerekitettGomb kszm_ujRegiFelhasznalo;
@@ -1810,8 +1636,6 @@
         private DoubleBufferedTableLayoutPanel DoubleBufferedTableLayoutPanel1;
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_desztinacio;
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_utazasElnevezese;
-        private egyeni_vezerlok.SzinatmenetPanel szinatmenetPanel1;
-        private Panel panel1;
         private FlowLayoutPanel flp_rendezoPanel;
         private Panel pl_terkezelo;
         private egyeni_vezerlok.SzinatmenetPanel szp_utazasAdatok;
@@ -1829,6 +1653,9 @@
         private FlowLayoutPanel flp_utazasSzerkesztese;
         private Panel pnl_utazasokSzerkeszteseTerkoz;
         private egyeni_vezerlok.SzinatmenetPanel szp_utazasSzerkeszese;
+        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasSzerkeszeseUtazasNeve;
+        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasSzerkeszeseDesztinacio;
+        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasSzerkeszeseIdoszak;
         private egyeni_vezerlok.SzinatmenetPanel szpn_utazasSzerkeszeseUtazas;
         private DoubleBufferedTableLayoutPanel doubleBufferedTableLayoutPanel4;
         private DoubleBufferedTableLayoutPanel doubleBufferedTableLayoutPanel5;
@@ -1849,13 +1676,11 @@
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_utazasSzerkeszeseLeiras;
         private egyeni_vezerlok.SzinatmenetPanel szpn_utazasSzerkeszeseUtazasModja;
         private DoubleBufferedTableLayoutPanel tlp_utazasSzerkeszeseUtazasModja;
+        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasSzerkeszeseUtazasModja;
         private egyeni_vezerlok.BufferedLabel blbl_utazasSzerkeszeseUtazasModja;
         private egyeni_vezerlok.SzinatmenetPanel szp_utazasSzerkeszeseBorito;
         private DoubleBufferedTableLayoutPanel tlp_utazasSzerkeszeseBorito;
         private PictureBox pb_utazasSzerkeszeseBorito;
         private egyeni_vezerlok.KerekitettGomb kg_utazasSzerkeszeseBorito;
-        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasSzerkeszeseUtazasNeve;
-        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasSzerkeszeseIdoszak;
-        private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasSzerkeszeseDesztinacio;
     }
 }

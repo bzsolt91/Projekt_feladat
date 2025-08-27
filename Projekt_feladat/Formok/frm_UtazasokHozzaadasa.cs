@@ -47,8 +47,8 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
-            if (string.IsNullOrWhiteSpace(kszm_desztinacio.Texts) &&
-                string.IsNullOrWhiteSpace(kszm_utazasElnevezese.Texts))
+            if (string.IsNullOrWhiteSpace(kszm_desztinacio.Texts) ||
+       string.IsNullOrWhiteSpace(kszm_utazasElnevezese.Texts))
             {
                 kszm_hozzaadas.HatterSzine = Color.Red;
                 return;
@@ -117,6 +117,9 @@ namespace Projekt_feladat.Formok
                         {
                             kszm_hozzaadas.HatterSzine = Color.Green;
                             MessageBox.Show("Az utazás sikeresen rögzítve lett!", "Siker", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            UrllapReset();  // <<< EZ KELL
+
                         }
                         else
                         {
@@ -131,6 +134,7 @@ namespace Projekt_feladat.Formok
                 MessageBox.Show("Hiba történt a mentés során: " + ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 kszm_hozzaadas.HatterSzine = Color.Red;
             }
+
         }
         private void utazasok_betoltes()
         {
@@ -162,7 +166,7 @@ namespace Projekt_feladat.Formok
                         }
                     }
                     klm_utazasSzerkeszeseDesztinacio.adatForras = lista.ToArray();
-                    rcb_desztinacio.adatForras = lista.ToArray();
+
                 }
             }
             catch (Exception e)
@@ -184,20 +188,14 @@ namespace Projekt_feladat.Formok
 
         }
 
-        private void rcb_desztinacio_Load(object sender, EventArgs e)
-        {
-            rcb_desztinacio.BringToFront();
-        }
+
         private void rcb_desztinacio_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
             if (e.Ertek != null)
             {
                 if (e.Ertek != utazasDesztinacio)
                 {
-                    rcb_utazasIdeje.ComboText = "Időszak";
-                    rcb_utazasElnevezese.ComboText = "Utazás neve";
-                    rcb_utazasIdeje.adatForras = new string[0];
-                    rcb_utazasElnevezese.adatForras = new string[0];
+
 
                     klm_utazasSzerkeszeseIdoszak.ComboText = "Időszak";
                     klm_utazasSzerkeszeseUtazasNeve.ComboText = "Utazás neve";
@@ -210,8 +208,7 @@ namespace Projekt_feladat.Formok
                 utazasDesztinacio = e.Ertek;
 
                 // Töröljük a további két combobox tartalmát
-                rcb_utazasIdeje.adatForras = new string[0];
-                rcb_utazasElnevezese.adatForras = new string[0];
+
                 klm_utazasSzerkeszeseIdoszak.adatForras = new string[0];
                 klm_utazasSzerkeszeseUtazasNeve.adatForras = new string[0];
                 utazasIdoszak = null;
@@ -258,10 +255,8 @@ namespace Projekt_feladat.Formok
                             }
                         }
                     }
-                    if (!szp_utazasSzerkeszese.Visible)
-                        rcb_utazasIdeje.adatForras = lista.ToArray();
-                    else
-                        klm_utazasSzerkeszeseIdoszak.adatForras = lista.ToArray();
+
+                    klm_utazasSzerkeszeseIdoszak.adatForras = lista.ToArray();
                 }
             }
             catch (Exception e)
@@ -273,26 +268,18 @@ namespace Projekt_feladat.Formok
             }
         }
 
-        private void rcb_utazasIdeje_Load(object sender, EventArgs e)
-        {
-            rcb_utazasIdeje.BringToFront();
-        }
+
         private void rcb_idoszak_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
             if (e.Ertek != null)
             {
                 if (e.Ertek != utazasIdoszak)
                 {
-                    if (!szp_utazasSzerkeszese.Visible)
-                    {
-                        rcb_utazasElnevezese.ComboText = "Utazás neve";
-                        rcb_utazasElnevezese.adatForras = new string[0];
-                    }
-                    else
-                    {
-                        klm_utazasSzerkeszeseUtazasNeve.ComboText = "Utazás neve";
-                        klm_utazasSzerkeszeseUtazasNeve.adatForras = new string[0];
-                    }
+
+
+                    klm_utazasSzerkeszeseUtazasNeve.ComboText = "Utazás neve";
+                    klm_utazasSzerkeszeseUtazasNeve.adatForras = new string[0];
+
                     utazasNeve = null;
                 }
                 utazasIdoszak = e.Ertek;
@@ -325,10 +312,8 @@ namespace Projekt_feladat.Formok
                             }
                         }
                     }
-                    if (!szp_utazasSzerkeszese.Visible)
-                        rcb_utazasElnevezese.adatForras = lista.ToArray();
-                    else
-                        klm_utazasSzerkeszeseUtazasNeve.adatForras = lista.ToArray();
+
+                    klm_utazasSzerkeszeseUtazasNeve.adatForras = lista.ToArray();
 
                 }
             }
@@ -341,10 +326,7 @@ namespace Projekt_feladat.Formok
             }
         }
 
-        private void rcb_utazasElnevezese_Load(object sender, EventArgs e)
-        {
-            rcb_utazasElnevezese.BringToFront();
-        }
+
 
         private void kg_utazasTorlese_Click(object sender, EventArgs e)
         {
@@ -420,19 +402,18 @@ namespace Projekt_feladat.Formok
                                 utazasDesztinacio = null;
                                 utazasIdoszak = null;
                                 utazasNeve = null;
-                                rcb_desztinacio.ComboText = "Desztináció";
-                                rcb_utazasIdeje.ComboText = "Időszak";
-                                rcb_utazasElnevezese.ComboText = "Utazás neve";
-                                rcb_utazasIdeje.adatForras = new string[0];
-                                rcb_utazasElnevezese.adatForras = new string[0];
+
                                 utazasok_betoltes(); // újratölti a desztinációkat
+                                UrllapReset();
                             }
                             else
                             {
                                 MessageBox.Show("Nem történt törlés. Lehet, hogy az adat már nem létezik.");
                             }
+
                         }
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -447,24 +428,25 @@ namespace Projekt_feladat.Formok
             {
                 MessageBox.Show("Hiányos adatok. Ellenőrizd, hogy ki van-e választva a desztináció, időszak és az utazás neve.");
             }
+
         }
 
         private void kszm_ujRegiFelhasznalo_Click(object sender, EventArgs e)
         {
             flp_rendezoPanel.Visible = true;
             kszm_mentes.Visible = false;
-            tlp_utazasTorlese.Visible = false;
+            kszm_utazasTorles.Visible = false;
             kszm_hozzaadas.Visible = true;
             flp_utazasSzerkesztese.Visible = false;
         }
 
         private void kszm_utazasTorles_Click(object sender, EventArgs e)
         {
-            flp_utazasSzerkesztese.Visible = false;
-            flp_rendezoPanel.Visible = false;
-            kszm_hozzaadas.Visible = false;
-            tlp_utazasTorlese.Visible = true;
-            kszm_mentes.Visible = false;
+            pnl_torles.BringToFront();
+            lb_utazas.Text = utazasDesztinacio + ", " + utazasIdoszak + ", " + utazasNeve;
+            if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
+                pnl_torles.Visible = true;
+            pnl_torles.Location = new Point(this.Width / 2 - pnl_torles.Width / 2, this.Height / 2 - pnl_torles.Height / 2);
         }
 
 
@@ -568,21 +550,227 @@ namespace Projekt_feladat.Formok
 
         private void klm_utazasSzerkeszeseUtazasNeve_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
+            if (e.Ertek == null) return;
+            utazasNeve = e.Ertek;
 
+            if (utazasDesztinacio == null || utazasIdoszak == null || utazasNeve == null)
+                return;
+
+            try
+            {
+                using (var kapcsolat = new MySqlConnection(kapcsolatString))
+                {
+                    kapcsolat.Open();
+
+                    string sql = @"
+                SELECT u.utazas_id, u.utazas_modja, r.indulasi_datum, r.visszaindulas_datum,
+                       r.indulasi_helyszin, r.ar, r.leiras, r.boritokep
+                FROM utazas u
+                JOIN utazas_reszletek r ON u.utazas_id = r.utazas_id
+                WHERE u.desztinacio = @desztinacio 
+                  AND u.utazas_ideje = @ido 
+                  AND u.utazas_elnevezese = @elnevezes";
+
+                    using (var cmd = new MySqlCommand(sql, kapcsolat))
+                    {
+                        cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+                        cmd.Parameters.AddWithValue("@ido", DateTime.Parse(utazasIdoszak));
+                        cmd.Parameters.AddWithValue("@elnevezes", utazasNeve);
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                klm_utazasSzerkeszeseUtazasModja.ComboText = reader.GetString("utazas_modja");
+                                dtp_utazasSzerkeszeseUtazásIdeje.Value = reader.GetDateTime("indulasi_datum");
+                                dtp_utazasSzerkeszeseVisszaindulas.Value = reader.GetDateTime("visszaindulas_datum");
+                                kszm_utazasSzerkeszeseIndulasHelye.Texts = reader.GetString("indulasi_helyszin");
+                                kszm_utazasSzerkeszeseAr.Texts = reader.GetInt32("ar").ToString();
+                                kszm_utazasSzerkeszeseLeiras.Texts = reader.GetString("leiras");
+
+                                string kep = reader.IsDBNull("boritokep") ? "" : reader.GetString("boritokep");
+                                if (!string.IsNullOrEmpty(kep) && File.Exists(Path.Combine("boritokepek", kep)))
+                                {
+                                    pb_utazasSzerkeszeseBorito.Image = Image.FromFile(Path.Combine("boritokepek", kep));
+                                    pb_utazasSzerkeszeseBorito.Tag = Path.Combine("boritokepek", kep);
+                                }
+                                else
+                                {
+                                    pb_utazasSzerkeszeseBorito.Image = null;
+                                    pb_utazasSzerkeszeseBorito.Tag = null;
+                                }
+
+                                // Elmentjük az utazás ID-ját egy rejtett mezőbe vagy változóba
+                                pb_utazasSzerkeszeseBorito.Tag = reader.GetInt32("utazas_id");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba történt az adatok betöltése során: " + ex.Message);
+            }
         }
 
         private void kg_meglevoSzerkesztese_Click(object sender, EventArgs e)
         {
             flp_utazasSzerkesztese.Visible = true;
             flp_rendezoPanel.Visible = false;
-            tlp_utazasTorlese.Visible = false;
+            kszm_utazasTorles.Visible = true;
             kszm_hozzaadas.Visible = false;
             kszm_mentes.Visible = true;
         }
 
         private void kszm_mentes_Click(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show("A művelet végrehajtásához be kell jelentkeznie.", "Bejelentkezés szükséges");
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0)
+            {
+                MessageBox.Show("A művelet végrehajtásához nincs engedélye.", "Nincs jogosultság");
+                return;
+            }
+            if (utazasDesztinacio == null || utazasIdoszak == null || utazasNeve == null)
+            {
+                MessageBox.Show("Hiányos adatok: válasszon ki egy utazást szerkesztéshez.");
+                return;
+            }
 
+            try
+            {
+                using (var kapcsolat = new MySqlConnection(kapcsolatString))
+                {
+                    kapcsolat.Open();
+
+                    string boritoFajlnev = "";
+                    if (pb_utazasSzerkeszeseBorito.Image != null && !string.IsNullOrEmpty(pb_utazasSzerkeszeseBorito.Tag as string))
+                    {
+                        boritoFajlnev = Path.GetFileName(pb_utazasSzerkeszeseBorito.Tag.ToString());
+                    }
+
+                    string sql = @"
+                UPDATE utazas u
+                JOIN utazas_reszletek r ON u.utazas_id = r.utazas_id
+                SET 
+                    u.utazas_modja = @mod,
+                    r.indulasi_datum = @indulas,
+                    r.visszaindulas_datum = @vissza,
+                    r.indulasi_helyszin = @helyszin,
+                    r.ar = @ar,
+                    r.leiras = @leiras,
+                    r.boritokep = @kep
+                WHERE u.desztinacio = @desztinacio
+                  AND u.utazas_ideje = @ido
+                  AND u.utazas_elnevezese = @elnevezes";
+
+                    using (var cmd = new MySqlCommand(sql, kapcsolat))
+                    {
+                        cmd.Parameters.AddWithValue("@mod", klm_utazasSzerkeszeseUtazasModja.ComboText);
+                        cmd.Parameters.AddWithValue("@indulas", dtp_utazasSzerkeszeseUtazásIdeje.Value.Date);
+                        cmd.Parameters.AddWithValue("@vissza", dtp_utazasSzerkeszeseVisszaindulas.Value.Date);
+                        cmd.Parameters.AddWithValue("@helyszin", kszm_utazasSzerkeszeseIndulasHelye.Texts);
+                        cmd.Parameters.AddWithValue("@ar", int.TryParse(kszm_utazasSzerkeszeseAr.Texts, out int ar) ? ar : 0);
+                        cmd.Parameters.AddWithValue("@leiras", kszm_utazasSzerkeszeseLeiras.Texts);
+                        cmd.Parameters.AddWithValue("@kep", boritoFajlnev);
+                        cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
+                        cmd.Parameters.AddWithValue("@ido", DateTime.Parse(utazasIdoszak));
+                        cmd.Parameters.AddWithValue("@elnevezes", utazasNeve);
+
+                        int siker = cmd.ExecuteNonQuery();
+                        if (siker > 0)
+                        {
+
+                            MessageBox.Show("Az utazás sikeresen frissítve lett!", "Siker");
+                            UrllapReset();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nem történt módosítás. Ellenőrizze az adatokat.", "Figyelmeztetés");
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba történt a mentés során: " + ex.Message);
+            }
+        }
+        private void UrllapReset()
+        {
+            // Reset flag-ek
+            utazasDesztinacio = null;
+            utazasIdoszak = null;
+            utazasNeve = null;
+
+            // Reset kombók
+            klm_utazasSzerkeszeseDesztinacio.ComboText = "Desztináció";
+            klm_utazasSzerkeszeseIdoszak.ComboText = "Időszak";
+            klm_utazasSzerkeszeseUtazasNeve.ComboText = "Utazás neve";
+            klm_utazasSzerkeszeseUtazasModja.ComboText = "Utazás módja";
+
+            klm_utazasSzerkeszeseIdoszak.adatForras = new string[0];
+            klm_utazasSzerkeszeseUtazasNeve.adatForras = new string[0];
+
+            // Reset dátumok
+            dtp_utazasSzerkeszeseUtazásIdeje.Value = DateTime.Now;
+            dtp_utazasSzerkeszeseVisszaindulas.Value = DateTime.Now;
+
+            // Reset szövegek
+            kszm_utazasSzerkeszeseIndulasHelye.Texts = string.Empty;
+            kszm_utazasSzerkeszeseAr.Texts = string.Empty;
+            kszm_utazasSzerkeszeseLeiras.Texts = string.Empty;
+
+            // Reset kép
+            pb_utazasSzerkeszeseBorito.Image = null;
+            pb_utazasSzerkeszeseBorito.Tag = null;
+
+            // Ha a hozzáadási oldal is van:
+            kszm_desztinacio.Texts = string.Empty;
+            kszm_utazasElnevezese.Texts = string.Empty;
+            kszm_leiras.Texts = string.Empty;
+            kszm_indulasiHely.Texts = string.Empty;
+            kszm_ar.Texts = string.Empty;
+            pcb_borito.Image = null;
+            pcb_borito.Tag = null;
+
+
+
+            // Frissítjük a desztinációkat
+            utazasok_betoltes();
+        }
+
+        private void kg_utazasSzerkeszeseBorito_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Borítókép kiválasztása";
+                ofd.Filter = "Képfájlok (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+                ofd.Multiselect = false;
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // Kép betöltése a PictureBox-ba
+                        pb_utazasSzerkeszeseBorito.Image = Image.FromFile(ofd.FileName);
+                        pb_utazasSzerkeszeseBorito.SizeMode = PictureBoxSizeMode.Zoom;
+
+                        // Elérési út eltárolása a Tag-ben (hogy az UPDATE során tudjuk, melyik fájl lett kiválasztva)
+                        pb_utazasSzerkeszeseBorito.Tag = ofd.FileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Nem sikerült betölteni a képet: " + ex.Message,
+                                        "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }
