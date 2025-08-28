@@ -31,52 +31,52 @@ namespace Projekt_feladat.Formok
         /// </summary>
         private void InitializeComponent()
         {
-            egyeni_vezerlok.ellipszisVezerlo ev_vezerlopanel;
+            ellipszisVezerlo ev_vezerlopanel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_UtasokHozzaadasa));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             pnl_vezerlopanel = new Panel();
-            kszm_ujRegiFelhasznalo = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
-            kszm_mentes = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
-            kszm_titulus = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            kszm_vezeteknev = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            kszm_keresztnev1 = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            kszm_keresztnev2 = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            kszm_ujRegiFelhasznalo = new KerekitettGomb();
+            kszm_mentes = new KerekitettGomb();
+            kszm_titulus = new kerekitettSzovegMezo();
+            kszm_vezeteknev = new kerekitettSzovegMezo();
+            kszm_keresztnev1 = new kerekitettSzovegMezo();
+            kszm_keresztnev2 = new kerekitettSzovegMezo();
             dtp_szulido = new DateTimePicker();
-            kszm_lakcim = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            kszm_lakcim = new kerekitettSzovegMezo();
             lbl_szulido = new Label();
-            kszm_email = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            kszm_okmanySzam = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            kszm_email = new kerekitettSzovegMezo();
+            kszm_okmanySzam = new kerekitettSzovegMezo();
             dtp_okmany = new DateTimePicker();
             lbl_okmanyLejarat = new Label();
-            kszm_telefon = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            kszm_befizetettOsszeg = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            kszm_telefon = new kerekitettSzovegMezo();
+            kszm_befizetettOsszeg = new kerekitettSzovegMezo();
             lbl_biztositas = new Label();
-            kg_biztositas = new Projekt_feladat.egyeni_vezerlok.KapcsoloGomb();
-            kszm_megjegyzes = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            rcb_desztinacio = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
-            rcb_utazasIdeje = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
-            rcb_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
+            kg_biztositas = new KapcsoloGomb();
+            kszm_megjegyzes = new kerekitettSzovegMezo();
+            rcb_desztinacio = new kerekitettLenyilloMenu();
+            rcb_utazasIdeje = new kerekitettLenyilloMenu();
+            rcb_utazasElnevezese = new kerekitettLenyilloMenu();
             lb_utazasok = new ListBox();
-            kszm_utazasTorlese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
+            kszm_utazasTorlese = new KerekitettGomb();
             pnl_ujhozzaadas = new DoubleBufferedPanel();
-            kszm_allampolgarsag = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            kszm_allampolgarsag = new kerekitettSzovegMezo();
             pnl_meglevoutasokhozAdas = new Panel();
             tlp_megleviFelhasznaloKereses = new DoubleBufferedTableLayoutPanel();
             label1 = new Label();
             dtp_regiSzulido = new DateTimePicker();
             lbl_regiszulido = new Label();
-            kszm_reginev = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            kszm_regiokmanyszam = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
-            dgv_meglevoUtasok = new Projekt_feladat.egyeni_vezerlok.DoubleBufferedDataGridView();
+            kszm_reginev = new kerekitettSzovegMezo();
+            kszm_regiokmanyszam = new kerekitettSzovegMezo();
+            dgv_meglevoUtasok = new DoubleBufferedDataGridView();
             pnl_eszkozok = new DoubleBufferedPanel();
             flp_rendezoPanel = new FlowLayoutPanel();
             pl_terkezelo = new Panel();
-            szp_utazasNeve = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            szp_utazasAdatok = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            ev_vezerlopanel = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
+            szp_utazasNeve = new SzinatmenetPanel();
+            szp_utazasAdatok = new SzinatmenetPanel();
+            ev_vezerlopanel = new ellipszisVezerlo();
             pnl_vezerlopanel.SuspendLayout();
             pnl_ujhozzaadas.SuspendLayout();
             pnl_meglevoutasokhozAdas.SuspendLayout();
@@ -440,7 +440,7 @@ namespace Projekt_feladat.Formok
             // 
             // kg_biztositas
             // 
-            kg_biztositas.AktualisAllas = egyeni_vezerlok.KapcsoloGomb.KapcsoloAllas.Ki;
+            kg_biztositas.AktualisAllas = KapcsoloGomb.KapcsoloAllas.Ki;
             kg_biztositas.BackColor = Color.WhiteSmoke;
             kg_biztositas.ForeColor = Color.WhiteSmoke;
             kg_biztositas.KetAllasuModAktiv = true;
@@ -477,6 +477,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -504,6 +505,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasIdeje
             // 
+            rcb_utazasIdeje.adatForras = null;
             rcb_utazasIdeje.BackColor = Color.Transparent;
             rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
             rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
@@ -531,6 +533,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasElnevezese
             // 
+            rcb_utazasElnevezese.adatForras = null;
             rcb_utazasElnevezese.BackColor = Color.Transparent;
             rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
             rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
@@ -653,8 +656,9 @@ namespace Projekt_feladat.Formok
             // 
             // pnl_meglevoutasokhozAdas
             // 
-            pnl_meglevoutasokhozAdas.Controls.Add(tlp_megleviFelhasznaloKereses);
             pnl_meglevoutasokhozAdas.Controls.Add(dgv_meglevoUtasok);
+            pnl_meglevoutasokhozAdas.Controls.Add(tlp_megleviFelhasznaloKereses);
+           
             pnl_meglevoutasokhozAdas.Dock = DockStyle.Fill;
             pnl_meglevoutasokhozAdas.Location = new Point(9, 9);
             pnl_meglevoutasokhozAdas.Name = "pnl_meglevoutasokhozAdas";
@@ -772,24 +776,24 @@ namespace Projekt_feladat.Formok
             dgv_meglevoUtasok.BorderStyle = BorderStyle.None;
             dgv_meglevoUtasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_meglevoUtasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgv_meglevoUtasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgv_meglevoUtasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgv_meglevoUtasok.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgv_meglevoUtasok.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.Black;
+            dataGridViewCellStyle6.Padding = new Padding(3);
+            dataGridViewCellStyle6.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle6.SelectionForeColor = Color.BlueViolet;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgv_meglevoUtasok.DefaultCellStyle = dataGridViewCellStyle6;
             dgv_meglevoUtasok.Dock = DockStyle.Fill;
             dgv_meglevoUtasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_meglevoUtasok.EnableHeadersVisualStyles = false;
@@ -800,23 +804,23 @@ namespace Projekt_feladat.Formok
             dgv_meglevoUtasok.Name = "dgv_meglevoUtasok";
             dgv_meglevoUtasok.ReadOnly = true;
             dgv_meglevoUtasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.WhiteSmoke;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgv_meglevoUtasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgv_meglevoUtasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgv_meglevoUtasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.WhiteSmoke;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgv_meglevoUtasok.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dgv_meglevoUtasok.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dgv_meglevoUtasok.RowTemplate.DefaultCellStyle.BackColor = Color.WhiteSmoke;
             dgv_meglevoUtasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_meglevoUtasok.ShowEditingIcon = false;

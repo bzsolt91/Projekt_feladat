@@ -320,9 +320,9 @@ namespace Projekt_feladat.Formok
                 dgv_utasok.ReadOnly = true;
                 pnl_vezerlopanel.Height = 70;
                 szerkesztesAktiv = false;
-                pnl_vezerlopanel.BackColor = Color.DarkViolet;
+              
                 klm_foglalasiAllapot.Visible = false;
-                kszm_szerkesztes.HatterSzine = Color.DarkGoldenrod;
+                kszm_szerkesztes.HatterSzine = Color.MediumSlateBlue;
             }
             else
             {
@@ -331,8 +331,8 @@ namespace Projekt_feladat.Formok
                 pnl_vezerlopanel.Height += 70;
                 klm_foglalasiAllapot.Location = new Point(pnl_segedPanel.Location.X,
                                                          pnl_segedPanel.Location.Y + klm_foglalasiAllapot.Height + 10);
-                pnl_vezerlopanel.BackColor = Color.Orange;
-                kszm_szerkesztes.HatterSzine = Color.Green;
+               
+                kszm_szerkesztes.HatterSzine = Color.DarkGoldenrod;
                 klm_foglalasiAllapot.Visible = true;
             }
         }
