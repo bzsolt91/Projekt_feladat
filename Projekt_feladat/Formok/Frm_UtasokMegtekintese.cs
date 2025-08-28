@@ -209,6 +209,11 @@ namespace Projekt_feladat.Formok
                             feltetelek.Add("szemelyi.szemelyi_vagy_utlevel LIKE @okmany");
                             cmd.Parameters.AddWithValue("@okmany", "%" + kszm_okmanySzam.Texts + "%");
                         }
+                        if (!string.IsNullOrWhiteSpace(kszm_allampolgarsag.Texts))
+                        {
+                            feltetelek.Add("szemelyi.allampolgarsag LIKE @allamp");
+                            cmd.Parameters.AddWithValue("@allamp", "%" + kszm_allampolgarsag.Texts + "%");
+                        }
 
                         if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
                             feltetelek.Add("szemelyi.okmany_lejarat < CURDATE()");
@@ -260,6 +265,7 @@ namespace Projekt_feladat.Formok
                             u.keresztnev2 AS 'Második keresztnév',
                             telefon.telefon AS 'Telefonszám',
                             szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
+                            szemelyi.allampolgarsag AS 'Állampolgárság',
                             szemelyi.okmany_lejarat AS 'Érvényesség',
                             cim.lakcim AS 'Lakcím',
                             cim.email_cim AS 'Email',
@@ -382,6 +388,7 @@ namespace Projekt_feladat.Formok
             if (!string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts)) szurokSzama++;
             if (!string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts)) szurokSzama++;
             if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_allampolgarsag.Texts)) szurokSzama++;
             if (kb_befizetes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
             if (kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
             if (kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
@@ -601,9 +608,11 @@ namespace Projekt_feladat.Formok
                 );
                 return;
             }
+
             using (var kapcsolat = new MySqlConnection(constr))
             {
                 kapcsolat.Open();
+                int frissitettSorok = 0;
 
                 foreach (DataGridViewRow sor in dgv_utasok.Rows)
                 {
@@ -617,13 +626,13 @@ namespace Projekt_feladat.Formok
                     string keresztnev2 = sor.Cells["Második keresztnév"].Value?.ToString();
                     string telefon = sor.Cells["Telefonszám"].Value?.ToString();
                     string okmany = sor.Cells["Okmány"].Value?.ToString();
+                    string allampolgarsag = sor.Cells["Állampolgárság"].Value?.ToString();
                     DateTime ervenyesseg = Convert.ToDateTime(sor.Cells["Érvényesség"].Value);
                     string lakcim = sor.Cells["Lakcím"].Value?.ToString();
                     string email = sor.Cells["Email"].Value?.ToString();
                     int befizetett = Convert.ToInt32(sor.Cells["Befizetett összeg"].Value);
                     string biztositas = sor.Cells["Biztosítás van"].Value.ToString();
                     string megjegyzes = sor.Cells["Megjegyzés"].Value?.ToString();
-
 
                     using (var cmd = new MySqlCommand(@"UPDATE utas SET 
                 titulus = @titulus, vezeteknev = @vezeteknev, keresztnev1 = @kn1, keresztnev2 = @kn2 
@@ -634,22 +643,27 @@ namespace Projekt_feladat.Formok
                         cmd.Parameters.AddWithValue("@kn1", keresztnev1);
                         cmd.Parameters.AddWithValue("@kn2", keresztnev2);
                         cmd.Parameters.AddWithValue("@id", utasId);
-                        cmd.ExecuteNonQuery();
+                        frissitettSorok += cmd.ExecuteNonQuery();
                     }
 
                     using (var cmd = new MySqlCommand(@"UPDATE telefon SET telefon = @telefon WHERE utas_id = @id", kapcsolat))
                     {
                         cmd.Parameters.AddWithValue("@telefon", telefon);
                         cmd.Parameters.AddWithValue("@id", utasId);
-                        cmd.ExecuteNonQuery();
+                        frissitettSorok += cmd.ExecuteNonQuery();
                     }
 
-                    using (var cmd = new MySqlCommand(@"UPDATE szemelyi SET szemelyi_vagy_utlevel = @okmany, okmany_lejarat = @ervenyesseg WHERE utas_id = @id", kapcsolat))
+                    using (var cmd = new MySqlCommand(@"UPDATE szemelyi 
+                SET szemelyi_vagy_utlevel = @okmany, 
+                    okmany_lejarat = @ervenyesseg,
+                    allampolgarsag = @allamp
+                WHERE utas_id = @id", kapcsolat))
                     {
                         cmd.Parameters.AddWithValue("@okmany", okmany);
                         cmd.Parameters.AddWithValue("@ervenyesseg", ervenyesseg);
+                        cmd.Parameters.AddWithValue("@allamp", allampolgarsag);
                         cmd.Parameters.AddWithValue("@id", utasId);
-                        cmd.ExecuteNonQuery();
+                        frissitettSorok += cmd.ExecuteNonQuery();
                     }
 
                     using (var cmd = new MySqlCommand(@"UPDATE cim SET lakcim = @lakcim, email_cim = @email WHERE utas_id = @id", kapcsolat))
@@ -657,7 +671,7 @@ namespace Projekt_feladat.Formok
                         cmd.Parameters.AddWithValue("@lakcim", lakcim);
                         cmd.Parameters.AddWithValue("@email", email);
                         cmd.Parameters.AddWithValue("@id", utasId);
-                        cmd.ExecuteNonQuery();
+                        frissitettSorok += cmd.ExecuteNonQuery();
                     }
 
                     using (var cmd = new MySqlCommand(@"UPDATE fizetes SET befizetett_osszeg = @osszeg, biztositas = @bizt WHERE utas_id = @id", kapcsolat))
@@ -665,18 +679,24 @@ namespace Projekt_feladat.Formok
                         cmd.Parameters.AddWithValue("@osszeg", befizetett);
                         cmd.Parameters.AddWithValue("@bizt", biztositas);
                         cmd.Parameters.AddWithValue("@id", utasId);
-                        cmd.ExecuteNonQuery();
+                        frissitettSorok += cmd.ExecuteNonQuery();
                     }
 
                     using (var cmd = new MySqlCommand(@"UPDATE megjegyzes SET megjegyzes = @megj WHERE utas_id = @id", kapcsolat))
                     {
                         cmd.Parameters.AddWithValue("@megj", megjegyzes);
                         cmd.Parameters.AddWithValue("@id", utasId);
-                        cmd.ExecuteNonQuery();
+                        frissitettSorok += cmd.ExecuteNonQuery();
                     }
                 }
 
                 kg_mentes.HatterSzine = Color.MediumSlateBlue;
+                MessageBox.Show(
+                    frissitettSorok > 0 ? "Az adatok sikeresen frissültek!" : "Nem történt változás az adatokban.",
+                    "Mentés",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
             }
         }
 

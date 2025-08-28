@@ -224,6 +224,7 @@ namespace Projekt_feladat.Formok
                                     u.keresztnev2 AS 'Második keresztnév',
                                     telefon.telefon AS 'Telefonszám',
                                     szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
+                                    szemelyi.allampolgarsag AS 'Állampolgárság',
                                     szemelyi.okmany_lejarat AS 'Érvényesség',
                                     cim.lakcim AS 'Lakcím',
                                     cim.email_cim AS 'Email',
@@ -500,6 +501,7 @@ namespace Projekt_feladat.Formok
             if (!string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts)) szurokSzama++;
             if (!string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts)) szurokSzama++;
             if (!string.IsNullOrWhiteSpace(kszm_telefon.Texts)) szurokSzama++;
+            if (!string.IsNullOrWhiteSpace(kszm_allampolgarsag.Texts)) szurokSzama++;
             if (kb_befizetes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
             if (kb_biztositas.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
             if (kb_okmanyErvenyes.AktualisAllas != KapcsoloGomb.KapcsoloAllas.Ki) szurokSzama++;
@@ -552,6 +554,7 @@ namespace Projekt_feladat.Formok
                                         u.keresztnev2 AS 'Második keresztnév',
                                         telefon.telefon AS 'Telefonszám',
                                         szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
+                                        szemelyi.allampolgarsag AS 'Állampolgárság',
                                         szemelyi.okmany_lejarat AS 'Érvényesség',
                                         cim.lakcim AS 'Lakcím',
                                         cim.email_cim AS 'Email',
@@ -613,7 +616,11 @@ namespace Projekt_feladat.Formok
                         feltetelek.Add("szemelyi.szemelyi_vagy_utlevel LIKE @okmany");
                         cmd.Parameters.AddWithValue("@okmany", "%" + kszm_okmanySzam.Texts + "%");
                     }
-
+                    if (!string.IsNullOrWhiteSpace(kszm_allampolgarsag.Texts))
+                    {
+                        feltetelek.Add("szemelyi.allampolgarsag LIKE @allamp");
+                        cmd.Parameters.AddWithValue("@allamp", "%" + kszm_allampolgarsag.Texts + "%");
+                    }
                     // okmány érvényesség
                     if (kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Kozep)
                         feltetelek.Add("szemelyi.okmany_lejarat < CURDATE()");
@@ -662,7 +669,7 @@ namespace Projekt_feladat.Formok
                     cmd.Parameters.AddWithValue("@desztinacio", utazasDesztinacio);
                     cmd.Parameters.AddWithValue("@utazasneve", utazasNeve);
 
-                    // Ha vannak extra szűrési feltételek, illeszd hozzá az SQL-hez
+                   
                     if (feltetelek.Count > 0)
                     {
                         sql += " AND " + string.Join(" AND ", feltetelek);
@@ -676,6 +683,7 @@ namespace Projekt_feladat.Formok
                                 u.keresztnev2,
                                 telefon.telefon,
                                 szemelyi.szemelyi_vagy_utlevel,
+                                szemelyi.allampolgarsag,
                                 szemelyi.okmany_lejarat,
                                 cim.lakcim,
                                 cim.email_cim,
@@ -694,7 +702,7 @@ namespace Projekt_feladat.Formok
                     dgv_utazasok.DataSource = dt;
 
                     //ha szűrés nincs visszaáll a szűrő gomb színe
-                    if (string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) && string.IsNullOrWhiteSpace(kszm_email.Texts) && string.IsNullOrWhiteSpace(kszm_lakcim.Texts) && string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts)
+                    if (string.IsNullOrWhiteSpace(kszm_utasNeve.Texts) && string.IsNullOrWhiteSpace(kszm_email.Texts) && string.IsNullOrWhiteSpace(kszm_allampolgarsag.Texts) && string.IsNullOrWhiteSpace(kszm_lakcim.Texts) && string.IsNullOrWhiteSpace(kszm_megjegyzes.Texts)
                         && string.IsNullOrWhiteSpace(kszm_okmanySzam.Texts) && string.IsNullOrWhiteSpace(kszm_telefon.Texts) && kb_befizetes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki
                         && kb_biztositas.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki && kb_okmanyErvenyes.AktualisAllas == KapcsoloGomb.KapcsoloAllas.Ki)
                     {
@@ -939,12 +947,19 @@ namespace Projekt_feladat.Formok
                         cmd.ExecuteNonQuery();
                     }
 
-                    using (var cmd = new MySqlCommand(@"UPDATE szemelyi SET szemelyi_vagy_utlevel = @okmany, okmany_lejarat = @ervenyesseg WHERE utas_id = @id", kapcsolat))
+                    string allampolgarsag = sor.Cells["Állampolgárság"].Value?.ToString();
+                    using (var cmd = new MySqlCommand(@"
+    UPDATE szemelyi 
+    SET szemelyi_vagy_utlevel = @okmany, 
+        okmany_lejarat = @ervenyesseg,
+        allampolgarsag = @allamp
+    WHERE utas_id = @id", kapcsolat))
                     {
                         cmd.Parameters.AddWithValue("@okmany", okmany);
                         cmd.Parameters.AddWithValue("@ervenyesseg", ervenyesseg);
+                        cmd.Parameters.AddWithValue("@allamp", allampolgarsag);
                         cmd.Parameters.AddWithValue("@id", utasId);
-                        cmd.ExecuteNonQuery();
+                         cmd.ExecuteNonQuery();
                     }
 
                     using (var cmd = new MySqlCommand(@"UPDATE cim SET lakcim = @lakcim, email_cim = @email WHERE utas_id = @id", kapcsolat))
@@ -972,6 +987,11 @@ namespace Projekt_feladat.Formok
                 }
 
                 btn_mentes.HatterSzine = Color.MediumSlateBlue;
+                MessageBox.Show( "Az adatok sikeresen frissültek!" ,
+    "Mentés",
+    MessageBoxButtons.OK,
+    MessageBoxIcon.Information
+);
             }
         }
 

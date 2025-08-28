@@ -39,7 +39,7 @@ namespace Projekt_feladat.Formok
             BetoltAdatok(utasAdat);
         }
 
-  
+
         public void BetoltAdatok(DataRow utasAdat)
         {
             if (utasAdat == null) return;
@@ -274,7 +274,7 @@ namespace Projekt_feladat.Formok
                 lst_talalatok.Visible = false;
             }
 
-      
+
         }
         private void rcb_desztinacio_ElemKivalasztva(object sender, ElemKivalasztvaEventArgs e)
         {
@@ -520,7 +520,7 @@ namespace Projekt_feladat.Formok
             path.CloseFigure();
             return path;
         }
-     
+
         private void kszm_utazasTorlese_Click(object sender, EventArgs e)
         {
             if (lb_utazasok.SelectedItem != null)
@@ -677,11 +677,14 @@ namespace Projekt_feladat.Formok
                         { "@lakcim", kszm_lakcim.Texts }
                             }, conn, tr);
 
-                        insertKapcsolt("szemelyi", "utas_id, szemelyi_vagy_utlevel, okmany_lejarat", "@utas_id, @szam, @lejarat",
+                        insertKapcsolt("szemelyi",
+                            "utas_id, szemelyi_vagy_utlevel, okmany_lejarat, allampolgarsag",
+                            "@utas_id, @szam, @lejarat, @allamp",
                             new Dictionary<string, object> {
-                        { "@utas_id", utasId },
-                        { "@szam", kszm_okmanySzam.Texts },
-                        { "@lejarat", dtp_okmany.Value.Date }
+                                { "@utas_id", utasId },
+                                { "@szam", kszm_okmanySzam.Texts },
+                                { "@lejarat", dtp_okmany.Value.Date },
+                                { "@allamp", kszm_allampolgarsag.Texts }
                             }, conn, tr);
 
                         insertKapcsolt("fizetes", "utas_id, befizetett_osszeg, biztositas", "@utas_id, @osszeg, @biztositas",
@@ -781,7 +784,7 @@ namespace Projekt_feladat.Formok
                 kszm_ujRegiFelhasznalo.HatterSzine = Color.Chocolate;
                 pnl_meglevoutasokhozAdas.Visible = true;
                 kszm_ujRegiFelhasznalo.Text = "Új felhasználó hozzáadása";
-                
+
             }
             else
             {
@@ -861,7 +864,45 @@ namespace Projekt_feladat.Formok
             }
         }
 
-       
+        private void frm_UtasokHozzaadasa_Resize(object sender, EventArgs e)
+        {
+            ablakUjrarajzolas();
+        }
+
+        private void flp_rendezoPanel_Resize(object sender, EventArgs e)
+        {
+            flp_rendezoPanel.HorizontalScroll.Maximum = 0;
+            flp_rendezoPanel.SuspendLayout();
+            flp_rendezoPanel.AutoScroll = false;
+
+            ablakUjrarajzolas();
+
+            flp_rendezoPanel.PerformLayout();
+            flp_rendezoPanel.Invalidate();
+
+            flp_rendezoPanel.AutoScroll = true;
+            flp_rendezoPanel.ResumeLayout();
+
+        }
+        private void ablakUjrarajzolas()
+        {
+            const int margin = 10;
+            int celMeret = this.ClientSize.Width;
+            if (celMeret < 0) celMeret = 0;
+
+            pl_terkezelo.Width = celMeret - 20;
+
+            flp_rendezoPanel.PerformLayout();
+            flp_rendezoPanel.Invalidate();
+
+
+
+        }
+
+        private void frm_UtasokHozzaadasa_Load(object sender, EventArgs e)
+        {
+            ablakUjrarajzolas();
+        }
     }
 
 }

@@ -34,9 +34,9 @@ namespace Projekt_feladat.Formok
             ellipszisVezerlo ev_szuroPanel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_UtazasokMegtekintese));
             ellipszisVezerlo ev_utasLista;
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             szpn_szuroPanel = new Panel();
             klm_utazasiMod = new kerekitettLenyilloMenu();
             kb_biztositas = new KapcsoloGomb();
@@ -77,6 +77,7 @@ namespace Projekt_feladat.Formok
             pd_utasLista = new System.Drawing.Printing.PrintDocument();
             ppd_utasLista = new PrintPreviewDialog();
             pd_utazasok = new System.Drawing.Printing.PrintDocument();
+            kszm_allampolgarsag = new kerekitettSzovegMezo();
             ev_szuroPanel = new ellipszisVezerlo();
             ev_utasLista = new ellipszisVezerlo();
             szpn_szuroPanel.SuspendLayout();
@@ -94,6 +95,7 @@ namespace Projekt_feladat.Formok
             // szpn_szuroPanel
             // 
             szpn_szuroPanel.BackColor = Color.FromArgb(243, 244, 246);
+            szpn_szuroPanel.Controls.Add(kszm_allampolgarsag);
             szpn_szuroPanel.Controls.Add(klm_utazasiMod);
             szpn_szuroPanel.Controls.Add(kb_biztositas);
             szpn_szuroPanel.Controls.Add(kb_befizetes);
@@ -248,7 +250,7 @@ namespace Projekt_feladat.Formok
             kszm_megjegyzes.KeretMeret = 2;
             kszm_megjegyzes.KeretSugar = 8;
             kszm_megjegyzes.KeretSzin = Color.MediumSlateBlue;
-            kszm_megjegyzes.Location = new Point(39, 315);
+            kszm_megjegyzes.Location = new Point(39, 261);
             kszm_megjegyzes.Margin = new Padding(4, 3, 4, 3);
             kszm_megjegyzes.Name = "kszm_megjegyzes";
             kszm_megjegyzes.Padding = new Padding(9, 6, 9, 6);
@@ -273,7 +275,7 @@ namespace Projekt_feladat.Formok
             kszm_okmanySzam.KeretMeret = 2;
             kszm_okmanySzam.KeretSugar = 8;
             kszm_okmanySzam.KeretSzin = Color.MediumSlateBlue;
-            kszm_okmanySzam.Location = new Point(39, 257);
+            kszm_okmanySzam.Location = new Point(39, 189);
             kszm_okmanySzam.Margin = new Padding(4, 3, 4, 3);
             kszm_okmanySzam.Name = "kszm_okmanySzam";
             kszm_okmanySzam.Padding = new Padding(9, 6, 9, 6);
@@ -298,7 +300,7 @@ namespace Projekt_feladat.Formok
             kszm_lakcim.KeretMeret = 2;
             kszm_lakcim.KeretSugar = 8;
             kszm_lakcim.KeretSzin = Color.MediumSlateBlue;
-            kszm_lakcim.Location = new Point(39, 207);
+            kszm_lakcim.Location = new Point(39, 153);
             kszm_lakcim.Margin = new Padding(4, 3, 4, 3);
             kszm_lakcim.Name = "kszm_lakcim";
             kszm_lakcim.Padding = new Padding(9, 6, 9, 6);
@@ -323,7 +325,7 @@ namespace Projekt_feladat.Formok
             kszm_telefon.KeretMeret = 2;
             kszm_telefon.KeretSugar = 8;
             kszm_telefon.KeretSzin = Color.MediumSlateBlue;
-            kszm_telefon.Location = new Point(39, 153);
+            kszm_telefon.Location = new Point(39, 117);
             kszm_telefon.Margin = new Padding(4, 3, 4, 3);
             kszm_telefon.Name = "kszm_telefon";
             kszm_telefon.Padding = new Padding(9, 6, 9, 6);
@@ -348,7 +350,7 @@ namespace Projekt_feladat.Formok
             kszm_email.KeretMeret = 2;
             kszm_email.KeretSugar = 8;
             kszm_email.KeretSzin = Color.MediumSlateBlue;
-            kszm_email.Location = new Point(39, 97);
+            kszm_email.Location = new Point(39, 81);
             kszm_email.Margin = new Padding(4, 3, 4, 3);
             kszm_email.Name = "kszm_email";
             kszm_email.Padding = new Padding(9, 6, 9, 6);
@@ -622,6 +624,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -649,6 +652,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_idoszak
             // 
+            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
@@ -683,40 +687,40 @@ namespace Projekt_feladat.Formok
             dgv_utazasok.BorderStyle = BorderStyle.None;
             dgv_utazasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_utazasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgv_utazasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.White;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgv_utazasok.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgv_utazasok.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgv_utazasok.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.Padding = new Padding(3);
+            dataGridViewCellStyle5.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle5.SelectionForeColor = Color.BlueViolet;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgv_utazasok.DefaultCellStyle = dataGridViewCellStyle5;
             dgv_utazasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_utazasok.EnableHeadersVisualStyles = false;
             dgv_utazasok.GridColor = SystemColors.InactiveBorder;
             dgv_utazasok.Location = new Point(9, 79);
             dgv_utazasok.Name = "dgv_utazasok";
             dgv_utazasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgv_utazasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgv_utazasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgv_utazasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgv_utazasok.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dgv_utazasok.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dgv_utazasok.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgv_utazasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_utazasok.ShowEditingIcon = false;
@@ -729,6 +733,7 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
+            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;
@@ -950,6 +955,28 @@ namespace Projekt_feladat.Formok
             // 
             pd_utazasok.PrintPage += pd_utazasok_PrintPage;
             // 
+            // kszm_allampolgarsag
+            // 
+            kszm_allampolgarsag.AlahuzottStilus = false;
+            kszm_allampolgarsag.BackColor = SystemColors.Window;
+            kszm_allampolgarsag.FokuszKeretSzin = Color.HotPink;
+            kszm_allampolgarsag.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_allampolgarsag.ForeColor = Color.FromArgb(64, 64, 64);
+            kszm_allampolgarsag.HelyorzoSzin = Color.DarkGray;
+            kszm_allampolgarsag.HelyorzoSzoveg = "Állampolgárság";
+            kszm_allampolgarsag.JelszoKarakter = false;
+            kszm_allampolgarsag.KeretMeret = 2;
+            kszm_allampolgarsag.KeretSugar = 8;
+            kszm_allampolgarsag.KeretSzin = Color.MediumSlateBlue;
+            kszm_allampolgarsag.Location = new Point(39, 225);
+            kszm_allampolgarsag.Margin = new Padding(4, 3, 4, 3);
+            kszm_allampolgarsag.Name = "kszm_allampolgarsag";
+            kszm_allampolgarsag.Padding = new Padding(9, 6, 9, 6);
+            kszm_allampolgarsag.Size = new Size(343, 30);
+            kszm_allampolgarsag.TabIndex = 15;
+            kszm_allampolgarsag.Texts = "";
+            kszm_allampolgarsag.TobbSor = true;
+            // 
             // Frm_UtazasokMegtekintese
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -1043,5 +1070,6 @@ namespace Projekt_feladat.Formok
         private System.Drawing.Printing.PrintDocument pd_utazasok;
         private KerekitettGomb kszm_torles;
         private kerekitettLenyilloMenu klm_utazasiMod;
+        private kerekitettSzovegMezo kszm_allampolgarsag;
     }
 }

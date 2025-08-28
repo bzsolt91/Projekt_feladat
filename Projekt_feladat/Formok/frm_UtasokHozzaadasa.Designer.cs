@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using Projekt_feladat.egyeni_vezerlok;
+using System.Windows.Forms;
 
 namespace Projekt_feladat.Formok
 {
@@ -35,6 +36,7 @@ namespace Projekt_feladat.Formok
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnl_vezerlopanel = new Panel();
             kszm_ujRegiFelhasznalo = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
             kszm_mentes = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
@@ -59,21 +61,31 @@ namespace Projekt_feladat.Formok
             rcb_utazasElnevezese = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             lb_utazasok = new ListBox();
             kszm_utazasTorlese = new Projekt_feladat.egyeni_vezerlok.KerekitettGomb();
-            pnl_ujhozzaadas = new Panel();
+            pnl_ujhozzaadas = new DoubleBufferedPanel();
+            kszm_allampolgarsag = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
             pnl_meglevoutasokhozAdas = new Panel();
+            tlp_megleviFelhasznaloKereses = new DoubleBufferedTableLayoutPanel();
             label1 = new Label();
-            lbl_regiszulido = new Label();
             dtp_regiSzulido = new DateTimePicker();
-            kszm_regiokmanyszam = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            lbl_regiszulido = new Label();
             kszm_reginev = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            kszm_regiokmanyszam = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
             dgv_meglevoUtasok = new Projekt_feladat.egyeni_vezerlok.DoubleBufferedDataGridView();
-            pnl_eszkozok = new Panel();
+            pnl_eszkozok = new DoubleBufferedPanel();
+            flp_rendezoPanel = new FlowLayoutPanel();
+            pl_terkezelo = new Panel();
+            szp_utazasNeve = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
+            szp_utazasAdatok = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
             ev_vezerlopanel = new Projekt_feladat.egyeni_vezerlok.ellipszisVezerlo();
             pnl_vezerlopanel.SuspendLayout();
             pnl_ujhozzaadas.SuspendLayout();
             pnl_meglevoutasokhozAdas.SuspendLayout();
+            tlp_megleviFelhasznaloKereses.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_meglevoUtasok).BeginInit();
             pnl_eszkozok.SuspendLayout();
+            flp_rendezoPanel.SuspendLayout();
+            szp_utazasNeve.SuspendLayout();
+            szp_utazasAdatok.SuspendLayout();
             SuspendLayout();
             // 
             // ev_vezerlopanel
@@ -95,7 +107,12 @@ namespace Projekt_feladat.Formok
             // kszm_ujRegiFelhasznalo
             // 
             kszm_ujRegiFelhasznalo.BackColor = Color.Chocolate;
+            kszm_ujRegiFelhasznalo.BadgeMeret = 40;
             kszm_ujRegiFelhasznalo.EgerTartasHatterSzine = Color.SlateBlue;
+            kszm_ujRegiFelhasznalo.ErtesitesMutatasa = false;
+            kszm_ujRegiFelhasznalo.ErtesitesSzam = 0;
+            kszm_ujRegiFelhasznalo.ErtesitesSzin = Color.Red;
+            kszm_ujRegiFelhasznalo.ErtesitesSzovegSzin = Color.White;
             kszm_ujRegiFelhasznalo.FlatAppearance.BorderSize = 0;
             kszm_ujRegiFelhasznalo.FlatStyle = FlatStyle.Flat;
             kszm_ujRegiFelhasznalo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -120,7 +137,12 @@ namespace Projekt_feladat.Formok
             // kszm_mentes
             // 
             kszm_mentes.BackColor = Color.MediumSlateBlue;
+            kszm_mentes.BadgeMeret = 40;
             kszm_mentes.EgerTartasHatterSzine = Color.SlateBlue;
+            kszm_mentes.ErtesitesMutatasa = false;
+            kszm_mentes.ErtesitesSzam = 0;
+            kszm_mentes.ErtesitesSzin = Color.Red;
+            kszm_mentes.ErtesitesSzovegSzin = Color.White;
             kszm_mentes.FlatAppearance.BorderSize = 0;
             kszm_mentes.FlatStyle = FlatStyle.Flat;
             kszm_mentes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -147,7 +169,7 @@ namespace Projekt_feladat.Formok
             kszm_titulus.AlahuzottStilus = false;
             kszm_titulus.BackColor = SystemColors.Window;
             kszm_titulus.FokuszKeretSzin = Color.HotPink;
-            kszm_titulus.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_titulus.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_titulus.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_titulus.HelyorzoSzin = Color.DarkGray;
             kszm_titulus.HelyorzoSzoveg = "Titulus";
@@ -159,7 +181,7 @@ namespace Projekt_feladat.Formok
             kszm_titulus.Margin = new Padding(4, 3, 4, 3);
             kszm_titulus.Name = "kszm_titulus";
             kszm_titulus.Padding = new Padding(9, 6, 9, 6);
-            kszm_titulus.Size = new Size(109, 30);
+            kszm_titulus.Size = new Size(109, 35);
             kszm_titulus.TabIndex = 0;
             kszm_titulus.Texts = "";
             kszm_titulus.TobbSor = false;
@@ -172,7 +194,7 @@ namespace Projekt_feladat.Formok
             kszm_vezeteknev.AlahuzottStilus = false;
             kszm_vezeteknev.BackColor = SystemColors.Window;
             kszm_vezeteknev.FokuszKeretSzin = Color.HotPink;
-            kszm_vezeteknev.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_vezeteknev.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_vezeteknev.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_vezeteknev.HelyorzoSzin = Color.DarkGray;
             kszm_vezeteknev.HelyorzoSzoveg = "Vezetéknév";
@@ -184,7 +206,7 @@ namespace Projekt_feladat.Formok
             kszm_vezeteknev.Margin = new Padding(4, 3, 4, 3);
             kszm_vezeteknev.Name = "kszm_vezeteknev";
             kszm_vezeteknev.Padding = new Padding(9, 6, 9, 6);
-            kszm_vezeteknev.Size = new Size(220, 30);
+            kszm_vezeteknev.Size = new Size(220, 35);
             kszm_vezeteknev.TabIndex = 1;
             kszm_vezeteknev.Texts = "";
             kszm_vezeteknev.TobbSor = false;
@@ -197,7 +219,7 @@ namespace Projekt_feladat.Formok
             kszm_keresztnev1.AlahuzottStilus = false;
             kszm_keresztnev1.BackColor = SystemColors.Window;
             kszm_keresztnev1.FokuszKeretSzin = Color.HotPink;
-            kszm_keresztnev1.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_keresztnev1.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_keresztnev1.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_keresztnev1.HelyorzoSzin = Color.DarkGray;
             kszm_keresztnev1.HelyorzoSzoveg = "Keresztnév";
@@ -209,7 +231,7 @@ namespace Projekt_feladat.Formok
             kszm_keresztnev1.Margin = new Padding(4, 3, 4, 3);
             kszm_keresztnev1.Name = "kszm_keresztnev1";
             kszm_keresztnev1.Padding = new Padding(9, 6, 9, 6);
-            kszm_keresztnev1.Size = new Size(212, 30);
+            kszm_keresztnev1.Size = new Size(212, 35);
             kszm_keresztnev1.TabIndex = 2;
             kszm_keresztnev1.Texts = "";
             kszm_keresztnev1.TobbSor = false;
@@ -222,7 +244,7 @@ namespace Projekt_feladat.Formok
             kszm_keresztnev2.AlahuzottStilus = false;
             kszm_keresztnev2.BackColor = SystemColors.Window;
             kszm_keresztnev2.FokuszKeretSzin = Color.HotPink;
-            kszm_keresztnev2.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_keresztnev2.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_keresztnev2.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_keresztnev2.HelyorzoSzin = Color.DarkGray;
             kszm_keresztnev2.HelyorzoSzoveg = "Keresztnév 2";
@@ -234,7 +256,7 @@ namespace Projekt_feladat.Formok
             kszm_keresztnev2.Margin = new Padding(4, 3, 4, 3);
             kszm_keresztnev2.Name = "kszm_keresztnev2";
             kszm_keresztnev2.Padding = new Padding(9, 6, 9, 6);
-            kszm_keresztnev2.Size = new Size(238, 30);
+            kszm_keresztnev2.Size = new Size(238, 35);
             kszm_keresztnev2.TabIndex = 3;
             kszm_keresztnev2.Texts = "";
             kszm_keresztnev2.TobbSor = false;
@@ -258,7 +280,7 @@ namespace Projekt_feladat.Formok
             kszm_lakcim.AlahuzottStilus = false;
             kszm_lakcim.BackColor = SystemColors.Window;
             kszm_lakcim.FokuszKeretSzin = Color.HotPink;
-            kszm_lakcim.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_lakcim.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_lakcim.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_lakcim.HelyorzoSzin = Color.DarkGray;
             kszm_lakcim.HelyorzoSzoveg = "Lakcím";
@@ -266,11 +288,11 @@ namespace Projekt_feladat.Formok
             kszm_lakcim.KeretMeret = 2;
             kszm_lakcim.KeretSugar = 8;
             kszm_lakcim.KeretSzin = Color.MediumSlateBlue;
-            kszm_lakcim.Location = new Point(10, 57);
+            kszm_lakcim.Location = new Point(11, 52);
             kszm_lakcim.Margin = new Padding(4, 3, 4, 3);
             kszm_lakcim.Name = "kszm_lakcim";
             kszm_lakcim.Padding = new Padding(9, 6, 9, 6);
-            kszm_lakcim.Size = new Size(382, 30);
+            kszm_lakcim.Size = new Size(382, 35);
             kszm_lakcim.TabIndex = 5;
             kszm_lakcim.Texts = "";
             kszm_lakcim.TobbSor = false;
@@ -293,7 +315,7 @@ namespace Projekt_feladat.Formok
             kszm_email.AlahuzottStilus = false;
             kszm_email.BackColor = SystemColors.Window;
             kszm_email.FokuszKeretSzin = Color.HotPink;
-            kszm_email.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_email.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_email.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_email.HelyorzoSzin = Color.DarkGray;
             kszm_email.HelyorzoSzoveg = "Email";
@@ -301,11 +323,11 @@ namespace Projekt_feladat.Formok
             kszm_email.KeretMeret = 2;
             kszm_email.KeretSugar = 8;
             kszm_email.KeretSzin = Color.MediumSlateBlue;
-            kszm_email.Location = new Point(10, 94);
+            kszm_email.Location = new Point(11, 93);
             kszm_email.Margin = new Padding(4, 3, 4, 3);
             kszm_email.Name = "kszm_email";
             kszm_email.Padding = new Padding(9, 6, 9, 6);
-            kszm_email.Size = new Size(273, 30);
+            kszm_email.Size = new Size(273, 35);
             kszm_email.TabIndex = 8;
             kszm_email.Texts = "";
             kszm_email.TobbSor = false;
@@ -318,7 +340,7 @@ namespace Projekt_feladat.Formok
             kszm_okmanySzam.AlahuzottStilus = false;
             kszm_okmanySzam.BackColor = SystemColors.Window;
             kszm_okmanySzam.FokuszKeretSzin = Color.HotPink;
-            kszm_okmanySzam.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_okmanySzam.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_okmanySzam.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_okmanySzam.HelyorzoSzin = Color.DarkGray;
             kszm_okmanySzam.HelyorzoSzoveg = "Okmány szám";
@@ -326,11 +348,11 @@ namespace Projekt_feladat.Formok
             kszm_okmanySzam.KeretMeret = 2;
             kszm_okmanySzam.KeretSugar = 8;
             kszm_okmanySzam.KeretSzin = Color.MediumSlateBlue;
-            kszm_okmanySzam.Location = new Point(10, 130);
+            kszm_okmanySzam.Location = new Point(13, 134);
             kszm_okmanySzam.Margin = new Padding(4, 3, 4, 3);
             kszm_okmanySzam.Name = "kszm_okmanySzam";
             kszm_okmanySzam.Padding = new Padding(9, 6, 9, 6);
-            kszm_okmanySzam.Size = new Size(273, 30);
+            kszm_okmanySzam.Size = new Size(273, 35);
             kszm_okmanySzam.TabIndex = 9;
             kszm_okmanySzam.Texts = "";
             kszm_okmanySzam.TobbSor = false;
@@ -363,7 +385,7 @@ namespace Projekt_feladat.Formok
             kszm_telefon.AlahuzottStilus = false;
             kszm_telefon.BackColor = SystemColors.Window;
             kszm_telefon.FokuszKeretSzin = Color.HotPink;
-            kszm_telefon.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_telefon.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_telefon.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_telefon.HelyorzoSzin = Color.DarkGray;
             kszm_telefon.HelyorzoSzoveg = "Telefonszám";
@@ -371,11 +393,11 @@ namespace Projekt_feladat.Formok
             kszm_telefon.KeretMeret = 2;
             kszm_telefon.KeretSugar = 8;
             kszm_telefon.KeretSzin = Color.MediumSlateBlue;
-            kszm_telefon.Location = new Point(11, 178);
+            kszm_telefon.Location = new Point(13, 175);
             kszm_telefon.Margin = new Padding(4, 3, 4, 3);
             kszm_telefon.Name = "kszm_telefon";
             kszm_telefon.Padding = new Padding(9, 6, 9, 6);
-            kszm_telefon.Size = new Size(273, 30);
+            kszm_telefon.Size = new Size(273, 35);
             kszm_telefon.TabIndex = 12;
             kszm_telefon.Texts = "";
             kszm_telefon.TobbSor = false;
@@ -388,7 +410,7 @@ namespace Projekt_feladat.Formok
             kszm_befizetettOsszeg.AlahuzottStilus = false;
             kszm_befizetettOsszeg.BackColor = SystemColors.Window;
             kszm_befizetettOsszeg.FokuszKeretSzin = Color.HotPink;
-            kszm_befizetettOsszeg.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_befizetettOsszeg.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_befizetettOsszeg.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_befizetettOsszeg.HelyorzoSzin = Color.DarkGray;
             kszm_befizetettOsszeg.HelyorzoSzoveg = "Befizetett összeg";
@@ -396,11 +418,11 @@ namespace Projekt_feladat.Formok
             kszm_befizetettOsszeg.KeretMeret = 2;
             kszm_befizetettOsszeg.KeretSugar = 8;
             kszm_befizetettOsszeg.KeretSzin = Color.MediumSlateBlue;
-            kszm_befizetettOsszeg.Location = new Point(11, 224);
+            kszm_befizetettOsszeg.Location = new Point(13, 216);
             kszm_befizetettOsszeg.Margin = new Padding(4, 3, 4, 3);
             kszm_befizetettOsszeg.Name = "kszm_befizetettOsszeg";
             kszm_befizetettOsszeg.Padding = new Padding(9, 6, 9, 6);
-            kszm_befizetettOsszeg.Size = new Size(273, 30);
+            kszm_befizetettOsszeg.Size = new Size(273, 35);
             kszm_befizetettOsszeg.TabIndex = 13;
             kszm_befizetettOsszeg.Texts = "";
             kszm_befizetettOsszeg.TobbSor = false;
@@ -419,6 +441,8 @@ namespace Projekt_feladat.Formok
             // kg_biztositas
             // 
             kg_biztositas.AktualisAllas = egyeni_vezerlok.KapcsoloGomb.KapcsoloAllas.Ki;
+            kg_biztositas.BackColor = Color.WhiteSmoke;
+            kg_biztositas.ForeColor = Color.WhiteSmoke;
             kg_biztositas.KetAllasuModAktiv = true;
             kg_biztositas.Location = new Point(593, 195);
             kg_biztositas.MinimumSize = new Size(61, 19);
@@ -431,7 +455,7 @@ namespace Projekt_feladat.Formok
             kszm_megjegyzes.AlahuzottStilus = false;
             kszm_megjegyzes.BackColor = SystemColors.Window;
             kszm_megjegyzes.FokuszKeretSzin = Color.HotPink;
-            kszm_megjegyzes.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kszm_megjegyzes.Font = new Font("Microsoft Sans Serif", 12.2264156F);
             kszm_megjegyzes.ForeColor = Color.FromArgb(64, 64, 64);
             kszm_megjegyzes.HelyorzoSzin = Color.DarkGray;
             kszm_megjegyzes.HelyorzoSzoveg = "Megjegyzés";
@@ -439,11 +463,11 @@ namespace Projekt_feladat.Formok
             kszm_megjegyzes.KeretMeret = 2;
             kszm_megjegyzes.KeretSugar = 8;
             kszm_megjegyzes.KeretSzin = Color.MediumSlateBlue;
-            kszm_megjegyzes.Location = new Point(11, 269);
+            kszm_megjegyzes.Location = new Point(13, 298);
             kszm_megjegyzes.Margin = new Padding(4, 3, 4, 3);
             kszm_megjegyzes.Name = "kszm_megjegyzes";
             kszm_megjegyzes.Padding = new Padding(9, 6, 9, 6);
-            kszm_megjegyzes.Size = new Size(801, 30);
+            kszm_megjegyzes.Size = new Size(801, 35);
             kszm_megjegyzes.TabIndex = 16;
             kszm_megjegyzes.Texts = "";
             kszm_megjegyzes.TobbSor = true;
@@ -453,7 +477,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
-            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -461,13 +484,13 @@ namespace Projekt_feladat.Formok
             rcb_desztinacio.EgerTrartasSzin = Color.LightGray;
             rcb_desztinacio.ForeColor = Color.White;
             rcb_desztinacio.Ikon = (Image)resources.GetObject("rcb_desztinacio.Ikon");
-            rcb_desztinacio.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_desztinacio.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_desztinacio.ItemPanelFelsoSzin = Color.WhiteSmoke;
+            rcb_desztinacio.ItemHatterSzin = Color.White;
+            rcb_desztinacio.ItemPanelAlosSzin = Color.White;
+            rcb_desztinacio.ItemPanelFelsoSzin = Color.White;
             rcb_desztinacio.KeretSzin = Color.BlueViolet;
             rcb_desztinacio.KeretVastagsag = 1.8F;
             rcb_desztinacio.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_desztinacio.LenyiloMagassag = 100;
+            rcb_desztinacio.LenyiloMagassag = 200;
             rcb_desztinacio.Location = new Point(19, 15);
             rcb_desztinacio.Margin = new Padding(0);
             rcb_desztinacio.MinimumSize = new Size(150, 0);
@@ -481,7 +504,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasIdeje
             // 
-            rcb_utazasIdeje.adatForras = null;
             rcb_utazasIdeje.BackColor = Color.Transparent;
             rcb_utazasIdeje.CimPanelAlsoSzin = Color.White;
             rcb_utazasIdeje.CimPanelFelsoSzin = Color.White;
@@ -489,13 +511,13 @@ namespace Projekt_feladat.Formok
             rcb_utazasIdeje.EgerTrartasSzin = Color.LightGray;
             rcb_utazasIdeje.ForeColor = Color.White;
             rcb_utazasIdeje.Ikon = (Image)resources.GetObject("rcb_utazasIdeje.Ikon");
-            rcb_utazasIdeje.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_utazasIdeje.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_utazasIdeje.ItemPanelFelsoSzin = Color.WhiteSmoke;
+            rcb_utazasIdeje.ItemHatterSzin = Color.White;
+            rcb_utazasIdeje.ItemPanelAlosSzin = Color.White;
+            rcb_utazasIdeje.ItemPanelFelsoSzin = Color.White;
             rcb_utazasIdeje.KeretSzin = Color.BlueViolet;
             rcb_utazasIdeje.KeretVastagsag = 1.8F;
             rcb_utazasIdeje.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_utazasIdeje.LenyiloMagassag = 100;
+            rcb_utazasIdeje.LenyiloMagassag = 200;
             rcb_utazasIdeje.Location = new Point(300, 15);
             rcb_utazasIdeje.Margin = new Padding(0);
             rcb_utazasIdeje.MinimumSize = new Size(150, 0);
@@ -509,7 +531,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasElnevezese
             // 
-            rcb_utazasElnevezese.adatForras = null;
             rcb_utazasElnevezese.BackColor = Color.Transparent;
             rcb_utazasElnevezese.CimPanelAlsoSzin = Color.White;
             rcb_utazasElnevezese.CimPanelFelsoSzin = Color.White;
@@ -517,13 +538,13 @@ namespace Projekt_feladat.Formok
             rcb_utazasElnevezese.EgerTrartasSzin = Color.LightGray;
             rcb_utazasElnevezese.ForeColor = Color.White;
             rcb_utazasElnevezese.Ikon = (Image)resources.GetObject("rcb_utazasElnevezese.Ikon");
-            rcb_utazasElnevezese.ItemHatterSzin = Color.WhiteSmoke;
-            rcb_utazasElnevezese.ItemPanelAlosSzin = Color.WhiteSmoke;
-            rcb_utazasElnevezese.ItemPanelFelsoSzin = Color.WhiteSmoke;
+            rcb_utazasElnevezese.ItemHatterSzin = Color.White;
+            rcb_utazasElnevezese.ItemPanelAlosSzin = Color.White;
+            rcb_utazasElnevezese.ItemPanelFelsoSzin = Color.White;
             rcb_utazasElnevezese.KeretSzin = Color.BlueViolet;
             rcb_utazasElnevezese.KeretVastagsag = 1.8F;
             rcb_utazasElnevezese.KivalasztottElemSzin = Color.BlueViolet;
-            rcb_utazasElnevezese.LenyiloMagassag = 100;
+            rcb_utazasElnevezese.LenyiloMagassag = 200;
             rcb_utazasElnevezese.Location = new Point(587, 15);
             rcb_utazasElnevezese.Margin = new Padding(0);
             rcb_utazasElnevezese.MinimumSize = new Size(150, 0);
@@ -537,6 +558,7 @@ namespace Projekt_feladat.Formok
             // 
             // lb_utazasok
             // 
+            lb_utazasok.BackColor = Color.WhiteSmoke;
             lb_utazasok.BorderStyle = BorderStyle.None;
             lb_utazasok.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
             lb_utazasok.FormattingEnabled = true;
@@ -549,8 +571,14 @@ namespace Projekt_feladat.Formok
             // 
             // kszm_utazasTorlese
             // 
+            kszm_utazasTorlese.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kszm_utazasTorlese.BackColor = Color.MediumSlateBlue;
+            kszm_utazasTorlese.BadgeMeret = 40;
             kszm_utazasTorlese.EgerTartasHatterSzine = Color.SlateBlue;
+            kszm_utazasTorlese.ErtesitesMutatasa = false;
+            kszm_utazasTorlese.ErtesitesSzam = 0;
+            kszm_utazasTorlese.ErtesitesSzin = Color.Red;
+            kszm_utazasTorlese.ErtesitesSzovegSzin = Color.White;
             kszm_utazasTorlese.FlatAppearance.BorderSize = 0;
             kszm_utazasTorlese.FlatStyle = FlatStyle.Flat;
             kszm_utazasTorlese.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -560,7 +588,7 @@ namespace Projekt_feladat.Formok
             kszm_utazasTorlese.ImageAlign = ContentAlignment.MiddleRight;
             kszm_utazasTorlese.KeretMeret = 0;
             kszm_utazasTorlese.KeretSzine = Color.PaleVioletRed;
-            kszm_utazasTorlese.Location = new Point(724, 95);
+            kszm_utazasTorlese.Location = new Point(556, 216);
             kszm_utazasTorlese.Name = "kszm_utazasTorlese";
             kszm_utazasTorlese.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             kszm_utazasTorlese.SarokSugar = 8;
@@ -576,6 +604,7 @@ namespace Projekt_feladat.Formok
             // 
             pnl_ujhozzaadas.AutoScroll = true;
             pnl_ujhozzaadas.AutoSize = true;
+            pnl_ujhozzaadas.Controls.Add(kszm_allampolgarsag);
             pnl_ujhozzaadas.Controls.Add(kszm_titulus);
             pnl_ujhozzaadas.Controls.Add(kszm_vezeteknev);
             pnl_ujhozzaadas.Controls.Add(kszm_megjegyzes);
@@ -593,85 +622,105 @@ namespace Projekt_feladat.Formok
             pnl_ujhozzaadas.Controls.Add(dtp_okmany);
             pnl_ujhozzaadas.Controls.Add(kszm_okmanySzam);
             pnl_ujhozzaadas.Dock = DockStyle.Fill;
-            pnl_ujhozzaadas.Location = new Point(0, 189);
+            pnl_ujhozzaadas.Location = new Point(9, 9);
             pnl_ujhozzaadas.Name = "pnl_ujhozzaadas";
-            pnl_ujhozzaadas.Size = new Size(994, 295);
+            pnl_ujhozzaadas.Size = new Size(799, 582);
             pnl_ujhozzaadas.TabIndex = 20;
             pnl_ujhozzaadas.Visible = false;
             pnl_ujhozzaadas.Click += kszm_Leave;
             // 
+            // kszm_allampolgarsag
+            // 
+            kszm_allampolgarsag.AlahuzottStilus = false;
+            kszm_allampolgarsag.BackColor = SystemColors.Window;
+            kszm_allampolgarsag.FokuszKeretSzin = Color.HotPink;
+            kszm_allampolgarsag.Font = new Font("Microsoft Sans Serif", 12.2264156F);
+            kszm_allampolgarsag.ForeColor = Color.FromArgb(64, 64, 64);
+            kszm_allampolgarsag.HelyorzoSzin = Color.DarkGray;
+            kszm_allampolgarsag.HelyorzoSzoveg = "Állampolgarsag";
+            kszm_allampolgarsag.JelszoKarakter = false;
+            kszm_allampolgarsag.KeretMeret = 2;
+            kszm_allampolgarsag.KeretSugar = 8;
+            kszm_allampolgarsag.KeretSzin = Color.MediumSlateBlue;
+            kszm_allampolgarsag.Location = new Point(13, 257);
+            kszm_allampolgarsag.Margin = new Padding(4, 3, 4, 3);
+            kszm_allampolgarsag.Name = "kszm_allampolgarsag";
+            kszm_allampolgarsag.Padding = new Padding(9, 6, 9, 6);
+            kszm_allampolgarsag.Size = new Size(273, 35);
+            kszm_allampolgarsag.TabIndex = 22;
+            kszm_allampolgarsag.Texts = "";
+            kszm_allampolgarsag.TobbSor = false;
+            // 
             // pnl_meglevoutasokhozAdas
             // 
-            pnl_meglevoutasokhozAdas.Controls.Add(label1);
-            pnl_meglevoutasokhozAdas.Controls.Add(lbl_regiszulido);
-            pnl_meglevoutasokhozAdas.Controls.Add(dtp_regiSzulido);
-            pnl_meglevoutasokhozAdas.Controls.Add(kszm_regiokmanyszam);
-            pnl_meglevoutasokhozAdas.Controls.Add(kszm_reginev);
+            pnl_meglevoutasokhozAdas.Controls.Add(tlp_megleviFelhasznaloKereses);
             pnl_meglevoutasokhozAdas.Controls.Add(dgv_meglevoUtasok);
             pnl_meglevoutasokhozAdas.Dock = DockStyle.Fill;
-            pnl_meglevoutasokhozAdas.Location = new Point(0, 189);
+            pnl_meglevoutasokhozAdas.Location = new Point(9, 9);
             pnl_meglevoutasokhozAdas.Name = "pnl_meglevoutasokhozAdas";
-            pnl_meglevoutasokhozAdas.Size = new Size(994, 295);
+            pnl_meglevoutasokhozAdas.Size = new Size(799, 582);
             pnl_meglevoutasokhozAdas.TabIndex = 21;
+            // 
+            // tlp_megleviFelhasznaloKereses
+            // 
+            tlp_megleviFelhasznaloKereses.ColumnCount = 4;
+            tlp_megleviFelhasznaloKereses.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.1926613F));
+            tlp_megleviFelhasznaloKereses.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.93578F));
+            tlp_megleviFelhasznaloKereses.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.93578F));
+            tlp_megleviFelhasznaloKereses.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.93578F));
+            tlp_megleviFelhasznaloKereses.Controls.Add(label1, 0, 1);
+            tlp_megleviFelhasznaloKereses.Controls.Add(dtp_regiSzulido, 3, 0);
+            tlp_megleviFelhasznaloKereses.Controls.Add(lbl_regiszulido, 2, 0);
+            tlp_megleviFelhasznaloKereses.Controls.Add(kszm_reginev, 0, 0);
+            tlp_megleviFelhasznaloKereses.Controls.Add(kszm_regiokmanyszam, 1, 0);
+            tlp_megleviFelhasznaloKereses.Dock = DockStyle.Top;
+            tlp_megleviFelhasznaloKereses.Location = new Point(0, 0);
+            tlp_megleviFelhasznaloKereses.Name = "tlp_megleviFelhasznaloKereses";
+            tlp_megleviFelhasznaloKereses.RowCount = 2;
+            tlp_megleviFelhasznaloKereses.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tlp_megleviFelhasznaloKereses.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tlp_megleviFelhasznaloKereses.Size = new Size(799, 110);
+            tlp_megleviFelhasznaloKereses.TabIndex = 7;
             // 
             // label1
             // 
             label1.AutoSize = true;
+            tlp_megleviFelhasznaloKereses.SetColumnSpan(label1, 4);
             label1.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(14, 59);
+            label1.Location = new Point(3, 55);
             label1.Name = "label1";
             label1.Size = new Size(645, 25);
             label1.TabIndex = 6;
             label1.Text = "Válassza ki a listában amelyhez, hozzá kíván adni új utazásokat ⤵";
             // 
+            // dtp_regiSzulido
+            // 
+            dtp_regiSzulido.CalendarFont = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            dtp_regiSzulido.CalendarTitleBackColor = Color.DarkViolet;
+            dtp_regiSzulido.Dock = DockStyle.Top;
+            dtp_regiSzulido.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            dtp_regiSzulido.Location = new Point(618, 3);
+            dtp_regiSzulido.Name = "dtp_regiSzulido";
+            dtp_regiSzulido.Size = new Size(178, 35);
+            dtp_regiSzulido.TabIndex = 2;
+            dtp_regiSzulido.ValueChanged += KeresesiSzuroValtozott;
+            // 
             // lbl_regiszulido
             // 
+            lbl_regiszulido.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lbl_regiszulido.AutoSize = true;
             lbl_regiszulido.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            lbl_regiszulido.Location = new Point(568, 12);
+            lbl_regiszulido.Location = new Point(498, 0);
             lbl_regiszulido.Name = "lbl_regiszulido";
             lbl_regiszulido.Size = new Size(114, 25);
             lbl_regiszulido.TabIndex = 4;
             lbl_regiszulido.Text = "Születési idő:";
             // 
-            // dtp_regiSzulido
-            // 
-            dtp_regiSzulido.CalendarFont = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
-            dtp_regiSzulido.CalendarTitleBackColor = Color.DarkViolet;
-            dtp_regiSzulido.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            dtp_regiSzulido.Location = new Point(705, 12);
-            dtp_regiSzulido.Name = "dtp_regiSzulido";
-            dtp_regiSzulido.Size = new Size(219, 35);
-            dtp_regiSzulido.TabIndex = 2;
-            dtp_regiSzulido.ValueChanged += KeresesiSzuroValtozott;
-            // 
-            // kszm_regiokmanyszam
-            // 
-            kszm_regiokmanyszam.AlahuzottStilus = false;
-            kszm_regiokmanyszam.BackColor = SystemColors.Window;
-            kszm_regiokmanyszam.FokuszKeretSzin = Color.HotPink;
-            kszm_regiokmanyszam.Font = new Font("Microsoft Sans Serif", 10.8679247F);
-            kszm_regiokmanyszam.ForeColor = Color.FromArgb(64, 64, 64);
-            kszm_regiokmanyszam.HelyorzoSzin = Color.DarkGray;
-            kszm_regiokmanyszam.HelyorzoSzoveg = "Okmány szám";
-            kszm_regiokmanyszam.JelszoKarakter = false;
-            kszm_regiokmanyszam.KeretMeret = 2;
-            kszm_regiokmanyszam.KeretSugar = 8;
-            kszm_regiokmanyszam.KeretSzin = Color.MediumSlateBlue;
-            kszm_regiokmanyszam.Location = new Point(347, 8);
-            kszm_regiokmanyszam.Margin = new Padding(4, 3, 4, 3);
-            kszm_regiokmanyszam.Name = "kszm_regiokmanyszam";
-            kszm_regiokmanyszam.Padding = new Padding(9, 6, 9, 6);
-            kszm_regiokmanyszam.Size = new Size(199, 33);
-            kszm_regiokmanyszam.TabIndex = 1;
-            kszm_regiokmanyszam.Texts = "";
-            kszm_regiokmanyszam.TobbSor = false;
-            kszm_regiokmanyszam._SzovegValtoztatva += KeresesiSzuroValtozott;
-            // 
             // kszm_reginev
             // 
             kszm_reginev.AlahuzottStilus = false;
             kszm_reginev.BackColor = SystemColors.Window;
+            kszm_reginev.Dock = DockStyle.Top;
             kszm_reginev.FokuszKeretSzin = Color.HotPink;
             kszm_reginev.Font = new Font("Microsoft Sans Serif", 10.8679247F);
             kszm_reginev.ForeColor = Color.FromArgb(64, 64, 64);
@@ -681,21 +730,45 @@ namespace Projekt_feladat.Formok
             kszm_reginev.KeretMeret = 2;
             kszm_reginev.KeretSugar = 8;
             kszm_reginev.KeretSzin = Color.MediumSlateBlue;
-            kszm_reginev.Location = new Point(4, 8);
+            kszm_reginev.Location = new Point(4, 3);
             kszm_reginev.Margin = new Padding(4, 3, 4, 3);
             kszm_reginev.Name = "kszm_reginev";
             kszm_reginev.Padding = new Padding(9, 6, 9, 6);
-            kszm_reginev.Size = new Size(324, 33);
+            kszm_reginev.Size = new Size(241, 33);
             kszm_reginev.TabIndex = 0;
             kszm_reginev.Texts = "";
             kszm_reginev.TobbSor = false;
             kszm_reginev._SzovegValtoztatva += KeresesiSzuroValtozott;
             // 
+            // kszm_regiokmanyszam
+            // 
+            kszm_regiokmanyszam.AlahuzottStilus = false;
+            kszm_regiokmanyszam.BackColor = SystemColors.Window;
+            kszm_regiokmanyszam.Dock = DockStyle.Top;
+            kszm_regiokmanyszam.FokuszKeretSzin = Color.HotPink;
+            kszm_regiokmanyszam.Font = new Font("Microsoft Sans Serif", 10.8679247F);
+            kszm_regiokmanyszam.ForeColor = Color.FromArgb(64, 64, 64);
+            kszm_regiokmanyszam.HelyorzoSzin = Color.DarkGray;
+            kszm_regiokmanyszam.HelyorzoSzoveg = "Okmány szám";
+            kszm_regiokmanyszam.JelszoKarakter = false;
+            kszm_regiokmanyszam.KeretMeret = 2;
+            kszm_regiokmanyszam.KeretSugar = 8;
+            kszm_regiokmanyszam.KeretSzin = Color.MediumSlateBlue;
+            kszm_regiokmanyszam.Location = new Point(253, 3);
+            kszm_regiokmanyszam.Margin = new Padding(4, 3, 4, 3);
+            kszm_regiokmanyszam.Name = "kszm_regiokmanyszam";
+            kszm_regiokmanyszam.Padding = new Padding(9, 6, 9, 6);
+            kszm_regiokmanyszam.Size = new Size(175, 33);
+            kszm_regiokmanyszam.TabIndex = 1;
+            kszm_regiokmanyszam.Texts = "";
+            kszm_regiokmanyszam.TobbSor = false;
+            kszm_regiokmanyszam._SzovegValtoztatva += KeresesiSzuroValtozott;
+            // 
             // dgv_meglevoUtasok
             // 
             dgv_meglevoUtasok.AllowUserToAddRows = false;
             dgv_meglevoUtasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            dgv_meglevoUtasok.BackgroundColor = SystemColors.ControlLightLight;
+            dgv_meglevoUtasok.BackgroundColor = Color.WhiteSmoke;
             dgv_meglevoUtasok.BorderStyle = BorderStyle.None;
             dgv_meglevoUtasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dgv_meglevoUtasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -711,22 +784,24 @@ namespace Projekt_feladat.Formok
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.HotTrack;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.ForeColor = Color.Black;
             dataGridViewCellStyle2.Padding = new Padding(3);
             dataGridViewCellStyle2.SelectionBackColor = Color.BlueViolet;
             dataGridViewCellStyle2.SelectionForeColor = Color.BlueViolet;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgv_meglevoUtasok.DefaultCellStyle = dataGridViewCellStyle2;
+            dgv_meglevoUtasok.Dock = DockStyle.Fill;
             dgv_meglevoUtasok.EditMode = DataGridViewEditMode.EditOnEnter;
             dgv_meglevoUtasok.EnableHeadersVisualStyles = false;
-            dgv_meglevoUtasok.GridColor = SystemColors.InactiveBorder;
-            dgv_meglevoUtasok.Location = new Point(14, 91);
+            dgv_meglevoUtasok.GridColor = Color.WhiteSmoke;
+            dgv_meglevoUtasok.Location = new Point(0, 0);
+            dgv_meglevoUtasok.Margin = new Padding(3, 100, 3, 3);
             dgv_meglevoUtasok.MultiSelect = false;
             dgv_meglevoUtasok.Name = "dgv_meglevoUtasok";
             dgv_meglevoUtasok.ReadOnly = true;
             dgv_meglevoUtasok.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.BackColor = Color.WhiteSmoke;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
             dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = Color.BlueViolet;
@@ -734,12 +809,19 @@ namespace Projekt_feladat.Formok
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dgv_meglevoUtasok.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgv_meglevoUtasok.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dgv_meglevoUtasok.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            dgv_meglevoUtasok.RowTemplate.DefaultCellStyle.BackColor = Color.White;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = Color.BlueViolet;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgv_meglevoUtasok.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgv_meglevoUtasok.RowTemplate.DefaultCellStyle.BackColor = Color.WhiteSmoke;
             dgv_meglevoUtasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_meglevoUtasok.ShowEditingIcon = false;
             dgv_meglevoUtasok.ShowRowErrors = false;
-            dgv_meglevoUtasok.Size = new Size(818, 252);
+            dgv_meglevoUtasok.Size = new Size(799, 582);
             dgv_meglevoUtasok.TabIndex = 1;
             // 
             // pnl_eszkozok
@@ -749,11 +831,77 @@ namespace Projekt_feladat.Formok
             pnl_eszkozok.Controls.Add(rcb_desztinacio);
             pnl_eszkozok.Controls.Add(lb_utazasok);
             pnl_eszkozok.Controls.Add(kszm_utazasTorlese);
-            pnl_eszkozok.Dock = DockStyle.Top;
-            pnl_eszkozok.Location = new Point(0, 0);
+            pnl_eszkozok.Dock = DockStyle.Fill;
+            pnl_eszkozok.Location = new Point(9, 9);
             pnl_eszkozok.Name = "pnl_eszkozok";
-            pnl_eszkozok.Size = new Size(994, 189);
+            pnl_eszkozok.Size = new Size(799, 282);
             pnl_eszkozok.TabIndex = 21;
+            // 
+            // flp_rendezoPanel
+            // 
+            flp_rendezoPanel.AutoScroll = true;
+            flp_rendezoPanel.AutoSize = true;
+            flp_rendezoPanel.BackColor = Color.FromArgb(50, 70, 90);
+            flp_rendezoPanel.Controls.Add(pl_terkezelo);
+            flp_rendezoPanel.Controls.Add(szp_utazasNeve);
+            flp_rendezoPanel.Controls.Add(szp_utazasAdatok);
+            flp_rendezoPanel.Dock = DockStyle.Fill;
+            flp_rendezoPanel.FlowDirection = FlowDirection.TopDown;
+            flp_rendezoPanel.Location = new Point(0, 0);
+            flp_rendezoPanel.Margin = new Padding(0);
+            flp_rendezoPanel.Name = "flp_rendezoPanel";
+            flp_rendezoPanel.Size = new Size(994, 484);
+            flp_rendezoPanel.TabIndex = 22;
+            flp_rendezoPanel.WrapContents = false;
+            flp_rendezoPanel.Resize += flp_rendezoPanel_Resize;
+            // 
+            // pl_terkezelo
+            // 
+            pl_terkezelo.BackColor = Color.Transparent;
+            pl_terkezelo.Location = new Point(0, 0);
+            pl_terkezelo.Margin = new Padding(0);
+            pl_terkezelo.Name = "pl_terkezelo";
+            pl_terkezelo.Size = new Size(837, 12);
+            pl_terkezelo.TabIndex = 8;
+            // 
+            // szp_utazasNeve
+            // 
+            szp_utazasNeve.BackColor = Color.Transparent;
+            szp_utazasNeve.Controls.Add(pnl_eszkozok);
+            szp_utazasNeve.Dock = DockStyle.Fill;
+            szp_utazasNeve.ForeColor = Color.Black;
+            szp_utazasNeve.KeretSzin = Color.Black;
+            szp_utazasNeve.KeretVastagsag = 0F;
+            szp_utazasNeve.Location = new Point(10, 35);
+            szp_utazasNeve.Margin = new Padding(10, 23, 10, 34);
+            szp_utazasNeve.Name = "szp_utazasNeve";
+            szp_utazasNeve.Padding = new Padding(9);
+            szp_utazasNeve.SarkokLekerekitese = 20;
+            szp_utazasNeve.Size = new Size(817, 300);
+            szp_utazasNeve.SzinatmenetAlsoSzine = Color.WhiteSmoke;
+            szp_utazasNeve.SzinatmenetFelsoSzine = Color.WhiteSmoke;
+            szp_utazasNeve.SzinatmenetSzog = 90F;
+            szp_utazasNeve.TabIndex = 7;
+            // 
+            // szp_utazasAdatok
+            // 
+            szp_utazasAdatok.BackColor = Color.Transparent;
+            szp_utazasAdatok.Controls.Add(pnl_meglevoutasokhozAdas);
+            szp_utazasAdatok.Controls.Add(pnl_ujhozzaadas);
+            szp_utazasAdatok.Dock = DockStyle.Top;
+            szp_utazasAdatok.ForeColor = Color.Black;
+            szp_utazasAdatok.KeretSzin = Color.Black;
+            szp_utazasAdatok.KeretVastagsag = 0F;
+            szp_utazasAdatok.Location = new Point(10, 392);
+            szp_utazasAdatok.Margin = new Padding(10, 23, 10, 34);
+            szp_utazasAdatok.Name = "szp_utazasAdatok";
+            szp_utazasAdatok.Padding = new Padding(9);
+            szp_utazasAdatok.SarkokLekerekitese = 20;
+            szp_utazasAdatok.Size = new Size(817, 600);
+            szp_utazasAdatok.SzinatmenetAlsoSzine = Color.WhiteSmoke;
+            szp_utazasAdatok.SzinatmenetFelsoSzine = Color.WhiteSmoke;
+            szp_utazasAdatok.SzinatmenetSzog = 90F;
+            szp_utazasAdatok.TabIndex = 9;
             // 
             // frm_UtasokHozzaadasa
             // 
@@ -761,20 +909,25 @@ namespace Projekt_feladat.Formok
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(994, 536);
-            Controls.Add(pnl_meglevoutasokhozAdas);
-            Controls.Add(pnl_ujhozzaadas);
-            Controls.Add(pnl_eszkozok);
+            Controls.Add(flp_rendezoPanel);
             Controls.Add(pnl_vezerlopanel);
             Name = "frm_UtasokHozzaadasa";
             Text = "frm_UtasokHozzaadasa";
+            Load += frm_UtasokHozzaadasa_Load;
             Click += frm_UtasokHozzaadasa_Click;
+            Resize += frm_UtasokHozzaadasa_Resize;
             pnl_vezerlopanel.ResumeLayout(false);
             pnl_ujhozzaadas.ResumeLayout(false);
             pnl_ujhozzaadas.PerformLayout();
             pnl_meglevoutasokhozAdas.ResumeLayout(false);
-            pnl_meglevoutasokhozAdas.PerformLayout();
+            tlp_megleviFelhasznaloKereses.ResumeLayout(false);
+            tlp_megleviFelhasznaloKereses.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_meglevoUtasok).EndInit();
             pnl_eszkozok.ResumeLayout(false);
+            flp_rendezoPanel.ResumeLayout(false);
+            szp_utazasNeve.ResumeLayout(false);
+            szp_utazasAdatok.ResumeLayout(false);
+            szp_utazasAdatok.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -805,7 +958,7 @@ namespace Projekt_feladat.Formok
         private egyeni_vezerlok.KerekitettGomb kszm_utazasTorlese;
         private egyeni_vezerlok.KerekitettGomb kszm_mentes;
         private egyeni_vezerlok.KerekitettGomb kszm_ujRegiFelhasznalo;
-        private Panel pnl_ujhozzaadas;
+        private DoubleBufferedPanel pnl_ujhozzaadas;
         private Panel pnl_meglevoutasokhozAdas;
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_regiokmanyszam;
         private egyeni_vezerlok.kerekitettSzovegMezo kszm_reginev;
@@ -813,6 +966,12 @@ namespace Projekt_feladat.Formok
         private DateTimePicker dtp_regiSzulido;
         private Label label1;
         private egyeni_vezerlok.DoubleBufferedDataGridView dgv_meglevoUtasok;
-        private Panel pnl_eszkozok;
+        private DoubleBufferedPanel pnl_eszkozok;
+        private egyeni_vezerlok.kerekitettSzovegMezo kszm_allampolgarsag;
+        private FlowLayoutPanel flp_rendezoPanel;
+        private Panel pl_terkezelo;
+        private egyeni_vezerlok.SzinatmenetPanel szp_utazasNeve;
+        private egyeni_vezerlok.SzinatmenetPanel szp_utazasAdatok;
+        private DoubleBufferedTableLayoutPanel tlp_megleviFelhasznaloKereses;
     }
 }
