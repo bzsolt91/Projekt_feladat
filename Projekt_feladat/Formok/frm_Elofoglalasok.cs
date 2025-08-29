@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using MySqlConnector;
 using Projekt_feladat.egyeni_vezerlok;
@@ -16,14 +17,17 @@ namespace Projekt_feladat.Formok
             "127.0.0.1", "utazast_kezelo", "utazast_kezelo1234", "utazast_kezelo");
 
         int oldalMeret = 100;   // ÚJ: oldalankénti sorok száma
-
+        ToolTip? egyeniTooltip = new ToolTip();
         public frm_Elofoglalasok()
         {
             InitializeComponent();
             klm_foglalasiAllapot.Visible = false;
             pnl_vezerlopanel.Height = 70;
-
+            dgv_utasok.ShowCellToolTips = false;
             this.Load += Frm_Elofoglalasok_Load;
+            egyeniTooltip.OwnerDraw = true;
+            egyeniTooltip.Draw += EgyeniTooltip_Draw;
+            egyeniTooltip.Popup += EgyeniTooltip_Popup;
 
             // ÚJ: NumericUpDown esemény bekötése
             nud_oldalszam.ValueChanged += nud_oldalszam_ValueChanged;
@@ -194,7 +198,7 @@ namespace Projekt_feladat.Formok
                 dgv_utasok.DataSource = dt;
                 dgv_utasok.Columns["elofoglalas_id"].Visible = false;
             }
-           
+
             dgv_utasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
@@ -320,7 +324,7 @@ namespace Projekt_feladat.Formok
                 dgv_utasok.ReadOnly = true;
                 pnl_vezerlopanel.Height = 70;
                 szerkesztesAktiv = false;
-              
+
                 klm_foglalasiAllapot.Visible = false;
                 kszm_szerkesztes.HatterSzine = Color.MediumSlateBlue;
             }
@@ -331,7 +335,7 @@ namespace Projekt_feladat.Formok
                 pnl_vezerlopanel.Height += 70;
                 klm_foglalasiAllapot.Location = new Point(pnl_segedPanel.Location.X,
                                                          pnl_segedPanel.Location.Y + klm_foglalasiAllapot.Height + 10);
-               
+
                 kszm_szerkesztes.HatterSzine = Color.DarkGoldenrod;
                 klm_foglalasiAllapot.Visible = true;
             }
@@ -376,14 +380,14 @@ namespace Projekt_feladat.Formok
             if (barmiszuroaktiv)
             {
                 szuresAktiv = true;
-                kg_szures.ErtesitesSzam = szurokSzama;  
+                kg_szures.ErtesitesSzam = szurokSzama;
                 kg_szures.HatterSzine = Color.DarkGoldenrod;
                 lekerdezes();
             }
             else
             {
                 szuresAktiv = false;
-                kg_szures.ErtesitesSzam = 0;           
+                kg_szures.ErtesitesSzam = 0;
                 kg_szures.HatterSzine = Color.MediumSlateBlue;
                 AdatokBetoltese();
             }
@@ -407,7 +411,7 @@ namespace Projekt_feladat.Formok
                 return;
             }
 
-          
+
             DataRowView drv = dgv_utasok.CurrentRow.DataBoundItem as DataRowView;
             if (drv == null) return;
             var ujForm = new frm_UtasokHozzaadasa();
@@ -422,7 +426,48 @@ namespace Projekt_feladat.Formok
 
 
         }
-       
+        private void EgyeniTooltip_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            Font font = new Font("Segoe UI", 14);
+            using (LinearGradientBrush brush = new LinearGradientBrush(e.Bounds, Color.BlueViolet, Color.BlueViolet, 90f))
+            {
+                e.Graphics.FillRectangle(brush, e.Bounds);
+            }
+
+            e.Graphics.DrawRectangle(Pens.DarkViolet, new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1));
+            TextRenderer.DrawText(e.Graphics, e.ToolTipText, font, e.Bounds, Color.White, TextFormatFlags.WordBreak);
+        }
+
+        private void EgyeniTooltip_Popup(object sender, PopupEventArgs e)
+        {
+            Font font = new Font("Segoe UI", 18);
+
+            // Itt a 'sender' a ToolTip objektum, tehát le tudjuk kérni belőle a szöveget
+            ToolTip tooltip = (ToolTip)sender;
+            string szoveg = tooltip.GetToolTip(e.AssociatedControl);
+
+            Size meret = TextRenderer.MeasureText(szoveg, font, new Size(1000, 0), TextFormatFlags.WordBreak);
+            e.ToolTipSize = new Size(meret.Width + 10, meret.Height + 10);
+        }
+        private void dgv_utasok_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                var cella = dgv_utasok[e.ColumnIndex, e.RowIndex];
+                if (cella.Value != null)
+                {
+                    string szoveg = cella.Value.ToString();
+
+                    egyeniTooltip.OwnerDraw = true; // saját rajzolás engedélyezése
+
+
+                    Point kurzor = Cursor.Position;
+                    Point formPozicio = this.PointToClient(kurzor);
+
+                    egyeniTooltip.Show(szoveg, this, formPozicio.X + 10, formPozicio.Y + 20, 3000);
+                }
+            }
+        }
     }
 }
 

@@ -358,6 +358,7 @@ namespace Projekt_feladat
 
         private void frm_foForm_Load(object sender, EventArgs e)
         {
+
             var adatok = bejelentkezesSeged.Betoltes(); // betölti json fájlból a tárolt adatot
 
             if (adatok != null && adatok.MaradBejelentkezve)

@@ -64,8 +64,8 @@ namespace Projekt_feladat
             pnl_fomenu = new Panel();
             kg_segitseg = new KerekitettGomb();
             btn_elofoglalasok = new KerekitettGomb();
-            btn_biztonsagiMentes = new KerekitettGomb();
             btn_statisztika = new KerekitettGomb();
+            btn_biztonsagiMentes = new KerekitettGomb();
             pnl_UtasokAlmenu = new Panel();
             btn_utasokHozzadasa = new KerekitettGomb();
             btn_utasokMegtekintese = new KerekitettGomb();
@@ -122,6 +122,7 @@ namespace Projekt_feladat
             // kszm_regisztralas
             // 
             kszm_regisztralas.BackColor = Color.MediumSlateBlue;
+            kszm_regisztralas.BadgeMeret = 40;
             kszm_regisztralas.EgerTartasHatterSzine = Color.SlateBlue;
             kszm_regisztralas.ErtesitesMutatasa = false;
             kszm_regisztralas.ErtesitesSzam = 0;
@@ -179,6 +180,7 @@ namespace Projekt_feladat
             // kg_belepes
             // 
             kg_belepes.BackColor = Color.MediumSlateBlue;
+            kg_belepes.BadgeMeret = 40;
             kg_belepes.EgerTartasHatterSzine = Color.SlateBlue;
             kg_belepes.ErtesitesMutatasa = false;
             kg_belepes.ErtesitesSzam = 0;
@@ -332,6 +334,7 @@ namespace Projekt_feladat
             // kg_kilepes
             // 
             kg_kilepes.BackColor = Color.MediumSlateBlue;
+            kg_kilepes.BadgeMeret = 40;
             kg_kilepes.EgerTartasHatterSzine = Color.Crimson;
             kg_kilepes.ErtesitesMutatasa = false;
             kg_kilepes.ErtesitesSzam = 0;
@@ -382,6 +385,7 @@ namespace Projekt_feladat
             // 
             btn_minimalizalas.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_minimalizalas.BackColor = Color.Transparent;
+            btn_minimalizalas.BadgeMeret = 40;
             btn_minimalizalas.EgerTartasHatterSzine = Color.Yellow;
             btn_minimalizalas.ErtesitesMutatasa = false;
             btn_minimalizalas.ErtesitesSzam = 0;
@@ -408,6 +412,7 @@ namespace Projekt_feladat
             // 
             btn_ablakmeret_valto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_ablakmeret_valto.BackColor = Color.Transparent;
+            btn_ablakmeret_valto.BadgeMeret = 40;
             btn_ablakmeret_valto.EgerTartasHatterSzine = Color.Aqua;
             btn_ablakmeret_valto.ErtesitesMutatasa = false;
             btn_ablakmeret_valto.ErtesitesSzam = 0;
@@ -434,6 +439,7 @@ namespace Projekt_feladat
             // 
             btn_kilepes.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_kilepes.BackColor = Color.Transparent;
+            btn_kilepes.BadgeMeret = 40;
             btn_kilepes.EgerTartasHatterSzine = Color.Red;
             btn_kilepes.ErtesitesMutatasa = false;
             btn_kilepes.ErtesitesSzam = 0;
@@ -506,6 +512,7 @@ namespace Projekt_feladat
             // btn_utazasok
             // 
             btn_utazasok.BackColor = Color.FromArgb(243, 244, 246);
+            btn_utazasok.BadgeMeret = 40;
             btn_utazasok.Dock = DockStyle.Top;
             btn_utazasok.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
             btn_utazasok.ErtesitesMutatasa = false;
@@ -533,6 +540,7 @@ namespace Projekt_feladat
             // btn_ertesitesek
             // 
             btn_ertesitesek.BackColor = Color.FromArgb(243, 244, 246);
+            btn_ertesitesek.BadgeMeret = 40;
             btn_ertesitesek.Dock = DockStyle.Bottom;
             btn_ertesitesek.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
             btn_ertesitesek.ErtesitesMutatasa = true;
@@ -572,10 +580,10 @@ namespace Projekt_feladat
             // 
             pnl_fomenu.AutoScroll = true;
             pnl_fomenu.BackColor = Color.FromArgb(243, 244, 246);
+            pnl_fomenu.Controls.Add(btn_statisztika);
             pnl_fomenu.Controls.Add(kg_segitseg);
             pnl_fomenu.Controls.Add(btn_elofoglalasok);
             pnl_fomenu.Controls.Add(btn_biztonsagiMentes);
-            pnl_fomenu.Controls.Add(btn_statisztika);
             pnl_fomenu.Controls.Add(pnl_UtasokAlmenu);
             pnl_fomenu.Controls.Add(btn_utasok);
             pnl_fomenu.Controls.Add(pnl_UtazasokAlmenu);
@@ -592,6 +600,7 @@ namespace Projekt_feladat
             // kg_segitseg
             // 
             kg_segitseg.BackColor = Color.FromArgb(243, 244, 246);
+            kg_segitseg.BadgeMeret = 40;
             kg_segitseg.Dock = DockStyle.Bottom;
             kg_segitseg.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
             kg_segitseg.ErtesitesMutatasa = false;
@@ -619,6 +628,7 @@ namespace Projekt_feladat
             // btn_elofoglalasok
             // 
             btn_elofoglalasok.BackColor = Color.FromArgb(243, 244, 246);
+            btn_elofoglalasok.BadgeMeret = 40;
             btn_elofoglalasok.Dock = DockStyle.Top;
             btn_elofoglalasok.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
             btn_elofoglalasok.ErtesitesMutatasa = false;
@@ -643,37 +653,10 @@ namespace Projekt_feladat
             btn_elofoglalasok.UseVisualStyleBackColor = false;
             btn_elofoglalasok.Click += btn_elofoglalasok_Click;
             // 
-            // btn_biztonsagiMentes
-            // 
-            btn_biztonsagiMentes.BackColor = Color.FromArgb(243, 244, 246);
-            btn_biztonsagiMentes.Dock = DockStyle.Bottom;
-            btn_biztonsagiMentes.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
-            btn_biztonsagiMentes.ErtesitesMutatasa = false;
-            btn_biztonsagiMentes.ErtesitesSzam = 0;
-            btn_biztonsagiMentes.ErtesitesSzin = Color.Red;
-            btn_biztonsagiMentes.ErtesitesSzovegSzin = Color.White;
-            btn_biztonsagiMentes.FlatStyle = FlatStyle.Flat;
-            btn_biztonsagiMentes.Font = new Font("Sans Serif Collection", 10.18868F, FontStyle.Bold, GraphicsUnit.Point, 238);
-            btn_biztonsagiMentes.ForeColor = Color.FromArgb(55, 65, 81);
-            btn_biztonsagiMentes.HatterSzine = Color.FromArgb(243, 244, 246);
-            btn_biztonsagiMentes.KeretMeret = 0;
-            btn_biztonsagiMentes.KeretSzine = Color.PaleVioletRed;
-            btn_biztonsagiMentes.Location = new Point(0, 531);
-            btn_biztonsagiMentes.Name = "btn_biztonsagiMentes";
-            btn_biztonsagiMentes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            btn_biztonsagiMentes.SarokSugar = 10;
-            btn_biztonsagiMentes.Size = new Size(223, 57);
-            btn_biztonsagiMentes.SzovegSzine = Color.FromArgb(55, 65, 81);
-            btn_biztonsagiMentes.TabIndex = 16;
-            btn_biztonsagiMentes.Text = "💾 Biztonsági mentés";
-            btn_biztonsagiMentes.TextAlign = ContentAlignment.TopLeft;
-            btn_biztonsagiMentes.UseMnemonic = false;
-            btn_biztonsagiMentes.UseVisualStyleBackColor = false;
-            btn_biztonsagiMentes.Click += btn_biztonsagiMentes_Click;
-            // 
             // btn_statisztika
             // 
             btn_statisztika.BackColor = Color.FromArgb(243, 244, 246);
+            btn_statisztika.BadgeMeret = 40;
             btn_statisztika.Dock = DockStyle.Top;
             btn_statisztika.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
             btn_statisztika.ErtesitesMutatasa = false;
@@ -698,6 +681,35 @@ namespace Projekt_feladat
             btn_statisztika.UseVisualStyleBackColor = false;
             btn_statisztika.Click += btn_statisztika_Click;
             // 
+            // btn_biztonsagiMentes
+            // 
+            btn_biztonsagiMentes.BackColor = Color.FromArgb(243, 244, 246);
+            btn_biztonsagiMentes.BadgeMeret = 40;
+            btn_biztonsagiMentes.Dock = DockStyle.Bottom;
+            btn_biztonsagiMentes.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_biztonsagiMentes.ErtesitesMutatasa = false;
+            btn_biztonsagiMentes.ErtesitesSzam = 0;
+            btn_biztonsagiMentes.ErtesitesSzin = Color.Red;
+            btn_biztonsagiMentes.ErtesitesSzovegSzin = Color.White;
+            btn_biztonsagiMentes.FlatStyle = FlatStyle.Flat;
+            btn_biztonsagiMentes.Font = new Font("Sans Serif Collection", 12.2264156F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            btn_biztonsagiMentes.ForeColor = Color.FromArgb(55, 65, 81);
+            btn_biztonsagiMentes.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_biztonsagiMentes.KeretMeret = 0;
+            btn_biztonsagiMentes.KeretSzine = Color.PaleVioletRed;
+            btn_biztonsagiMentes.Location = new Point(0, 531);
+            btn_biztonsagiMentes.Name = "btn_biztonsagiMentes";
+            btn_biztonsagiMentes.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            btn_biztonsagiMentes.SarokSugar = 10;
+            btn_biztonsagiMentes.Size = new Size(223, 57);
+            btn_biztonsagiMentes.SzovegSzine = Color.FromArgb(55, 65, 81);
+            btn_biztonsagiMentes.TabIndex = 16;
+            btn_biztonsagiMentes.Text = "💾 Mentés";
+            btn_biztonsagiMentes.TextAlign = ContentAlignment.TopLeft;
+            btn_biztonsagiMentes.UseMnemonic = false;
+            btn_biztonsagiMentes.UseVisualStyleBackColor = false;
+            btn_biztonsagiMentes.Click += btn_biztonsagiMentes_Click;
+            // 
             // pnl_UtasokAlmenu
             // 
             pnl_UtasokAlmenu.BackColor = Color.FromArgb(209, 213, 219);
@@ -712,6 +724,7 @@ namespace Projekt_feladat
             // btn_utasokHozzadasa
             // 
             btn_utasokHozzadasa.BackColor = Color.FromArgb(209, 213, 219);
+            btn_utasokHozzadasa.BadgeMeret = 40;
             btn_utasokHozzadasa.Dock = DockStyle.Top;
             btn_utasokHozzadasa.EgerTartasHatterSzine = SystemColors.ButtonShadow;
             btn_utasokHozzadasa.ErtesitesMutatasa = false;
@@ -740,6 +753,7 @@ namespace Projekt_feladat
             // btn_utasokMegtekintese
             // 
             btn_utasokMegtekintese.BackColor = Color.FromArgb(209, 213, 219);
+            btn_utasokMegtekintese.BadgeMeret = 40;
             btn_utasokMegtekintese.Dock = DockStyle.Top;
             btn_utasokMegtekintese.EgerTartasHatterSzine = SystemColors.ButtonShadow;
             btn_utasokMegtekintese.ErtesitesMutatasa = false;
@@ -768,6 +782,7 @@ namespace Projekt_feladat
             // btn_utasok
             // 
             btn_utasok.BackColor = Color.FromArgb(243, 244, 246);
+            btn_utasok.BadgeMeret = 40;
             btn_utasok.Dock = DockStyle.Top;
             btn_utasok.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
             btn_utasok.ErtesitesMutatasa = false;
@@ -807,6 +822,7 @@ namespace Projekt_feladat
             // btn_utazasokHozzaadasa
             // 
             btn_utazasokHozzaadasa.BackColor = Color.FromArgb(209, 213, 219);
+            btn_utazasokHozzaadasa.BadgeMeret = 40;
             btn_utazasokHozzaadasa.Dock = DockStyle.Top;
             btn_utazasokHozzaadasa.EgerTartasHatterSzine = SystemColors.ButtonShadow;
             btn_utazasokHozzaadasa.ErtesitesMutatasa = false;
@@ -835,6 +851,7 @@ namespace Projekt_feladat
             // btn_utazasokmegtekintese
             // 
             btn_utazasokmegtekintese.BackColor = Color.FromArgb(209, 213, 219);
+            btn_utazasokmegtekintese.BadgeMeret = 40;
             btn_utazasokmegtekintese.Dock = DockStyle.Top;
             btn_utazasokmegtekintese.EgerTartasHatterSzine = SystemColors.ButtonShadow;
             btn_utazasokmegtekintese.ErtesitesMutatasa = false;

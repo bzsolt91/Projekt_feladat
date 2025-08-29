@@ -93,12 +93,12 @@
             szp_ertesitesek.ForeColor = Color.Black;
             szp_ertesitesek.KeretSzin = Color.Black;
             szp_ertesitesek.KeretVastagsag = 0F;
-            szp_ertesitesek.Location = new Point(20, 32);
-            szp_ertesitesek.Margin = new Padding(20, 20, 20, 40);
+            szp_ertesitesek.Location = new Point(40, 32);
+            szp_ertesitesek.Margin = new Padding(40, 20, 40, 40);
             szp_ertesitesek.Name = "szp_ertesitesek";
             szp_ertesitesek.Padding = new Padding(9);
             szp_ertesitesek.SarkokLekerekitese = 20;
-            szp_ertesitesek.Size = new Size(797, 50);
+            szp_ertesitesek.Size = new Size(757, 50);
             szp_ertesitesek.SzinatmenetAlsoSzine = Color.WhiteSmoke;
             szp_ertesitesek.SzinatmenetFelsoSzine = Color.WhiteSmoke;
             szp_ertesitesek.SzinatmenetSzog = 90F;
@@ -115,7 +115,7 @@
             tlp_ertesitesek.RowCount = 1;
             tlp_ertesitesek.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlp_ertesitesek.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tlp_ertesitesek.Size = new Size(779, 32);
+            tlp_ertesitesek.Size = new Size(739, 32);
             tlp_ertesitesek.TabIndex = 0;
             // 
             // blbl_ertesitesek
@@ -125,7 +125,7 @@
             blbl_ertesitesek.Font = new Font("Segoe UI", 16.3018875F, FontStyle.Regular, GraphicsUnit.Point, 238);
             blbl_ertesitesek.Location = new Point(3, 0);
             blbl_ertesitesek.Name = "blbl_ertesitesek";
-            blbl_ertesitesek.Size = new Size(773, 32);
+            blbl_ertesitesek.Size = new Size(733, 32);
             blbl_ertesitesek.TabIndex = 3;
             blbl_ertesitesek.Text = "Értesítések";
             blbl_ertesitesek.TextAlign = ContentAlignment.MiddleCenter;
@@ -139,12 +139,12 @@
             szp_okmanyLejaratok.ForeColor = Color.Black;
             szp_okmanyLejaratok.KeretSzin = Color.Black;
             szp_okmanyLejaratok.KeretVastagsag = 0F;
-            szp_okmanyLejaratok.Location = new Point(20, 145);
-            szp_okmanyLejaratok.Margin = new Padding(20, 23, 20, 34);
+            szp_okmanyLejaratok.Location = new Point(40, 145);
+            szp_okmanyLejaratok.Margin = new Padding(40, 23, 40, 34);
             szp_okmanyLejaratok.Name = "szp_okmanyLejaratok";
             szp_okmanyLejaratok.Padding = new Padding(9);
             szp_okmanyLejaratok.SarkokLekerekitese = 20;
-            szp_okmanyLejaratok.Size = new Size(797, 500);
+            szp_okmanyLejaratok.Size = new Size(757, 500);
             szp_okmanyLejaratok.SzinatmenetAlsoSzine = Color.WhiteSmoke;
             szp_okmanyLejaratok.SzinatmenetFelsoSzine = Color.WhiteSmoke;
             szp_okmanyLejaratok.SzinatmenetSzog = 90F;
@@ -200,8 +200,9 @@
             dgv_okmanyLejaratok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_okmanyLejaratok.ShowEditingIcon = false;
             dgv_okmanyLejaratok.ShowRowErrors = false;
-            dgv_okmanyLejaratok.Size = new Size(779, 450);
+            dgv_okmanyLejaratok.Size = new Size(739, 450);
             dgv_okmanyLejaratok.TabIndex = 9;
+            dgv_okmanyLejaratok.CellMouseEnter += dgv_okmanyLejaratok_CellMouseEnter;
             // 
             // btlp_okmanyLejaratok
             // 
@@ -215,7 +216,7 @@
             btlp_okmanyLejaratok.RowCount = 1;
             btlp_okmanyLejaratok.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             btlp_okmanyLejaratok.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            btlp_okmanyLejaratok.Size = new Size(779, 32);
+            btlp_okmanyLejaratok.Size = new Size(739, 32);
             btlp_okmanyLejaratok.TabIndex = 0;
             // 
             // blbl_okmanyLejaratok
@@ -240,12 +241,12 @@
             szp_elofoglalasok.ForeColor = Color.Black;
             szp_elofoglalasok.KeretSzin = Color.Black;
             szp_elofoglalasok.KeretVastagsag = 0F;
-            szp_elofoglalasok.Location = new Point(20, 702);
-            szp_elofoglalasok.Margin = new Padding(20, 23, 20, 34);
+            szp_elofoglalasok.Location = new Point(40, 702);
+            szp_elofoglalasok.Margin = new Padding(40, 23, 40, 34);
             szp_elofoglalasok.Name = "szp_elofoglalasok";
             szp_elofoglalasok.Padding = new Padding(9);
             szp_elofoglalasok.SarkokLekerekitese = 20;
-            szp_elofoglalasok.Size = new Size(797, 500);
+            szp_elofoglalasok.Size = new Size(757, 500);
             szp_elofoglalasok.SzinatmenetAlsoSzine = Color.WhiteSmoke;
             szp_elofoglalasok.SzinatmenetFelsoSzine = Color.WhiteSmoke;
             szp_elofoglalasok.SzinatmenetSzog = 90F;
@@ -301,8 +302,9 @@
             dgv_elofoglalasok.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_elofoglalasok.ShowEditingIcon = false;
             dgv_elofoglalasok.ShowRowErrors = false;
-            dgv_elofoglalasok.Size = new Size(779, 450);
+            dgv_elofoglalasok.Size = new Size(739, 450);
             dgv_elofoglalasok.TabIndex = 9;
+            dgv_elofoglalasok.CellMouseEnter += dgv_okmanyLejaratok_CellMouseEnter;
             // 
             // btlp_elofoglalasok
             // 
@@ -316,7 +318,7 @@
             btlp_elofoglalasok.RowCount = 1;
             btlp_elofoglalasok.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             btlp_elofoglalasok.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            btlp_elofoglalasok.Size = new Size(779, 32);
+            btlp_elofoglalasok.Size = new Size(739, 32);
             btlp_elofoglalasok.TabIndex = 1;
             // 
             // blbl_elofoglalasok

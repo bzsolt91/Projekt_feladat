@@ -837,9 +837,9 @@ namespace Projekt_feladat.Formok
 
             sorIndexAHolFolytatniKell = 0;
 
-            // Ha szeretnél PrintPreviewDialog-ot (ajánlott)
+            
             PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
-            printPreviewDialog.Document = pd_utasok; // Feltételezve, hogy a PrintDocument komponensed neve `pd_utasok`
+            printPreviewDialog.Document = pd_utasok; 
             printPreviewDialog.ShowDialog();
         }
 

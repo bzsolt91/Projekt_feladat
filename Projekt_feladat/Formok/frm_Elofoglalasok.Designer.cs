@@ -649,6 +649,7 @@
             dgv_utasok.ShowRowErrors = false;
             dgv_utasok.Size = new Size(1068, 404);
             dgv_utasok.TabIndex = 8;
+            dgv_utasok.CellMouseEnter += dgv_utasok_CellMouseEnter;
             // 
             // ev_fomenu
             // 

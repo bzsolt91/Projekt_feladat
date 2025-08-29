@@ -1,14 +1,20 @@
 ﻿
 using MySqlConnector;
-using System.Data; // Kell a MySQL connector
+using Projekt_feladat.egyeni_vezerlok;
+using System.Data;
+using System.Drawing.Drawing2D; // Kell a MySQL connector
 
 namespace Projekt_feladat.Formok
 {
     public partial class frm_ertesitesek : Form
     {
+        ToolTip? egyeniTooltip = new ToolTip();
         public frm_ertesitesek()
         {
             InitializeComponent();
+            egyeniTooltip.OwnerDraw = true;
+            egyeniTooltip.Draw += EgyeniTooltip_Draw;
+            egyeniTooltip.Popup += EgyeniTooltip_Popup;
         }
 
         private void ablakUjrarajzolas()
@@ -21,10 +27,16 @@ namespace Projekt_feladat.Formok
             // Kényszerítsd az FLP-t, hogy újraszámolja a belső területét
             flp_rendezoPanel.PerformLayout();
             flp_rendezoPanel.Invalidate();
+
         }
+
 
         private void frm_ertesitesek_Load(object sender, EventArgs e)
         {
+
+
+
+
             ablakUjrarajzolas();
 
             string kapcsolatString = String.Format(
@@ -73,7 +85,54 @@ namespace Projekt_feladat.Formok
 
         private void frm_ertesitesek_Resize(object sender, EventArgs e)
         {
+
             ablakUjrarajzolas();
+        }
+        private void EgyeniTooltip_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            Font font = new Font("Segoe UI", 14);
+            using (LinearGradientBrush brush = new LinearGradientBrush(e.Bounds, Color.BlueViolet, Color.BlueViolet, 90f))
+            {
+                e.Graphics.FillRectangle(brush, e.Bounds);
+            }
+
+            e.Graphics.DrawRectangle(Pens.DarkViolet, new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1));
+            TextRenderer.DrawText(e.Graphics, e.ToolTipText, font, e.Bounds, Color.White, TextFormatFlags.WordBreak);
+        }
+
+        private void EgyeniTooltip_Popup(object sender, PopupEventArgs e)
+        {
+            Font font = new Font("Segoe UI", 18);
+
+            // Itt a 'sender' a ToolTip objektum, tehát le tudjuk kérni belőle a szöveget
+            ToolTip tooltip = (ToolTip)sender;
+            string szoveg = tooltip.GetToolTip(e.AssociatedControl);
+
+            Size meret = TextRenderer.MeasureText(szoveg, font, new Size(1000, 0), TextFormatFlags.WordBreak);
+            e.ToolTipSize = new Size(meret.Width + 10, meret.Height + 10);
+        }
+
+        private void dgv_okmanyLejaratok_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                // A sender maga a DataGridView, nem a cella
+                var dgv = sender as DataGridView;
+                if (dgv == null) return;
+
+                var cella = dgv[e.ColumnIndex, e.RowIndex];
+                if (cella.Value != null)
+                {
+                    string szoveg = cella.Value.ToString();
+
+                    egyeniTooltip.OwnerDraw = true; // saját rajzolás engedélyezése
+
+                    Point kurzor = Cursor.Position;
+                    Point formPozicio = this.PointToClient(kurzor);
+
+                    egyeniTooltip.Show(szoveg, this, formPozicio.X + 10, formPozicio.Y + 20, 3000);
+                }
+            }
         }
     }
 }
