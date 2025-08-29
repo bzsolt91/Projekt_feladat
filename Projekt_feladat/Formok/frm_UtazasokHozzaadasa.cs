@@ -710,7 +710,7 @@ namespace Projekt_feladat.Formok
                                         clone.Save(sfd.FileName, format);
                                     }
 
-                                    boritoFajlnev = Path.GetFileName(sfd.FileName);
+                                    boritoFajlnev = "borito_kepek/" + Path.GetFileName(sfd.FileName);
                                     ujKepBetoltve = false;
                                 }
                                 catch (Exception ex)
@@ -957,13 +957,26 @@ namespace Projekt_feladat.Formok
         }
         public Image kepbetoltes(string imageName)
         {
-            // imageName pl. "utazas_kep_2025-08-29.jpg"
             string fullPath = Path.Combine(boritokepMappa, imageName);
+
             if (File.Exists(fullPath))
             {
-                return Image.FromFile(fullPath);
+                try
+                {
+                    // Beolvasás a memóriába egy MemoryStream segítségével
+                    using (var stream = new MemoryStream(File.ReadAllBytes(fullPath)))
+                    {
+                        // Image.FromStream használata, ami nem zárolja a fájlt
+                        return Image.FromStream(stream);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba a kép betöltése során: {ex.Message}", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
             }
-            return null; // Vagy egy alapértelmezett kép
+            return null;
         }
     }
 }
