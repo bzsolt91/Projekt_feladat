@@ -1027,7 +1027,6 @@
             // 
             // klm_utazasSzerkeszeseUtazasNeve
             // 
-            klm_utazasSzerkeszeseUtazasNeve.adatForras = null;
             klm_utazasSzerkeszeseUtazasNeve.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelFelsoSzin = Color.White;
@@ -1055,7 +1054,6 @@
             // 
             // klm_utazasSzerkeszeseDesztinacio
             // 
-            klm_utazasSzerkeszeseDesztinacio.adatForras = null;
             klm_utazasSzerkeszeseDesztinacio.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseDesztinacio.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseDesztinacio.CimPanelFelsoSzin = Color.White;
@@ -1083,7 +1081,6 @@
             // 
             // klm_utazasSzerkeszeseIdoszak
             // 
-            klm_utazasSzerkeszeseIdoszak.adatForras = null;
             klm_utazasSzerkeszeseIdoszak.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseIdoszak.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseIdoszak.CimPanelFelsoSzin = Color.White;
