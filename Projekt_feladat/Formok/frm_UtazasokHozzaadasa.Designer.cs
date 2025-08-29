@@ -80,6 +80,10 @@
             klm_utazasSzerkeszeseUtazasNeve = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             klm_utazasSzerkeszeseDesztinacio = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             klm_utazasSzerkeszeseIdoszak = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
+            szp_utazasNeveDesztinacioja = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
+            doubleBufferedTableLayoutPanel3 = new DoubleBufferedTableLayoutPanel();
+            kszm_utazasSzerkeszteseDesztinacio = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
+            kszm_utazasSzerekeszteseElnevezes = new Projekt_feladat.egyeni_vezerlok.kerekitettSzovegMezo();
             szpn_utazasSzerkeszeseUtazas = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
             doubleBufferedTableLayoutPanel4 = new DoubleBufferedTableLayoutPanel();
             doubleBufferedTableLayoutPanel5 = new DoubleBufferedTableLayoutPanel();
@@ -128,6 +132,8 @@
             ((System.ComponentModel.ISupportInitialize)pcb_borito).BeginInit();
             flp_utazasSzerkesztese.SuspendLayout();
             szp_utazasSzerkeszese.SuspendLayout();
+            szp_utazasNeveDesztinacioja.SuspendLayout();
+            doubleBufferedTableLayoutPanel3.SuspendLayout();
             szpn_utazasSzerkeszeseUtazas.SuspendLayout();
             doubleBufferedTableLayoutPanel4.SuspendLayout();
             doubleBufferedTableLayoutPanel5.SuspendLayout();
@@ -974,6 +980,7 @@
             flp_utazasSzerkesztese.BackColor = Color.FromArgb(50, 70, 90);
             flp_utazasSzerkesztese.Controls.Add(pnl_utazasokSzerkeszteseTerkoz);
             flp_utazasSzerkesztese.Controls.Add(szp_utazasSzerkeszese);
+            flp_utazasSzerkesztese.Controls.Add(szp_utazasNeveDesztinacioja);
             flp_utazasSzerkesztese.Controls.Add(szpn_utazasSzerkeszeseUtazas);
             flp_utazasSzerkesztese.Controls.Add(tlp_utazasSzerkeszeseLeiras);
             flp_utazasSzerkesztese.Controls.Add(szpn_utazasSzerkeszeseUtazasModja);
@@ -983,7 +990,7 @@
             flp_utazasSzerkesztese.Location = new Point(0, 0);
             flp_utazasSzerkesztese.Margin = new Padding(0);
             flp_utazasSzerkesztese.Name = "flp_utazasSzerkesztese";
-            flp_utazasSzerkesztese.Size = new Size(960, 703);
+            flp_utazasSzerkesztese.Size = new Size(960, 651);
             flp_utazasSzerkesztese.TabIndex = 21;
             flp_utazasSzerkesztese.WrapContents = false;
             flp_utazasSzerkesztese.Resize += flp_rendezoPanel_Resize;
@@ -1020,6 +1027,7 @@
             // 
             // klm_utazasSzerkeszeseUtazasNeve
             // 
+            klm_utazasSzerkeszeseUtazasNeve.adatForras = null;
             klm_utazasSzerkeszeseUtazasNeve.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelFelsoSzin = Color.White;
@@ -1047,6 +1055,7 @@
             // 
             // klm_utazasSzerkeszeseDesztinacio
             // 
+            klm_utazasSzerkeszeseDesztinacio.adatForras = null;
             klm_utazasSzerkeszeseDesztinacio.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseDesztinacio.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseDesztinacio.CimPanelFelsoSzin = Color.White;
@@ -1074,6 +1083,7 @@
             // 
             // klm_utazasSzerkeszeseIdoszak
             // 
+            klm_utazasSzerkeszeseIdoszak.adatForras = null;
             klm_utazasSzerkeszeseIdoszak.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseIdoszak.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseIdoszak.CimPanelFelsoSzin = Color.White;
@@ -1100,6 +1110,86 @@
             klm_utazasSzerkeszeseIdoszak.TitleLabelSzin = Color.Black;
             klm_utazasSzerkeszeseIdoszak.ElemKivalasztva += rcb_idoszak_ElemKivalasztva;
             // 
+            // szp_utazasNeveDesztinacioja
+            // 
+            szp_utazasNeveDesztinacioja.BackColor = Color.Transparent;
+            szp_utazasNeveDesztinacioja.Controls.Add(doubleBufferedTableLayoutPanel3);
+            szp_utazasNeveDesztinacioja.Dock = DockStyle.Fill;
+            szp_utazasNeveDesztinacioja.ForeColor = Color.Black;
+            szp_utazasNeveDesztinacioja.KeretSzin = Color.Black;
+            szp_utazasNeveDesztinacioja.KeretVastagsag = 0F;
+            szp_utazasNeveDesztinacioja.Location = new Point(60, 442);
+            szp_utazasNeveDesztinacioja.Margin = new Padding(60, 23, 60, 34);
+            szp_utazasNeveDesztinacioja.Name = "szp_utazasNeveDesztinacioja";
+            szp_utazasNeveDesztinacioja.Padding = new Padding(9);
+            szp_utazasNeveDesztinacioja.SarkokLekerekitese = 20;
+            szp_utazasNeveDesztinacioja.Size = new Size(717, 147);
+            szp_utazasNeveDesztinacioja.SzinatmenetAlsoSzine = Color.WhiteSmoke;
+            szp_utazasNeveDesztinacioja.SzinatmenetFelsoSzine = Color.WhiteSmoke;
+            szp_utazasNeveDesztinacioja.SzinatmenetSzog = 90F;
+            szp_utazasNeveDesztinacioja.TabIndex = 13;
+            // 
+            // doubleBufferedTableLayoutPanel3
+            // 
+            doubleBufferedTableLayoutPanel3.ColumnCount = 1;
+            doubleBufferedTableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            doubleBufferedTableLayoutPanel3.Controls.Add(kszm_utazasSzerkeszteseDesztinacio, 0, 0);
+            doubleBufferedTableLayoutPanel3.Controls.Add(kszm_utazasSzerekeszteseElnevezes, 0, 1);
+            doubleBufferedTableLayoutPanel3.Dock = DockStyle.Fill;
+            doubleBufferedTableLayoutPanel3.Location = new Point(9, 9);
+            doubleBufferedTableLayoutPanel3.Name = "doubleBufferedTableLayoutPanel3";
+            doubleBufferedTableLayoutPanel3.RowCount = 2;
+            doubleBufferedTableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            doubleBufferedTableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            doubleBufferedTableLayoutPanel3.Size = new Size(699, 129);
+            doubleBufferedTableLayoutPanel3.TabIndex = 0;
+            // 
+            // kszm_utazasSzerkeszteseDesztinacio
+            // 
+            kszm_utazasSzerkeszteseDesztinacio.AlahuzottStilus = false;
+            kszm_utazasSzerkeszteseDesztinacio.BackColor = SystemColors.Window;
+            kszm_utazasSzerkeszteseDesztinacio.Dock = DockStyle.Top;
+            kszm_utazasSzerkeszteseDesztinacio.FokuszKeretSzin = Color.HotPink;
+            kszm_utazasSzerkeszteseDesztinacio.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            kszm_utazasSzerkeszteseDesztinacio.ForeColor = Color.FromArgb(64, 64, 64);
+            kszm_utazasSzerkeszteseDesztinacio.HelyorzoSzin = Color.DarkGray;
+            kszm_utazasSzerkeszteseDesztinacio.HelyorzoSzoveg = "Densztináció";
+            kszm_utazasSzerkeszteseDesztinacio.JelszoKarakter = false;
+            kszm_utazasSzerkeszteseDesztinacio.KeretMeret = 2;
+            kszm_utazasSzerkeszteseDesztinacio.KeretSugar = 8;
+            kszm_utazasSzerkeszteseDesztinacio.KeretSzin = Color.MediumSlateBlue;
+            kszm_utazasSzerkeszteseDesztinacio.Location = new Point(24, 20);
+            kszm_utazasSzerkeszteseDesztinacio.Margin = new Padding(24, 20, 24, 20);
+            kszm_utazasSzerkeszteseDesztinacio.Name = "kszm_utazasSzerkeszteseDesztinacio";
+            kszm_utazasSzerkeszteseDesztinacio.Padding = new Padding(9, 6, 9, 6);
+            kszm_utazasSzerkeszteseDesztinacio.Size = new Size(651, 38);
+            kszm_utazasSzerkeszteseDesztinacio.TabIndex = 0;
+            kszm_utazasSzerkeszteseDesztinacio.Texts = "";
+            kszm_utazasSzerkeszteseDesztinacio.TobbSor = false;
+            // 
+            // kszm_utazasSzerekeszteseElnevezes
+            // 
+            kszm_utazasSzerekeszteseElnevezes.AlahuzottStilus = false;
+            kszm_utazasSzerekeszteseElnevezes.BackColor = SystemColors.Window;
+            kszm_utazasSzerekeszteseElnevezes.Dock = DockStyle.Top;
+            kszm_utazasSzerekeszteseElnevezes.FokuszKeretSzin = Color.HotPink;
+            kszm_utazasSzerekeszteseElnevezes.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            kszm_utazasSzerekeszteseElnevezes.ForeColor = Color.FromArgb(64, 64, 64);
+            kszm_utazasSzerekeszteseElnevezes.HelyorzoSzin = Color.DarkGray;
+            kszm_utazasSzerekeszteseElnevezes.HelyorzoSzoveg = "Utazás Elnevezése";
+            kszm_utazasSzerekeszteseElnevezes.JelszoKarakter = false;
+            kszm_utazasSzerekeszteseElnevezes.KeretMeret = 2;
+            kszm_utazasSzerekeszteseElnevezes.KeretSugar = 8;
+            kszm_utazasSzerekeszteseElnevezes.KeretSzin = Color.MediumSlateBlue;
+            kszm_utazasSzerekeszteseElnevezes.Location = new Point(24, 84);
+            kszm_utazasSzerekeszteseElnevezes.Margin = new Padding(24, 20, 24, 50);
+            kszm_utazasSzerekeszteseElnevezes.Name = "kszm_utazasSzerekeszteseElnevezes";
+            kszm_utazasSzerekeszteseElnevezes.Padding = new Padding(9, 6, 9, 6);
+            kszm_utazasSzerekeszteseElnevezes.Size = new Size(651, 38);
+            kszm_utazasSzerekeszteseElnevezes.TabIndex = 1;
+            kszm_utazasSzerekeszteseElnevezes.Texts = "";
+            kszm_utazasSzerekeszteseElnevezes.TobbSor = false;
+            // 
             // szpn_utazasSzerkeszeseUtazas
             // 
             szpn_utazasSzerkeszeseUtazas.BackColor = Color.Transparent;
@@ -1108,7 +1198,7 @@
             szpn_utazasSzerkeszeseUtazas.ForeColor = Color.Black;
             szpn_utazasSzerkeszeseUtazas.KeretSzin = Color.Black;
             szpn_utazasSzerkeszeseUtazas.KeretVastagsag = 0F;
-            szpn_utazasSzerkeszeseUtazas.Location = new Point(60, 442);
+            szpn_utazasSzerkeszeseUtazas.Location = new Point(60, 646);
             szpn_utazasSzerkeszeseUtazas.Margin = new Padding(60, 23, 60, 34);
             szpn_utazasSzerkeszeseUtazas.Name = "szpn_utazasSzerkeszeseUtazas";
             szpn_utazasSzerkeszeseUtazas.Padding = new Padding(9);
@@ -1326,7 +1416,7 @@
             tlp_utazasSzerkeszeseLeiras.ForeColor = Color.Black;
             tlp_utazasSzerkeszeseLeiras.KeretSzin = Color.Black;
             tlp_utazasSzerkeszeseLeiras.KeretVastagsag = 0F;
-            tlp_utazasSzerkeszeseLeiras.Location = new Point(60, 716);
+            tlp_utazasSzerkeszeseLeiras.Location = new Point(60, 920);
             tlp_utazasSzerkeszeseLeiras.Margin = new Padding(60, 23, 60, 34);
             tlp_utazasSzerkeszeseLeiras.Name = "tlp_utazasSzerkeszeseLeiras";
             tlp_utazasSzerkeszeseLeiras.Padding = new Padding(9);
@@ -1395,7 +1485,7 @@
             szpn_utazasSzerkeszeseUtazasModja.ForeColor = Color.Black;
             szpn_utazasSzerkeszeseUtazasModja.KeretSzin = Color.Black;
             szpn_utazasSzerkeszeseUtazasModja.KeretVastagsag = 0F;
-            szpn_utazasSzerkeszeseUtazasModja.Location = new Point(60, 920);
+            szpn_utazasSzerkeszeseUtazasModja.Location = new Point(60, 1124);
             szpn_utazasSzerkeszeseUtazasModja.Margin = new Padding(60, 23, 60, 34);
             szpn_utazasSzerkeszeseUtazasModja.Name = "szpn_utazasSzerkeszeseUtazasModja";
             szpn_utazasSzerkeszeseUtazasModja.Padding = new Padding(9);
@@ -1476,7 +1566,7 @@
             szp_utazasSzerkeszeseBorito.ForeColor = Color.Black;
             szp_utazasSzerkeszeseBorito.KeretSzin = Color.Black;
             szp_utazasSzerkeszeseBorito.KeretVastagsag = 0F;
-            szp_utazasSzerkeszeseBorito.Location = new Point(60, 1223);
+            szp_utazasSzerkeszeseBorito.Location = new Point(60, 1427);
             szp_utazasSzerkeszeseBorito.Margin = new Padding(60, 23, 60, 34);
             szp_utazasSzerkeszeseBorito.Name = "szp_utazasSzerkeszeseBorito";
             szp_utazasSzerkeszeseBorito.Padding = new Padding(9);
@@ -1553,9 +1643,9 @@
             Controls.Add(kszm_hozzaadas);
             Controls.Add(kszm_mentes);
             Controls.Add(flp_rendezoPanel);
+            Controls.Add(flp_utazasSzerkesztese);
             Controls.Add(pnl_vezerlopanel);
             Controls.Add(pnl_torles);
-            Controls.Add(flp_utazasSzerkesztese);
             Margin = new Padding(3, 2, 3, 2);
             Name = "frm_UtazasokHozzaadasa";
             Text = "frm_UtazasokHozzaadasa";
@@ -1588,6 +1678,8 @@
             ((System.ComponentModel.ISupportInitialize)pcb_borito).EndInit();
             flp_utazasSzerkesztese.ResumeLayout(false);
             szp_utazasSzerkeszese.ResumeLayout(false);
+            szp_utazasNeveDesztinacioja.ResumeLayout(false);
+            doubleBufferedTableLayoutPanel3.ResumeLayout(false);
             szpn_utazasSzerkeszeseUtazas.ResumeLayout(false);
             doubleBufferedTableLayoutPanel4.ResumeLayout(false);
             doubleBufferedTableLayoutPanel5.ResumeLayout(false);
@@ -1688,5 +1780,9 @@
         private DoubleBufferedTableLayoutPanel tlp_utazasSzerkeszeseBorito;
         private PictureBox pb_utazasSzerkeszeseBorito;
         private egyeni_vezerlok.KerekitettGomb kg_utazasSzerkeszeseBorito;
+        private egyeni_vezerlok.SzinatmenetPanel szp_utazasNeveDesztinacioja;
+        private DoubleBufferedTableLayoutPanel doubleBufferedTableLayoutPanel3;
+        private egyeni_vezerlok.kerekitettSzovegMezo kszm_utazasSzerkeszteseDesztinacio;
+        private egyeni_vezerlok.kerekitettSzovegMezo kszm_utazasSzerekeszteseElnevezes;
     }
 }

@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu;
@@ -19,6 +21,9 @@ namespace Projekt_feladat.Formok
         string? utazasDesztinacio = null;
         string? utazasIdoszak = null;
         string? utazasNeve = null;
+        private string regiBoritoFajlnev = "";
+        private bool ujKepBetoltve = false;
+        private string boritokepMappa="";
         public frm_UtazasokHozzaadasa()
         {
             InitializeComponent();
@@ -90,9 +95,16 @@ namespace Projekt_feladat.Formok
                     int ar = int.TryParse(kszm_ar.Texts, out int tempAr) ? tempAr : 0;
                     string helyszin = kszm_indulasiHely.Texts;
                     string boritoFajlnev = "";
-                    if (pcb_borito.Image != null && !string.IsNullOrEmpty(pcb_borito.Tag as string))
+                    if (pcb_borito.Image != null)
                     {
-                        boritoFajlnev = Path.GetFileName(pcb_borito.Tag.ToString());
+                        string fajlnev = BoritoKepMentese(pcb_borito.Image, kszm_utazasElnevezese.Texts);
+                        if (string.IsNullOrEmpty(fajlnev))
+                        {
+                            MessageBox.Show("A borítókép mentése megszakítva, az utazás hozzáadása nem történt meg.",
+                                            "Mentés megszakítva", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        boritoFajlnev = fajlnev;
                     }
 
 
@@ -535,7 +547,7 @@ namespace Projekt_feladat.Formok
                         // Kép betöltése a PictureBox-ba
                         pcb_borito.Image = Image.FromFile(ofd.FileName);
                         pcb_borito.SizeMode = PictureBoxSizeMode.Zoom;
-
+                        ujKepBetoltve = true;
                         // Elérési út eltárolása a Tag-ben
                         pcb_borito.Tag = ofd.FileName;
                     }
@@ -558,6 +570,7 @@ namespace Projekt_feladat.Formok
 
             try
             {
+                boritokepBeolvasas();
                 using (var kapcsolat = new MySqlConnection(kapcsolatString))
                 {
                     kapcsolat.Open();
@@ -586,13 +599,27 @@ namespace Projekt_feladat.Formok
                                 dtp_utazasSzerkeszeseVisszaindulas.Value = reader.GetDateTime("visszaindulas_datum");
                                 kszm_utazasSzerkeszeseIndulasHelye.Texts = reader.GetString("indulasi_helyszin");
                                 kszm_utazasSzerkeszeseAr.Texts = reader.GetInt32("ar").ToString();
+                                kszm_utazasSzerekeszteseElnevezes.Texts = utazasNeve;
+                                kszm_utazasSzerkeszteseDesztinacio.Texts = utazasDesztinacio;
                                 kszm_utazasSzerkeszeseLeiras.Texts = reader.GetString("leiras");
+                                regiBoritoFajlnev = reader.GetString("boritokep");  // pl. az adatbázisból
 
-                                string kep = reader.IsDBNull("boritokep") ? "" : reader.GetString("boritokep");
-                                if (!string.IsNullOrEmpty(kep) && File.Exists(Path.Combine("boritokepek", kep)))
+                                string kepAdatbazisbol = reader.GetString("boritokep"); // pl. "borito_kepek/kep.jpg"
+
+                                // Trim "borito_kepek/" előtagot, ha van
+                                string kepFajlnev = kepAdatbazisbol;
+                                if (!string.IsNullOrEmpty(kepAdatbazisbol))
                                 {
-                                    pb_utazasSzerkeszeseBorito.Image = Image.FromFile(Path.Combine("boritokepek", kep));
-                                    pb_utazasSzerkeszeseBorito.Tag = Path.Combine("boritokepek", kep);
+                                    string prefix = "borito_kepek/";
+                                    if (kepAdatbazisbol.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                                        kepFajlnev = kepAdatbazisbol.Substring(prefix.Length);
+                                }
+
+                                // Most már csak a fájlnevet adjuk a kepbetoltesnek
+                                if (!string.IsNullOrEmpty(kepFajlnev))
+                                {
+                                    pb_utazasSzerkeszeseBorito.Image = kepbetoltes(kepFajlnev);
+                                    pb_utazasSzerkeszeseBorito.Tag = Path.Combine(boritokepMappa, kepFajlnev);
                                 }
                                 else
                                 {
@@ -646,10 +673,58 @@ namespace Projekt_feladat.Formok
                 {
                     kapcsolat.Open();
 
-                    string boritoFajlnev = "";
-                    if (pb_utazasSzerkeszeseBorito.Image != null && !string.IsNullOrEmpty(pb_utazasSzerkeszeseBorito.Tag as string))
+                    string boritoFajlnev = regiBoritoFajlnev;
+
+                    // Csak ha új kép van
+                    if (ujKepBetoltve && pb_utazasSzerkeszeseBorito.Image != null)
                     {
-                        boritoFajlnev = Path.GetFileName(pb_utazasSzerkeszeseBorito.Tag.ToString());
+                        using (SaveFileDialog sfd = new SaveFileDialog())
+                        {
+                            sfd.Title = "Borítókép mentése";
+                            sfd.Filter = "JPEG kép (*.jpg)|*.jpg|PNG kép (*.png)|*.png";
+                            sfd.InitialDirectory = boritokepMappa;
+                            // Készítsünk biztonságos fájlnevet az utazás nevéből
+                            string safeNev = string.Join("_", utazasNeve.Split(Path.GetInvalidFileNameChars()));
+                            string fajlnev = $"{safeNev}_{DateTime.Now:yyyy-MM-dd}.jpg";
+                            sfd.FileName = Path.GetFileName(fajlnev);
+
+                            if (sfd.ShowDialog() == DialogResult.OK)
+                            {
+                                try
+                                {
+                                    // Klónozd a képet, ami a GDI+ hibát megoldja
+                                    using (var clone = new Bitmap(pb_utazasSzerkeszeseBorito.Image))
+                                    {
+                                        // Felszabadítjuk a PictureBox képét, hogy a fájl ne legyen zárolva
+                                        pb_utazasSzerkeszeseBorito.Image.Dispose();
+                                        pb_utazasSzerkeszeseBorito.Image = null;
+
+                                        // Mentés az új helyre
+                                        string ext = Path.GetExtension(sfd.FileName).ToLower();
+                                        ImageFormat format = ImageFormat.Jpeg;
+                                        if (ext == ".png")
+                                        {
+                                            format = ImageFormat.Png;
+                                        }
+
+                                        clone.Save(sfd.FileName, format);
+                                    }
+
+                                    boritoFajlnev = Path.GetFileName(sfd.FileName);
+                                    ujKepBetoltve = false;
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Hiba a kép mentése során: " + ex.Message, "Mentési hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("A kép mentése megszakítva.", "Mentés megszakítva", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
                     }
 
                     string sql = @"
@@ -657,19 +732,26 @@ namespace Projekt_feladat.Formok
                 JOIN utazas_reszletek r ON u.utazas_id = r.utazas_id
                 SET 
                     u.utazas_modja = @mod,
+                    u.utazas_elnevezese =@nev,
+                    u.desztinacio = @deszt,
+                    u.utazas_ideje = @utazasideje,
                     r.indulasi_datum = @indulas,
                     r.visszaindulas_datum = @vissza,
                     r.indulasi_helyszin = @helyszin,
                     r.ar = @ar,
                     r.leiras = @leiras,
                     r.boritokep = @kep
+                    
                 WHERE u.desztinacio = @desztinacio
                   AND u.utazas_ideje = @ido
                   AND u.utazas_elnevezese = @elnevezes";
 
                     using (var cmd = new MySqlCommand(sql, kapcsolat))
                     {
+                        cmd.Parameters.AddWithValue("@deszt", kszm_utazasSzerkeszteseDesztinacio.Texts);
+                        cmd.Parameters.AddWithValue("@nev", kszm_utazasSzerekeszteseElnevezes.Texts);
                         cmd.Parameters.AddWithValue("@mod", klm_utazasSzerkeszeseUtazasModja.ComboText);
+                        cmd.Parameters.AddWithValue("@utazasideje", dtp_utazasSzerkeszeseUtazásIdeje.Value.Date);
                         cmd.Parameters.AddWithValue("@indulas", dtp_utazasSzerkeszeseUtazásIdeje.Value.Date);
                         cmd.Parameters.AddWithValue("@vissza", dtp_utazasSzerkeszeseVisszaindulas.Value.Date);
                         cmd.Parameters.AddWithValue("@helyszin", kszm_utazasSzerkeszeseIndulasHelye.Texts);
@@ -683,24 +765,24 @@ namespace Projekt_feladat.Formok
                         int siker = cmd.ExecuteNonQuery();
                         if (siker > 0)
                         {
-
-                            MessageBox.Show("Az utazás sikeresen frissítve lett!", "Siker");
+                            MessageBox.Show("Az utazás sikeresen frissítve lett!", "Siker", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             UrllapReset();
-
                         }
                         else
                         {
-                            MessageBox.Show("Nem történt módosítás. Ellenőrizze az adatokat.", "Figyelmeztetés");
+                            MessageBox.Show("Nem történt módosítás. Ellenőrizze az adatokat.", "Figyelmeztetés", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hiba történt a mentés során: " + ex.Message);
+                MessageBox.Show("Hiba történt a mentés során: " + ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
         private void UrllapReset()
         {
             // Reset flag-ek
@@ -744,6 +826,49 @@ namespace Projekt_feladat.Formok
             // Frissítjük a desztinációkat
             utazasok_betoltes();
         }
+        private string BoritoKepMentese(Image image, string utazasNev)
+        {
+            string safeNev = string.Join("_", utazasNev.Split(Path.GetInvalidFileNameChars()));
+            string alapNev = $"{safeNev}_{DateTime.Now:yyyy-MM-dd}";
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Title = "Borítókép mentése";
+                sfd.Filter = "JPEG kép (*.jpg)|*.jpg|PNG kép (*.png)|*.png";
+                sfd.OverwritePrompt = true;
+                sfd.FileName = alapNev + ".jpg";
+                sfd.InitialDirectory = Path.Combine(Application.StartupPath, "borito_kepek");
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string ext = Path.GetExtension(sfd.FileName).ToLower();
+                        if (ext == ".jpg" || ext == ".jpeg")
+                            image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        else if (ext == ".png")
+                            image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                        else
+                            throw new Exception("Nem támogatott fájltípus.");
+
+                        // A módosítás itt van: csak a fájlnevet fűzzük a relatív útvonalhoz.
+                        string relPath = "borito_kepek/" + Path.GetFileName(sfd.FileName);
+                        return relPath;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Nem sikerült elmenteni a képet: " + ex.Message,
+                                        "Mentési hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
 
         private void kg_utazasSzerkeszeseBorito_Click(object sender, EventArgs e)
         {
@@ -760,7 +885,7 @@ namespace Projekt_feladat.Formok
                         // Kép betöltése a PictureBox-ba
                         pb_utazasSzerkeszeseBorito.Image = Image.FromFile(ofd.FileName);
                         pb_utazasSzerkeszeseBorito.SizeMode = PictureBoxSizeMode.Zoom;
-
+                        ujKepBetoltve = true;
                         // Elérési út eltárolása a Tag-ben (hogy az UPDATE során tudjuk, melyik fájl lett kiválasztva)
                         pb_utazasSzerkeszeseBorito.Tag = ofd.FileName;
                     }
@@ -771,6 +896,74 @@ namespace Projekt_feladat.Formok
                     }
                 }
             }
+        }
+
+        private void boritokepBeallitas()
+        {
+            using (var folderDialog = new FolderBrowserDialog())
+            {
+                folderDialog.Description = "Kérem válassza ki a borítóképek mappáját.";
+                if (folderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedPath = folderDialog.SelectedPath;
+
+                    // Létrehoz egy anonim objektumot a beállításoknak
+                    var settings = new { CoverImageDirectory = selectedPath };
+
+                    // Konvertálja az objektumot JSON stringgé
+                    string jsonString = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+
+                    // Beírja a stringet a fájlba. Ha a fájl nem létezik, létrehozza.
+                    File.WriteAllText("Settings.json", jsonString);
+
+                    MessageBox.Show("A borítóképek mappa sikeresen rögzítve!", "Rögzítés sikeres", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+        private void boritokepBeolvasas()
+        {
+
+            string settingsFilePath = "Settings.json";
+
+            if (File.Exists(settingsFilePath))
+            {
+                try
+                {
+                    string jsonString = File.ReadAllText(settingsFilePath);
+                    var settings = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonString);
+
+                    if (settings.ContainsKey("CoverImageDirectory") && !string.IsNullOrEmpty(settings["CoverImageDirectory"]))
+                    {
+                        boritokepMappa = settings["CoverImageDirectory"];
+                    }
+                    else
+                    {
+                        // Ha a fájl létezik, de az útvonal üres
+                        boritokepBeallitas();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba a beállítások betöltésekor: {ex.Message}", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    boritokepBeallitas();
+                }
+            }
+            else
+            {
+                // Ha a fájl nem létezik, futtassa a beállító metódust
+                boritokepBeallitas();
+            }
+
+        }
+        public Image kepbetoltes(string imageName)
+        {
+            // imageName pl. "utazas_kep_2025-08-29.jpg"
+            string fullPath = Path.Combine(boritokepMappa, imageName);
+            if (File.Exists(fullPath))
+            {
+                return Image.FromFile(fullPath);
+            }
+            return null; // Vagy egy alapértelmezett kép
         }
     }
 }

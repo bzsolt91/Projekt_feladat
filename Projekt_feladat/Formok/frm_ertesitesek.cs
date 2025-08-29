@@ -30,7 +30,17 @@ namespace Projekt_feladat.Formok
 
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (egyeniTooltip != null)
+            {
+                egyeniTooltip.RemoveAll();  // Az összes tooltip eltávolítása
+                egyeniTooltip.Dispose();    // Tooltip tényleges felszabadítása
+                egyeniTooltip = null;
+            }
 
+            base.OnFormClosing(e);
+        }
         private void frm_ertesitesek_Load(object sender, EventArgs e)
         {
 

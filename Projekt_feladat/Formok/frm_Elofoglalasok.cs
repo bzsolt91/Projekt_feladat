@@ -32,6 +32,17 @@ namespace Projekt_feladat.Formok
             // ÚJ: NumericUpDown esemény bekötése
             nud_oldalszam.ValueChanged += nud_oldalszam_ValueChanged;
         }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (egyeniTooltip != null)
+            {
+                egyeniTooltip.RemoveAll();  // Az összes tooltip eltávolítása
+                egyeniTooltip.Dispose();    // Tooltip tényleges felszabadítása
+                egyeniTooltip = null;
+            }
+
+            base.OnFormClosing(e);
+        }
         public frm_foForm FoForm { get; set; }
 
         private void Frm_Elofoglalasok_Load(object sender, EventArgs e)
