@@ -372,7 +372,18 @@ namespace Projekt_feladat.Formok
                     series.Name = item.Item1;
                     series.DataLabelsPosition = PolarLabelsPosition.Start;
                     series.DataLabelsFormatter =
-                        point => $"{point.Coordinate.PrimaryValue:N1}% {point.Context.Series.Name}";
+                        point =>
+                        {
+                            var value = Math.Round(point.Coordinate.PrimaryValue, 1); 
+                            return $"{value}% {point.Context.Series.Name}";
+                        };
+                    series.ToolTipLabelFormatter = point =>
+                    {
+                        var modeName = point.Context.Series.Name;
+                        var pv = point.Coordinate.PrimaryValue;
+                        var sv = point.StackedValue!;
+                        return $" {pv:N0} fő";
+                    };
                     series.InnerRadius = 20;
                     series.RelativeOuterRadius = 1;
                     series.RelativeInnerRadius = 1;
@@ -459,6 +470,7 @@ namespace Projekt_feladat.Formok
                 TextAlign = ContentAlignment.MiddleCenter,
                 AutoSize = true,
                 Height = 30,
+              
                 Location = new Point(1, 1),
                 ForeColor = Color.Black,
                 BackColor = Color.Transparent
@@ -466,7 +478,7 @@ namespace Projekt_feladat.Formok
 
         
             List<ISeries> seriesCollection = new();
-    int outerOffset = 0;
+    int outerOffset = 20;
     Random random = new();
 
     foreach (var (modNev, darab) in travelModeData)
@@ -492,7 +504,7 @@ namespace Projekt_feladat.Formok
                 var modeName = point.Context.Series.Name;
                 var pv = point.Coordinate.PrimaryValue;
                 var sv = point.StackedValue!;
-                return $" {pv} fő ({sv.Share:P2})";
+                return $" {pv:N0} fő ({sv.Share:P1})";
             },
             Fill = new SolidColorPaint(GetRandomColor())
         };

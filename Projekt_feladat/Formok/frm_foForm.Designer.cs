@@ -33,6 +33,7 @@ namespace Projekt_feladat
             components = new System.ComponentModel.Container();
             ellipszisVezerlo ev_bejelentkezes;
             ellipszisVezerlo ev_bejelentkezve;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_foForm));
             pnl_bejelentkezes = new Panel();
             label3 = new Label();
             kszm_regisztralas = new KerekitettGomb();
@@ -62,9 +63,9 @@ namespace Projekt_feladat
             btn_ertesitesek = new KerekitettGomb();
             lbl_disz2 = new Label();
             pnl_fomenu = new Panel();
+            btn_statisztika = new KerekitettGomb();
             kg_segitseg = new KerekitettGomb();
             btn_elofoglalasok = new KerekitettGomb();
-            btn_statisztika = new KerekitettGomb();
             btn_biztonsagiMentes = new KerekitettGomb();
             pnl_UtasokAlmenu = new Panel();
             btn_utasokHozzadasa = new KerekitettGomb();
@@ -597,6 +598,34 @@ namespace Projekt_feladat
             pnl_fomenu.Size = new Size(242, 592);
             pnl_fomenu.TabIndex = 1;
             // 
+            // btn_statisztika
+            // 
+            btn_statisztika.BackColor = Color.FromArgb(243, 244, 246);
+            btn_statisztika.BadgeMeret = 40;
+            btn_statisztika.Dock = DockStyle.Top;
+            btn_statisztika.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
+            btn_statisztika.ErtesitesMutatasa = false;
+            btn_statisztika.ErtesitesSzam = 0;
+            btn_statisztika.ErtesitesSzin = Color.Red;
+            btn_statisztika.ErtesitesSzovegSzin = Color.White;
+            btn_statisztika.FlatStyle = FlatStyle.Flat;
+            btn_statisztika.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
+            btn_statisztika.ForeColor = Color.FromArgb(55, 65, 81);
+            btn_statisztika.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_statisztika.KeretMeret = 0;
+            btn_statisztika.KeretSzine = Color.PaleVioletRed;
+            btn_statisztika.Location = new Point(0, 417);
+            btn_statisztika.Name = "btn_statisztika";
+            btn_statisztika.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            btn_statisztika.SarokSugar = 10;
+            btn_statisztika.Size = new Size(223, 57);
+            btn_statisztika.SzovegSzine = Color.FromArgb(55, 65, 81);
+            btn_statisztika.TabIndex = 15;
+            btn_statisztika.Text = "📈 Statisztika";
+            btn_statisztika.TextAlign = ContentAlignment.MiddleLeft;
+            btn_statisztika.UseVisualStyleBackColor = false;
+            btn_statisztika.Click += btn_statisztika_Click;
+            // 
             // kg_segitseg
             // 
             kg_segitseg.BackColor = Color.FromArgb(243, 244, 246);
@@ -641,7 +670,7 @@ namespace Projekt_feladat
             btn_elofoglalasok.HatterSzine = Color.FromArgb(243, 244, 246);
             btn_elofoglalasok.KeretMeret = 0;
             btn_elofoglalasok.KeretSzine = Color.PaleVioletRed;
-            btn_elofoglalasok.Location = new Point(0, 417);
+            btn_elofoglalasok.Location = new Point(0, 360);
             btn_elofoglalasok.Name = "btn_elofoglalasok";
             btn_elofoglalasok.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
             btn_elofoglalasok.SarokSugar = 10;
@@ -652,34 +681,6 @@ namespace Projekt_feladat
             btn_elofoglalasok.TextAlign = ContentAlignment.MiddleLeft;
             btn_elofoglalasok.UseVisualStyleBackColor = false;
             btn_elofoglalasok.Click += btn_elofoglalasok_Click;
-            // 
-            // btn_statisztika
-            // 
-            btn_statisztika.BackColor = Color.FromArgb(243, 244, 246);
-            btn_statisztika.BadgeMeret = 40;
-            btn_statisztika.Dock = DockStyle.Top;
-            btn_statisztika.EgerTartasHatterSzine = Color.FromArgb(209, 213, 219);
-            btn_statisztika.ErtesitesMutatasa = false;
-            btn_statisztika.ErtesitesSzam = 0;
-            btn_statisztika.ErtesitesSzin = Color.Red;
-            btn_statisztika.ErtesitesSzovegSzin = Color.White;
-            btn_statisztika.FlatStyle = FlatStyle.Flat;
-            btn_statisztika.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
-            btn_statisztika.ForeColor = Color.FromArgb(55, 65, 81);
-            btn_statisztika.HatterSzine = Color.FromArgb(243, 244, 246);
-            btn_statisztika.KeretMeret = 0;
-            btn_statisztika.KeretSzine = Color.PaleVioletRed;
-            btn_statisztika.Location = new Point(0, 360);
-            btn_statisztika.Name = "btn_statisztika";
-            btn_statisztika.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
-            btn_statisztika.SarokSugar = 10;
-            btn_statisztika.Size = new Size(223, 57);
-            btn_statisztika.SzovegSzine = Color.FromArgb(55, 65, 81);
-            btn_statisztika.TabIndex = 15;
-            btn_statisztika.Text = "📈 Statisztika";
-            btn_statisztika.TextAlign = ContentAlignment.MiddleLeft;
-            btn_statisztika.UseVisualStyleBackColor = false;
-            btn_statisztika.Click += btn_statisztika_Click;
             // 
             // btn_biztonsagiMentes
             // 
@@ -898,6 +899,7 @@ namespace Projekt_feladat
             Controls.Add(pnl_fejlec);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frm_foForm";
             SizeGripStyle = SizeGripStyle.Hide;
             Text = "Utas kezelő";

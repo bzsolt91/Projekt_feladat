@@ -7,10 +7,15 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationIcon>Copilot_20250829_155635.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="egyeni_vezerlok\RJComboBox.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Copilot_20250829_155635.ico" />
   </ItemGroup>
 
   <ItemGroup>

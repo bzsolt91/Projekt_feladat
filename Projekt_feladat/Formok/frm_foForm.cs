@@ -291,6 +291,7 @@ namespace Projekt_feladat
                                       (pnl_bejelentkezve.Width - lbl_hozzaferes.Width) / 2,
                                       lbl_hozzaferes.Location.Y
                                   );
+                                ertesitesek();
                             }
                             else
                             {
@@ -549,6 +550,10 @@ namespace Projekt_feladat
         }
         private void btn_biztonsagiMentes_Click(object sender, EventArgs e)
         {
+            AdatbazisMentes();
+        }
+        public void AdatbazisMentes()
+        {
             string mysqldumpPath = GetMySqlDumpPath();
             if (mysqldumpPath == null)
             {
@@ -571,10 +576,11 @@ namespace Projekt_feladat
                     {
                         string szerver = "localhost";
                         string felhasznalo = "utazast_kezelo";
-                        string jelszo = "utazast_kezelo1234";      // ha nincs jelszó, üresen hagyhatod
+                        string jelszo = "utazast_kezelo1234";  // ha nincs jelszó, üresen hagyható
                         string adatbazis = "utazast_kezelo";
 
-                        string arguments = $"-h {szerver} -u {felhasznalo} -p{jelszo} {adatbazis}";
+                        // FONTOS: adjuk meg a karakterkódolást is!
+                        string arguments = $"--default-character-set=utf8 -h {szerver} -u {felhasznalo} -p{jelszo} {adatbazis}";
 
                         ProcessStartInfo psi = new ProcessStartInfo
                         {
@@ -582,7 +588,8 @@ namespace Projekt_feladat
                             Arguments = arguments,
                             RedirectStandardOutput = true,
                             UseShellExecute = false,
-                            CreateNoWindow = true
+                            CreateNoWindow = true,
+                            StandardOutputEncoding = Encoding.UTF8 // Ez a kulcs!
                         };
 
                         using (Process process = Process.Start(psi))
@@ -604,7 +611,6 @@ namespace Projekt_feladat
                 }
             }
         }
-
         private void kg_segitseg_Click(object sender, EventArgs e)
         {
             try
