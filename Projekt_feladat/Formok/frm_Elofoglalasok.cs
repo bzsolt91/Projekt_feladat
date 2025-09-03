@@ -181,17 +181,43 @@ namespace Projekt_feladat.Formok
                 dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1146) // Table doesn't exist
+                {
+                    MessageBox.Show("A szükséges adatbázis tábla nem található!\n(Keresse meg: elofoglalas vagy utazas tábla)",
+                                    "Adatbázis hiba",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else if (ex.Number == 1049 || ex.Number == 1045) // adatbázis vagy jogosultság hiba
+                {
+                    MessageBox.Show("Nem sikerült csatlakozni az adatbázishoz. Ellenőrizze a beállításokat!",
+                                    "Kapcsolódási hiba",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("MySQL hiba: " + ex.Message,
+                                    "Adatbázis hiba",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+            }
             catch (Exception ex)
             {
-                if (ex.Message.StartsWith("Unable to conn"))
-                    MessageBox.Show("Nem sikerült kapcsolódni az adatbázishoz.", "Adatbázis elérés");
-                else
-                    MessageBox.Show(ex.Message);
+                MessageBox.Show("Váratlan hiba: " + ex.Message,
+                                "Hiba",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
         private void AdatokBetoltese()
         {
-            using (MySqlConnection conn = new MySqlConnection(kapcsolatString))
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(kapcsolatString))
             {
                 conn.Open();
                 string lekerdezes = @"
@@ -213,7 +239,40 @@ namespace Projekt_feladat.Formok
             dgv_utasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+        
+             }
+    catch (MySqlException ex)
+    {
+        if (ex.Number == 1146) // Hiányzó tábla
+        {
+            MessageBox.Show("A szükséges adatbázis tábla nem található (pl. 'elofoglalas' vagy 'utazas').",
+                            "Adatbázis hiba",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
         }
+        else if (ex.Number == 1049 || ex.Number == 1045) // adatbázis/jelszó hiba
+        {
+            MessageBox.Show("Nem sikerült csatlakozni az adatbázishoz. Ellenőrizze a beállításokat!",
+                            "Kapcsolódási hiba",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+        }
+        else
+{
+    MessageBox.Show("MySQL hiba: " + ex.Message,
+                    "Adatbázis hiba",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+}
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show("Váratlan hiba: " + ex.Message,
+                        "Hiba",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+    }
+}
 
         private void Kg_email_Click(object sender, EventArgs e)
         {

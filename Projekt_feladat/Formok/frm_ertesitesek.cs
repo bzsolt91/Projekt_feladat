@@ -1,14 +1,23 @@
-﻿
+﻿using System;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 using MySqlConnector;
 using Projekt_feladat.egyeni_vezerlok;
-using System.Data;
-using System.Drawing.Drawing2D; // Kell a MySQL connector
 
 namespace Projekt_feladat.Formok
 {
     public partial class frm_ertesitesek : Form
     {
-        ToolTip? egyeniTooltip = new ToolTip();
+        private ToolTip? egyeniTooltip = new ToolTip();
+        private readonly string kapcsolatString = string.Format(
+            "Server={0};User ID={1};Password={2};Database={3}",
+            "127.0.0.1",
+            "utazast_kezelo",
+            "utazast_kezelo1234",
+            "utazast_kezelo");
+
         public frm_ertesitesek()
         {
             InitializeComponent();
@@ -27,7 +36,6 @@ namespace Projekt_feladat.Formok
             // Kényszerítsd az FLP-t, hogy újraszámolja a belső területét
             flp_rendezoPanel.PerformLayout();
             flp_rendezoPanel.Invalidate();
-
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -41,70 +49,107 @@ namespace Projekt_feladat.Formok
 
             base.OnFormClosing(e);
         }
+
         private void frm_ertesitesek_Load(object sender, EventArgs e)
         {
-
-
-
-
             ablakUjrarajzolas();
+            BetoltesBiztonsagosan();
+        }
 
-            string kapcsolatString = String.Format(
-                "Server={0};User ID={1};Password={2};Database={3}",
-                "127.0.0.1",
-                "utazast_kezelo",
-                "utazast_kezelo1234",
-                "utazast_kezelo"
-            );
-
-            using (MySqlConnection kapcsolat = new MySqlConnection(kapcsolatString))
+        private void BetoltesBiztonsagosan()
+        {
+            try
             {
+                using var kapcsolat = new MySqlConnection(kapcsolatString);
+                kapcsolat.Open();
+
+                // 1) Lejáró okmányok
                 try
                 {
-                    kapcsolat.Open();
-
-                    // 1. Lejáró okmányok betöltése
                     string okmanyQuery = "SELECT * FROM lejaro_okmanyok;";
-                    MySqlDataAdapter daOkmany = new MySqlDataAdapter(okmanyQuery, kapcsolat);
-                    System.Data.DataTable dtOkmany = new DataTable();
+                    using var daOkmany = new MySqlDataAdapter(okmanyQuery, kapcsolat);
+                    var dtOkmany = new DataTable();
                     daOkmany.Fill(dtOkmany);
                     dgv_okmanyLejaratok.DataSource = dtOkmany;
-                    dgv_okmanyLejaratok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                }
+                catch (MySqlException ex) when (ex.Number == 1146) // Table doesn't exist
+                {
+                    dgv_okmanyLejaratok.DataSource = new DataTable();
+                    MessageBox.Show(
+                        "A 'lejaro_okmanyok' tábla nem található az adatbázisban.",
+                        "Hiányzó tábla",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
 
-                    // 2. Előfoglalások betöltése (csak érdeklődők)
+                dgv_okmanyLejaratok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+                // 2) Előfoglalások (csak érdeklődők)
+                try
+                {
                     string elofoglalasQuery = @"
-                        SELECT teljes_nev as 'Név',
-                                telefon as 'Telefonszám',
-                                regisztracio_idopont as 'Regisztráció időpontja',
-                                allapot as 'Állapot'
-                        FROM elofoglalas 
-                        WHERE allapot = 'érdeklődik';
-                    ";
-                    MySqlDataAdapter daElofoglalas = new MySqlDataAdapter(elofoglalasQuery, kapcsolat);
-                    DataTable dtElofoglalas = new DataTable();
+                        SELECT teljes_nev AS 'Név',
+                               telefon AS 'Telefonszám',
+                               regisztracio_idopont AS 'Regisztráció időpontja',
+                               allapot AS 'Állapot'
+                        FROM elofoglalas
+                        WHERE allapot = 'érdeklődik';";
+
+                    using var daElofoglalas = new MySqlDataAdapter(elofoglalasQuery, kapcsolat);
+                    var dtElofoglalas = new DataTable();
                     daElofoglalas.Fill(dtElofoglalas);
                     dgv_elofoglalasok.DataSource = dtElofoglalas;
-                    dgv_elofoglalasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 }
-                catch (Exception ex)
+                catch (MySqlException ex) when (ex.Number == 1146)
                 {
-                    MessageBox.Show("Hiba történt az adatok betöltésekor: " + ex.Message);
+                    dgv_elofoglalasok.DataSource = new DataTable();
+                    MessageBox.Show(
+                        "Az 'elofoglalas' tábla nem található az adatbázisban.",
+                        "Hiányzó tábla",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
+
+                dgv_elofoglalasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            }
+            catch (MySqlException ex)
+            {
+                // Kapcsolódási / jogosultsági / adatbázis szintű hibák
+                string uzenet = ex.Number switch
+                {
+                    1049 => "Az adatbázis nem található (Unknown database). Ellenőrizze a beállításokat!",
+                    1045 => "Hibás felhasználónév/jelszó (Access denied).",
+                    0 => "Nem sikerült elérni az adatbázis kiszolgálót.",
+                    _ => $"MySQL hiba ({ex.Number}): {ex.Message}"
+                };
+                MessageBox.Show(uzenet, "Adatbázis hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Üres táblákhoz kötött nézetek inicializálása, hogy ne omoljon össze a UI
+                dgv_okmanyLejaratok.DataSource = new DataTable();
+                dgv_elofoglalasok.DataSource = new DataTable();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba történt az adatok betöltésekor: " + ex.Message,
+                                "Váratlan hiba",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+
+                dgv_okmanyLejaratok.DataSource = new DataTable();
+                dgv_elofoglalasok.DataSource = new DataTable();
             }
         }
 
         private void frm_ertesitesek_Resize(object sender, EventArgs e)
         {
-
             ablakUjrarajzolas();
         }
+
         private void EgyeniTooltip_Draw(object sender, DrawToolTipEventArgs e)
         {
-            Font font = new Font("Segoe UI", 14);
-            using (LinearGradientBrush brush = new LinearGradientBrush(e.Bounds, Color.BlueViolet, Color.BlueViolet, 90f))
-            {
-                e.Graphics.FillRectangle(brush, e.Bounds);
-            }
+            using Font font = new Font("Segoe UI", 14);
+            using LinearGradientBrush brush = new LinearGradientBrush(e.Bounds, Color.BlueViolet, Color.BlueViolet, 90f);
+            e.Graphics.FillRectangle(brush, e.Bounds);
 
             e.Graphics.DrawRectangle(Pens.DarkViolet, new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1));
             TextRenderer.DrawText(e.Graphics, e.ToolTipText, font, e.Bounds, Color.White, TextFormatFlags.WordBreak);
@@ -112,7 +157,7 @@ namespace Projekt_feladat.Formok
 
         private void EgyeniTooltip_Popup(object sender, PopupEventArgs e)
         {
-            Font font = new Font("Segoe UI", 18);
+            using Font font = new Font("Segoe UI", 18);
 
             // Itt a 'sender' a ToolTip objektum, tehát le tudjuk kérni belőle a szöveget
             ToolTip tooltip = (ToolTip)sender;
@@ -126,7 +171,6 @@ namespace Projekt_feladat.Formok
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                // A sender maga a DataGridView, nem a cella
                 var dgv = sender as DataGridView;
                 if (dgv == null) return;
 
@@ -135,7 +179,7 @@ namespace Projekt_feladat.Formok
                 {
                     string szoveg = cella.Value.ToString();
 
-                    egyeniTooltip.OwnerDraw = true; // saját rajzolás engedélyezése
+                    egyeniTooltip!.OwnerDraw = true; // saját rajzolás engedélyezése
 
                     Point kurzor = Cursor.Position;
                     Point formPozicio = this.PointToClient(kurzor);

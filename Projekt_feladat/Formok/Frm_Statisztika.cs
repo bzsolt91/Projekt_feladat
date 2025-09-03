@@ -38,85 +38,98 @@ namespace Projekt_feladat.Formok
 
 
 
-        private void geoAdatok() // adatbázis ország összefésülése
+        private void geoAdatok()
         {
-            // országokhoz tartozó utaslétszámok tárolására
-            Dictionary<string, int> orszagUtasokSzama = new Dictionary<string, int>();
-            using var conn = new MySqlConnection(kapcsolatString);
-            conn.Open();
-            // Lekérdezzük a desztinációt és az utasok számát az utazásokból
-            string sql = @"
-                SELECT
-                    utazas.desztinacio,
-                    COUNT(DISTINCT utas_utazasai.utas_id) AS utasok_szama
-                FROM utazas
-                JOIN utas_utazasai ON utazas.utazas_id = utas_utazasai.utazas_id
-                GROUP BY utazas.desztinacio;
-            ";
-            using var cmd = new MySqlCommand(sql, conn);
-            using var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                string desztinacio = reader.GetString("desztinacio");
-                int utasokSzama = reader.GetInt32("utasok_szama");
+                Dictionary<string, int> orszagUtasokSzama = new();
+                using var conn = new MySqlConnection(kapcsolatString);
+                conn.Open();
 
-                // desztinációátalakítása országkódd
-                string orszagKod = OrszagKodDesztinacio(desztinacio);
+                string sql = @"
+            SELECT utazas.desztinacio, COUNT(DISTINCT utas_utazasai.utas_id) AS utasok_szama
+            FROM utazas
+            JOIN utas_utazasai ON utazas.utazas_id = utas_utazasai.utazas_id
+            GROUP BY utazas.desztinacio;";
 
-                if (!string.IsNullOrEmpty(orszagKod))
+                using var cmd = new MySqlCommand(sql, conn);
+                using var reader = cmd.ExecuteReader();
+
+                if (!reader.HasRows)
                 {
+                    MessageBox.Show("Nincs adat a térképes statisztikához.", "Adat hiány", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                while (reader.Read())
+                {
+                    string desztinacio = reader["desztinacio"] != DBNull.Value ? reader.GetString("desztinacio") : "";
+                    int utasokSzama = reader["utasok_szama"] != DBNull.Value ? reader.GetInt32("utasok_szama") : 0;
+
+                    string orszagKod = OrszagKodDesztinacio(desztinacio);
+                    if (string.IsNullOrEmpty(orszagKod))
+                        continue;
 
                     if (orszagUtasokSzama.ContainsKey(orszagKod))
-                    {
                         orszagUtasokSzama[orszagKod] += utasokSzama;
-                    }
                     else
-                    {
                         orszagUtasokSzama.Add(orszagKod, utasokSzama);
-                    }
                 }
-            }
 
-            List<HeatLand> lands = new List<HeatLand>();
-            foreach (var entry in orszagUtasokSzama)
-            {
-                lands.Add(new HeatLand { Name = entry.Key, Value = entry.Value });
+                if (orszagUtasokSzama.Count == 0)
+                {
+                    MessageBox.Show("Nem található megjeleníthető országadat.", "Adat hiány", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-            }
-            geoMap = new GeoMap
-            {
-                Series = new IGeoSeries[]
-                 {
-                    new HeatLandSeries
+                List<HeatLand> lands = orszagUtasokSzama.Select(entry =>
+                    new HeatLand { Name = entry.Key, Value = entry.Value }).ToList();
+
+                geoMap = new GeoMap
+                {
+                    Series = new IGeoSeries[]
                     {
-                        Lands = lands
-                    }
-                 },
-                MapProjection = MapProjection.Default,
-                Location = new Point(0, 10),
-                Size = new Size(600, 250),
-                Anchor = AnchorStyles.None
-            };
-            pnl_geopanel.Controls.Add(geoMap);
-
-
+                new HeatLandSeries { Lands = lands }
+                    },
+                    MapProjection = MapProjection.Default,
+                    Location = new Point(0, 10),
+                    Size = new Size(600, 250),
+                    Anchor = AnchorStyles.None
+                };
+                pnl_geopanel.Controls.Add(geoMap);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba a térképes adatok betöltésekor: " + ex.Message,
+                                "Adatbetöltési hiba",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
         }
 
         private void Frm_Statisztika_Load(object sender, EventArgs e)
         {
-            // heat map adatok betöltése
-            geoAdatok();
-            //kisebb statisztika
-            lbl_osszUtas.Text += " " + utasokSzama().ToString();
-            lb_utazasokSzama.Text += " " + utazasokSzama().ToString();
-            lbl_atlagosUtazasokSzama.Text += " " + idenUtzazokSzama().ToString();
-            //utazási tendencia
-            utazasiTendencia("yyyy.MM");
-            penzugyiTendencia();
-            korCsoport();
-            utazasiMod();
-            Topdesztinaciok();
+            try
+            {
+                geoAdatok();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba a térképes statisztika betöltésekor: " + ex.Message,
+                                "Adatbetöltési hiba",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
+
+            try { lbl_osszUtas.Text += " " + utasokSzama().ToString(); } catch { lbl_osszUtas.Text += " 0"; }
+            try { lb_utazasokSzama.Text += " " + utazasokSzama().ToString(); } catch { lb_utazasokSzama.Text += " 0"; }
+            try { lbl_atlagosUtazasokSzama.Text += " " + idenUtzazokSzama().ToString(); } catch { lbl_atlagosUtazasokSzama.Text += " 0"; }
+
+            try { utazasiTendencia("yyyy.MM"); } catch (Exception ex) { MessageBox.Show("Hiba az utazási tendencia betöltésekor: " + ex.Message); }
+            try { penzugyiTendencia(); } catch (Exception ex) { MessageBox.Show("Hiba a pénzügyi tendencia betöltésekor: " + ex.Message); }
+            try { korCsoport(); } catch (Exception ex) { MessageBox.Show("Hiba a korcsoport statisztika betöltésekor: " + ex.Message); }
+            try { utazasiMod(); } catch (Exception ex) { MessageBox.Show("Hiba az utazási mód statisztika betöltésekor: " + ex.Message); }
+            try { Topdesztinaciok(); } catch (Exception ex) { MessageBox.Show("Hiba a top desztinációk betöltésekor: " + ex.Message); }
 
             for (int i = 0; i < 3; i++)
                 flp_egyebStatisztika.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.33F));
