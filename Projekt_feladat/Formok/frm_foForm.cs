@@ -40,6 +40,7 @@ namespace Projekt_feladat
         {
 
             InitializeComponent();
+            this.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             tmr_almenuAnimacio.Interval = 10;
             AlmenuElrejtés();
             this.AutoScaleMode = AutoScaleMode.None;

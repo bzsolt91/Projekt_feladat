@@ -47,8 +47,9 @@ namespace Projekt_feladat
             // A felhasználó létrehozása után az alkalmazás további inicializálása
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
+            ApplicationConfiguration.Initialize();
             Application.Run(new frm_foForm());
         }
 

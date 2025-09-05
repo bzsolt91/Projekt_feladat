@@ -521,20 +521,24 @@ namespace Projekt_feladat
             btn_utazasok.ErtesitesSzin = Color.Red;
             btn_utazasok.ErtesitesSzovegSzin = Color.White;
             btn_utazasok.FlatStyle = FlatStyle.Flat;
-            btn_utazasok.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
+            btn_utazasok.Font = new Font("Segoe UI Semibold", 14.2641506F, FontStyle.Bold);
             btn_utazasok.ForeColor = Color.FromArgb(55, 65, 81);
             btn_utazasok.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_utazasok.Image = (Image)resources.GetObject("btn_utazasok.Image");
+            btn_utazasok.ImageAlign = ContentAlignment.MiddleLeft;
             btn_utazasok.KeretMeret = 0;
             btn_utazasok.KeretSzine = Color.PaleVioletRed;
             btn_utazasok.Location = new Point(0, 52);
             btn_utazasok.Name = "btn_utazasok";
             btn_utazasok.NyomottAllapotHatterSzine = Color.DarkSlateBlue;
+            btn_utazasok.RightToLeft = RightToLeft.No;
             btn_utazasok.SarokSugar = 10;
             btn_utazasok.Size = new Size(223, 57);
             btn_utazasok.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasok.TabIndex = 3;
-            btn_utazasok.Text = "✈️  Utazások";
+            btn_utazasok.Text = " Utazások";
             btn_utazasok.TextAlign = ContentAlignment.MiddleLeft;
+            btn_utazasok.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_utazasok.UseVisualStyleBackColor = false;
             btn_utazasok.Click += btn_utazasok_Click;
             // 
@@ -552,6 +556,7 @@ namespace Projekt_feladat
             btn_ertesitesek.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
             btn_ertesitesek.ForeColor = Color.FromArgb(55, 65, 81);
             btn_ertesitesek.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_ertesitesek.Image = (Image)resources.GetObject("btn_ertesitesek.Image");
             btn_ertesitesek.KeretMeret = 0;
             btn_ertesitesek.KeretSzine = Color.PaleVioletRed;
             btn_ertesitesek.Location = new Point(0, 589);
@@ -561,7 +566,6 @@ namespace Projekt_feladat
             btn_ertesitesek.Size = new Size(223, 67);
             btn_ertesitesek.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_ertesitesek.TabIndex = 8;
-            btn_ertesitesek.Text = "🔔";
             btn_ertesitesek.UseVisualStyleBackColor = false;
             btn_ertesitesek.Click += btn_ertesitesek_Click;
             // 
@@ -609,9 +613,11 @@ namespace Projekt_feladat
             btn_statisztika.ErtesitesSzin = Color.Red;
             btn_statisztika.ErtesitesSzovegSzin = Color.White;
             btn_statisztika.FlatStyle = FlatStyle.Flat;
-            btn_statisztika.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
+            btn_statisztika.Font = new Font("Segoe UI Semibold", 14.2641506F, FontStyle.Bold);
             btn_statisztika.ForeColor = Color.FromArgb(55, 65, 81);
             btn_statisztika.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_statisztika.Image = (Image)resources.GetObject("btn_statisztika.Image");
+            btn_statisztika.ImageAlign = ContentAlignment.TopLeft;
             btn_statisztika.KeretMeret = 0;
             btn_statisztika.KeretSzine = Color.PaleVioletRed;
             btn_statisztika.Location = new Point(0, 417);
@@ -621,8 +627,8 @@ namespace Projekt_feladat
             btn_statisztika.Size = new Size(223, 57);
             btn_statisztika.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_statisztika.TabIndex = 15;
-            btn_statisztika.Text = "📈 Statisztika";
-            btn_statisztika.TextAlign = ContentAlignment.MiddleLeft;
+            btn_statisztika.Text = " Statisztika";
+            btn_statisztika.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_statisztika.UseVisualStyleBackColor = false;
             btn_statisztika.Click += btn_statisztika_Click;
             // 
@@ -637,9 +643,11 @@ namespace Projekt_feladat
             kg_segitseg.ErtesitesSzin = Color.Red;
             kg_segitseg.ErtesitesSzovegSzin = Color.White;
             kg_segitseg.FlatStyle = FlatStyle.Flat;
-            kg_segitseg.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kg_segitseg.Font = new Font("Segoe UI Semibold", 14.2641506F, FontStyle.Bold);
             kg_segitseg.ForeColor = Color.FromArgb(55, 65, 81);
             kg_segitseg.HatterSzine = Color.FromArgb(243, 244, 246);
+            kg_segitseg.Image = (Image)resources.GetObject("kg_segitseg.Image");
+            kg_segitseg.ImageAlign = ContentAlignment.TopLeft;
             kg_segitseg.KeretMeret = 0;
             kg_segitseg.KeretSzine = Color.PaleVioletRed;
             kg_segitseg.Location = new Point(0, 474);
@@ -649,8 +657,9 @@ namespace Projekt_feladat
             kg_segitseg.Size = new Size(223, 57);
             kg_segitseg.SzovegSzine = Color.FromArgb(55, 65, 81);
             kg_segitseg.TabIndex = 18;
-            kg_segitseg.Text = "\U0001f9fe Útmutató";
-            kg_segitseg.TextAlign = ContentAlignment.MiddleLeft;
+            kg_segitseg.Text = " Útmutató";
+            kg_segitseg.TextAlign = ContentAlignment.TopLeft;
+            kg_segitseg.TextImageRelation = TextImageRelation.ImageBeforeText;
             kg_segitseg.UseVisualStyleBackColor = false;
             kg_segitseg.Click += kg_segitseg_Click;
             // 
@@ -665,9 +674,11 @@ namespace Projekt_feladat
             btn_elofoglalasok.ErtesitesSzin = Color.Red;
             btn_elofoglalasok.ErtesitesSzovegSzin = Color.White;
             btn_elofoglalasok.FlatStyle = FlatStyle.Flat;
-            btn_elofoglalasok.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
+            btn_elofoglalasok.Font = new Font("Segoe UI Semibold", 14.2641506F, FontStyle.Bold);
             btn_elofoglalasok.ForeColor = Color.FromArgb(55, 65, 81);
             btn_elofoglalasok.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_elofoglalasok.Image = (Image)resources.GetObject("btn_elofoglalasok.Image");
+            btn_elofoglalasok.ImageAlign = ContentAlignment.TopLeft;
             btn_elofoglalasok.KeretMeret = 0;
             btn_elofoglalasok.KeretSzine = Color.PaleVioletRed;
             btn_elofoglalasok.Location = new Point(0, 360);
@@ -677,8 +688,8 @@ namespace Projekt_feladat
             btn_elofoglalasok.Size = new Size(223, 57);
             btn_elofoglalasok.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_elofoglalasok.TabIndex = 17;
-            btn_elofoglalasok.Text = "📝 Előfoglalások";
-            btn_elofoglalasok.TextAlign = ContentAlignment.MiddleLeft;
+            btn_elofoglalasok.Text = " Előfoglalások";
+            btn_elofoglalasok.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_elofoglalasok.UseVisualStyleBackColor = false;
             btn_elofoglalasok.Click += btn_elofoglalasok_Click;
             // 
@@ -693,9 +704,11 @@ namespace Projekt_feladat
             btn_biztonsagiMentes.ErtesitesSzin = Color.Red;
             btn_biztonsagiMentes.ErtesitesSzovegSzin = Color.White;
             btn_biztonsagiMentes.FlatStyle = FlatStyle.Flat;
-            btn_biztonsagiMentes.Font = new Font("Sans Serif Collection", 12.2264156F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            btn_biztonsagiMentes.Font = new Font("Segoe UI Semibold", 14.2641506F, FontStyle.Bold);
             btn_biztonsagiMentes.ForeColor = Color.FromArgb(55, 65, 81);
             btn_biztonsagiMentes.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_biztonsagiMentes.Image = (Image)resources.GetObject("btn_biztonsagiMentes.Image");
+            btn_biztonsagiMentes.ImageAlign = ContentAlignment.TopLeft;
             btn_biztonsagiMentes.KeretMeret = 0;
             btn_biztonsagiMentes.KeretSzine = Color.PaleVioletRed;
             btn_biztonsagiMentes.Location = new Point(0, 531);
@@ -705,8 +718,9 @@ namespace Projekt_feladat
             btn_biztonsagiMentes.Size = new Size(223, 57);
             btn_biztonsagiMentes.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_biztonsagiMentes.TabIndex = 16;
-            btn_biztonsagiMentes.Text = "💾 Mentés";
+            btn_biztonsagiMentes.Text = " Mentés";
             btn_biztonsagiMentes.TextAlign = ContentAlignment.TopLeft;
+            btn_biztonsagiMentes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_biztonsagiMentes.UseMnemonic = false;
             btn_biztonsagiMentes.UseVisualStyleBackColor = false;
             btn_biztonsagiMentes.Click += btn_biztonsagiMentes_Click;
@@ -733,9 +747,11 @@ namespace Projekt_feladat
             btn_utasokHozzadasa.ErtesitesSzin = Color.Red;
             btn_utasokHozzadasa.ErtesitesSzovegSzin = Color.White;
             btn_utasokHozzadasa.FlatStyle = FlatStyle.Flat;
-            btn_utasokHozzadasa.Font = new Font("Sans Serif Collection", 9.749998F, FontStyle.Bold);
+            btn_utasokHozzadasa.Font = new Font("Segoe UI Semibold", 12.2264156F, FontStyle.Bold);
             btn_utasokHozzadasa.ForeColor = Color.FromArgb(55, 65, 81);
             btn_utasokHozzadasa.HatterSzine = Color.FromArgb(209, 213, 219);
+            btn_utasokHozzadasa.Image = (Image)resources.GetObject("btn_utasokHozzadasa.Image");
+            btn_utasokHozzadasa.ImageAlign = ContentAlignment.TopCenter;
             btn_utasokHozzadasa.KeretMeret = 0;
             btn_utasokHozzadasa.KeretSzine = Color.PaleVioletRed;
             btn_utasokHozzadasa.Location = new Point(0, 45);
@@ -746,8 +762,8 @@ namespace Projekt_feladat
             btn_utasokHozzadasa.Size = new Size(223, 45);
             btn_utasokHozzadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasokHozzadasa.TabIndex = 2;
-            btn_utasokHozzadasa.Text = "🖆 Hozzáadás";
-            btn_utasokHozzadasa.TextAlign = ContentAlignment.MiddleLeft;
+            btn_utasokHozzadasa.Text = "Hozzáadás";
+            btn_utasokHozzadasa.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_utasokHozzadasa.UseVisualStyleBackColor = false;
             btn_utasokHozzadasa.Click += btn_utasokHozzadasa_Click;
             // 
@@ -762,9 +778,11 @@ namespace Projekt_feladat
             btn_utasokMegtekintese.ErtesitesSzin = Color.Red;
             btn_utasokMegtekintese.ErtesitesSzovegSzin = Color.White;
             btn_utasokMegtekintese.FlatStyle = FlatStyle.Flat;
-            btn_utasokMegtekintese.Font = new Font("Sans Serif Collection", 9.749998F, FontStyle.Bold);
+            btn_utasokMegtekintese.Font = new Font("Segoe UI Semibold", 12.2264156F, FontStyle.Bold);
             btn_utasokMegtekintese.ForeColor = Color.FromArgb(55, 65, 81);
             btn_utasokMegtekintese.HatterSzine = Color.FromArgb(209, 213, 219);
+            btn_utasokMegtekintese.Image = (Image)resources.GetObject("btn_utasokMegtekintese.Image");
+            btn_utasokMegtekintese.ImageAlign = ContentAlignment.TopCenter;
             btn_utasokMegtekintese.KeretMeret = 0;
             btn_utasokMegtekintese.KeretSzine = Color.PaleVioletRed;
             btn_utasokMegtekintese.Location = new Point(0, 0);
@@ -775,8 +793,9 @@ namespace Projekt_feladat
             btn_utasokMegtekintese.Size = new Size(223, 45);
             btn_utasokMegtekintese.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasokMegtekintese.TabIndex = 0;
-            btn_utasokMegtekintese.Text = "📖 Megtekintés";
+            btn_utasokMegtekintese.Text = " Megtekintés";
             btn_utasokMegtekintese.TextAlign = ContentAlignment.MiddleLeft;
+            btn_utasokMegtekintese.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_utasokMegtekintese.UseVisualStyleBackColor = false;
             btn_utasokMegtekintese.Click += btn_utasokMegtekintese_Click;
             // 
@@ -791,9 +810,10 @@ namespace Projekt_feladat
             btn_utasok.ErtesitesSzin = Color.Red;
             btn_utasok.ErtesitesSzovegSzin = Color.White;
             btn_utasok.FlatStyle = FlatStyle.Flat;
-            btn_utasok.Font = new Font("Sans Serif Collection", 11.9999981F, FontStyle.Bold);
+            btn_utasok.Font = new Font("Segoe UI Semibold", 14.2641506F, FontStyle.Bold);
             btn_utasok.ForeColor = Color.FromArgb(55, 65, 81);
             btn_utasok.HatterSzine = Color.FromArgb(243, 244, 246);
+            btn_utasok.Image = (Image)resources.GetObject("btn_utasok.Image");
             btn_utasok.ImageAlign = ContentAlignment.MiddleLeft;
             btn_utasok.KeretMeret = 0;
             btn_utasok.KeretSzine = Color.PaleVioletRed;
@@ -804,8 +824,9 @@ namespace Projekt_feladat
             btn_utasok.Size = new Size(223, 57);
             btn_utasok.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utasok.TabIndex = 11;
-            btn_utasok.Text = "👩‍👩‍👦 Utasok";
+            btn_utasok.Text = "‍ Utasok";
             btn_utasok.TextAlign = ContentAlignment.MiddleLeft;
+            btn_utasok.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_utasok.UseVisualStyleBackColor = false;
             btn_utasok.Click += btn_utasok_Click;
             // 
@@ -831,9 +852,10 @@ namespace Projekt_feladat
             btn_utazasokHozzaadasa.ErtesitesSzin = Color.Red;
             btn_utazasokHozzaadasa.ErtesitesSzovegSzin = Color.White;
             btn_utazasokHozzaadasa.FlatStyle = FlatStyle.Flat;
-            btn_utazasokHozzaadasa.Font = new Font("Sans Serif Collection", 9.749998F, FontStyle.Bold);
+            btn_utazasokHozzaadasa.Font = new Font("Segoe UI Semibold", 12.2264156F, FontStyle.Bold);
             btn_utazasokHozzaadasa.ForeColor = Color.FromArgb(55, 65, 81);
             btn_utazasokHozzaadasa.HatterSzine = Color.FromArgb(209, 213, 219);
+            btn_utazasokHozzaadasa.Image = (Image)resources.GetObject("btn_utazasokHozzaadasa.Image");
             btn_utazasokHozzaadasa.KeretMeret = 0;
             btn_utazasokHozzaadasa.KeretSzine = Color.PaleVioletRed;
             btn_utazasokHozzaadasa.Location = new Point(0, 45);
@@ -844,8 +866,9 @@ namespace Projekt_feladat
             btn_utazasokHozzaadasa.Size = new Size(223, 45);
             btn_utazasokHozzaadasa.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasokHozzaadasa.TabIndex = 1;
-            btn_utazasokHozzaadasa.Text = "🖆 Szerkesztés";
+            btn_utazasokHozzaadasa.Text = " Szerkesztés";
             btn_utazasokHozzaadasa.TextAlign = ContentAlignment.MiddleLeft;
+            btn_utazasokHozzaadasa.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_utazasokHozzaadasa.UseVisualStyleBackColor = false;
             btn_utazasokHozzaadasa.Click += btn_utazasokHozzaadasa_Click;
             // 
@@ -860,9 +883,10 @@ namespace Projekt_feladat
             btn_utazasokmegtekintese.ErtesitesSzin = Color.Red;
             btn_utazasokmegtekintese.ErtesitesSzovegSzin = Color.White;
             btn_utazasokmegtekintese.FlatStyle = FlatStyle.Flat;
-            btn_utazasokmegtekintese.Font = new Font("Sans Serif Collection", 9.749998F, FontStyle.Bold);
+            btn_utazasokmegtekintese.Font = new Font("Segoe UI Semibold", 12.2264156F, FontStyle.Bold);
             btn_utazasokmegtekintese.ForeColor = Color.FromArgb(55, 65, 81);
             btn_utazasokmegtekintese.HatterSzine = Color.FromArgb(209, 213, 219);
+            btn_utazasokmegtekintese.Image = (Image)resources.GetObject("btn_utazasokmegtekintese.Image");
             btn_utazasokmegtekintese.KeretMeret = 0;
             btn_utazasokmegtekintese.KeretSzine = Color.PaleVioletRed;
             btn_utazasokmegtekintese.Location = new Point(0, 0);
@@ -873,8 +897,9 @@ namespace Projekt_feladat
             btn_utazasokmegtekintese.Size = new Size(223, 45);
             btn_utazasokmegtekintese.SzovegSzine = Color.FromArgb(55, 65, 81);
             btn_utazasokmegtekintese.TabIndex = 0;
-            btn_utazasokmegtekintese.Text = "📖 Megtekintés";
+            btn_utazasokmegtekintese.Text = " Megtekintés";
             btn_utazasokmegtekintese.TextAlign = ContentAlignment.MiddleLeft;
+            btn_utazasokmegtekintese.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_utazasokmegtekintese.UseVisualStyleBackColor = false;
             btn_utazasokmegtekintese.Click += btn_utazasokmegtekintese_Click;
             // 
