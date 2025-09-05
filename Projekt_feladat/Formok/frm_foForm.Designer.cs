@@ -491,7 +491,7 @@ namespace Projekt_feladat
             // lbl_utazas_kezelo
             // 
             lbl_utazas_kezelo.BackColor = Color.Transparent;
-            lbl_utazas_kezelo.Font = new Font("Sans Serif Collection", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 150);
+            lbl_utazas_kezelo.Font = new Font("Segoe UI Semibold", 12.2264156F, FontStyle.Bold, GraphicsUnit.Point, 238);
             lbl_utazas_kezelo.Location = new Point(3, 3);
             lbl_utazas_kezelo.Name = "lbl_utazas_kezelo";
             lbl_utazas_kezelo.Size = new Size(215, 34);

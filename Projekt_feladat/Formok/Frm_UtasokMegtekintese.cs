@@ -17,6 +17,7 @@ namespace Projekt_feladat.Formok
         ListBox lst_talalatok = new ListBox();
         private int sorIndexAHolFolytatniKell = 0;
         ToolTip? egyeniTooltip = new ToolTip();
+        private bool vanValtozas = false;
         public Frm_UtasokMegtekintese()
         {
             InitializeComponent();
@@ -582,12 +583,22 @@ namespace Projekt_feladat.Formok
         private void dgv_utasok_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
+         
+
+            vanValtozas = true;
             kg_mentes.HatterSzine = Color.Red;
 
         }
 
         private void kg_mentes_Click(object sender, EventArgs e)
         {
+
+            if (!vanValtozas)
+            {
+                MessageBox.Show("Jelenleg nincs mentendő változtatás.");
+                return;
+            }
+
             if (!bejelentkezes.bejelentkezes.Bejelentkezve())
             {
                 MessageBox.Show(
@@ -698,6 +709,8 @@ namespace Projekt_feladat.Formok
                     MessageBoxIcon.Information
                 );
             }
+            vanValtozas = false; 
+            kg_mentes.HatterSzine = Color.MediumSlateBlue;
         }
 
         private void kg_torles_Click(object sender, EventArgs e)

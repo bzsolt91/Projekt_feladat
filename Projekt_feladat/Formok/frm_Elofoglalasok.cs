@@ -13,6 +13,7 @@ namespace Projekt_feladat.Formok
     {
         bool szerkesztesAktiv = false;
         bool szuresAktiv = false;
+        private bool vanValtozas = false;
         string kapcsolatString = String.Format("Server={0};User ID={1};Password={2};Database={3}",
             "127.0.0.1", "utazast_kezelo", "utazast_kezelo1234", "utazast_kezelo");
 
@@ -218,9 +219,9 @@ namespace Projekt_feladat.Formok
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(kapcsolatString))
-            {
-                conn.Open();
-                string lekerdezes = @"
+                {
+                    conn.Open();
+                    string lekerdezes = @"
                     SELECT e.elofoglalas_id, e.teljes_nev as 'Név', e.telefon as 'Telefon', e.email as 'E-mail cím', e.lakcim as 'Lakcím',
                            e.regisztracio_idopont as 'Regisztráció', e.allapot as 'Állapot',
                            u.utazas_elnevezese as 'Utazás neve', u.utazas_ideje as 'Utazás ideje'
@@ -229,50 +230,50 @@ namespace Projekt_feladat.Formok
                     ORDER BY (e.allapot='érdeklődik') DESC, e.regisztracio_idopont DESC
                     LIMIT 100;";
 
-                MySqlDataAdapter da = new MySqlDataAdapter(lekerdezes, conn);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dgv_utasok.DataSource = dt;
-                dgv_utasok.Columns["elofoglalas_id"].Visible = false;
-            }
+                    MySqlDataAdapter da = new MySqlDataAdapter(lekerdezes, conn);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dgv_utasok.DataSource = dt;
+                    dgv_utasok.Columns["elofoglalas_id"].Visible = false;
+                }
 
-            dgv_utasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
-            dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-        
-             }
-    catch (MySqlException ex)
-    {
-        if (ex.Number == 1146) // Hiányzó tábla
-        {
-            MessageBox.Show("A szükséges adatbázis tábla nem található (pl. 'elofoglalas' vagy 'utazas').",
-                            "Adatbázis hiba",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                dgv_utasok.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+                dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dgv_utasok.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1146) // Hiányzó tábla
+                {
+                    MessageBox.Show("A szükséges adatbázis tábla nem található (pl. 'elofoglalas' vagy 'utazas').",
+                                    "Adatbázis hiba",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else if (ex.Number == 1049 || ex.Number == 1045) // adatbázis/jelszó hiba
+                {
+                    MessageBox.Show("Nem sikerült csatlakozni az adatbázishoz. Ellenőrizze a beállításokat!",
+                                    "Kapcsolódási hiba",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("MySQL hiba: " + ex.Message,
+                                    "Adatbázis hiba",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Váratlan hiba: " + ex.Message,
+                                "Hiba",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
-        else if (ex.Number == 1049 || ex.Number == 1045) // adatbázis/jelszó hiba
-        {
-            MessageBox.Show("Nem sikerült csatlakozni az adatbázishoz. Ellenőrizze a beállításokat!",
-                            "Kapcsolódási hiba",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-        }
-        else
-{
-    MessageBox.Show("MySQL hiba: " + ex.Message,
-                    "Adatbázis hiba",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-}
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show("Váratlan hiba: " + ex.Message,
-                        "Hiba",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-    }
-}
 
         private void Kg_email_Click(object sender, EventArgs e)
         {
@@ -306,6 +307,16 @@ namespace Projekt_feladat.Formok
 
         private void Kg_mentes_Click(object sender, EventArgs e)
         {
+
+           
+            if (!vanValtozas)
+            {
+                MessageBox.Show("Jelenleg nincs mentendő változtatás.");
+                return;
+            }
+
+            int frissitettSorok = 0;
+
             using (MySqlConnection conn = new MySqlConnection(kapcsolatString))
             {
                 conn.Open();
@@ -314,9 +325,9 @@ namespace Projekt_feladat.Formok
                     if (sor.IsNewRow) continue;
 
                     string update = @"
-                        UPDATE elofoglalas 
-                        SET teljes_nev=@nev, telefon=@tel, email=@em, lakcim=@lak, allapot=@allapot 
-                        WHERE elofoglalas_id=@id;";
+                UPDATE elofoglalas 
+                SET teljes_nev=@nev, telefon=@tel, email=@em, lakcim=@lak, allapot=@allapot 
+                WHERE elofoglalas_id=@id;";
 
                     using (MySqlCommand cmd = new MySqlCommand(update, conn))
                     {
@@ -326,12 +337,34 @@ namespace Projekt_feladat.Formok
                         cmd.Parameters.AddWithValue("@lak", sor.Cells["Lakcím"].Value);
                         cmd.Parameters.AddWithValue("@allapot", sor.Cells["Állapot"].Value);
                         cmd.Parameters.AddWithValue("@id", sor.Cells["elofoglalas_id"].Value);
-                        cmd.ExecuteNonQuery();
+
+                        frissitettSorok += cmd.ExecuteNonQuery();
                     }
                 }
             }
-            MessageBox.Show("Változtatások mentve!");
-            AdatokBetoltese();
+
+            if (frissitettSorok > 0)
+            {
+                kg_mentes.HatterSzine = Color.MediumSlateBlue;
+                MessageBox.Show(
+                    "Változtatások sikeresen mentve!",
+                    "Mentés",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                AdatokBetoltese();
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Nem történt változás az adatokban.",
+                    "Mentés",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            vanValtozas = false;  
+            kg_mentes.HatterSzine = Color.MediumSlateBlue;
         }
 
         private void Kg_torles_Click(object sender, EventArgs e)
@@ -538,7 +571,14 @@ namespace Projekt_feladat.Formok
                 }
             }
         }
-    }
+
+        private void dgv_utasok_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+            vanValtozas = true;
+            kg_mentes.HatterSzine = Color.Red;
+        }
+}
 }
 
     

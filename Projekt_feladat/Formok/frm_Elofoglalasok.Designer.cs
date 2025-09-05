@@ -604,7 +604,7 @@
             dgv_utasok.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dgv_utasok.BackgroundColor = SystemColors.ControlLightLight;
             dgv_utasok.BorderStyle = BorderStyle.None;
-            dgv_utasok.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
+            dgv_utasok.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dgv_utasok.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.White;
@@ -650,6 +650,7 @@
             dgv_utasok.Size = new Size(1068, 404);
             dgv_utasok.TabIndex = 8;
             dgv_utasok.CellMouseEnter += dgv_utasok_CellMouseEnter;
+            dgv_utasok.CellValueChanged += dgv_utasok_CellValueChanged;
             // 
             // ev_fomenu
             // 
