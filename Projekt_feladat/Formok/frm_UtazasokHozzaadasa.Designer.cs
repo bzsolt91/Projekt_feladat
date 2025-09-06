@@ -67,7 +67,7 @@
             tlp_utazasAdatok = new DoubleBufferedTableLayoutPanel();
             szp_leiras = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
             sznp_utazasModja = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
-            doubleBufferedTableLayoutPanel2 = new DoubleBufferedTableLayoutPanel();
+            tlp_utazasModja = new DoubleBufferedTableLayoutPanel();
             klm_utazasiMod = new Projekt_feladat.egyeni_vezerlok.kerekitettLenyilloMenu();
             blbl_utazasModja = new Projekt_feladat.egyeni_vezerlok.BufferedLabel();
             szp_borito = new Projekt_feladat.egyeni_vezerlok.SzinatmenetPanel();
@@ -126,7 +126,7 @@
             tlp_utazasAdatok.SuspendLayout();
             szp_leiras.SuspendLayout();
             sznp_utazasModja.SuspendLayout();
-            doubleBufferedTableLayoutPanel2.SuspendLayout();
+            tlp_utazasModja.SuspendLayout();
             szp_borito.SuspendLayout();
             tlp_kep.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcb_borito).BeginInit();
@@ -819,7 +819,7 @@
             // sznp_utazasModja
             // 
             sznp_utazasModja.BackColor = Color.Transparent;
-            sznp_utazasModja.Controls.Add(doubleBufferedTableLayoutPanel2);
+            sznp_utazasModja.Controls.Add(tlp_utazasModja);
             sznp_utazasModja.Dock = DockStyle.Top;
             sznp_utazasModja.ForeColor = Color.Black;
             sznp_utazasModja.KeretSzin = Color.Black;
@@ -835,20 +835,20 @@
             sznp_utazasModja.SzinatmenetSzog = 90F;
             sznp_utazasModja.TabIndex = 12;
             // 
-            // doubleBufferedTableLayoutPanel2
+            // tlp_utazasModja
             // 
-            doubleBufferedTableLayoutPanel2.ColumnCount = 2;
-            doubleBufferedTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.0824089F));
-            doubleBufferedTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 74.91759F));
-            doubleBufferedTableLayoutPanel2.Controls.Add(klm_utazasiMod, 1, 0);
-            doubleBufferedTableLayoutPanel2.Controls.Add(blbl_utazasModja, 0, 0);
-            doubleBufferedTableLayoutPanel2.Dock = DockStyle.Fill;
-            doubleBufferedTableLayoutPanel2.Location = new Point(9, 9);
-            doubleBufferedTableLayoutPanel2.Name = "doubleBufferedTableLayoutPanel2";
-            doubleBufferedTableLayoutPanel2.RowCount = 1;
-            doubleBufferedTableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            doubleBufferedTableLayoutPanel2.Size = new Size(699, 228);
-            doubleBufferedTableLayoutPanel2.TabIndex = 21;
+            tlp_utazasModja.ColumnCount = 2;
+            tlp_utazasModja.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.0824089F));
+            tlp_utazasModja.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 74.91759F));
+            tlp_utazasModja.Controls.Add(klm_utazasiMod, 1, 0);
+            tlp_utazasModja.Controls.Add(blbl_utazasModja, 0, 0);
+            tlp_utazasModja.Dock = DockStyle.Fill;
+            tlp_utazasModja.Location = new Point(9, 9);
+            tlp_utazasModja.Name = "tlp_utazasModja";
+            tlp_utazasModja.RowCount = 1;
+            tlp_utazasModja.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlp_utazasModja.Size = new Size(699, 228);
+            tlp_utazasModja.TabIndex = 21;
             // 
             // klm_utazasiMod
             // 
@@ -867,6 +867,7 @@
             klm_utazasiMod.ComboText = "Utazási mód";
             klm_utazasiMod.EgerTrartasSzin = Color.CornflowerBlue;
             klm_utazasiMod.ForeColor = Color.White;
+            klm_utazasiMod.HelykozSzin = Color.WhiteSmoke;
             klm_utazasiMod.Ikon = (Image)resources.GetObject("klm_utazasiMod.Ikon");
             klm_utazasiMod.ItemHatterSzin = Color.White;
             klm_utazasiMod.ItemPanelAlosSzin = Color.White;
@@ -1027,12 +1028,14 @@
             // 
             // klm_utazasSzerkeszeseUtazasNeve
             // 
+            klm_utazasSzerkeszeseUtazasNeve.adatForras = null;
             klm_utazasSzerkeszeseUtazasNeve.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseUtazasNeve.CimPanelFelsoSzin = Color.White;
             klm_utazasSzerkeszeseUtazasNeve.ComboText = "Utazás neve";
             klm_utazasSzerkeszeseUtazasNeve.EgerTrartasSzin = Color.CornflowerBlue;
             klm_utazasSzerkeszeseUtazasNeve.ForeColor = Color.White;
+            klm_utazasSzerkeszeseUtazasNeve.HelykozSzin = Color.WhiteSmoke;
             klm_utazasSzerkeszeseUtazasNeve.Ikon = (Image)resources.GetObject("klm_utazasSzerkeszeseUtazasNeve.Ikon");
             klm_utazasSzerkeszeseUtazasNeve.ItemHatterSzin = Color.White;
             klm_utazasSzerkeszeseUtazasNeve.ItemPanelAlosSzin = Color.White;
@@ -1054,12 +1057,14 @@
             // 
             // klm_utazasSzerkeszeseDesztinacio
             // 
+            klm_utazasSzerkeszeseDesztinacio.adatForras = null;
             klm_utazasSzerkeszeseDesztinacio.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseDesztinacio.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseDesztinacio.CimPanelFelsoSzin = Color.White;
             klm_utazasSzerkeszeseDesztinacio.ComboText = "Desztináció";
             klm_utazasSzerkeszeseDesztinacio.EgerTrartasSzin = Color.CornflowerBlue;
             klm_utazasSzerkeszeseDesztinacio.ForeColor = Color.White;
+            klm_utazasSzerkeszeseDesztinacio.HelykozSzin = Color.WhiteSmoke;
             klm_utazasSzerkeszeseDesztinacio.Ikon = (Image)resources.GetObject("klm_utazasSzerkeszeseDesztinacio.Ikon");
             klm_utazasSzerkeszeseDesztinacio.ItemHatterSzin = Color.White;
             klm_utazasSzerkeszeseDesztinacio.ItemPanelAlosSzin = Color.White;
@@ -1081,12 +1086,14 @@
             // 
             // klm_utazasSzerkeszeseIdoszak
             // 
+            klm_utazasSzerkeszeseIdoszak.adatForras = null;
             klm_utazasSzerkeszeseIdoszak.BackColor = Color.Transparent;
             klm_utazasSzerkeszeseIdoszak.CimPanelAlsoSzin = Color.White;
             klm_utazasSzerkeszeseIdoszak.CimPanelFelsoSzin = Color.White;
             klm_utazasSzerkeszeseIdoszak.ComboText = "Időszak";
             klm_utazasSzerkeszeseIdoszak.EgerTrartasSzin = Color.CornflowerBlue;
             klm_utazasSzerkeszeseIdoszak.ForeColor = Color.Transparent;
+            klm_utazasSzerkeszeseIdoszak.HelykozSzin = Color.WhiteSmoke;
             klm_utazasSzerkeszeseIdoszak.Ikon = (Image)resources.GetObject("klm_utazasSzerkeszeseIdoszak.Ikon");
             klm_utazasSzerkeszeseIdoszak.ImeMode = ImeMode.NoControl;
             klm_utazasSzerkeszeseIdoszak.ItemHatterSzin = Color.White;
@@ -1525,6 +1532,7 @@
             klm_utazasSzerkeszeseUtazasModja.ComboText = "Utazási mód";
             klm_utazasSzerkeszeseUtazasModja.EgerTrartasSzin = Color.CornflowerBlue;
             klm_utazasSzerkeszeseUtazasModja.ForeColor = Color.White;
+            klm_utazasSzerkeszeseUtazasModja.HelykozSzin = Color.WhiteSmoke;
             klm_utazasSzerkeszeseUtazasModja.Ikon = (Image)resources.GetObject("klm_utazasSzerkeszeseUtazasModja.Ikon");
             klm_utazasSzerkeszeseUtazasModja.ItemHatterSzin = Color.White;
             klm_utazasSzerkeszeseUtazasModja.ItemPanelAlosSzin = Color.White;
@@ -1668,8 +1676,8 @@
             tlp_utazasAdatok.ResumeLayout(false);
             szp_leiras.ResumeLayout(false);
             sznp_utazasModja.ResumeLayout(false);
-            doubleBufferedTableLayoutPanel2.ResumeLayout(false);
-            doubleBufferedTableLayoutPanel2.PerformLayout();
+            tlp_utazasModja.ResumeLayout(false);
+            tlp_utazasModja.PerformLayout();
             szp_borito.ResumeLayout(false);
             tlp_kep.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pcb_borito).EndInit();
@@ -1741,7 +1749,7 @@
         private egyeni_vezerlok.KerekitettGomb kg_boritoValasztas;
         private PictureBox pcb_borito;
         private egyeni_vezerlok.SzinatmenetPanel sznp_utazasModja;
-        private DoubleBufferedTableLayoutPanel doubleBufferedTableLayoutPanel2;
+        private DoubleBufferedTableLayoutPanel tlp_utazasModja;
         private egyeni_vezerlok.BufferedLabel blbl_utazasModja;
         private egyeni_vezerlok.kerekitettLenyilloMenu klm_utazasiMod;
         private egyeni_vezerlok.KerekitettGomb kg_meglevoSzerkesztese;

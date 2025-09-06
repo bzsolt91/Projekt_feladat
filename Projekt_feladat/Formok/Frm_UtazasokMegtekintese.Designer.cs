@@ -111,7 +111,7 @@ namespace Projekt_feladat.Formok
             szpn_szuroPanel.Controls.Add(kszm_email);
             szpn_szuroPanel.Controls.Add(kszm_utasNeve);
             szpn_szuroPanel.ForeColor = Color.Black;
-            szpn_szuroPanel.Location = new Point(10, 11);
+            szpn_szuroPanel.Location = new Point(10, 93);
             szpn_szuroPanel.Margin = new Padding(3, 2, 3, 2);
             szpn_szuroPanel.Name = "szpn_szuroPanel";
             szpn_szuroPanel.Size = new Size(716, 475);
@@ -157,6 +157,7 @@ namespace Projekt_feladat.Formok
             klm_utazasiMod.ComboText = "Utazási mód";
             klm_utazasiMod.EgerTrartasSzin = Color.CornflowerBlue;
             klm_utazasiMod.ForeColor = Color.White;
+            klm_utazasiMod.HelykozSzin = Color.FromArgb(243, 244, 246);
             klm_utazasiMod.Ikon = (Image)resources.GetObject("klm_utazasiMod.Ikon");
             klm_utazasiMod.ItemHatterSzin = Color.White;
             klm_utazasiMod.ItemPanelAlosSzin = Color.White;
@@ -646,12 +647,14 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
+            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
             rcb_desztinacio.ComboText = "Desztináció";
             rcb_desztinacio.EgerTrartasSzin = Color.LightGray;
             rcb_desztinacio.ForeColor = Color.White;
+            rcb_desztinacio.HelykozSzin = Color.White;
             rcb_desztinacio.Ikon = (Image)resources.GetObject("rcb_desztinacio.Ikon");
             rcb_desztinacio.ItemHatterSzin = Color.WhiteSmoke;
             rcb_desztinacio.ItemPanelAlosSzin = Color.WhiteSmoke;
@@ -673,12 +676,14 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_idoszak
             // 
+            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
             rcb_idoszak.ComboText = "Időszak";
             rcb_idoszak.EgerTrartasSzin = Color.LightGray;
             rcb_idoszak.ForeColor = Color.Transparent;
+            rcb_idoszak.HelykozSzin = Color.White;
             rcb_idoszak.Ikon = (Image)resources.GetObject("rcb_idoszak.Ikon");
             rcb_idoszak.ImeMode = ImeMode.NoControl;
             rcb_idoszak.ItemHatterSzin = Color.WhiteSmoke;
@@ -753,12 +758,14 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
+            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;
             rcb_utazasNeve.ComboText = "Utazás neve";
             rcb_utazasNeve.EgerTrartasSzin = Color.LightGray;
             rcb_utazasNeve.ForeColor = Color.White;
+            rcb_utazasNeve.HelykozSzin = Color.White;
             rcb_utazasNeve.Ikon = (Image)resources.GetObject("rcb_utazasNeve.Ikon");
             rcb_utazasNeve.ItemHatterSzin = Color.WhiteSmoke;
             rcb_utazasNeve.ItemPanelAlosSzin = Color.WhiteSmoke;

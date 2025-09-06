@@ -57,6 +57,18 @@ namespace Projekt_feladat.egyeni_vezerlok
         public event EventHandler<ElemKivalasztvaEventArgs>? ElemKivalasztva;
         /*********/
         private Color egerTartasSzin = Color.LightGray;
+        private Color helykozSzin = Color.White;
+
+        public Color HelykozSzin
+        {
+            get => helykozSzin;
+            set
+            {
+                helykozSzin = value;
+                pnl_helykoz.BackColor = value; 
+                Invalidate();
+            }
+        }
         public Color EgerTrartasSzin
         {
             get => egerTartasSzin;
@@ -342,13 +354,15 @@ namespace Projekt_feladat.egyeni_vezerlok
             }
         }
 
+
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             int sugar = Math.Min(Radius, Math.Min(Width, Height) / 2);
-            Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
+            Rectangle rect = new Rectangle(-1, 0, Width , Height - 1);
 
             using (GraphicsPath path = new GraphicsPath())
             {
@@ -476,7 +490,8 @@ namespace Projekt_feladat.egyeni_vezerlok
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
             animacioTimer.Interval = 5;
             animacioTimer.Tick += AnimacioFrissitese;
-           
+            typeof(Panel).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+     .SetValue(flp_items, true, null);
             BackColor = Color.Transparent;
             CimPanelAlsoSzin = Color.White;
             CimPanelFelsoSzin = Color.White;
@@ -499,7 +514,12 @@ namespace Projekt_feladat.egyeni_vezerlok
             pnl_tooltip.OwnerDraw = true;
             pnl_tooltip.Draw += EgyeniTooltip_Draw; // Feliratkozás a Draw eseményre
             pnl_tooltip.Popup += EgyeniTooltip_Popup;
+          
 
+            pnl_helykoz.BackColor = this.BackColor;
+
+            int maxHeight = flp_items.PreferredSize.Height; 
+            flp_items.Height = maxHeight;
         }
 
  
@@ -522,7 +542,7 @@ namespace Projekt_feladat.egyeni_vezerlok
 
             if (!nyitva)
             {
-                pnl_item.Visible = false;
+             //   pnl_item.Visible = false;
                 this.Height = pnl_title.Height + keret;
             }
             else
@@ -535,8 +555,8 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         private void AnimacioFrissitese(object? sender, EventArgs e)
         {
-           
-            int keret = this.Padding.Top + this.Padding.Bottom;
+            
+                int keret = this.Padding.Top + this.Padding.Bottom;
             int celTeljesMagassag = pnl_title.Height + celMagassag + keret;
             int kulonbseg = Math.Abs(this.Height - celTeljesMagassag);
             int lepes = Math.Max(2, kulonbseg / 2);
@@ -565,7 +585,7 @@ namespace Projekt_feladat.egyeni_vezerlok
                 else
                 {
                     this.Height = zartMagassag;
-                    pnl_item.Visible = false;
+              //      pnl_item.Visible = false;
                     StopTimer();
                     kepforgatas();
                 }
@@ -576,6 +596,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             pnl_item.Height = this.Height - pnl_title.Height - keret;
 
             pnl_item.SarkokLekerekitese = 25;
+    
         }
 
 
@@ -660,7 +681,7 @@ namespace Projekt_feladat.egyeni_vezerlok
         {
             Label label = (Label)sender;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-
+            
             Rectangle rect = new Rectangle(0, 0, label.Width - 1, label.Height - 1);
             int radius = 10;
 

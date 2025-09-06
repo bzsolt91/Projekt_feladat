@@ -110,7 +110,7 @@ namespace Projekt_feladat.egyeni_vezerlok
             pnl_item.KeretSzin = Color.Black;
             pnl_item.KeretVastagsag = 0F;
             pnl_item.Location = new Point(0, 69);
-            pnl_item.Margin = new Padding(9, 11, 9, 11);
+            pnl_item.Margin = new Padding(50, 500, 9, 11);
             pnl_item.Name = "pnl_item";
             pnl_item.Padding = new Padding(9, 11, 9, 11);
             pnl_item.SarkokLekerekitese = 15;
@@ -122,7 +122,9 @@ namespace Projekt_feladat.egyeni_vezerlok
             // 
             // pnl_helykoz
             // 
+            pnl_helykoz.BackColor = Color.Transparent;
             pnl_helykoz.Dock = DockStyle.Top;
+            pnl_helykoz.ForeColor = Color.Transparent;
             pnl_helykoz.Location = new Point(0, 58);
             pnl_helykoz.Margin = new Padding(2, 3, 2, 3);
             pnl_helykoz.Name = "pnl_helykoz";
