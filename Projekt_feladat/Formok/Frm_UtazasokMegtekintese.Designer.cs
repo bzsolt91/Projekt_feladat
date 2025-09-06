@@ -647,7 +647,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_desztinacio
             // 
-            rcb_desztinacio.adatForras = null;
             rcb_desztinacio.BackColor = Color.Transparent;
             rcb_desztinacio.CimPanelAlsoSzin = Color.White;
             rcb_desztinacio.CimPanelFelsoSzin = Color.White;
@@ -663,20 +662,19 @@ namespace Projekt_feladat.Formok
             rcb_desztinacio.KeretVastagsag = 1.8F;
             rcb_desztinacio.KivalasztottElemSzin = Color.BlueViolet;
             rcb_desztinacio.LenyiloMagassag = 300;
-            rcb_desztinacio.Location = new Point(9, 11);
+            rcb_desztinacio.Location = new Point(11, 12);
             rcb_desztinacio.Margin = new Padding(0);
             rcb_desztinacio.MinimumSize = new Size(150, 0);
             rcb_desztinacio.Name = "rcb_desztinacio";
             rcb_desztinacio.Padding = new Padding(0, 0, 0, 6);
             rcb_desztinacio.Radius = 20;
-            rcb_desztinacio.Size = new Size(262, 65);
+            rcb_desztinacio.Size = new Size(300, 65);
             rcb_desztinacio.TabIndex = 7;
             rcb_desztinacio.TitleLabelSzin = Color.Black;
             rcb_desztinacio.ElemKivalasztva += rcb_desztinacio_ElemKivalasztva;
             // 
             // rcb_idoszak
             // 
-            rcb_idoszak.adatForras = null;
             rcb_idoszak.BackColor = Color.Transparent;
             rcb_idoszak.CimPanelAlsoSzin = Color.White;
             rcb_idoszak.CimPanelFelsoSzin = Color.White;
@@ -693,13 +691,13 @@ namespace Projekt_feladat.Formok
             rcb_idoszak.KeretVastagsag = 1.8F;
             rcb_idoszak.KivalasztottElemSzin = Color.BlueViolet;
             rcb_idoszak.LenyiloMagassag = 300;
-            rcb_idoszak.Location = new Point(293, 11);
+            rcb_idoszak.Location = new Point(328, 12);
             rcb_idoszak.Margin = new Padding(0);
             rcb_idoszak.MinimumSize = new Size(150, 0);
             rcb_idoszak.Name = "rcb_idoszak";
             rcb_idoszak.Padding = new Padding(0, 0, 0, 6);
             rcb_idoszak.Radius = 20;
-            rcb_idoszak.Size = new Size(262, 65);
+            rcb_idoszak.Size = new Size(300, 65);
             rcb_idoszak.TabIndex = 6;
             rcb_idoszak.TitleLabelSzin = Color.Black;
             rcb_idoszak.ElemKivalasztva += rcb_idoszak_ElemKivalasztva;
@@ -758,7 +756,6 @@ namespace Projekt_feladat.Formok
             // 
             // rcb_utazasNeve
             // 
-            rcb_utazasNeve.adatForras = null;
             rcb_utazasNeve.BackColor = Color.Transparent;
             rcb_utazasNeve.CimPanelAlsoSzin = Color.White;
             rcb_utazasNeve.CimPanelFelsoSzin = Color.White;
@@ -774,13 +771,13 @@ namespace Projekt_feladat.Formok
             rcb_utazasNeve.KeretVastagsag = 1.8F;
             rcb_utazasNeve.KivalasztottElemSzin = Color.BlueViolet;
             rcb_utazasNeve.LenyiloMagassag = 300;
-            rcb_utazasNeve.Location = new Point(595, 8);
+            rcb_utazasNeve.Location = new Point(646, 11);
             rcb_utazasNeve.Margin = new Padding(0);
             rcb_utazasNeve.MinimumSize = new Size(150, 0);
             rcb_utazasNeve.Name = "rcb_utazasNeve";
             rcb_utazasNeve.Padding = new Padding(0, 0, 0, 6);
             rcb_utazasNeve.Radius = 20;
-            rcb_utazasNeve.Size = new Size(262, 65);
+            rcb_utazasNeve.Size = new Size(300, 65);
             rcb_utazasNeve.TabIndex = 8;
             rcb_utazasNeve.TitleLabelSzin = Color.Black;
             rcb_utazasNeve.ElemKivalasztva += rcb_utazasNeve_ElemKivalasztva;
