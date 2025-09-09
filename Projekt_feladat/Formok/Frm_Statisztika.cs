@@ -141,7 +141,7 @@ namespace Projekt_feladat.Formok
         {
             try
             {
-             
+
                 var cim = new Label
                 {
                     Text = "Éves utazási tendencia",
@@ -150,7 +150,7 @@ namespace Projekt_feladat.Formok
                     Dock = DockStyle.Top,
                     TextAlign = ContentAlignment.TopLeft,
                     Height = 40,
-                    Padding = new Padding(10,0,0,0)
+                    Padding = new Padding(10, 0, 0, 0)
 
                 };
                 szp_tendencia.Controls.Add(cim);
@@ -174,7 +174,7 @@ namespace Projekt_feladat.Formok
              ORDER BY
                  utazas.utazas_ideje DESC limit 10;";
 
-             
+
 
                 using var parancs = new MySqlCommand(lekerdezes, kapcsolatObj);
                 using var reader = parancs.ExecuteReader();
@@ -222,7 +222,7 @@ namespace Projekt_feladat.Formok
                     Size = new Size(szp_tendencia.Width - 30, szp_tendencia.Height - cim.Height - 30), // 10px margó jobbra, alulra is
                     Padding = new Padding(5) // belső tartalom paddingje, ha kell
                 };
-               
+
                 szp_tendencia.Controls.Add(diagram);
 
 
@@ -237,7 +237,7 @@ namespace Projekt_feladat.Formok
         {
             try
             {
-               
+
                 szpn_penzugyiJelentes.Controls.Clear();
 
 
@@ -326,22 +326,22 @@ namespace Projekt_feladat.Formok
                     SeparatorsPaint = null
                 }
                     },
-                  
-                  
 
 
 
-                    Location = new Point(10, cim.Bottom-10 ),
-                   
-                    Size = new Size(szpn_penzugyiJelentes.Width - 30, szpn_penzugyiJelentes.Height - cim.Height-15 ),
+
+
+                    Location = new Point(10, cim.Bottom - 10),
+
+                    Size = new Size(szpn_penzugyiJelentes.Width - 30, szpn_penzugyiJelentes.Height - cim.Height - 15),
                     Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                     BackColor = Color.WhiteSmoke,
-                   
+
                 };
 
                 szpn_penzugyiJelentes.Controls.Add(diagram);
 
-               
+
             }
             catch (Exception ex)
             {
@@ -370,7 +370,7 @@ namespace Projekt_feladat.Formok
                 flp_egyebStatisztika.Controls.Add(korDiagram);
                 return;
             }
-       
+
 
             double totalCount = ageGroupRawData.Sum(x => x.Item2);
             var gaugeItems = new List<GaugeItem>();
@@ -387,7 +387,7 @@ namespace Projekt_feladat.Formok
                     series.DataLabelsFormatter =
                         point =>
                         {
-                            var value = Math.Round(point.Coordinate.PrimaryValue, 1); 
+                            var value = Math.Round(point.Coordinate.PrimaryValue, 1);
                             return $"{value}% {point.Context.Series.Name}";
                         };
                     series.ToolTipLabelFormatter = point =>
@@ -410,7 +410,7 @@ namespace Projekt_feladat.Formok
                 gaugeItems.Add(new GaugeItem(percentage, setStyleAction));
             }
 
-        
+
             Label korCimke = new Label
             {
                 Text = "Korcsoport Eloszlás (Utasok)",
@@ -456,25 +456,25 @@ namespace Projekt_feladat.Formok
             return new SKColor((byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256), (byte)200);
         }
 
-       public void utazasiMod()
-{
-
-
-    var travelModeData = utazasiModLekerdezes(); 
-
-    if (travelModeData == null || travelModeData.Count == 0)
-    {
-        MessageBox.Show("Nincs megjeleníthető adat az utazási módokhoz. Ellenőrizze az adatokat!", "Adat hiány", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-        PieChart utazasimodDiagramAlap = new PieChart
+        public void utazasiMod()
         {
-            Series = new List<ISeries>(),
-            Size = new Size(250, 250),
-            Dock = DockStyle.Left
-        };
+
+
+            var travelModeData = utazasiModLekerdezes();
+
+            if (travelModeData == null || travelModeData.Count == 0)
+            {
+                MessageBox.Show("Nincs megjeleníthető adat az utazási módokhoz. Ellenőrizze az adatokat!", "Adat hiány", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                PieChart utazasimodDiagramAlap = new PieChart
+                {
+                    Series = new List<ISeries>(),
+                    Size = new Size(250, 250),
+                    Dock = DockStyle.Left
+                };
                 flp_egyebStatisztika.Controls.Add(utazasimodDiagramAlap);
-        return;
-    }
+                return;
+            }
 
             Label utazasModCimke = new Label
             {
@@ -483,74 +483,74 @@ namespace Projekt_feladat.Formok
                 TextAlign = ContentAlignment.MiddleCenter,
                 AutoSize = true,
                 Height = 30,
-              
+
                 Location = new Point(1, 1),
                 ForeColor = Color.Black,
                 BackColor = Color.Transparent
             };
 
-        
+
             List<ISeries> seriesCollection = new();
-    int outerOffset = 20;
-    Random random = new();
+            int outerOffset = 20;
+            Random random = new();
 
-    foreach (var (modNev, darab) in travelModeData)
-    {
-        var series = new PieSeries<double>
-        {
-            Values = new[] { (double)darab },
-            Name = modNev,
-            OuterRadiusOffset = outerOffset,
-            DataLabelsPaint = new SolidColorPaint(SKColors.Black)
+            foreach (var (modNev, darab) in travelModeData)
             {
-                SKTypeface = SKTypeface.FromFamilyName("Segoe UI", SKFontStyle.Normal)
-            },
-            DataLabelsFormatter = point =>
+                var series = new PieSeries<double>
+                {
+                    Values = new[] { (double)darab },
+                    Name = modNev,
+                    OuterRadiusOffset = outerOffset,
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black)
+                    {
+                        SKTypeface = SKTypeface.FromFamilyName("Segoe UI", SKFontStyle.Normal)
+                    },
+                    DataLabelsFormatter = point =>
+                    {
+                        var modeName = point.Context.Series.Name;
+                        var pv = point.Coordinate.PrimaryValue;
+                        var sv = point.StackedValue!;
+                        return $"{modeName}: {pv} ({sv.Share:P2})";
+                    },
+                    ToolTipLabelFormatter = point =>
+                    {
+                        var modeName = point.Context.Series.Name;
+                        var pv = point.Coordinate.PrimaryValue;
+                        var sv = point.StackedValue!;
+                        return $" {pv:N0} fő ({sv.Share:P1})";
+                    },
+                    Fill = new SolidColorPaint(GetRandomColor())
+                };
+
+                seriesCollection.Add(series);
+                outerOffset += 10;
+            }
+
+
+            PieChart utazasimodDiagram = new PieChart
             {
-                var modeName = point.Context.Series.Name;
-                var pv = point.Coordinate.PrimaryValue;
-                var sv = point.StackedValue!;
-                return $"{modeName}: {pv} ({sv.Share:P2})";
-            },
-            ToolTipLabelFormatter = point =>
-            {
-                var modeName = point.Context.Series.Name;
-                var pv = point.Coordinate.PrimaryValue;
-                var sv = point.StackedValue!;
-                return $" {pv:N0} fő ({sv.Share:P1})";
-            },
-            Fill = new SolidColorPaint(GetRandomColor())
-        };
+                Series = seriesCollection,
+                InitialRotation = -90,
+                Dock = DockStyle.Left,
+                Location = new Point(10, utazasModCimke.Bottom + 5),
+                BackColor = Color.WhiteSmoke,
 
-        seriesCollection.Add(series);
-        outerOffset += 10;
-    }
-
-   
-    PieChart utazasimodDiagram = new PieChart
-    {
-        Series = seriesCollection,
-        InitialRotation = -90,
-        Dock = DockStyle.Left,
-        Location = new Point(10, utazasModCimke.Bottom + 5),
-        BackColor = Color.WhiteSmoke,
-       
-        Size = new Size(250, 250)
-    };
+                Size = new Size(250, 250)
+            };
 
 
- 
+
             Panel diagramKeret = new Panel
             {
-         
+
                 Dock = DockStyle.Fill,
                 Margin = new Padding(1),
                 BackColor = Color.WhiteSmoke
             };
             diagramKeret.Controls.Add(utazasModCimke);
-            diagramKeret.Controls.Add(utazasimodDiagram);           
-            flp_egyebStatisztika.Controls.Add(diagramKeret);   
-}
+            diagramKeret.Controls.Add(utazasimodDiagram);
+            flp_egyebStatisztika.Controls.Add(diagramKeret);
+        }
         private List<Tuple<string, int>> korcsoportLekerdezese()
         {
             List<Tuple<string, int>> data = new List<Tuple<string, int>>();
@@ -585,7 +585,7 @@ namespace Projekt_feladat.Formok
                         {
                             while (reader.Read())
                             {
-                              
+
                                 data.Add(new Tuple<string, int>(
                                     reader["korcsoport"].ToString(),
                                     Convert.ToInt32(reader["letszam"])
@@ -1024,7 +1024,7 @@ namespace Projekt_feladat.Formok
         }
         private void ablakUjraRendezes()
         {
-         
+
             if (geoMap == null) return;
 
             int geoMapX;
@@ -1054,7 +1054,7 @@ namespace Projekt_feladat.Formok
                 geoMapY + 10
             );
 
-            szpn_utazasokSzama.Location = new Point((this.ClientRectangle.Width / 2) + szpn_utazasokSzama.Width ,  geoMap.Height -50);
+            szpn_utazasokSzama.Location = new Point((this.ClientRectangle.Width / 2) + szpn_utazasokSzama.Width, geoMap.Height - 50);
             flp_egyebStatisztika.ColumnStyles.Clear();
             for (int i = 0; i < 3; i++)
                 flp_egyebStatisztika.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
@@ -1124,7 +1124,7 @@ namespace Projekt_feladat.Formok
 
             try
             {
-                using var kapcsolatObj = new MySqlConnection(kapcsolatString ); // "kapcsolat" = connection stringed
+                using var kapcsolatObj = new MySqlConnection(kapcsolatString); // "kapcsolat" = connection stringed
                 kapcsolatObj.Open();
 
                 string lekerdezes = @"SELECT 
@@ -1161,12 +1161,12 @@ namespace Projekt_feladat.Formok
                 Text = "Legkeresettebb desztinációk",
                 Font = new Font("Segoe UI", 12, FontStyle.Regular),
                 TextAlign = ContentAlignment.MiddleCenter,
-                  AutoSize = true,
+                AutoSize = true,
                 Height = 30,
                 Dock = DockStyle.Top,
-             
+
                 ForeColor = Color.Black,
-          
+
                 BackColor = Color.Transparent
             };
 
@@ -1203,7 +1203,7 @@ namespace Projekt_feladat.Formok
                     Name = desztinacio,
                     DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.End,
                     DataLabelsSize = 0,
-           
+
                     DataLabelsPaint = new SolidColorPaint(SKColors.Red),
 
 
@@ -1223,33 +1223,33 @@ namespace Projekt_feladat.Formok
                 Dock = DockStyle.Fill,
                 Padding = new Padding(20),
                 LegendPosition = LiveChartsCore.Measure.LegendPosition.Right,
-              Size = new Size(350,300),
-              
+                Size = new Size(350, 300),
+
                 BackColor = System.Drawing.Color.WhiteSmoke
             };
             Panel diagramKeret = new Panel
             {
-                
+
                 Dock = DockStyle.Fill,
                 Margin = new Padding(1),
                 BackColor = Color.WhiteSmoke
             };
             diagramKeret.Controls.Add(desztinacioCimke);
             diagramKeret.Controls.Add(pieChart);
-           
-            desztinacioCimke.BringToFront();
-            flp_egyebStatisztika.Controls.Add(diagramKeret);   
 
-          
+            desztinacioCimke.BringToFront();
+            flp_egyebStatisztika.Controls.Add(diagramKeret);
+
+
         }
 
         private void flp_rendezoPanel_Resize(object sender, EventArgs e)
         {
-                foreach (Control ctrl in flp_rendezoPanel.Controls)// a flow panel tartalmát át kell méretezni mert maguktól nem akarnak
-                {
-                    ctrl.Width = flp_rendezoPanel.ClientSize.Width - flp_rendezoPanel.Padding.Horizontal;
-                }
-            
+            foreach (Control ctrl in flp_rendezoPanel.Controls)// a flow panel tartalmát át kell méretezni mert maguktól nem akarnak
+            {
+                ctrl.Width = flp_rendezoPanel.ClientSize.Width - flp_rendezoPanel.Padding.Horizontal;
+            }
+
         }
     }
 
