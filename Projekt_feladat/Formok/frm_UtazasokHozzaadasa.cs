@@ -459,6 +459,7 @@ namespace Projekt_feladat.Formok
             if (utazasIdoszak != null && utazasDesztinacio != null && utazasNeve != null)
                 pnl_torles.Visible = true;
             pnl_torles.Location = new Point(this.Width / 2 - pnl_torles.Width / 2, this.Height / 2 - pnl_torles.Height / 2);
+            
         }
 
 
@@ -804,6 +805,8 @@ namespace Projekt_feladat.Formok
             dtp_utazasSzerkeszeseVisszaindulas.Value = DateTime.Now;
 
             // Reset szövegek
+            kszm_utazasSzerkeszteseDesztinacio.Texts = string.Empty;
+            kszm_utazasSzerekeszteseElnevezes.Texts = string.Empty;
             kszm_utazasSzerkeszeseIndulasHelye.Texts = string.Empty;
             kszm_utazasSzerkeszeseAr.Texts = string.Empty;
             kszm_utazasSzerkeszeseLeiras.Texts = string.Empty;
