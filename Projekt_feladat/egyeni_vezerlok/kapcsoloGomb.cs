@@ -20,7 +20,7 @@ namespace Projekt_feladat.egyeni_vezerlok
         private bool szilardStilusAktivalva = true;
         private KapcsoloAllas aktualisAllas = KapcsoloAllas.Ki;
         private bool ketAllasuModAktiv = false;
-
+        private Color? hatterKitoltoSzin = null;
         private Timer animacioIdozito;
         private int aktualisPozicio;
         private int celPozicio;
@@ -59,6 +59,13 @@ namespace Projekt_feladat.egyeni_vezerlok
         {
             get { return szilardStilusAktivalva; }
             set { szilardStilusAktivalva = value; this.Invalidate(); }
+        }
+
+        [Category("Custom Properties")]
+        public Color? HatterKitoltoSzin
+        {
+            get => hatterKitoltoSzin;
+            set { hatterKitoltoSzin = value; Invalidate(); }
         }
 
         [Category("Custom Properties")]
@@ -164,10 +171,26 @@ namespace Projekt_feladat.egyeni_vezerlok
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            this.BackColor = Color.Transparent;
+
             int kapcsoloMeret = this.Height - 5;
             pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            pevent.Graphics.Clear(this.Parent?.BackColor ?? SystemColors.Control);
 
+            // --- háttérszín meghatározása ---
+            Color kitolto = hatterKitoltoSzin ?? this.Parent?.BackColor ?? SystemColors.Control;
+
+            // Ha van kézzel megadott szín → töltsük ki a hátteret
+            if (hatterKitoltoSzin.HasValue)
+            {
+                using (SolidBrush b = new SolidBrush(kitolto))
+                {
+                    pevent.Graphics.FillRectangle(b, this.ClientRectangle);
+                }
+            }
+            // ha nincs → ne csináljunk Clear-t, hadd látszódjon át a szülő panel
+
+            // --- állapot szerinti színek ---
             Color hatterSzine;
             Color kapcsoloSzine;
 
@@ -192,15 +215,16 @@ namespace Projekt_feladat.egyeni_vezerlok
             if (egerFelettVan)
                 hatterSzine = ControlPaint.Light(hatterSzine, 0.2f);
 
+            // Kapcsoló hátterének rajzolása
             if (szilardStilusAktivalva)
                 pevent.Graphics.FillPath(new SolidBrush(hatterSzine), HozzaLetreKapcsoloUtvonalat());
             else
                 pevent.Graphics.DrawPath(new Pen(hatterSzine, 2), HozzaLetreKapcsoloUtvonalat());
 
+            // Kapcsoló kör kirajzolása
             pevent.Graphics.FillEllipse(new SolidBrush(kapcsoloSzine),
                 new Rectangle(aktualisPozicio, 2, kapcsoloMeret, kapcsoloMeret));
         }
-
         private GraphicsPath HozzaLetreKapcsoloUtvonalat()
         {
             int sarokMeret = this.Height - 1;

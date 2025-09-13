@@ -79,7 +79,7 @@ namespace Projekt_feladat
             }
 
             // 4) WinForms inicializálás és indulás
-            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+          //  Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             ApplicationConfiguration.Initialize();
             Application.Run(new frm_foForm());
         }

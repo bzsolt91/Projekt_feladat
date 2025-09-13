@@ -264,6 +264,7 @@ namespace Projekt_feladat.Formok
                             u.vezeteknev AS 'Vezetéknév',
                             u.keresztnev1 AS 'Keresztnév',
                             u.keresztnev2 AS 'Második keresztnév',
+                            u.szuletesi_datum AS 'Születési dátum',
                             telefon.telefon AS 'Telefonszám',
                             szemelyi.szemelyi_vagy_utlevel AS 'Okmány',
                             szemelyi.allampolgarsag AS 'Állampolgárság',
