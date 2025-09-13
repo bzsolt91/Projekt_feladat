@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projekt_feladat", "Projekt_feladat\Projekt_feladat.csproj", "{8C67E277-800C-41EF-AC80-5891654F6F8C}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Telepito", "Telepito\Telepito.vdproj", "{4413E12F-5A32-54D7-3425-61CCA72DEE49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,13 @@ Global
 		{8C67E277-800C-41EF-AC80-5891654F6F8C}.Release|x64.Build.0 = Release|x64
 		{8C67E277-800C-41EF-AC80-5891654F6F8C}.Release|x86.ActiveCfg = Release|x86
 		{8C67E277-800C-41EF-AC80-5891654F6F8C}.Release|x86.Build.0 = Release|x86
+		{4413E12F-5A32-54D7-3425-61CCA72DEE49}.Debug|Any CPU.ActiveCfg = Debug
+		{4413E12F-5A32-54D7-3425-61CCA72DEE49}.Debug|x64.ActiveCfg = Debug
+		{4413E12F-5A32-54D7-3425-61CCA72DEE49}.Debug|x86.ActiveCfg = Debug
+		{4413E12F-5A32-54D7-3425-61CCA72DEE49}.Release|Any CPU.ActiveCfg = Release
+		{4413E12F-5A32-54D7-3425-61CCA72DEE49}.Release|x64.ActiveCfg = X64
+		{4413E12F-5A32-54D7-3425-61CCA72DEE49}.Release|x64.Build.0 = X64
+		{4413E12F-5A32-54D7-3425-61CCA72DEE49}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

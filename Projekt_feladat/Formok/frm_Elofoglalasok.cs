@@ -48,6 +48,37 @@ namespace Projekt_feladat.Formok
 
         private void Frm_Elofoglalasok_Load(object sender, EventArgs e)
         {
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show("Az előfoglalások megtekintéséhez előbb be kell jelentkeznie a főoldalon.",
+                                "Bejelentkezés szükséges",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+
+                // táblázat üres
+                dgv_utasok.DataSource = new DataTable();
+
+                // minden vezérlő letiltása
+                kszm_szerkesztes.Enabled = false;
+                kg_mentes.Enabled = false;
+                kg_szures.Enabled = false;
+                klm_foglalasiAllapot.Enabled = false;
+                kg_felvetelUtasnak.Enabled = false;
+
+                return; // fontos: kilépünk a Load további részéből
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 0) // operátor
+            {
+                dgv_utasok.ReadOnly = true;
+
+                kszm_szerkesztes.Enabled = false;
+                kg_mentes.Enabled = false;
+          
+                klm_foglalasiAllapot.Enabled = false;
+                kg_felvetelUtasnak.Enabled = false;
+            }
+
+
             AdatokBetoltese();
             szpn_szuroPanel.Location = new Point((this.Width / 2) - (szpn_szuroPanel.Width / 2), this.Height / 2 - szpn_szuroPanel.Height / 2);
         }

@@ -551,7 +551,30 @@ namespace Projekt_feladat
         }
         private void btn_biztonsagiMentes_Click(object sender, EventArgs e)
         {
-            AdatbazisMentes();
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show("A mentéshez elõbb be kell jelentkeznie a fõoldalon.",
+                                "Bejelentkezés szükséges",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                this.Close();
+                return;
+            }
+            if (bejelentkezes.bejelentkezes.Jogosultsag == 1)
+            {
+                AdatbazisMentes();
+
+            }
+            else
+                MessageBox.Show(
+        "Ön operátor jogosultsággal van bejelentkezve.\n" +
+        "Az elõfoglalások módosítása és törlése csak adminisztrátor számára engedélyezett.",
+        "Írási jog megtagadva",
+        MessageBoxButtons.OK,
+        MessageBoxIcon.Warning
+    );
+
+
         }
         public void AdatbazisMentes()
         {
@@ -614,6 +637,16 @@ namespace Projekt_feladat
         }
         private void kg_segitseg_Click(object sender, EventArgs e)
         {
+
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show("A megtekintéséhez elõbb be kell jelentkeznie a fõoldalon.",
+                                "Bejelentkezés szükséges",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                this.Close();
+                return;
+            }
             try
             {
                 string pdfPath = Path.Combine(Application.StartupPath, "hasznalati_utmutato.pdf");

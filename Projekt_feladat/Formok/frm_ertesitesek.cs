@@ -58,6 +58,18 @@ namespace Projekt_feladat.Formok
 
         private void BetoltesBiztonsagosan()
         {
+
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show("A művelet végrehajtásához be kell jelentkeznie a főoldalon.",
+                                "Bejelentkezés szükséges",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                dgv_okmanyLejaratok.DataSource = new DataTable();
+                dgv_elofoglalasok.DataSource = new DataTable();
+                return;
+            }
+  
             try
             {
                 using var kapcsolat = new MySqlConnection(kapcsolatString);

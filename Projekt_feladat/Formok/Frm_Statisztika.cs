@@ -109,6 +109,16 @@ namespace Projekt_feladat.Formok
 
         private void Frm_Statisztika_Load(object sender, EventArgs e)
         {
+
+            if (!bejelentkezes.bejelentkezes.Bejelentkezve())
+            {
+                MessageBox.Show("A statisztika megtekintéséhez előbb be kell jelentkeznie a főoldalon.",
+                                "Bejelentkezés szükséges",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 geoAdatok();

@@ -16,7 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="hasznalati_utmutato.pdf" />
+    <None Remove="ures_adatbazis.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Copilot_20250829_155635.ico" />
+    <Content Include="hasznalati_utmutato.pdf" />
+    <Content Include="ures_adatbazis.sql" />
   </ItemGroup>
 
   <ItemGroup>
