@@ -22,8 +22,12 @@
 
   <ItemGroup>
     <Content Include="Copilot_20250829_155635.ico" />
-    <Content Include="hasznalati_utmutato.pdf" />
-    <Content Include="ures_adatbazis.sql" />
+    <Content Include="hasznalati_utmutato.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ures_adatbazis.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
