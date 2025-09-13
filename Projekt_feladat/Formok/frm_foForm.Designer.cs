@@ -150,6 +150,8 @@ namespace Projekt_feladat
             // kg_bejelentkezvemarad
             // 
             kg_bejelentkezvemarad.AktualisAllas = KapcsoloGomb.KapcsoloAllas.Ki;
+            kg_bejelentkezvemarad.BackColor = Color.Transparent;
+            kg_bejelentkezvemarad.HatterKitoltoSzin = null;
             kg_bejelentkezvemarad.KetAllasuModAktiv = true;
             kg_bejelentkezvemarad.Location = new Point(258, 206);
             kg_bejelentkezvemarad.Margin = new Padding(3, 2, 3, 2);
@@ -497,9 +499,11 @@ namespace Projekt_feladat
             lbl_utazas_kezelo.Name = "lbl_utazas_kezelo";
             lbl_utazas_kezelo.Size = new Size(215, 34);
             lbl_utazas_kezelo.TabIndex = 4;
-            lbl_utazas_kezelo.Text = "Utazást kezelő";
+            lbl_utazas_kezelo.Text = "Utazás kezelő";
             lbl_utazas_kezelo.TextAlign = ContentAlignment.MiddleCenter;
             lbl_utazas_kezelo.Click += lbl_utazas_kezelo_Click;
+            lbl_utazas_kezelo.MouseEnter += lbl_utazas_kezelo_MouseEnter;
+            lbl_utazas_kezelo.MouseLeave += lbl_utazas_kezelo_MouseLeave;
             // 
             // lbl_disz
             // 
@@ -928,7 +932,7 @@ namespace Projekt_feladat
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frm_foForm";
             SizeGripStyle = SizeGripStyle.Hide;
-            Text = "Utas kezelő";
+            Text = "Utazás kezelő";
             Load += frm_foForm_Load;
             pnl_bejelentkezes.ResumeLayout(false);
             pnl_bejelentkezes.PerformLayout();

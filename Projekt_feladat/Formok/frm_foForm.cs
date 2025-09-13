@@ -40,7 +40,7 @@ namespace Projekt_feladat
         {
 
             InitializeComponent();
-          
+
             tmr_almenuAnimacio.Interval = 10;
             AlmenuElrejtés();
             this.AutoScaleMode = AutoScaleMode.None;
@@ -670,6 +670,16 @@ namespace Projekt_feladat
                 MessageBox.Show("Nem sikerült megnyitni a PDF-et:\n" + ex.Message,
                                 "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void lbl_utazas_kezelo_MouseEnter(object sender, EventArgs e)
+        {
+            lbl_utazas_kezelo.ForeColor = Color.DarkViolet;
+        }
+
+        private void lbl_utazas_kezelo_MouseLeave(object sender, EventArgs e)
+        {
+            lbl_utazas_kezelo.ForeColor = Color.Black;
         }
     }
 }
