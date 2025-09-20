@@ -21,13 +21,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_54CFEE756C7E44A8B7A0197231308D55"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9B2243B38BF5434DB3B875B35F1B0B1B"
+        "MsmKey" = "8:_FD7AD4A1042B4038A2CC6E8493852754"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -104,6 +98,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -136,30 +138,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_54CFEE756C7E44A8B7A0197231308D55"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FD7AD4A1042B4038A2CC6E8493852754"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Pictures\\pngimg.com - laptop_PNG101838.png"
-            "TargetName" = "8:pngimg.com - laptop_PNG101838.png"
-            "Tag" = "8:"
-            "Folder" = "8:_EA92C86CE2D64D15A4CF202953B6D8D2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9B2243B38BF5434DB3B875B35F1B0B1B"
-            {
-            "SourcePath" = "8:..\\Projekt_feladat\\Copilot_20250829_155635.ico"
-            "TargetName" = "8:Copilot_20250829_155635.ico"
+            "SourcePath" = "8:..\\..\\..\\..\\Downloads\\utazastkezelo_ikon.ico"
+            "TargetName" = "8:utazastkezelo_ikon.ico"
             "Tag" = "8:"
             "Folder" = "8:_EA92C86CE2D64D15A4CF202953B6D8D2"
             "Condition" = "8:"
@@ -233,7 +215,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Utazaskezelo"
         "ProductCode" = "8:{4C76E36A-23C4-4E9A-A5B9-74B6A67404F1}"
-        "PackageCode" = "8:{B8AC853B-0C75-453E-A471-3E1090D795A5}"
+        "PackageCode" = "8:{EEC0B227-E733-4D7C-AAE2-7D02C2AD3CC5}"
         "UpgradeCode" = "8:{B679F1F1-FCD9-4C44-B10F-35A760FCE8E9}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -248,9 +230,9 @@
         "Subject" = "8:"
         "ARPCONTACT" = "8:Benei Zsolt"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Ön most telepíteni fogja az Utazást Kezelő alkalmazást."
+        "ARPCOMMENTS" = "8:Ön most telepíteni fogja az Utazáskezelő alkalmazást."
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_9B2243B38BF5434DB3B875B35F1B0B1B"
+        "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -353,23 +335,9 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_77A90B1C7419413E88FC67905E7DF4E7"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_972C41615602458D8442EFAA005627E9"
             {
-            "Name" = "8:Utazást Kezelő"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_2AF6A0197A7745D2BDA492FB01B77E4D"
-            "Folder" = "8:_AF1F819D11D34B8B9B4EA41E7F6F725C"
-            "WorkingFolder" = "8:_EA92C86CE2D64D15A4CF202953B6D8D2"
-            "Icon" = "8:_9B2243B38BF5434DB3B875B35F1B0B1B"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8D07E0C494D44AF98EC18DB7458A146C"
-            {
-            "Name" = "8:Utazást Kezelő"
+            "Name" = "8:Utazáskezelő"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -378,7 +346,21 @@
             "Target" = "8:_2AF6A0197A7745D2BDA492FB01B77E4D"
             "Folder" = "8:_1B27372FB7B14FC2AED10E7E97F77D8E"
             "WorkingFolder" = "8:_EA92C86CE2D64D15A4CF202953B6D8D2"
-            "Icon" = "8:_9B2243B38BF5434DB3B875B35F1B0B1B"
+            "Icon" = "8:_FD7AD4A1042B4038A2CC6E8493852754"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A39A3468FC764359B27AFF745A777FF0"
+            {
+            "Name" = "8:Utazáskezelő"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_2AF6A0197A7745D2BDA492FB01B77E4D"
+            "Folder" = "8:_AF1F819D11D34B8B9B4EA41E7F6F725C"
+            "WorkingFolder" = "8:_EA92C86CE2D64D15A4CF202953B6D8D2"
+            "Icon" = "8:_FD7AD4A1042B4038A2CC6E8493852754"
             "Feature" = "8:"
             }
         }
@@ -630,7 +612,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:A telepítő végigvezeti Önt a(z) [ProductName] számítógépre való telepítéséhez szükséges lépéseken."
+                            "Value" = "8:A telepítő végigvezeti Önt a(z) Utazáskezelő számítógépre való telepítéséhez szükséges lépéseken."
                             "DefaultValue" = "8:#1203"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -766,7 +748,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:A telepítő végigvezeti Önt a(z) [ProductName] számítógépre való telepítéséhez szükséges lépéseken"
+                            "Value" = "8:A telepítő végigvezeti Önt a(z) Utazáskezelő számítógépre való telepítéséhez szükséges lépéseken"
                             "DefaultValue" = "8:#1203"
                             "UsePlugInResources" = "11:TRUE"
                             }

@@ -499,7 +499,7 @@ namespace Projekt_feladat
             lbl_utazas_kezelo.Name = "lbl_utazas_kezelo";
             lbl_utazas_kezelo.Size = new Size(215, 34);
             lbl_utazas_kezelo.TabIndex = 4;
-            lbl_utazas_kezelo.Text = "Utazás kezelő";
+            lbl_utazas_kezelo.Text = "Utazáskezelő";
             lbl_utazas_kezelo.TextAlign = ContentAlignment.MiddleCenter;
             lbl_utazas_kezelo.Click += lbl_utazas_kezelo_Click;
             lbl_utazas_kezelo.MouseEnter += lbl_utazas_kezelo_MouseEnter;
@@ -510,7 +510,7 @@ namespace Projekt_feladat
             lbl_disz.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lbl_disz.BackColor = Color.FromArgb(209, 213, 219);
             lbl_disz.ForeColor = Color.FromArgb(209, 213, 219);
-            lbl_disz.Location = new Point(30, 45);
+            lbl_disz.Location = new Point(38, 45);
             lbl_disz.Name = "lbl_disz";
             lbl_disz.Size = new Size(155, 1);
             lbl_disz.TabIndex = 0;
